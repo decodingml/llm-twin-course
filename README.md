@@ -48,9 +48,9 @@ What is an LLM Twin? It is an AI character that learns to write like somebody by
 
 Along the 4 microservices, you will learn to integrate 3 serverless tools:
 
-* Comet ML as your ML Platform;
-* Qdrant as your vector DB;
-* Qwak as your ML infrastructure;
+* [Comet ML](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github) as your ML Platform;
+* [Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course) as your vector DB;
+* [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml) as your ML infrastructure;
 
 ### Who is this for?
 
@@ -64,30 +64,47 @@ Along the 4 microservices, you will learn to integrate 3 serverless tools:
 
 The course contains 11 hands-on written lessons and the open-source code you can access on GitHub.
 
-You can read everything at your own pace. 
+You can read everything and try out the code at your own pace. 
 
-→ To get the most out of this course, we encourage you to clone and run the repository while you cover the lessons.
 
 ### Costs?
 The articles and code are completely free. They will always remain free.
 
 But if you plan to run the code while reading it, you have to know that we use several cloud tools that might generate additional costs.
 
-The cloud computing platforms (AWS, Qwak) have a pay-as-you-go pricing plan. Qwak offers a few hours of free computing. Thus, we did our best to keep costs to a minimum.
+The cloud computing platforms ([AWS](https://aws.amazon.com/), [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml)) have a pay-as-you-go pricing plan. Qwak offers a few hours of free computing. Thus, we did our best to keep costs to a minimum.
 
-For the other serverless tools (Qdrant, Comet), we will stick to their freemium version, which is free of charge.
+For the other serverless tools ([Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course), [Comet](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github)), we will stick to their freemium version, which is free of charge.
 
 
 ### Meet your teachers!
-The course is created under the Decoding ML umbrella by:
+The course is created under the [Decoding ML](https://decodingml.substack.com/) umbrella by:
 
-Paul Iusztin | Senior ML & MLOps Engineer
+<table>
+  <tr>
+    <td><a href="https://github.com/iusztinpaul" target="_blank"><img src="https://github.com/iusztinpaul.png" width="100" style="border-radius:50%;"/></a></td>
+    <td>
+      <strong>Paul Iusztin</strong><br />
+      <i>Senior ML & MLOps Engineer</i>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/alexandruvesa" target="_blank"><img src="https://github.com/alexandruvesa.png" width="100" style="border-radius:50%;"/></a></td>
+    <td>
+      <strong>Alexandru Vesa</strong><br />
+      <i>Senior AI Engineer</i>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/Joywalker" target="_blank"><img src="https://github.com/Joywalker.png" width="100" style="border-radius:50%;"/></a></td>
+    <td>
+      <strong>Răzvanț Alexandru</strong><br />
+      <i>Senior ML Engineer</i>
+    </td>
+  </tr>
+</table>
 
-Alex Vesa | Senior AI Engineer
-
-Alex Razvant | Senior ML & MLOps Engineer
-
-### Lessons
+## Lessons
 
 *The course is split into 11 lessons. Every Medium article will be its own lesson.*
 
@@ -103,6 +120,6 @@ Alex Razvant | Senior ML & MLOps Engineer
 10. Build the digital twin inference pipeline [Module 6] …WIP
 11. Deploy the digital twin as a REST API [Module 6] …WIP
 
-### License
+## License
 
 This course is an open-source project released under the MIT license. Thus, as long you distribute our LICENSE and acknowledge our work, you can safely clone or fork this project and use it as a source of inspiration for whatever you want (e.g., university projects, college degree projects, etc.).
