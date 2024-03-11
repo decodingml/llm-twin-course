@@ -37,30 +37,30 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 ### The data collection pipeline
 
 - Crawl your digital data from various social media platforms.
-- Clean, normalize and load the data to a NoSQL DB through a series of ETL pipelines.
-- Send database changes to a queue using the CDC pattern.
-- ☁️ Deployed on AWS.
+- Clean, normalize and load the data to a [Mongo NoSQL DB](https://www.mongodb.com/) through a series of ETL pipelines.
+- Send database changes to a [RabbitMQ](https://www.rabbitmq.com/) queue using the CDC pattern.
+- ☁️ Deployed on [AWS](https://aws.amazon.com/).
 
 ### The feature pipeline
 
-- Consume messages from a queue through a Bytewax streaming pipeline.
-- Every message will be cleaned, chunked, embedded (using Superlinked), and loaded into a Qdrant vector DB in real-time.
-- ☁️ Deployed on AWS.
+- Consume messages from a queue through a [Bytewax](https://github.com/bytewax/bytewax?utm_source=github&utm_medium=decodingml&utm_campaign=2024_q1) streaming pipeline.
+- Every message will be cleaned, chunked, embedded (using [Superlinked](https://github.com/superlinked/superlinked-alpha?utm_source=community&utm_medium=github&utm_campaign=oscourse), and loaded into a Qdrant vector DB in real-time.
+- ☁️ Deployed on [AWS](https://aws.amazon.com/).
 
 ### The training pipeline
 - Create a custom dataset based on your digital data.
 - Fine-tune an LLM using QLoRA.
-- Use Comet ML's experiment tracker to monitor the experiments.
-- Evaluate and save the best model to Comet's model registry.
-- ☁️ Deployed on Qwak.
+- Use [Comet ML's](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github) experiment tracker to monitor the experiments.
+- Evaluate and save the best model to [Comet's](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github) model registry.
+- ☁️ Deployed on [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml).
 
 ### The inference pipeline
-- Load and quantize the fine-tuned LLM from Comet's model registry.
+- Load and quantize the fine-tuned LLM from [Comet's](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github) model registry.
 - Deploy it as a REST API.
 - Enhance the prompts using RAG.
 - Generate content using your LLM twin.
-- Monitor the LLM using Comet's prompt monitoring dashboard.
-- ☁️ Deployed on Qwak.
+- Monitor the LLM using [Comet's](https://www.comet.com/signup/?framework=llm&utm_source=decoding_ml&utm_medium=partner&utm_content=github) prompt monitoring dashboard.
+- ☁️ Deployed on [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml).
 
 </br>
 
