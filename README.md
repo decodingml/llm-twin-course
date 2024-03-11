@@ -44,7 +44,7 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 ### The feature pipeline
 
 - Consume messages from a queue through a [Bytewax](https://github.com/bytewax/bytewax?utm_source=github&utm_medium=decodingml&utm_campaign=2024_q1) streaming pipeline.
-- Every message will be cleaned, chunked, embedded (using [Superlinked](https://github.com/superlinked/superlinked-alpha?utm_source=community&utm_medium=github&utm_campaign=oscourse), and loaded into a Qdrant vector DB in real-time.
+- Every message will be cleaned, chunked, embedded (using [Superlinked](https://github.com/superlinked/superlinked-alpha?utm_source=community&utm_medium=github&utm_campaign=oscourse), and loaded into a [Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course) vector DB in real-time.
 - ☁️ Deployed on [AWS](https://aws.amazon.com/).
 
 ### The training pipeline
