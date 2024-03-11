@@ -13,7 +13,7 @@
 
 </br>
 
-### Why is this course different?
+## Why is this course different?
 
 *By finishing the **"LLM Twin: Building Your Production-Ready AI Replica"** free course, you will learn how to design, train, and deploy a production-ready LLM twin of yourself powered by LLMs, vector DBs, and LLMOps good practices.*
 
@@ -22,7 +22,7 @@
 > → **No more isolated scripts or Notebooks!** Learn production ML by building and deploying an end-to-end production-grade LLM system.
 
 
-### What will you learn to build by the end of this course?
+## What will you learn to build by the end of this course?
 
 You will **learn** how to **architect** and **build a real-world LLM system** from **start** to **finish** - from **data collection** to **deployment**.
 
@@ -32,22 +32,22 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 
 **What is an LLM Twin?** It is an AI character that learns to write like somebody by incorporating its style and personality into an LLM.
 
-*The **architecture** of the **LLM twin** is split into **4 Python microservices**:*
+## *The **architecture** of the **LLM twin** is split into **4 Python microservices**:*
 
-#### The data collection pipeline
+### The data collection pipeline
 
 - Crawl your digital data from various social media platforms.
 - Clean, normalize and load the data to a NoSQL DB through a series of ETL pipelines.
 - Send database changes to a queue using the CDC pattern.
 - ☁️ Deployed on AWS.
 
-#### The feature pipeline
+### The feature pipeline
 
 - Consume messages from a queue through a Bytewax streaming pipeline.
 - Every message will be cleaned, chunked, embedded (using Superlinked), and loaded into a Qdrant vector DB in real-time.
 - ☁️ Deployed on AWS.
 
-#### The training pipeline
+### The training pipeline
 - Create a custom dataset based on your digital data.
 - Fine-tune an LLM using QLoRA.
 - Use Comet ML's experiment tracker to monitor the experiments.
