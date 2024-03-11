@@ -104,6 +104,8 @@ For the other serverless tools ([Qdrant](https://qdrant.tech/?utm_source=decodin
 > [!IMPORTANT]
 > **The course is a work in progress. We plan to release a new lesson every 2 weeks.**
 
+`To understand the entire code step-by-step, check out our articles` ↓
+
 *The course is split into 11 lessons. Every Medium article will be its own lesson.*
 
 1. An End-to-End Framework for Production-Ready LLM Systems by Building Your LLM Twin
