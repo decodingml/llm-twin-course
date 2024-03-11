@@ -33,7 +33,12 @@ The end goal? Build and deploy your own LLM twin.
 What is an LLM Twin? It is an AI character that learns to write like somebody by incorporating its style and personality into an LLM.
 
 *The architecture of the LLM twin is split into 4 Python microservices:*
-  1. **the data collection pipeline:** crawl your digital data from various social media platforms. Clean, normalize and load the data to a NoSQL DB through a series of ETL pipelines. Send database changes to a queue using the CDC pattern. (deployed on AWS)
+
+#### The data collection pipeline
+
+crawl your digital data from various social media platforms. Clean, normalize and load the data to a NoSQL DB through a series of ETL pipelines. Send database changes to a queue using the CDC pattern. (deployed on AWS)
+
+  1. **:** 
   2. **the feature pipeline:** consume messages from a queue through a Bytewax streaming pipeline. Every message will be cleaned, chunked, embedded (using Superlinked), and loaded into a Qdrant vector DB in real-time. (deployed on AWS)
   3. **the training pipeline:** create a custom dataset based on your digital data. Fine-tune an LLM using QLoRA. Use Comet ML's experiment tracker to monitor the experiments. Evaluate and save the best model to Comet's model registry. (deployed on Qwak)
   4. **the inference pipeline:** load and quantize the fine-tuned LLM from Comet's model registry. Deploy it as a REST API. Enhance the prompts using RAG. Generate content using your LLM twin. Monitor the LLM using Comet's prompt monitoring dashboard (deployed on Qwak)
