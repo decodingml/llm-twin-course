@@ -4,3 +4,17 @@
     <h3 style="color: gray;">From data gathering to productionizing LLMs using LLMOps good practices.</h3>
     <i>by <a href="https://github.com/iusztinpaul">Paul Iusztin</a>, <a href="https://github.com/alexandruvesa">Alexandru Vesa</a> and <a href="https://github.com/Joywalker">Alexandru Razvant</a></i>
 </div>
+
+<p align="center">
+  <img src="media/cover.png" alt="Your image description">
+</p>
+
+
+
+
+
+
+
+<p align="center">
+  <img src="media/architecture.png" alt="Your image description">
+</p>
