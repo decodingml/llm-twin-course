@@ -32,7 +32,7 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 
 **What is an LLM Twin?** It is an AI character that learns to write like somebody by incorporating its style and personality into an LLM.
 
-## *The **architecture** of the **LLM twin** is split into **4 Python microservices**:*
+## The architecture of the LLM twin is split into 4 Python microservices:
 
 ### The data collection pipeline
 
@@ -54,7 +54,7 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 - Evaluate and save the best model to Comet's model registry.
 - ☁️ Deployed on Qwak.
 
-#### The inference pipeline
+### The inference pipeline
 - Load and quantize the fine-tuned LLM from Comet's model registry.
 - Deploy it as a REST API.
 - Enhance the prompts using RAG.
@@ -76,7 +76,7 @@ Along the 4 microservices, you will learn to integrate 3 serverless tools:
 * [Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course) as your vector DB;
 * [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml) as your ML infrastructure;
 
-### Who is this for?
+## Who is this for?
 
 **Audience:** MLE, DE, DS, or SWE who want to learn to engineer production-ready LLM systems using LLMOps good principles.
 
@@ -84,13 +84,13 @@ Along the 4 microservices, you will learn to integrate 3 serverless tools:
 
 **Prerequisites:** basic knowledge of Python, ML, and the cloud
 
-### How will you learn?
+## How will you learn?
 
 The course contains **11 hands-on written lessons** and the **open-source code** you can access on GitHub.
 
 You can read everything and try out the code at your own pace. 
 
-### Costs?
+## Costs?
 The **articles** and **code** are **completely free**. They will always remain free.
 
 But if you plan to run the code while reading it, you have to know that we use several cloud tools that might generate additional costs.
