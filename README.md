@@ -15,24 +15,24 @@
 
 ### Why is this course different?
 
-By finishing the "LLM Twin: Building Your Production-Ready AI Replica" free course, you will learn how to design, train, and deploy a production-ready LLM twin of yourself powered by LLMs, vector DBs, and LLMOps good practices.
+*By finishing the **"LLM Twin: Building Your Production-Ready AI Replica"** free course, you will learn how to design, train, and deploy a production-ready LLM twin of yourself powered by LLMs, vector DBs, and LLMOps good practices.*
 
 > Why should you care? 🫵
 > 
-> → No more isolated scripts or Notebooks! Learn production ML by building and deploying an end-to-end production-grade LLM system.
+> → **No more isolated scripts or Notebooks!** Learn production ML by building and deploying an end-to-end production-grade LLM system.
 
 
 ### What will you learn to build by the end of this course?
 
-You will learn how to architect and build a real-world LLM system from start to finish - from data collection to deployment.
+You will **learn** how to **architect** and **build a real-world LLM system** from **start** to **finish** - from **data collection** to **deployment**.
 
-You will also learn to leverage MLOps best practices, such as experiment trackers, model registries, prompt monitoring, and versioning.
+You will also **learn** to **leverage MLOps best practices**, such as experiment trackers, model registries, prompt monitoring, and versioning.
 
-The end goal? Build and deploy your own LLM twin.
+**The end goal?** Build and deploy your own LLM twin.
 
-What is an LLM Twin? It is an AI character that learns to write like somebody by incorporating its style and personality into an LLM.
+**What is an LLM Twin?** It is an AI character that learns to write like somebody by incorporating its style and personality into an LLM.
 
-*The architecture of the LLM twin is split into 4 Python microservices:*
+*The **architecture** of the **LLM twin** is split into **4 Python microservices**:*
 
 #### The data collection pipeline
 
@@ -45,14 +45,14 @@ What is an LLM Twin? It is an AI character that learns to write like somebody by
 
 - Consume messages from a queue through a Bytewax streaming pipeline.
 - Every message will be cleaned, chunked, embedded (using Superlinked), and loaded into a Qdrant vector DB in real-time.
-- Deployed on AWS.
+- ☁️ Deployed on AWS.
 
 #### The training pipeline
 - Create a custom dataset based on your digital data.
 - Fine-tune an LLM using QLoRA.
 - Use Comet ML's experiment tracker to monitor the experiments.
 - Evaluate and save the best model to Comet's model registry.
-- Deployed on Qwak.
+- ☁️ Deployed on Qwak.
 
 #### The inference pipeline
 - Load and quantize the fine-tuned LLM from Comet's model registry.
@@ -60,7 +60,7 @@ What is an LLM Twin? It is an AI character that learns to write like somebody by
 - Enhance the prompts using RAG.
 - Generate content using your LLM twin.
 - Monitor the LLM using Comet's prompt monitoring dashboard.
-- Deployed on Qwak.
+- ☁️ Deployed on Qwak.
 
 </br>
 
@@ -86,13 +86,12 @@ Along the 4 microservices, you will learn to integrate 3 serverless tools:
 
 ### How will you learn?
 
-The course contains 11 hands-on written lessons and the open-source code you can access on GitHub.
+The course contains **11 hands-on written lessons** and the **open-source code** you can access on GitHub.
 
 You can read everything and try out the code at your own pace. 
 
-
 ### Costs?
-The articles and code are completely free. They will always remain free.
+The **articles** and **code** are **completely free**. They will always remain free.
 
 But if you plan to run the code while reading it, you have to know that we use several cloud tools that might generate additional costs.
 
@@ -100,8 +99,26 @@ The cloud computing platforms ([AWS](https://aws.amazon.com/), [Qwak](https://ww
 
 For the other serverless tools ([Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course), [Comet](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github)), we will stick to their freemium version, which is free of charge.
 
+## Lessons
 
-### Meet your teachers!
+> [!IMPORTANT]
+> **The course is a work in progress. We plan to release a new lesson every 2 weeks.**
+
+*The course is split into 11 lessons. Every Medium article will be its own lesson.*
+
+1. An End-to-End Framework for Production-Ready LLM Systems by Building Your LLM Twin
+2. Data collection pipeline [Module 1] …WIP
+3. CDC [Module 1] …WIP
+4. Streaming ingestion pipeline [Module 2] …WIP
+5. Vector DB retrieval clients [Module 2] …WIP
+6. Training data preparation [Module 3] …WIP
+7. Fine-tuning LLM [Module 3] …WIP
+8. LLM evaluation [Module 4] …WIP
+9. Quantization [Module 5] …WIP 
+10. Build the digital twin inference pipeline [Module 6] …WIP
+11. Deploy the digital twin as a REST API [Module 6] …WIP
+
+## Meet your teachers!
 The course is created under the [Decoding ML](https://decodingml.substack.com/) umbrella by:
 
 <table>
@@ -127,25 +144,6 @@ The course is created under the [Decoding ML](https://decodingml.substack.com/) 
     </td>
   </tr>
 </table>
-
-## Lessons
-
-> [!IMPORTANT]
-> **The course is a work in progress. We plan to release a new lesson every 2 weeks.**
-
-*The course is split into 11 lessons. Every Medium article will be its own lesson.*
-
-1. An End-to-End Framework for Production-Ready LLM Systems by Building Your LLM Twin
-2. Data collection pipeline [Module 1] …WIP
-3. CDC [Module 1] …WIP
-4. Streaming ingestion pipeline [Module 2] …WIP
-5. Vector DB retrieval clients [Module 2] …WIP
-6. Training data preparation [Module 3] …WIP
-7. Fine-tuning LLM [Module 3] …WIP
-8. LLM evaluation [Module 4] …WIP
-9. Quantization [Module 5] …WIP 
-10. Build the digital twin inference pipeline [Module 6] …WIP
-11. Deploy the digital twin as a REST API [Module 6] …WIP
 
 ## License
 
