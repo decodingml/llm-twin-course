@@ -1,3 +1,4 @@
+import os
 import time
 from typing import Dict, List
 
@@ -128,3 +129,27 @@ class LinkedInCrawler(BaseAbstractCrawler):
         self.driver.find_element(By.ID, "username").send_keys(settings.LINKEDIN_USERNAME)
         self.driver.find_element(By.ID, "password").send_keys(settings.LINKEDIN_PASSWORD)
         self.driver.find_element(By.CSS_SELECTOR, ".login__form_action_container button").click()
+
+
+def handler(event, context):
+    # Extract the necessary information from the event object
+    link = os.getenv("repository_link")
+    user = os.getenv("user")
+
+    # Instantiate the GithubCrawler
+    crawler = LinkedInCrawler()
+
+    try:
+        # Use the crawler to extract data from the repository
+        crawler.extract(link=link, user=user)
+
+        return {"statusCode": 200, "body": "Repository processed successfully"}
+
+    except Exception as e:
+        # Handle exceptions
+        return {"statusCode": 500, "body": f"An error occurred: {str(e)}"}
+
+
+if __name__ == "__main__":
+    crawler = LinkedInCrawler()
+    crawler.extract(link="https://www.linkedin.com/in/pauliusztin/", user="Alex")
