@@ -128,34 +128,56 @@ export class DecodingMlCrawlingLambdas extends pulumi.ComponentResource {
         { parent: this },
       )
 
-      // Original Lambda Function
-      this.createLambdaFunction(
+      // Original Lambda 
+      const githubCrawler=this.createLambdaFunction(
         'github-crawler-latest',
         lambdaRole.arn,
         streamArn,
       )
 
-      // Additional Lambda Function 1
-      this.createLambdaFunction(
+      const linkedinCrawler=this.createLambdaFunction(
         'linkedin-crawler-latest',
         lambdaRole.arn,
         streamArn,
       )
 
-      // Additional Lambda Function 2
-      this.createLambdaFunction(
+      const mediumCrawler=this.createLambdaFunction(
         'medium-crawler-latest',
         lambdaRole.arn,
         streamArn,
       )
+      this.scheduleLambdaFunction(githubCrawler, 'rate(1 day)');
+      this.scheduleLambdaFunction(linkedinCrawler, 'rate(1 day)');
+      this.scheduleLambdaFunction(mediumCrawler, 'rate(1 day)');
+    
     })
   }
+
+
+  private scheduleLambdaFunction(lambdaFunction: aws.lambda.Function, scheduleExpression: string): void {
+    const rule = new aws.cloudwatch.EventRule(`${lambdaFunction.name}-schedule`, {
+      scheduleExpression: scheduleExpression,
+    }, { parent: this });
+
+    new aws.cloudwatch.EventTarget(`${lambdaFunction.name}-target`, {
+      rule: rule.name,
+      arn: lambdaFunction.arn,
+    }, { parent: rule });
+
+    new aws.lambda.Permission(`${lambdaFunction.name}-invoke-permission`, {
+      action: 'lambda:InvokeFunction',
+      function: lambdaFunction.name,
+      principal: 'events.amazonaws.com',
+      sourceArn: rule.arn,
+    }, { parent: lambdaFunction });
+  }
+
 
   private createLambdaFunction(
     name: string,
     roleArn: pulumi.Output<string>,
     streamArn: string,
-  ): void {
+  ): aws.lambda.Function {
     const lambdaFunction = new aws.lambda.Function(
       name,
       {
@@ -181,6 +203,7 @@ export class DecodingMlCrawlingLambdas extends pulumi.ComponentResource {
         startingPosition: 'LATEST',
       },
       { parent: lambdaFunction },
-    )
+    );
+    return lambdaFunction;
   }
 }
