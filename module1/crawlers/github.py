@@ -46,3 +46,28 @@ class GithubCrawler(BaseCrawler):
             raise
         finally:
             shutil.rmtree(local_temp)
+
+
+def handler(event, context):
+    # Extract the necessary information from the event object
+    link = os.getenv("repository_link")
+    user = os.getenv("user")
+
+    # Instantiate the GithubCrawler
+    crawler = GithubCrawler()
+
+    try:
+        # Use the crawler to extract data from the repository
+        crawler.extract(link=link, user=user)
+
+        return {"statusCode": 200, "body": "Repository processed successfully"}
+
+    except Exception as e:
+        # Handle exceptions
+        return {"statusCode": 500, "body": f"An error occurred: {str(e)}"}
+
+
+# Example of Usage
+if __name__ == "__main__":
+    crawler = GithubCrawler()
+    crawler.extract(link="git@github.com:decodingml/llm-twin-course.git", user="Alex")
