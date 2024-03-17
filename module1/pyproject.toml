@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "module1"
+version = "0.1.0"
+description = ""
+authors = ["Deocding ML"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pymongo = "^4.6.2"
+pydantic = "^2.6.4"
+pydantic-settings = "^2.2.1"
+selenium = "^4.18.1"
+webdriver-manager = "^4.0.1"
+bs4 = "^0.0.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
