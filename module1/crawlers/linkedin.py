@@ -153,3 +153,4 @@ def handler(event, context):
 if __name__ == "__main__":
     crawler = LinkedInCrawler()
     crawler.extract(link="https://www.linkedin.com/in/pauliusztin/", user="Alex")
+

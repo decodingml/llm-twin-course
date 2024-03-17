@@ -11,7 +11,7 @@ FULL_ECR_URI="$AWS_ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$ECR_REPOSITORY_NAME
 
 # Docker image configuration
 LOCAL_IMAGE_NAME="github-crawler" # Replace with your local image name
-IMAGE_TAG="github-crawler:latest"
+IMAGE_TAG="github-crawler-latest"
 
 # Get ECR login password and authenticate Docker with ECR
 echo "Logging into AWS ECR..."

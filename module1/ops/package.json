@@ -1,0 +1,11 @@
+{
+    "name": "ops",
+    "main": "index.ts",
+    "devDependencies": {
+        "@types/node": "^18"
+    },
+    "dependencies": {
+        "@pulumi/aws": "^6.25.1",
+        "@pulumi/pulumi": "^3.0.0"
+    }
+}
