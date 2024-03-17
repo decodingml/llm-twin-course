@@ -1,0 +1,39 @@
+FROM  public.ecr.aws/lambda/python:3.11
+
+# Install the function's OS dependencies using yum
+RUN yum install -y \
+    gcc \
+    opencv-python \
+    libgnutls28-dev \
+    libsm6 \
+    ffmpeg \
+    libxext6 \
+    libssl-dev \
+    libcurl4-openssl-dev \
+    libpq-dev
+
+# Install the function's dependencies using file requirements.txt
+# from your project folder.
+
+
+# Upgrade pip
+RUN python3 -m pip install --upgrade pip
+
+
+COPY . ${LAMBDA_TASK_ROOT}
+
+# Install Poetry and export dependencies to requirements.txt
+RUN pip3 install poetry
+RUN poetry export -f requirements.txt > requirements.txt
+
+# Install dependencies in the Lambda task directory
+RUN pip3 install --no-cache-dir -r requirements.txt --target "${LAMBDA_TASK_ROOT}"
+
+# Clean up
+RUN rm requirements.txt pyproject.toml poetry.lock
+
+
+# Copy function code
+
+CMD ["crawlers/medium.handler"]
+
