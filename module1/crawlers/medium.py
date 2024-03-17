@@ -1,3 +1,5 @@
+import os
+
 from bs4 import BeautifulSoup
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -15,7 +17,7 @@ class MediumCrawler(BaseAbstractCrawler):
         options.add_argument("--headless")
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
-        options.add_argument("--user-data-dir=/Users/ristoc/Library/Application Support/Google/Chrome")
+        options.add_argument("--user-data-dir=/Users/vesaalexandru/Library/Application Support/Google/Chrome")
         options.add_argument(r"--profile-directory=Profile 2")
 
         return options
@@ -43,3 +45,25 @@ class MediumCrawler(BaseAbstractCrawler):
         """Log in to Medium with Google"""
         self.driver.get("https://medium.com/m/signin")  # TODO set as static parameter
         self.driver.find_element(By.TAG_NAME, "a").click()
+
+
+def handler():
+    link = os.getenv("medium_article_link")
+    user = os.getenv("user")
+
+    crawler = MediumCrawler()
+
+    try:
+        crawler.extract(link=link, user=user)
+
+        return {"statusCode": 200, "body": "Articles processed successfully"}
+
+    except Exception as e:
+        # Handle exceptions
+        return {"statusCode": 500, "body": f"An error occurred: {str(e)}"}
+
+
+# Example of usage
+if __name__ == "__main__":
+    crawler = MediumCrawler()
+    crawler.extract("https://medium.com/decodingml", user="alex")
