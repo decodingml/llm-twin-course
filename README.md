@@ -108,7 +108,7 @@ For the other serverless tools ([Qdrant](https://qdrant.tech/?utm_source=decodin
 
 > The course is split into 11 lessons. Every Medium article will be its own lesson.
 
-1. An End-to-End Framework for Production-Ready LLM Systems by Building Your LLM Twin
+1. [An End-to-End Framework for Production-Ready LLM Systems by Building Your LLM Twin](https://medium.com/decodingml/an-end-to-end-framework-for-production-ready-llm-systems-by-building-your-llm-twin-2cc6bb01141f)
 2. Data collection pipeline [Module 1] …WIP
 3. CDC [Module 1] …WIP
 4. Streaming ingestion pipeline [Module 2] …WIP
