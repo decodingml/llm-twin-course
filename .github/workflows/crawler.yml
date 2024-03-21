@@ -6,23 +6,20 @@ jobs:
   build:
     name: Build & Push Docker Image
     runs-on: ubuntu-latest
-    outputs:
-      ecr_repository: ${{ steps.login-ecr.outputs.registry }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-
+        with:
+          mask-password: 'false'
       - name: Build images & push to ECR
         id: build-image
         uses: docker/build-push-action@v4
@@ -33,6 +30,8 @@ jobs:
             ${{ steps.login-ecr.outputs.registry }}/crawler:${{ github.sha }}
             ${{ steps.login-ecr.outputs.registry }}/crawler:latest
           push: true
+    outputs:
+      registry: ${{ steps.login-ecr.outputs.registry }}
 
   deploy:
     name: Deploy Crawler
@@ -45,7 +44,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-
       - name: Deploy Lambda Image
         id: deploy-lambda
         run: |
@@ -56,6 +54,6 @@ jobs:
           echo "Successfully updated lambda"
         env:
           AWS_REGION: ${{ secrets.AWS_REGION }}
-          ECR_REPOSITORY: ${{needs.build.outputs.ecr_repository}}
+          ECR_REPOSITORY: ${{ needs.build.outputs.registry }}
           PROJECT_VERSION: ${{ github.sha }}
           AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
