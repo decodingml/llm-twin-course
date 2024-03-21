@@ -29,7 +29,6 @@ jobs:
         with:
           context: ./course/module1
           file: ./course/module1/Dockerfile
-          target: release
           tags: |
             ${{ steps.login-ecr.outputs.registry }}/github:${{ github.sha }}
             ${{ steps.login-ecr.outputs.registry }}/github:latest
