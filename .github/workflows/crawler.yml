@@ -30,8 +30,8 @@ jobs:
           context: ./course/module1
           file: ./course/module1/Dockerfile
           tags: |
-            ${{ steps.login-ecr.outputs.registry }}/github:${{ github.sha }}
-            ${{ steps.login-ecr.outputs.registry }}/github:latest
+            ${{ steps.login-ecr.outputs.registry }}/crawler:${{ github.sha }}
+            ${{ steps.login-ecr.outputs.registry }}/crawler:latest
           push: true
 
   deploy:
@@ -54,10 +54,10 @@ jobs:
       - name: Deploy Lambda Image
         id: deploy-lambda
         run: |
-          echo "Updating lambda with new image version $ECR_REPOSITORY/github:$PROJECT_VERSION..."
+          echo "Updating lambda with new image version $ECR_REPOSITORY/crawler:$PROJECT_VERSION..."
           aws lambda update-function-code \
-              --function-name "arn:aws:lambda:$AWS_REGION:$AWS_ACCOUNT_ID:function:github-crawler" \
-              --image-uri $ECR_REPOSITORY/github:$PROJECT_VERSION
+              --function-name "arn:aws:lambda:$AWS_REGION:$AWS_ACCOUNT_ID:function:crawler" \
+              --image-uri $ECR_REPOSITORY/crawler:$PROJECT_VERSION
           echo "Successfully updated lambda"
         env:
           AWS_REGION: ${{ secrets.AWS_REGION }}
