@@ -47,10 +47,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Configure AWS Account ID
-        id: aws-account-id
-        run: echo "$(aws sts get-caller-identity --query "Account" --output text)" >> "$AWS_ACCOUNT_ID"
-
       - name: Deploy Lambda Image
         id: deploy-lambda
         run: |
@@ -63,4 +59,4 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           ECR_REPOSITORY: ${{ needs.build.outputs.ecr_repository }}
           PROJECT_VERSION: ${{ github.sha }}
-          AWS_ACCOUNT_ID: ${{ steps.aws-account-id.outputs.AWS_ACCOUNT_ID }}
+          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
