@@ -1,0 +1,58 @@
+name: Crawlers
+
+on:
+
+jobs:
+  build:
+    name: Build & Push Crawler Lambda
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build images & push to ECR
+        id: build-image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./module1
+          file: ./module1/.docker/Dockerfile.github
+          target: release
+          tags: |
+            ${{ steps.login-ecr.outputs.registry }}/github:${{ github.sha }}
+            ${{ steps.login-ecr.outputs.registry }}/github:latest
+          push: true
+
+  deploy:
+    name: Deploy Crawler Lambda
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configure AWS Account ID
+        id: aws-account-id
+        run: echo "$(aws sts get-caller-identity --query "Account" --output text)" >> "$AWS_ACCOUNT_ID"
+
+      - name: Deploy Lambda Image
+        id: deploy-lambda
+        run: |
+          echo "Updating lambda with new image version $ECR_REPOSITORY/github:$PROJECT_VERSION..."
+          aws lambda update-function-code \
+              --function-name "arn:aws:lambda:$AWS_REGION:$AWS_ACCOUNT_ID:function:github-crawler" \
+              --image-uri $ECR_REPOSITORY/github:$PROJECT_VERSION
+          echo "Successfully updated lambda"
+        env:
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          ECR_REPOSITORY: ${{ steps.login-ecr.outputs.registry }}
+          PROJECT_VERSION: ${{ github.sha }}
+          AWS_ACCOUNT_ID: ${{ steps.aws-account-id.outputs.AWS_ACCOUNT_ID }}
