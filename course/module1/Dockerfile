@@ -12,6 +12,7 @@ FROM  public.ecr.aws/lambda/python:3.11
 # Install the function's OS dependencies using yum
 RUN yum install -y \
     atk \
+    wget \
     git \
     cups-libs \
     gtk3 \
@@ -51,6 +52,9 @@ RUN python3 -m pip install --upgrade pip && pip3 install poetry
 RUN poetry export -f requirements.txt > requirements.txt && \
     pip3 install --no-cache-dir -r requirements.txt --target "${LAMBDA_TASK_ROOT}" && \
     rm requirements.txt pyproject.toml poetry.lock
+
+# Optional TLS CA only if you plan to store the extracted data into Document DB
+RUN wget https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem -P ${LAMBDA_TASK_ROOT}
 
 # Copy function code
 COPY . ${LAMBDA_TASK_ROOT}
