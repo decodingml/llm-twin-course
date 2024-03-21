@@ -1,3 +1,5 @@
+import os
+
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 
@@ -9,18 +11,20 @@ class MongoDatabaseConnector:
     _instance: MongoClient = None
 
     def __new__(cls, *args, **kwargs):
+        host = os.getenv("DATABASE_HOST")
+
         if cls._instance is None:
             try:
-                cls._instance = MongoClient(settings.DATABASE_HOST)
+                cls._instance = MongoClient(host)
             except ConnectionFailure as e:
                 print(f"Couldn't connect to the database: {str(e)}")
                 raise
 
-        print(f"Connection to database with uri: {settings.DATABASE_HOST} successful")
+        print(f"Connection to database with uri: {host} successful")
         return cls._instance
 
     def get_database(self):
-        return self._instance[settings.DATABASE_NAME]
+        return self._instance[os.getenv("DATABASE_NAME")]
 
     def close(self):
         if self._instance:

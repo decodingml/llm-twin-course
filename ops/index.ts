@@ -1,6 +1,4 @@
 import * as pulumi from "@pulumi/pulumi";
-import * as aws from "@pulumi/aws";
-import * as awsx from "@pulumi/awsx";
 import {Vpc} from "./components/vpc";
 import {DocumentDBCluster} from "./components/docdb";
 import {Crawler} from "./components/crawler";
