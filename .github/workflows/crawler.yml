@@ -1,6 +1,9 @@
 name: Crawlers
 
-on: [pull_request]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -15,12 +18,9 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-          mask-aws-account-id: 'false'
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-        with:
-          mask-password: 'false'
       - name: Build images & push to ECR
         id: build-image
         uses: docker/build-push-action@v4
@@ -31,8 +31,6 @@ jobs:
             ${{ steps.login-ecr.outputs.registry }}/crawler:${{ github.sha }}
             ${{ steps.login-ecr.outputs.registry }}/crawler:latest
           push: true
-    outputs:
-      registry: ${{ steps.login-ecr.outputs.registry }}
 
   deploy:
     name: Deploy Crawler
@@ -55,6 +53,6 @@ jobs:
           echo "Successfully updated lambda"
         env:
           AWS_REGION: ${{ secrets.AWS_REGION }}
-          ECR_REPOSITORY: ${{ needs.build.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
           PROJECT_VERSION: ${{ github.sha }}
           AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
