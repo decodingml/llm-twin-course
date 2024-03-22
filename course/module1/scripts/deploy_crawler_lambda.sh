@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Stop script on any error
-set -e
+set -o errexit -o pipefail -o noclobber
 
 # AWS ECR configuration
-REGION="eu-central-1"
-AWS_ACCOUNT_ID="account-id"
+AWS_CURRENT_REGION_ID=$(aws configure get region)
+AWS_CURRENT_ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)
 ECR_REPOSITORY_NAME="ecr-repository-name"
 FULL_ECR_URI="$AWS_ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$ECR_REPOSITORY_NAME"
 
@@ -24,7 +24,7 @@ fi
 
 # Build the Docker image
 echo "Building Docker image..."
-docker build -t $LOCAL_IMAGE_NAME -f docker/Dockerfile.github .
+docker build -t $LOCAL_IMAGE_NAME -f docker/Dockerfile .
 
 # Tag the Docker image for the ECR repository
 echo "Tagging Docker image..."
