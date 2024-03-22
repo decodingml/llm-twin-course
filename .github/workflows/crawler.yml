@@ -1,6 +1,9 @@
 name: Crawlers
 
-on: [pull_request]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
