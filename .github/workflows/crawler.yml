@@ -1,0 +1,60 @@
+name: Crawlers
+
+on: [pull_request]
+
+jobs:
+  build:
+    name: Build & Push Docker Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          mask-aws-account-id: 'false'
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          mask-password: 'false'
+      - name: Build images & push to ECR
+        id: build-image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./course/module1
+          file: ./course/module1/Dockerfile
+          tags: |
+            ${{ steps.login-ecr.outputs.registry }}/crawler:${{ github.sha }}
+            ${{ steps.login-ecr.outputs.registry }}/crawler:latest
+          push: true
+    outputs:
+      registry: ${{ steps.login-ecr.outputs.registry }}
+
+  deploy:
+    name: Deploy Crawler
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Deploy Lambda Image
+        id: deploy-lambda
+        run: |
+          echo "Updating lambda with new image version $ECR_REPOSITORY/crawler:$PROJECT_VERSION..."
+          aws lambda update-function-code \
+              --function-name "arn:aws:lambda:$AWS_REGION:$AWS_ACCOUNT_ID:function:crawler" \
+              --image-uri $ECR_REPOSITORY/crawler:$PROJECT_VERSION
+          echo "Successfully updated lambda"
+        env:
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          ECR_REPOSITORY: ${{ needs.build.outputs.registry }}
+          PROJECT_VERSION: ${{ github.sha }}
+          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}

@@ -7,7 +7,7 @@ from pymongo import errors
 from db import connection
 from errors import ImproperlyConfigured
 
-_database = connection.get_database("scrabble")
+_database = connection.get_database("twin")
 
 
 class BaseDocument(BaseModel):
@@ -51,7 +51,7 @@ class BaseDocument(BaseModel):
         try:
             instance = collection.find_one(filter_options)
             if instance:
-                return cls.from_mongo(instance).id
+                return str(cls.from_mongo(instance).id)
             new_instance = cls(**filter_options)
             new_instance = new_instance.save()
             return new_instance
