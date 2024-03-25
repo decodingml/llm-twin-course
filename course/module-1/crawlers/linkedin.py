@@ -22,7 +22,8 @@ class LinkedInCrawler(BaseAbstractCrawler):
         options.add_experimental_option("detach", True)
 
     def extract(self, link: str, **kwargs):
-        print(f"Starting to scrape data for profile: {link}")
+        logger.info(f"Starting scrapping data for profile: {link}")
+        
         self.login()
 
         soup = self._get_page_content(link)
@@ -52,6 +53,8 @@ class LinkedInCrawler(BaseAbstractCrawler):
         self.model.bulk_insert(
             [PostDocument(platform="linkedin", content=post, author_id=kwargs.get("user")) for post in posts]
         )
+        
+        logger.info(f"Finished scrapping data for profile: {link}")
 
     def _scrape_section(self, soup: BeautifulSoup, *args, **kwargs):
         """Scrape a specific section of the LinkedIn profile."""

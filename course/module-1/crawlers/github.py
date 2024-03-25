@@ -15,11 +15,13 @@ class GithubCrawler(BaseCrawler):
 
     model = RepositoryDocument
 
-    def __init__(self, ignore=(".git", ".toml", ".lock", ".png")):
+    def __init__(self, ignore=(".git", ".toml", ".lock", ".png")) -> None:
         super().__init__()
         self._ignore = ignore
 
-    def extract(self, link: str, **kwargs):
+    def extract(self, link: str, **kwargs) -> None:
+        logger.info(f"Starting scrapping GitHub repository: {link}")
+        
         repo_name = link.rstrip("/").split("/")[-1]
 
         local_temp = tempfile.mkdtemp()
@@ -50,3 +52,5 @@ class GithubCrawler(BaseCrawler):
             raise
         finally:
             shutil.rmtree(local_temp)
+            
+        logger.info(f"Finished scrapping GitHub repository: {link}")

@@ -12,10 +12,12 @@ class MediumCrawler(BaseAbstractCrawler):
 
     model = ArticleDocument
 
-    def set_extra_driver_options(self, options):
+    def set_extra_driver_options(self, options) -> None:
         options.add_argument(r"--profile-directory=Profile 2")
 
-    def extract(self, link: str, **kwargs):
+    def extract(self, link: str, **kwargs) -> None:
+        logger.info(f"Starting scrapping Medium article: {link}")
+        
         self.driver.get(link)
         self.scroll_page()
 
@@ -29,7 +31,7 @@ class MediumCrawler(BaseAbstractCrawler):
             "Content": soup.get_text(),
         }
 
-        logger.info(f"Successfully scraped and saved articles for user {link}")
+        logger.info(f"Successfully scraped and saved article: {link}")
         self.driver.close()
         instance = self.model(platform="medium", content=data, link=link, author_id=kwargs.get("user"))
         instance.save()
