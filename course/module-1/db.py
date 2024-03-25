@@ -7,7 +7,7 @@ logger = Logger(service="decodingml/crawler")
 
 
 class MongoDatabaseConnector:
-    _instance: MongoClient = None
+    _instance: MongoClient | None = None
 
     def __new__(cls, *args, **kwargs) -> MongoClient:
         if cls._instance is None:

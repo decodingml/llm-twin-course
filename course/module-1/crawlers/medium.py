@@ -9,7 +9,6 @@ logger = Logger(service="decodingml/crawler")
 
 
 class MediumCrawler(BaseAbstractCrawler):
-
     model = ArticleDocument
 
     def set_extra_driver_options(self, options) -> None:
@@ -17,7 +16,7 @@ class MediumCrawler(BaseAbstractCrawler):
 
     def extract(self, link: str, **kwargs) -> None:
         logger.info(f"Starting scrapping Medium article: {link}")
-        
+
         self.driver.get(link)
         self.scroll_page()
 
@@ -33,7 +32,9 @@ class MediumCrawler(BaseAbstractCrawler):
 
         logger.info(f"Successfully scraped and saved article: {link}")
         self.driver.close()
-        instance = self.model(platform="medium", content=data, link=link, author_id=kwargs.get("user"))
+        instance = self.model(
+            platform="medium", content=data, link=link, author_id=kwargs.get("user")
+        )
         instance.save()
 
     def login(self):
