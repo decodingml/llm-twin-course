@@ -25,8 +25,8 @@ jobs:
         id: build-image
         uses: docker/build-push-action@v4
         with:
-          context: ./course/module1
-          file: ./course/module1/Dockerfile
+          context: ./course/module-1
+          file: ./course/module-1/Dockerfile
           tags: |
             ${{ steps.login-ecr.outputs.registry }}/crawler:${{ github.sha }}
             ${{ steps.login-ecr.outputs.registry }}/crawler:latest
