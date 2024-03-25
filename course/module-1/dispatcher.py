@@ -7,7 +7,7 @@ class CrawlerDispatcher:
     def __init__(self) -> None:
         self._crawlers = {}
 
-    def register(self, domain: str, crawler: type[BaseCrawler]):
+    def register(self, domain: str, crawler: type[BaseCrawler]) -> None:
         self._crawlers[r"https://(www\.)?{}.com/*".format(re.escape(domain))] = crawler
 
     def get_crawler(self, url: str) -> BaseCrawler:

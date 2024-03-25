@@ -4,26 +4,25 @@ from typing import Dict, List
 from aws_lambda_powertools import Logger
 from bs4 import BeautifulSoup
 from bs4.element import Tag
-from selenium.webdriver.common.by import By
-
 from config import settings
-from crawlers.base import BaseAbstractCrawler
 from documents import PostDocument
 from errors import ImproperlyConfigured
+from selenium.webdriver.common.by import By
+
+from crawlers.base import BaseAbstractCrawler
 
 logger = Logger(service="decodingml/crawler")
 
 
 class LinkedInCrawler(BaseAbstractCrawler):
-
     model = PostDocument
 
-    def set_extra_driver_options(self, options):
+    def set_extra_driver_options(self, options) -> None:
         options.add_experimental_option("detach", True)
 
     def extract(self, link: str, **kwargs):
         logger.info(f"Starting scrapping data for profile: {link}")
-        
+
         self.login()
 
         soup = self._get_page_content(link)
@@ -47,16 +46,22 @@ class LinkedInCrawler(BaseAbstractCrawler):
         post_images = self._extract_image_urls(buttons)
 
         posts = self._extract_posts(post_elements, post_images)
+        logger.info(f"Found {len(posts)} posts for profile: {link}")
 
         self.driver.close()
 
         self.model.bulk_insert(
-            [PostDocument(platform="linkedin", content=post, author_id=kwargs.get("user")) for post in posts]
+            [
+                PostDocument(
+                    platform="linkedin", content=post, author_id=kwargs.get("user")
+                )
+                for post in posts
+            ]
         )
-        
+
         logger.info(f"Finished scrapping data for profile: {link}")
 
-    def _scrape_section(self, soup: BeautifulSoup, *args, **kwargs):
+    def _scrape_section(self, soup: BeautifulSoup, *args, **kwargs) -> str:
         """Scrape a specific section of the LinkedIn profile."""
         # Example: Scrape the 'About' section
         parent_div = soup.find(*args, **kwargs)
@@ -78,7 +83,7 @@ class LinkedInCrawler(BaseAbstractCrawler):
             if img_tag and "src" in img_tag.attrs:
                 post_images[f"Post_{i}"] = img_tag["src"]
             else:
-                print("No image found in this button")
+                logger.warning("No image found in this button")
         return post_images
 
     def _get_page_content(self, url: str) -> BeautifulSoup:
@@ -87,7 +92,9 @@ class LinkedInCrawler(BaseAbstractCrawler):
         time.sleep(5)
         return BeautifulSoup(self.driver.page_source, "html.parser")
 
-    def _extract_posts(self, post_elements: List[Tag], post_images: Dict[str, str]) -> Dict[str, Dict[str, str]]:
+    def _extract_posts(
+        self, post_elements: List[Tag], post_images: Dict[str, str]
+    ) -> Dict[str, Dict[str, str]]:
         """
         Extracts post texts and combines them with their respective images.
 
@@ -107,7 +114,7 @@ class LinkedInCrawler(BaseAbstractCrawler):
             posts_data[f"Post_{i}"] = post_data
         return posts_data
 
-    def _scrape_experience(self, profile_url: str):
+    def _scrape_experience(self, profile_url: str) -> str:
         """Scrapes the Experience section of the LinkedIn profile."""
         self.driver.get(profile_url + "/details/experience/")
         time.sleep(5)
@@ -126,10 +133,16 @@ class LinkedInCrawler(BaseAbstractCrawler):
         """Log in to LinkedIn."""
         self.driver.get("https://www.linkedin.com/login")
         if not settings.LINKEDIN_USERNAME and not settings.LINKEDIN_PASSWORD:
-            raise ImproperlyConfigured("LinkedIn scraper requires an valid account to perform extraction")
+            raise ImproperlyConfigured(
+                "LinkedIn scraper requires an valid account to perform extraction"
+            )
 
-        self.driver.find_element(By.ID, "username").send_keys(settings.LINKEDIN_USERNAME)
-        self.driver.find_element(By.ID, "password").send_keys(settings.LINKEDIN_PASSWORD)
-        self.driver.find_element(By.CSS_SELECTOR, ".login__form_action_container button").click()
-
-
+        self.driver.find_element(By.ID, "username").send_keys(
+            settings.LINKEDIN_USERNAME
+        )
+        self.driver.find_element(By.ID, "password").send_keys(
+            settings.LINKEDIN_PASSWORD
+        )
+        self.driver.find_element(
+            By.CSS_SELECTOR, ".login__form_action_container button"
+        ).click()

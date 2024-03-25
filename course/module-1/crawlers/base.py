@@ -1,24 +1,22 @@
 import time
+from abc import ABC, abstractmethod
 from tempfile import mkdtemp
 
+from config import settings
 from documents import BaseDocument
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-from config import settings
+
+class BaseCrawler(ABC):
+    model: type[BaseDocument]
+
+    @abstractmethod
+    def extract(self, link: str, **kwargs) -> None: ...
 
 
-class BaseCrawler:
-
-    model: BaseDocument
-
-    def extract(self, link: str, **kwargs):
-        raise NotImplementedError("Needs implementation in subclass.")
-
-
-class BaseAbstractCrawler(BaseCrawler):
-
-    def __init__(self, scroll_limit: int = 5):
+class BaseAbstractCrawler(BaseCrawler, ABC):
+    def __init__(self, scroll_limit: int = 5) -> None:
         options = webdriver.ChromeOptions()
         if settings.SELENIUM_BROWSER_BINARY_PATH:
             options.binary_location = settings.SELENIUM_BROWSER_BINARY_PATH
@@ -42,16 +40,17 @@ class BaseAbstractCrawler(BaseCrawler):
 
         self.scroll_limit = scroll_limit
         self.driver = webdriver.Chrome(
-            service=webdriver.ChromeService(settings.SELENIUM_DRIVER_BINARY_PATH), options=options
+            service=webdriver.ChromeService(settings.SELENIUM_DRIVER_BINARY_PATH),
+            options=options,
         )
 
-    def set_extra_driver_options(self, options) -> Options:
+    def set_extra_driver_options(self, options: Options) -> None:
         pass
 
-    def login(self):
+    def login(self) -> None:
         pass
 
-    def scroll_page(self):
+    def scroll_page(self) -> None:
         """Scroll through the LinkedIn page based on the scroll limit."""
         current_scroll = 0
         last_height = self.driver.execute_script("return document.body.scrollHeight")

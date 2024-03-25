@@ -18,4 +18,3 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
-print(settings.SELENIUM_DRIVER_BINARY_PATH)

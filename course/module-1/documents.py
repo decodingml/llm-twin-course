@@ -1,14 +1,14 @@
 import uuid
 from typing import List, Optional
 
-from pydantic import UUID4, BaseModel, ConfigDict, Field
-from pymongo import errors
-
+from aws_lambda_powertools import Logger
 from config import settings
 from db import connection
 from errors import ImproperlyConfigured
+from pydantic import UUID4, BaseModel, ConfigDict, Field
+from pymongo import errors
 
-
+logger = Logger(service="decodingml/crawler")
 _database = connection.get_database(settings.DATABASE_NAME)
 
 
@@ -46,7 +46,7 @@ class BaseDocument(BaseModel):
             result = collection.insert_one(self.to_mongo(**kwargs))
             return result.inserted_id
         except errors.WriteError as e:
-            print(f"Failed to insert document {e}")
+            logger.error(f"Failed to insert document {e}")
             return None
 
     @classmethod
@@ -60,7 +60,7 @@ class BaseDocument(BaseModel):
             new_instance = new_instance.save()
             return new_instance
         except errors.OperationFailure as e:
-            print(f"Failed to retrieve document: {e}")
+            logger.error(f"Failed to retrieve document: {e}")
             return None
 
     @classmethod
@@ -72,7 +72,7 @@ class BaseDocument(BaseModel):
             )
             return result.inserted_ids
         except errors.WriteError as e:
-            print(f"Failed to insert document {e}")
+            logger.error(f"Failed to insert document {e}")
             return None
 
     @classmethod
