@@ -1,5 +1,3 @@
-from typing import Optional
-
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -11,10 +9,8 @@ class Settings(BaseSettings):
     DATABASE_NAME: str = "twin"
 
     # LinkedIn Credentials
-    LINKEDIN_USERNAME: Optional[str] = "vladvlad814@yahoo.ro"
-    LINKEDIN_PASSWORD: Optional[str] = "uWMDdMWxv6aE"
+    LINKEDIN_USERNAME: str | None = None
+    LINKEDIN_PASSWORD: str | None = None
 
-# LINKEDIN_USERNAME=vladvlad814@yahoo.ro
-# LINKEDIN_PASSWORD=uWMDdMWxv6aE
 
 settings = Settings()

@@ -4,10 +4,12 @@ from typing import List, Optional
 from pydantic import UUID4, BaseModel, ConfigDict, Field
 from pymongo import errors
 
+from config import settings
 from db import connection
 from errors import ImproperlyConfigured
 
-_database = connection.get_database("twin")
+
+_database = connection.get_database(settings.DATABASE_NAME)
 
 
 class BaseDocument(BaseModel):
