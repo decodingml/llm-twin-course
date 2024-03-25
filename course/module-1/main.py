@@ -15,7 +15,6 @@ _dispatcher.register("github", GithubCrawler)
 
 
 def handler(event, context: LambdaContext) -> dict[str, Any]:
-
     first_name, last_name = event.get("user").split(" ")
     user = UserDocument.get_or_create(first_name=first_name, last_name=last_name)
 

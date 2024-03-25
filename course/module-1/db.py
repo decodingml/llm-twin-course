@@ -7,7 +7,6 @@ logger = Logger(service="decodingml/crawler")
 
 
 class MongoDatabaseConnector:
-
     _instance: MongoClient = None
 
     def __new__(cls, *args, **kwargs) -> MongoClient:
@@ -18,7 +17,9 @@ class MongoDatabaseConnector:
                 logger.error(f"Couldn't connect to the database: {str(e)}")
                 raise
 
-        logger.info(f"Connection to database with uri: {settings.DATABASE_HOST} successful")
+        logger.info(
+            f"Connection to database with uri: {settings.DATABASE_HOST} successful"
+        )
         return cls._instance
 
     def close(self):
