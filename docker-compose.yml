@@ -11,7 +11,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: "decodingml"
       MONGO_INITDB_ROOT_PASSWORD: "decodingml"
     ports:
-      - '27018:27017'
+      - '27017:27017'
     volumes:
       - mongo_data:/data/db
     networks:
