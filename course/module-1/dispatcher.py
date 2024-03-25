@@ -4,7 +4,6 @@ from crawlers.base import BaseCrawler
 
 
 class CrawlerDispatcher:
-
     def __init__(self) -> None:
         self._crawlers = {}
 
