@@ -1,10 +1,11 @@
 import time
 from tempfile import mkdtemp
 
+from documents import BaseDocument
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-from documents import BaseDocument
+from config import settings
 
 
 class BaseCrawler:
@@ -19,28 +20,29 @@ class BaseAbstractCrawler(BaseCrawler):
 
     def __init__(self, scroll_limit: int = 5):
         options = webdriver.ChromeOptions()
-        options.binary_location = '/opt/chrome/chrome'
-        options.add_argument('--no-sandbox')
-        options.add_argument('--headless=new')
-        options.add_argument('--single-process')
-        options.add_argument('--disable-dev-shm-usage')
-        options.add_argument('--disable-gpu')
-        options.add_argument('--log-level=3')
-        options.add_argument('--disable-popup-blocking')
-        options.add_argument('--disable-notifications')
-        options.add_argument('--disable-dev-tools')
-        options.add_argument('--ignore-certificate-errors')
+        if settings.SELENIUM_BROWSER_BINARY_PATH:
+            options.binary_location = settings.SELENIUM_BROWSER_BINARY_PATH
+        options.add_argument("--no-sandbox")
+        options.add_argument("--headless=new")
+        options.add_argument("--single-process")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--log-level=3")
+        options.add_argument("--disable-popup-blocking")
+        options.add_argument("--disable-notifications")
+        options.add_argument("--disable-dev-tools")
+        options.add_argument("--ignore-certificate-errors")
         options.add_argument("--no-zygote")
         options.add_argument(f"--user-data-dir={mkdtemp()}")
         options.add_argument(f"--data-path={mkdtemp()}")
         options.add_argument(f"--disk-cache-dir={mkdtemp()}")
-        options.add_argument('--remote-debugging-port=9222')
+        options.add_argument("--remote-debugging-port=9222")
 
         self.set_extra_driver_options(options)
 
         self.scroll_limit = scroll_limit
         self.driver = webdriver.Chrome(
-            service=webdriver.ChromeService("/opt/chromedriver"), options=options
+            service=webdriver.ChromeService(settings.SELENIUM_DRIVER_BINARY_PATH), options=options
         )
 
     def set_extra_driver_options(self, options) -> Options:
@@ -54,10 +56,14 @@ class BaseAbstractCrawler(BaseCrawler):
         current_scroll = 0
         last_height = self.driver.execute_script("return document.body.scrollHeight")
         while True:
-            self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            self.driver.execute_script(
+                "window.scrollTo(0, document.body.scrollHeight);"
+            )
             time.sleep(5)
             new_height = self.driver.execute_script("return document.body.scrollHeight")
-            if new_height == last_height or (self.scroll_limit and current_scroll >= self.scroll_limit):
+            if new_height == last_height or (
+                self.scroll_limit and current_scroll >= self.scroll_limit
+            ):
                 break
             last_height = new_height
             current_scroll += 1

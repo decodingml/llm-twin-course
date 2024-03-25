@@ -5,7 +5,7 @@ from crawlers.base import BaseCrawler
 
 class CrawlerDispatcher:
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._crawlers = {}
 
     def register(self, domain: str, crawler: type[BaseCrawler]):
