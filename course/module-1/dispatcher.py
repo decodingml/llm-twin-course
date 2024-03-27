@@ -4,11 +4,10 @@ from crawlers.base import BaseCrawler
 
 
 class CrawlerDispatcher:
-
-    def __init__(self):
+    def __init__(self) -> None:
         self._crawlers = {}
 
-    def register(self, domain: str, crawler: BaseCrawler):
+    def register(self, domain: str, crawler: type[BaseCrawler]) -> None:
         self._crawlers[r"https://(www\.)?{}.com/*".format(re.escape(domain))] = crawler
 
     def get_crawler(self, url: str) -> BaseCrawler:

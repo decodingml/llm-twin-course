@@ -1,13 +1,15 @@
 import uuid
 from typing import List, Optional
 
+from aws_lambda_powertools import Logger
+from config import settings
+from db import connection
+from errors import ImproperlyConfigured
 from pydantic import UUID4, BaseModel, ConfigDict, Field
 from pymongo import errors
 
-from db import connection
-from errors import ImproperlyConfigured
-
-_database = connection.get_database("twin")
+logger = Logger(service="decodingml/crawler")
+_database = connection.get_database(settings.DATABASE_NAME)
 
 
 class BaseDocument(BaseModel):
@@ -29,7 +31,9 @@ class BaseDocument(BaseModel):
         exclude_unset = kwargs.pop("exclude_unset", False)
         by_alias = kwargs.pop("by_alias", True)
 
-        parsed = self.model_dump(exclude_unset=exclude_unset, by_alias=by_alias, **kwargs)
+        parsed = self.model_dump(
+            exclude_unset=exclude_unset, by_alias=by_alias, **kwargs
+        )
 
         if "_id" not in parsed and "id" in parsed:
             parsed["_id"] = str(parsed.pop("id"))
@@ -42,7 +46,7 @@ class BaseDocument(BaseModel):
             result = collection.insert_one(self.to_mongo(**kwargs))
             return result.inserted_id
         except errors.WriteError as e:
-            print(f"Failed to insert document {e}")
+            logger.error(f"Failed to insert document {e}")
             return None
 
     @classmethod
@@ -56,17 +60,19 @@ class BaseDocument(BaseModel):
             new_instance = new_instance.save()
             return new_instance
         except errors.OperationFailure as e:
-            print(f"Failed to retrieve document: {e}")
+            logger.error(f"Failed to retrieve document: {e}")
             return None
 
     @classmethod
     def bulk_insert(cls, documents: List, **kwargs) -> Optional[List[str]]:
         collection = _database[cls._get_collection_name()]
         try:
-            result = collection.insert_many([doc.to_mongo(**kwargs) for doc in documents])
+            result = collection.insert_many(
+                [doc.to_mongo(**kwargs) for doc in documents]
+            )
             return result.inserted_ids
         except errors.WriteError as e:
-            print(f"Failed to insert document {e}")
+            logger.error(f"Failed to insert document {e}")
             return None
 
     @classmethod
@@ -80,7 +86,6 @@ class BaseDocument(BaseModel):
 
 
 class UserDocument(BaseDocument):
-
     first_name: str
     last_name: str
 
@@ -89,7 +94,6 @@ class UserDocument(BaseDocument):
 
 
 class RepositoryDocument(BaseDocument):
-
     name: str
     link: str
     content: dict
@@ -100,7 +104,6 @@ class RepositoryDocument(BaseDocument):
 
 
 class PostDocument(BaseDocument):
-
     platform: str
     content: dict
     author_id: str = Field(alias="author_id")
@@ -110,7 +113,6 @@ class PostDocument(BaseDocument):
 
 
 class ArticleDocument(BaseDocument):
-
     platform: str
     link: str
     content: dict

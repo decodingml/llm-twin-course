@@ -11,6 +11,7 @@ local-deploy: # Deploy lambda crawler custom docker image on local.
 	docker run \
 		-p 9000:8080 \
 		--network llm-twin-course_local \
+		--platform linux/amd64 \
 		crawler:latest
 
 local-test: # Send test command on local to test  the lambda

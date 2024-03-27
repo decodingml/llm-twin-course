@@ -16,6 +16,7 @@ aws-lambda-powertools = "^2.35.1"
 langchain = "0.1.11"
 langchain-openai = ">=0.0.2"
 beautifulsoup4 = "^4.12.3"
+jmespath = "^1.0.1"
 
 
 [build-system]
