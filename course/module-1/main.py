@@ -25,7 +25,7 @@ def handler(event, context: LambdaContext) -> dict[str, Any]:
     try:
         crawler.extract(link=link, user=user)
 
-        return {"statusCode": 200, "body": "Articles processed successfully"}
+        return {"statusCode": 200, "body": "Link processed successfully"}
     except Exception as e:
         return {"statusCode": 500, "body": f"An error occurred: {str(e)}"}
 
@@ -33,6 +33,6 @@ def handler(event, context: LambdaContext) -> dict[str, Any]:
 if __name__ == "__main__":
     event = {
         "user": "Paul Iuztin",
-        "link": "https://medium.com/@pauliusztin/the-llms-kit-build-a-production-ready-real-time-financial-advisor-system-using-streaming-ffdcb2b50714",
+        "link": "https://www.linkedin.com/in/vesaalexandru/",
     }
     handler(event, None)

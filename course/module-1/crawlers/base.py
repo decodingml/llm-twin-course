@@ -2,7 +2,6 @@ import time
 from abc import ABC, abstractmethod
 from tempfile import mkdtemp
 
-from config import settings
 from documents import BaseDocument
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -18,8 +17,7 @@ class BaseCrawler(ABC):
 class BaseAbstractCrawler(BaseCrawler, ABC):
     def __init__(self, scroll_limit: int = 5) -> None:
         options = webdriver.ChromeOptions()
-        if settings.SELENIUM_BROWSER_BINARY_PATH:
-            options.binary_location = settings.SELENIUM_BROWSER_BINARY_PATH
+        options.binary_location = "/opt/chrome/chrome"
         options.add_argument("--no-sandbox")
         options.add_argument("--headless=new")
         options.add_argument("--single-process")
@@ -40,7 +38,7 @@ class BaseAbstractCrawler(BaseCrawler, ABC):
 
         self.scroll_limit = scroll_limit
         self.driver = webdriver.Chrome(
-            service=webdriver.ChromeService(settings.SELENIUM_DRIVER_BINARY_PATH),
+            service=webdriver.ChromeService("/opt/chromedriver"),
             options=options,
         )
 
