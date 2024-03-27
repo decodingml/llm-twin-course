@@ -1,35 +1,31 @@
-import os
-
+from aws_lambda_powertools import Logger
+from config import settings
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 
-from config import settings
+logger = Logger(service="decodingml/crawler")
 
 
 class MongoDatabaseConnector:
+    _instance: MongoClient | None = None
 
-    _instance: MongoClient = None
-
-    def __new__(cls, *args, **kwargs):
-        host = os.getenv("DATABASE_HOST")
-
+    def __new__(cls, *args, **kwargs) -> MongoClient:
         if cls._instance is None:
             try:
-                cls._instance = MongoClient(host)
+                cls._instance = MongoClient(settings.DATABASE_HOST)
             except ConnectionFailure as e:
-                print(f"Couldn't connect to the database: {str(e)}")
+                logger.error(f"Couldn't connect to the database: {str(e)}")
                 raise
 
-        print(f"Connection to database with uri: {host} successful")
+        logger.info(
+            f"Connection to database with uri: {settings.DATABASE_HOST} successful"
+        )
         return cls._instance
-
-    def get_database(self):
-        return self._instance[os.getenv("DATABASE_NAME")]
 
     def close(self):
         if self._instance:
             self._instance.close()
-            print("Connected to database has been closed.")
+            logger.info("Connected to database has been closed.")
 
 
 connection = MongoDatabaseConnector()
