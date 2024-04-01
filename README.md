@@ -156,7 +156,7 @@ This course is an open-source project released under the MIT license. Thus, as l
 Thank you 🙏 to all our contributors!
 
 <p align="center">
-    <a href="[https://github.com/roboflow/supervision/graphs/contributors](https://github.com/decodingml/llm-twin-course/graphs/contributors)">
-      <img src="https://contrib.rocks/image?repo=roboflow/supervision" />
+    <a href="https://github.com/decodingml/llm-twin-course/graphs/contributors">
+      <img src="https://contrib.rocks/image?repo=decodingml/llm-twin-course" />
     </a>
 </p>
