@@ -153,7 +153,7 @@ This course is an open-source project released under the MIT license. Thus, as l
 
 ## 🏆 Contribution
 
-Thank you 🙏 to all our contributors! This course is possible only because of them.
+A big "Thank you 🙏" to all our contributors! This course is possible only because of their efforts.
 
 <p align="center">
     <a href="https://github.com/decodingml/llm-twin-course/graphs/contributors">
