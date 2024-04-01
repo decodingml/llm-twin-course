@@ -150,3 +150,13 @@ The course is created under the [Decoding ML](https://decodingml.substack.com/) 
 ## License
 
 This course is an open-source project released under the MIT license. Thus, as long you distribute our LICENSE and acknowledge our work, you can safely clone or fork this project and use it as a source of inspiration for whatever you want (e.g., university projects, college degree projects, personal projects, etc.).
+
+## 🏆 Contribution
+
+Thank you 🙏 to all our contributors!
+
+<p align="center">
+    <a href="[https://github.com/roboflow/supervision/graphs/contributors](https://github.com/decodingml/llm-twin-course/graphs/contributors)">
+      <img src="https://contrib.rocks/image?repo=roboflow/supervision" />
+    </a>
+</p>
