@@ -5,6 +5,7 @@ from settings import settings
 
 
 class MongoDatabaseConnector:
+    """Singleton class to connect to MongoDB database."""
 
     _instance: MongoClient = None
 
