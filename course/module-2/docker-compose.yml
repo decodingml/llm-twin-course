@@ -27,6 +27,7 @@ services:
       - mongo_config:/data/configdb
     restart: always
 
+
   mq:
     image: rabbitmq:3-management-alpine
     container_name: scrabble_mq
@@ -38,10 +39,23 @@ services:
       - ~/rabbitmq/log/:/var/log/rabbitmq
     restart: always
 
-
+  cdc:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile.cdc
+    container_name: scrabble_cdc
+    depends_on:
+      - mongo
+      - mq
+    restart: always
+    environment:
+      - MONGO_DATABASE_HOST=mongodb://mongo:27017/?replicaSet=rs0
+      - MONGO_DATABASE_NAME=scrabble
 
 
 volumes:
   mongo_data:
   mongo_config:
   qdrant_data:
+
+

@@ -18,6 +18,7 @@ def stream_process():
         change["fullDocument"]["type"] = data_type
         change["fullDocument"]["entry_id"] = entry_id
         data = json.dumps(change["fullDocument"])
+        print("aici")
         # Send data to rabbitmq
         publish_to_rabbitmq(data=data)
 
