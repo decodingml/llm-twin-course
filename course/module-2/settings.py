@@ -4,7 +4,9 @@ from pydantic_settings import BaseSettings
 class AppSettings(BaseSettings):
 
     # MongoDB configs
-    MONGO_DATABASE_HOST: str = "mongodb://127.0.0.1:27017/?replicaSet=rs0"
+    # MONGO_DATABASE_HOST: str = "mongodb://localhost:27017/?replicaSet=rs0"
+    # MONGO_DATABASE_HOST: str = "mongodb://mongo:27017/?replicaSet=rs0"
+    MONGO_DATABASE_HOST: str = "mongodb://host.docker.internal:27017/?replicaSet=rs0"
     MONGO_DATABASE_NAME: str = "scrabble"
 
     RABBITMQ_HOST: str = "localhost"  # or the Docker host if running remotely
