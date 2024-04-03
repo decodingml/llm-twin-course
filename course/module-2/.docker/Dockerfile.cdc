@@ -21,4 +21,4 @@ COPY . /usr/src/app
 EXPOSE 8000
 
 # Run cdc.py when the container launches
-CMD ["python", "./cdc.py"]
+CMD ["python", "cdc.py"]
