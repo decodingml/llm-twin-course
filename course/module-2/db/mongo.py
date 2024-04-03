@@ -13,6 +13,7 @@ class MongoDatabaseConnector:
         if cls._instance is None:
             try:
                 cls._instance = MongoClient(settings.MONGO_DATABASE_HOST)
+                # cls._instance = MongoClient("mongodb://localhost:30001/?replicaSet=my-replica-set")
             except ConnectionFailure as e:
                 print(f"Couldn't connect to the database: {str(e)}")
                 raise
