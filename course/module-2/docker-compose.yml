@@ -48,14 +48,14 @@ services:
   #     context: .
   #     dockerfile: .docker/Dockerfile.cdc
   #   container_name: scrabble_cdc
-  #   depends_on:
-  #     - mq
-  #     - mongo1
-  #     - mongo2
-  #     - mongo3
-  #   restart: always
-  #   environment:
-  #     - MONGO_DATABASE_HOST=mongodb://mongo1:30001,mongo2:30002,mongo3:30003/?replicaSet=my-replica-set
-  #     - MONGO_DATABASE_NAME=scrabble
+    # depends_on:
+      # - mq
+      # # - mongo1
+      # # - mongo2
+      # # - mongo3
+    # restart: always
+    # environment:
+    #   - MONGO_DATABASE_HOST=mongodb://mongo1:30001,mongo2:30002,mongo3:30003/?replicaSet=my-replica-set
+    #   - MONGO_DATABASE_NAME=scrabble
 
 
