@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "cdc"
+version = "0.1.0"
+description = ""
+authors = ["Vesa Alexandru"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pymongo = "^4.6.3"
+pydantic-settings = "^2.2.1"
+pika = "^1.3.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
