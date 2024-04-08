@@ -68,6 +68,8 @@ The project includes a Makefile for easy management of common tasks. Here are th
 - `make local-start-cdc`: Starts the CDC system by running the `cdc.py` script.
 - `make local-test-cdc`: Runs the `test_cdc.py` script to insert test data into MongoDB, testing the CDC system's response.
 
+# Cloud environment
+TBD
 
 
 
