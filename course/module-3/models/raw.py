@@ -1,6 +1,6 @@
 from typing import Optional
 
-from streaming_pipeline.models.base import DataModel
+from models.base import DataModel
 
 
 class RepositoryRawModel(DataModel):

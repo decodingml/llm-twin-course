@@ -1,33 +1,27 @@
 import pika
 
-from streaming_pipeline.settings import settings
-from pika import exceptions
+from settings import settings
 
 
 class RabbitMQConnection:
     _instance = None
 
     def __new__(
-            cls,
-            host: str = None,
-            port: int = None,
-            username: str = None,
-            password: str = None,
-            virtual_host: str = '/'
+        cls, host: str = None, port: int = None, username: str = None, password: str = None, virtual_host: str = "/"
     ):
         if not cls._instance:
             cls._instance = super().__new__(cls)
         return cls._instance
 
     def __init__(
-            self,
-            host: str = None,
-            port: int = None,
-            username: str = None,
-            password: str = None,
-            virtual_host: str = '/',
-            fail_silently: bool = False,
-            **kwargs
+        self,
+        host: str = None,
+        port: int = None,
+        username: str = None,
+        password: str = None,
+        virtual_host: str = "/",
+        fail_silently: bool = False,
+        **kwargs
     ):
         self.host = host or settings.RABBITMQ_HOST
         self.port = port or settings.RABBITMQ_PORT
@@ -49,11 +43,9 @@ class RabbitMQConnection:
             credentials = pika.PlainCredentials(self.username, self.password)
             self._connection = pika.BlockingConnection(
                 pika.ConnectionParameters(
-                    host=self.host,
-                    port=self.port,
-                    virtual_host=self.virtual_host,
-                    credentials=credentials
-                ))
+                    host=self.host, port=self.port, virtual_host=self.virtual_host, credentials=credentials
+                )
+            )
         except pika.exceptions.AMQPConnectionError as e:
             print("Failed to connect to RabbitMQ:", e)
             if not self.fail_silently:
@@ -65,13 +57,10 @@ class RabbitMQConnection:
         channel.confirm_delivery()
 
         try:
-            channel.basic_publish(exchange='',
-                                  routing_key='mongo_data',
-                                  body=data,
-                                  mandatory=True)
-            print('sent changes to RabbitMQ:', data)
+            channel.basic_publish(exchange="", routing_key="mongo_data", body=data, mandatory=True)
+            print("sent changes to RabbitMQ:", data)
         except pika.exceptions.UnroutableError:
-            print('Message could not be confirmed')
+            print("Message could not be confirmed")
 
     def is_connected(self) -> bool:
         return self._connection is not None and self._connection.is_open

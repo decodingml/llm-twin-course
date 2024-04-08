@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
-from streaming_pipeline.utils.cleaning import clean_text
 
-from streaming_pipeline.models.base import DataModel
-from streaming_pipeline.models.raw import PostsRawModel, ArticleRawModel, RepositoryRawModel
-from streaming_pipeline.models.clean import PostCleanedModel, ArticleCleanedModel, RepositoryCleanedModel
+from models.base import DataModel
+from models.clean import ArticleCleanedModel, PostCleanedModel, RepositoryCleanedModel
+from models.raw import ArticleRawModel, PostsRawModel, RepositoryRawModel
+from utils.cleaning import clean_text
 
 
 class CleaningDataHandler(ABC):
@@ -23,11 +23,10 @@ class PostCleaningHandler(CleaningDataHandler):
         return PostCleanedModel(
             entry_id=data_model.entry_id,
             platform=data_model.platform,
-            cleaned_content=clean_text(''.join(data_model.content.values())),
+            cleaned_content=clean_text("".join(data_model.content.values())),
             author_id=data_model.author_id,
             image=data_model.image if data_model.image else None,
-            type=data_model.type
-
+            type=data_model.type,
         )
 
 
@@ -38,9 +37,9 @@ class ArticleCleaningHandler(CleaningDataHandler):
             entry_id=data_model.entry_id,
             platform=data_model.platform,
             link=data_model.link,
-            cleaned_content=clean_text(''.join(data_model.content.values())),
+            cleaned_content=clean_text("".join(data_model.content.values())),
             author_id=data_model.author_id,
-            type=data_model.type
+            type=data_model.type,
         )
 
 
@@ -51,8 +50,7 @@ class RepositoryCleaningHandler(CleaningDataHandler):
             entry_id=data_model.entry_id,
             name=data_model.name,
             link=data_model.link,
-            cleaned_content=clean_text(''.join(data_model.content.values())),
+            cleaned_content=clean_text("".join(data_model.content.values())),
             owner_id=data_model.owner_id,
-            type=data_model.type
+            type=data_model.type,
         )
-
