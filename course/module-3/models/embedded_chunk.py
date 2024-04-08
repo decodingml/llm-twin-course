@@ -2,7 +2,7 @@ from typing import Tuple
 
 import numpy as np
 
-from streaming_pipeline.models.base import DBDataModel
+from models.base import DBDataModel
 
 
 class PostEmbeddedChunkModel(DBDataModel):
@@ -17,12 +17,7 @@ class PostEmbeddedChunkModel(DBDataModel):
         arbitrary_types_allowed = True
 
     def save(self) -> Tuple[str, np.ndarray, dict]:
-        data = {
-            'id': self.entry_id,
-            'platform': self.platform,
-            'owner_id': self.author_id,
-            'type': self.type
-        }
+        data = {"id": self.entry_id, "platform": self.platform, "owner_id": self.author_id, "type": self.type}
         return self.chunk_id, self.embedded_content, data
 
 
@@ -40,11 +35,11 @@ class ArticleEmbeddedChunkModel(DBDataModel):
 
     def save(self) -> Tuple[str, np.ndarray, dict]:
         data = {
-            'id': self.entry_id,
-            'platform': self.platform,
-            'link': self.link,
-            'author_id': self.author_id,
-            'type': self.type
+            "id": self.entry_id,
+            "platform": self.platform,
+            "link": self.link,
+            "author_id": self.author_id,
+            "type": self.type,
         }
         return self.chunk_id, self.embedded_content, data
 
@@ -62,11 +57,5 @@ class RepositoryEmbeddedChunkModel(DBDataModel):
         arbitrary_types_allowed = True
 
     def save(self) -> Tuple[str, np.ndarray, dict]:
-        data = {
-            'id': self.entry_id,
-            'name': self.name,
-            'link': self.link,
-            'owner_id': self.owner_id,
-            'type': self.type
-        }
+        data = {"id": self.entry_id, "name": self.name, "link": self.link, "owner_id": self.owner_id, "type": self.type}
         return self.chunk_id, self.embedded_content, data

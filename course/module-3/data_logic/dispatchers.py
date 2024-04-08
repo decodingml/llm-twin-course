@@ -1,23 +1,35 @@
-from streaming_pipeline.models.raw import PostsRawModel, ArticleRawModel, RepositoryRawModel
-from streaming_pipeline.models.base import DataModel
-from streaming_pipeline.data_logic.cleaning_data_handlers import CleaningDataHandler, PostCleaningHandler, ArticleCleaningHandler, \
-    RepositoryCleaningHandler
-from streaming_pipeline.data_logic.chunking_data_handlers import ChunkingDataHandler, PostChunkingHandler, ArticleChunkingHandler, \
-    RepositoryChunkingHandler
-from streaming_pipeline.data_logic.embedding_data_handlers import EmbeddingDataHandler, PostEmbeddingHandler, ArticleEmbeddingHandler, \
-    RepositoryEmbeddingHandler
+from data_logic.chunking_data_handlers import (
+    ArticleChunkingHandler,
+    ChunkingDataHandler,
+    PostChunkingHandler,
+    RepositoryChunkingHandler,
+)
+from data_logic.cleaning_data_handlers import (
+    ArticleCleaningHandler,
+    CleaningDataHandler,
+    PostCleaningHandler,
+    RepositoryCleaningHandler,
+)
+from data_logic.embedding_data_handlers import (
+    ArticleEmbeddingHandler,
+    EmbeddingDataHandler,
+    PostEmbeddingHandler,
+    RepositoryEmbeddingHandler,
+)
+from models.base import DataModel
+from models.raw import ArticleRawModel, PostsRawModel, RepositoryRawModel
 
 
 class RawDispatcher:
 
     @staticmethod
     def handle_mq_message(message: dict) -> DataModel:
-        data_type = message.get('type')
-        if data_type == 'posts':
+        data_type = message.get("type")
+        if data_type == "posts":
             return PostsRawModel(**message)
-        elif data_type == 'articles':
+        elif data_type == "articles":
             return ArticleRawModel(**message)
-        elif data_type == 'repositories':
+        elif data_type == "repositories":
             return RepositoryRawModel(**message)
         else:
             raise ValueError("Unsupported data type")
@@ -27,11 +39,11 @@ class CleaningHandlerFactory:
 
     @staticmethod
     def create_handler(data_type) -> CleaningDataHandler:
-        if data_type == 'posts':
+        if data_type == "posts":
             return PostCleaningHandler()
-        elif data_type == 'articles':
+        elif data_type == "articles":
             return ArticleCleaningHandler()
-        elif data_type == 'repositories':
+        elif data_type == "repositories":
             return RepositoryCleaningHandler()
         else:
             raise ValueError("Unsupported data type")
@@ -51,11 +63,11 @@ class CleaningDispatcher:
 class ChunkingHandlerFactory:
     @staticmethod
     def create_handler(data_type) -> ChunkingDataHandler:
-        if data_type == 'posts':
+        if data_type == "posts":
             return PostChunkingHandler()
-        elif data_type == 'articles':
+        elif data_type == "articles":
             return ArticleChunkingHandler()
-        elif data_type == 'repositories':
+        elif data_type == "repositories":
             return RepositoryChunkingHandler()
         else:
             raise ValueError("Unsupported data type")
@@ -75,11 +87,11 @@ class ChunkingDispatcher:
 class EmbeddingHandlerFactory:
     @staticmethod
     def create_handler(data_type) -> EmbeddingDataHandler:
-        if data_type == 'posts':
+        if data_type == "posts":
             return PostEmbeddingHandler()
-        elif data_type == 'articles':
+        elif data_type == "articles":
             return ArticleEmbeddingHandler()
-        elif data_type == 'repositories':
+        elif data_type == "repositories":
             return RepositoryEmbeddingHandler()
         else:
             raise ValueError("Unsupported data type")

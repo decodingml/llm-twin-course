@@ -1,16 +1,16 @@
 import hashlib
 from abc import ABC, abstractmethod
 
-from streaming_pipeline.models.base import DataModel
-from streaming_pipeline.utils.chunking import chunk_text
-from streaming_pipeline.models.clean import PostCleanedModel, ArticleCleanedModel, RepositoryCleanedModel
-from streaming_pipeline.models.chunk import PostChunkModel, ArticleChunkModel, RepositoryChunkModel
+from models.base import DataModel
+from models.chunk import ArticleChunkModel, PostChunkModel, RepositoryChunkModel
+from models.clean import ArticleCleanedModel, PostCleanedModel, RepositoryCleanedModel
+from utils.chunking import chunk_text
 
 
 class ChunkingDataHandler(ABC):
     """
-     Abstract class for all Chunking data handlers.
-     All data transformations logic for the chunking step is done here
+    Abstract class for all Chunking data handlers.
+    All data transformations logic for the chunking step is done here
     """
 
     @abstractmethod
@@ -34,7 +34,7 @@ class PostChunkingHandler(ChunkingDataHandler):
                 chunk_content=chunk,
                 author_id=data_model.author_id,
                 image=data_model.image if data_model.image else None,
-                type=data_model.type
+                type=data_model.type,
             )
             data_models_list.append(model)
 
@@ -57,7 +57,7 @@ class ArticleChunkingHandler(ChunkingDataHandler):
                 chunk_id=hashlib.md5(chunk.encode()).hexdigest(),
                 chunk_content=chunk,
                 author_id=data_model.author_id,
-                type=data_model.type
+                type=data_model.type,
             )
             data_models_list.append(model)
 
@@ -80,7 +80,7 @@ class RepositoryChunkingHandler(ChunkingDataHandler):
                 chunk_id=hashlib.md5(chunk.encode()).hexdigest(),
                 chunk_content=chunk,
                 owner_id=data_model.owner_id,
-                type=data_model.type
+                type=data_model.type,
             )
             data_models_list.append(model)
 

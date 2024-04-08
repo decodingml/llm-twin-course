@@ -1,6 +1,7 @@
-from sentence_transformers.SentenceTransformer import SentenceTransformer
 from InstructorEmbedding import INSTRUCTOR
-from streaming_pipeline.settings import settings
+from sentence_transformers.SentenceTransformer import SentenceTransformer
+
+from settings import settings
 
 
 def embedd_text(text: str):
@@ -9,7 +10,7 @@ def embedd_text(text: str):
 
 
 def embedd_repositories(text: str):
-    model = INSTRUCTOR('hkunlp/instructor-xl')
+    model = INSTRUCTOR("hkunlp/instructor-xl")
     sentence = text
-    instruction = 'Represent the structure of the repository'
+    instruction = "Represent the structure of the repository"
     return model.encode([instruction, sentence])

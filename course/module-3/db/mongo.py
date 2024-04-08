@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 
-from streaming_pipeline.settings import settings
+from settings import settings
 
 
 class MongoDatabaseConnector:

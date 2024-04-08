@@ -1,5 +1,6 @@
-from streaming_pipeline.models.base import DBDataModel
-from typing import Tuple, Optional
+from typing import Optional, Tuple
+
+from models.base import DBDataModel
 
 
 class PostCleanedModel(DBDataModel):
@@ -11,11 +12,13 @@ class PostCleanedModel(DBDataModel):
     type: str
 
     def save(self) -> Tuple[str, dict]:
-        data = {'platform': self.platform,
-                'author_id': self.author_id,
-                'cleaned_content': self.cleaned_content,
-                'image': self.image,
-                'type': self.type}
+        data = {
+            "platform": self.platform,
+            "author_id": self.author_id,
+            "cleaned_content": self.cleaned_content,
+            "image": self.image,
+            "type": self.type,
+        }
 
         return self.entry_id, data
 
@@ -29,11 +32,13 @@ class ArticleCleanedModel(DBDataModel):
     type: str
 
     def save(self) -> Tuple[str, dict]:
-        data = {'platform': self.platform,
-                'link': self.link,
-                'cleaned_content': self.cleaned_content,
-                'author_id': self.author_id,
-                'type': self.type}
+        data = {
+            "platform": self.platform,
+            "link": self.link,
+            "cleaned_content": self.cleaned_content,
+            "author_id": self.author_id,
+            "type": self.type,
+        }
         return self.entry_id, data
 
 
@@ -46,9 +51,11 @@ class RepositoryCleanedModel(DBDataModel):
     type: str
 
     def save(self) -> Tuple[str, dict]:
-        data = {'name': self.name,
-                'link': self.link,
-                'cleaned_content': self.cleaned_content,
-                'owner_id': self.owner_id,
-                'type': self.type}
+        data = {
+            "name": self.name,
+            "link": self.link,
+            "cleaned_content": self.cleaned_content,
+            "owner_id": self.owner_id,
+            "type": self.type,
+        }
         return self.entry_id, data

@@ -1,7 +1,8 @@
 from qdrant_client import QdrantClient
 from qdrant_client.http.exceptions import UnexpectedResponse
-from qdrant_client.http.models import Batch, VectorParams, Distance
-from streaming_pipeline.settings import settings
+from qdrant_client.http.models import Batch, Distance, VectorParams
+
+from settings import settings
 
 
 class QdrantDatabaseConnector:
@@ -20,15 +21,14 @@ class QdrantDatabaseConnector:
         return self._instance.get_collection(collection_name=collection_name)
 
     def create_non_vector_collection(self, collection_name: str):
-        print(f'Created collection: {collection_name}')
+        print(f"Created collection: {collection_name}")
         self._instance.create_collection(collection_name=collection_name, vectors_config={})
 
     def create_vector_collection(self, collection_name: str):
-        self._instance.create_collection(collection_name=collection_name,
-                                         vectors_config=VectorParams(
-                                             size=settings.EMBEDDING_SIZE,
-                                             distance=Distance.COSINE
-                                         ))
+        self._instance.create_collection(
+            collection_name=collection_name,
+            vectors_config=VectorParams(size=settings.EMBEDDING_SIZE, distance=Distance.COSINE),
+        )
 
     def write_data(self, collection_name: str, points: Batch):
         try:

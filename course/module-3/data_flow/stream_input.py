@@ -1,12 +1,15 @@
 import json
-
 from datetime import datetime
-from typing import Iterable, Optional, TypeVar, List
-from bytewax.inputs import StatefulSourcePartition, FixedPartitionedSource
-from streaming_pipeline.data_flow.mq import RabbitMQConnection
+from typing import Iterable, List, Optional, TypeVar
 
-DATA = TypeVar('DATA')  # The type of the items being produced in this case the data from the queue.
-MESSAGE_ID = TypeVar('MESSAGE_ID')  # The type of the state being saved and resumed in this case last message id from Rabbitmq.
+from bytewax.inputs import FixedPartitionedSource, StatefulSourcePartition
+
+from data_flow.mq import RabbitMQConnection
+
+DATA = TypeVar("DATA")  # The type of the items being produced in this case the data from the queue.
+MESSAGE_ID = TypeVar(
+    "MESSAGE_ID"
+)  # The type of the state being saved and resumed in this case last message id from Rabbitmq.
 
 
 class RabbitMQPartition(StatefulSourcePartition):
@@ -47,7 +50,9 @@ class RabbitMQPartition(StatefulSourcePartition):
 class RabbitMQSource(FixedPartitionedSource):
 
     def list_parts(self) -> List[str]:
-        return ['single partition']
+        return ["single partition"]
 
-    def build_part(self, now: datetime, for_part: str, resume_state: Optional[MESSAGE_ID]) -> StatefulSourcePartition[DATA, MESSAGE_ID]:
-        return RabbitMQPartition(queue_name='mongo_data')
+    def build_part(
+        self, now: datetime, for_part: str, resume_state: Optional[MESSAGE_ID]
+    ) -> StatefulSourcePartition[DATA, MESSAGE_ID]:
+        return RabbitMQPartition(queue_name="mongo_data")

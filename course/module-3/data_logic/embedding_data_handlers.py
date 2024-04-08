@@ -1,9 +1,13 @@
 from abc import ABC, abstractmethod
 
-from streaming_pipeline.models.base import DataModel
-from streaming_pipeline.models.chunk import PostChunkModel, ArticleChunkModel, RepositoryChunkModel
-from streaming_pipeline.models.embedded_chunk import PostEmbeddedChunkModel, ArticleEmbeddedChunkModel, RepositoryEmbeddedChunkModel
-from streaming_pipeline.utils.embeddings import embedd_text
+from models.base import DataModel
+from models.chunk import ArticleChunkModel, PostChunkModel, RepositoryChunkModel
+from models.embedded_chunk import (
+    ArticleEmbeddedChunkModel,
+    PostEmbeddedChunkModel,
+    RepositoryEmbeddedChunkModel,
+)
+from utils.embeddings import embedd_text
 
 
 class EmbeddingDataHandler(ABC):
@@ -26,7 +30,7 @@ class PostEmbeddingHandler(EmbeddingDataHandler):
             chunk_id=data_model.chunk_id,
             embedded_content=embedd_text(data_model.chunk_content),
             author_id=data_model.author_id,
-            type=data_model.type
+            type=data_model.type,
         )
 
 
@@ -40,7 +44,7 @@ class ArticleEmbeddingHandler(EmbeddingDataHandler):
             chunk_id=data_model.chunk_id,
             embedded_content=embedd_text(data_model.chunk_content),
             author_id=data_model.author_id,
-            type=data_model.type
+            type=data_model.type,
         )
 
 
@@ -54,5 +58,5 @@ class RepositoryEmbeddingHandler(EmbeddingDataHandler):
             chunk_id=data_model.chunk_id,
             embedded_content=embedd_text(data_model.chunk_content),
             owner_id=data_model.owner_id,
-            type=data_model.type
+            type=data_model.type,
         )
