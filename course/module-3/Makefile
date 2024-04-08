@@ -5,10 +5,10 @@ local-start: # Buil and start mongodb and mq and qdrant.
 	docker-compose -f docker-compose.yml up --build -d
 
 local-start-cdc: # Start CDC system
-	python cdc_trigger.py
+	python cdc.py
 
 local-insert-data-mongo: #Insert data to mongodb
-	python cdc.py
+	python insert_data_mongo.py
 
 local-bytewax: # Run bytewax pipeline
 	python -m bytewax.run data_flow/bytewax_pipeline     
