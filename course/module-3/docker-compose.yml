@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  mongo1:
+    image: mongo:5
+    container_name: mongo1
+    command: ["--replSet", "my-replica-set", "--bind_ip_all", "--port", "30001"]
+    volumes:
+      - ./data/mongo-1:/data/db
+    ports:
+      - 30001:30001
+    healthcheck:
+      test: test $$(echo "rs.initiate({_id:'my-replica-set',members:[{_id:0,host:\"mongo1:30001\"},{_id:1,host:\"mongo2:30002\"},{_id:2,host:\"mongo3:30003\"}]}).ok || rs.status().ok" | mongo --port 30001 --quiet) -eq 1
+      interval: 10s
+      start_period: 30s
+
+  mongo2:
+    image: mongo:5
+    container_name: mongo2
+    command: ["--replSet", "my-replica-set", "--bind_ip_all", "--port", "30002"]
+    volumes:
+      - ./data/mongo-2:/data/db
+    ports:
+      - 30002:30002
+
+  mongo3:
+    image: mongo:5
+    container_name: mongo3
+    command: ["--replSet", "my-replica-set", "--bind_ip_all", "--port", "30003"]
+    volumes:
+      - ./data/mongo-3:/data/db
+    ports:
+      - 30003:30003
+
+  mq:
+    image: rabbitmq:3-management-alpine
+    container_name: scrabble_mq
+    ports:
+      - "5673:5672"
+      - "15673:15672"
+    volumes:
+      - ~/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/rabbitmq/log/:/var/log/rabbitmq
+    restart: always
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: scrabble_qdrant
+    ports:
+      - 6333:6333
+      - 6334:6334
+    expose:
+      - 6333
+      - 6334
+      - 6335
+    configs:
+      - source: qdrant_config
+        target: /qdrant/config/production.yaml
+    volumes:
+      - qdrant_data:/qdrant_data
+    restart: always
+
+configs:
+  qdrant_config:
+    content: |
+      log_level: INFO
+
+volumes:
+  qdrant_data:
