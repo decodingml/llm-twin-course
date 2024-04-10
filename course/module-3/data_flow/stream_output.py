@@ -19,19 +19,25 @@ class QdrantOutput(DynamicSink):
             self._connection.get_collection(collection_name="cleaned_posts")
         except UnexpectedResponse as e:
             print(f"Error when accessing the collection: {e}")
-            self._connection.create_non_vector_collection(collection_name="cleaned_posts")
+            self._connection.create_non_vector_collection(
+                collection_name="cleaned_posts"
+            )
 
         try:
             self._connection.get_collection(collection_name="cleaned_articles")
         except UnexpectedResponse as e:
             print(f"Error when accessing the collection: {e}")
-            self._connection.create_non_vector_collection(collection_name="cleaned_articles")
+            self._connection.create_non_vector_collection(
+                collection_name="cleaned_articles"
+            )
 
         try:
             self._connection.get_collection(collection_name="cleaned_repositories")
         except UnexpectedResponse as e:
             print(f"Error when accessing the collection: {e}")
-            self._connection.create_non_vector_collection(collection_name="cleaned_repositories")
+            self._connection.create_non_vector_collection(
+                collection_name="cleaned_repositories"
+            )
 
         try:
             self._connection.get_collection(collection_name="vector_posts")
@@ -49,7 +55,9 @@ class QdrantOutput(DynamicSink):
             self._connection.get_collection(collection_name="vector_repositories")
         except UnexpectedResponse as e:
             print(f"Error when accessing the collection: {e}")
-            self._connection.create_vector_collection(collection_name="vector_repositories")
+            self._connection.create_vector_collection(
+                collection_name="vector_repositories"
+            )
 
     def build(self, worker_index: int, worker_count: int) -> StatelessSinkPartition:
         if self._sink_type == "clean":
@@ -68,8 +76,11 @@ class QdrantCleanedDataSink(StatelessSinkPartition):
         payloads = [item.save() for item in items]
         ids, data = zip(*payloads)
         collection_name = dispatch_clean_collection(data_type=data[0]["type"])
-        self._client.write_data(collection_name=collection_name, points=Batch(ids=ids, vectors={}, payloads=data))
-    
+        self._client.write_data(
+            collection_name=collection_name,
+            points=Batch(ids=ids, vectors={}, payloads=data),
+        )
+
 
 class QdrantVectorDataSink(StatelessSinkPartition):
     def __init__(self, connection: QdrantDatabaseConnector):
@@ -80,7 +91,8 @@ class QdrantVectorDataSink(StatelessSinkPartition):
         ids, vectors, meta_data = zip(*payloads)
         collection_name = dispatch_vector_collection(data_type=meta_data[0]["type"])
         self._client.write_data(
-            collection_name=collection_name, points=Batch(ids=ids, vectors=vectors, payloads=meta_data)
+            collection_name=collection_name,
+            points=Batch(ids=ids, vectors=vectors, payloads=meta_data),
         )
 
 

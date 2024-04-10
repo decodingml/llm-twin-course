@@ -21,9 +21,9 @@ class PostEmbeddedChunkModel(DBDataModel):
             "id": self.entry_id,
             "platform": self.platform,
             "owner_id": self.author_id,
-            "type": self.type
-            }
-        
+            "type": self.type,
+        }
+
         return self.chunk_id, self.embedded_content, data
 
 
@@ -47,7 +47,7 @@ class ArticleEmbeddedChunkModel(DBDataModel):
             "author_id": self.author_id,
             "type": self.type,
         }
-        
+
         return self.chunk_id, self.embedded_content, data
 
 
@@ -69,7 +69,7 @@ class RepositoryEmbeddedChunkModel(DBDataModel):
             "name": self.name,
             "link": self.link,
             "owner_id": self.owner_id,
-            "type": self.type
-            }
-        
+            "type": self.type,
+        }
+
         return self.chunk_id, self.embedded_content, data

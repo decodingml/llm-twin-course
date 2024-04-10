@@ -7,15 +7,16 @@ from db.mongo import MongoDatabaseConnector
 
 
 def stream_process():
-
     mq_connection = RabbitMQConnection()
     mq_connection.connect()
 
     client = MongoDatabaseConnector()
-    
+
     db = client["scrabble"]
 
-    changes = db.watch([{"$match": {"operationType": {"$in": ["insert"]}}}])  # Filter for inserts only
+    changes = db.watch(
+        [{"$match": {"operationType": {"$in": ["insert"]}}}]
+    )  # Filter for inserts only
     for change in changes:
         data_type = change["ns"]["coll"]
         entry_id = str(change["fullDocument"]["_id"])  # Convert ObjectId to string
