@@ -18,7 +18,6 @@ class CleaningDataHandler(ABC):
 
 
 class PostCleaningHandler(CleaningDataHandler):
-
     def clean(self, data_model: PostsRawModel) -> PostCleanedModel:
         return PostCleanedModel(
             entry_id=data_model.entry_id,
@@ -31,7 +30,6 @@ class PostCleaningHandler(CleaningDataHandler):
 
 
 class ArticleCleaningHandler(CleaningDataHandler):
-
     def clean(self, data_model: ArticleRawModel) -> ArticleCleanedModel:
         return ArticleCleanedModel(
             entry_id=data_model.entry_id,
@@ -44,7 +42,6 @@ class ArticleCleaningHandler(CleaningDataHandler):
 
 
 class RepositoryCleaningHandler(CleaningDataHandler):
-
     def clean(self, data_model: RepositoryRawModel) -> RepositoryCleanedModel:
         return RepositoryCleanedModel(
             entry_id=data_model.entry_id,

@@ -39,7 +39,7 @@ class ArticleCleanedModel(DBDataModel):
             "author_id": self.author_id,
             "type": self.type,
         }
-        
+
         return self.entry_id, data
 
 
@@ -59,5 +59,5 @@ class RepositoryCleanedModel(DBDataModel):
             "owner_id": self.owner_id,
             "type": self.type,
         }
-        
+
         return self.entry_id, data
