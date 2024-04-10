@@ -33,7 +33,7 @@ class QdrantDatabaseConnector:
     def write_data(self, collection_name: str, points: Batch):
         try:
             self._instance.upsert(collection_name=collection_name, points=points)
-            print(f"Successfully inserted {points} points into {collection_name}.")
+            print(f"Successfully inserted {len(points.ids)} point(s) into {collection_name}.")
         except Exception as e:
             print(f"An error occurred while inserting data: {str(e)}")
             raise

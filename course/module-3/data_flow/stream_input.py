@@ -1,6 +1,6 @@
 import json
 from datetime import datetime
-from typing import Iterable, List, Optional, TypeVar
+from typing import Generic, Iterable, List, Optional, TypeVar
 
 from bytewax.inputs import FixedPartitionedSource, StatefulSourcePartition
 
@@ -12,7 +12,7 @@ MESSAGE_ID = TypeVar(
 )  # The type of the state being saved and resumed in this case last message id from Rabbitmq.
 
 
-class RabbitMQPartition(StatefulSourcePartition):
+class RabbitMQPartition(StatefulSourcePartition, Generic[DATA, MESSAGE_ID]):
     """
     Class responsible for creating a connection between bytewax and rabbitmq that facilitates the transfer of data from mq to bytewax streaming piepline.
     Inherits StatefulSourcePartition for snapshot functionality that enables saving the state of the queue
@@ -30,6 +30,7 @@ class RabbitMQPartition(StatefulSourcePartition):
         if method_frame:
             message_id = method_frame.delivery_tag
             self._in_flight_msg_ids.add(message_id)
+            
             return [json.loads(body)]
         else:
             return []

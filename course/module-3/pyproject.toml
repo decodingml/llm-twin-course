@@ -1,9 +1,8 @@
 [tool.poetry]
-name = "rag-systems"
-version = "0.1.0"
 description = ""
 authors = ["vlad_adu <vladadumitracesei02@gmail.com>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = ">=3.10, <3.12"

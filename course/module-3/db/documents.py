@@ -38,6 +38,7 @@ class BaseDocument(BaseModel):
 
     def save(self, **kwargs):
         collection = _database[self._get_collection_name()]
+        
         try:
             result = collection.insert_one(self.to_mongo(**kwargs))
             return result.inserted_id
