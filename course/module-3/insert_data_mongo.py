@@ -38,5 +38,6 @@ def insert_repo_into_collection():
 
 
 if __name__ == "__main__":
-    # insert_post_into_collection()
+    insert_post_into_collection()
     insert_article_into_collection()
+    insert_repo_into_collection()
