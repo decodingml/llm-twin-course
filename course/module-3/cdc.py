@@ -12,6 +12,7 @@ def stream_process():
     mq_connection.connect()
 
     client = MongoDatabaseConnector()
+    
     db = client["scrabble"]
 
     changes = db.watch([{"$match": {"operationType": {"$in": ["insert"]}}}])  # Filter for inserts only

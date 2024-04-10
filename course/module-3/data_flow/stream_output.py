@@ -1,9 +1,8 @@
 from bytewax.outputs import DynamicSink, StatelessSinkPartition
-from qdrant_client.http.api_client import UnexpectedResponse
-from qdrant_client.models import Batch
-
 from db.qdrant import QdrantDatabaseConnector
 from models.base import DBDataModel
+from qdrant_client.http.api_client import UnexpectedResponse
+from qdrant_client.models import Batch
 
 
 class QdrantOutput(DynamicSink):
@@ -57,6 +56,8 @@ class QdrantOutput(DynamicSink):
             return QdrantCleanedDataSink(connection=self._connection)
         elif self._sink_type == "vector":
             return QdrantVectorDataSink(connection=self._connection)
+        else:
+            raise ValueError(f"Unsupported sink type: {self._sink_type}")
 
 
 class QdrantCleanedDataSink(StatelessSinkPartition):
@@ -68,7 +69,7 @@ class QdrantCleanedDataSink(StatelessSinkPartition):
         ids, data = zip(*payloads)
         collection_name = dispatch_clean_collection(data_type=data[0]["type"])
         self._client.write_data(collection_name=collection_name, points=Batch(ids=ids, vectors={}, payloads=data))
-
+    
 
 class QdrantVectorDataSink(StatelessSinkPartition):
     def __init__(self, connection: QdrantDatabaseConnector):
@@ -90,6 +91,8 @@ def dispatch_clean_collection(data_type: str) -> str:
         return "cleaned_articles"
     elif data_type == "repositories":
         return "cleaned_repositories"
+    else:
+        raise ValueError(f"Unsupported data type: {data_type}")
 
 
 def dispatch_vector_collection(data_type: str) -> str:
@@ -99,3 +102,5 @@ def dispatch_vector_collection(data_type: str) -> str:
         return "vector_articles"
     elif data_type == "repositories":
         return "vector_repositories"
+    else:
+        raise ValueError(f"Unsupported data type: {data_type}")
