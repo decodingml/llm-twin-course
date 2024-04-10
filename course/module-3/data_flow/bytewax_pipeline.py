@@ -11,7 +11,7 @@ from data_logic.dispatchers import (
 )
 from db.qdrant import connection
 
-flow = Dataflow("RAG Data Flow")
+flow = Dataflow("Streaming ingestion pipeline")
 stream = op.input("input", flow, RabbitMQSource())
 stream = op.map("raw dispatch", stream, RawDispatcher.handle_mq_message)
 stream = op.map("clean dispatch", stream, CleaningDispatcher.dispatch_cleaner)
