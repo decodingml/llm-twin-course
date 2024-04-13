@@ -7,7 +7,7 @@ from qdrant_client.models import Batch
 
 class QdrantOutput(DynamicSink):
     """
-    Class that facilitates the connection between and Qdrant Vector DB
+    Bytewax class that facilitates the connection to a Qdrant vector DB.
     Inherits DynamicSink because of the ability to create different sink sources (e.g, vector and non-vector collections)
     """
 
