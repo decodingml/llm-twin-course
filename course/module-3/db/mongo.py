@@ -5,7 +5,6 @@ from settings import settings
 
 
 class MongoDatabaseConnector:
-
     _instance: MongoClient = None
 
     def __new__(cls, *args, **kwargs):
@@ -16,7 +15,9 @@ class MongoDatabaseConnector:
                 print(f"Couldn't connect to the database: {str(e)}")
                 raise
 
-        print(f"Connection to database with uri: {settings.MONGO_DATABASE_HOST} successful")
+        print(
+            f"Connection to database with uri: {settings.MONGO_DATABASE_HOST} successful"
+        )
         return cls._instance
 
     def get_database(self):

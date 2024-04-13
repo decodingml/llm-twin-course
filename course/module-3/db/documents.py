@@ -29,7 +29,9 @@ class BaseDocument(BaseModel):
         exclude_unset = kwargs.pop("exclude_unset", False)
         by_alias = kwargs.pop("by_alias", True)
 
-        parsed = self.model_dump(exclude_unset=exclude_unset, by_alias=by_alias, **kwargs)
+        parsed = self.model_dump(
+            exclude_unset=exclude_unset, by_alias=by_alias, **kwargs
+        )
 
         if "_id" not in parsed and "id" in parsed:
             parsed["_id"] = str(parsed.pop("id"))
@@ -38,7 +40,7 @@ class BaseDocument(BaseModel):
 
     def save(self, **kwargs):
         collection = _database[self._get_collection_name()]
-        
+
         try:
             result = collection.insert_one(self.to_mongo(**kwargs))
             return result.inserted_id
@@ -64,7 +66,9 @@ class BaseDocument(BaseModel):
     def bulk_insert(cls, documents: List, **kwargs) -> Optional[List[str]]:
         collection = _database[cls._get_collection_name()]
         try:
-            result = collection.insert_many([doc.to_mongo(**kwargs) for doc in documents])
+            result = collection.insert_many(
+                [doc.to_mongo(**kwargs) for doc in documents]
+            )
             return result.inserted_ids
         except errors.WriteError as e:
             print(f"Failed to insert document {e}")
@@ -81,7 +85,6 @@ class BaseDocument(BaseModel):
 
 
 class UserDocument(BaseDocument):
-
     first_name: str
     last_name: str
 
@@ -90,7 +93,6 @@ class UserDocument(BaseDocument):
 
 
 class RepositoryDocument(BaseDocument):
-
     name: str
     link: str
     content: dict
@@ -101,7 +103,6 @@ class RepositoryDocument(BaseDocument):
 
 
 class PostDocument(BaseDocument):
-
     platform: str
     content: dict
     author_id: str = Field(alias="author_id")
@@ -111,7 +112,6 @@ class PostDocument(BaseDocument):
 
 
 class ArticleDocument(BaseDocument):
-
     platform: str
     link: str
     content: dict
