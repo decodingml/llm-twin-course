@@ -75,7 +75,7 @@ class QdrantCleanedDataSink(StatelessSinkPartition):
     def write_batch(self, items: list[DBDataModel]) -> None:
         payloads = [item.save() for item in items]
         ids, data = zip(*payloads)
-        collection_name = dispatch_clean_collection(data_type=data[0]["type"])
+        collection_name = get_clean_collection(data_type=data[0]["type"])
         self._client.write_data(
             collection_name=collection_name,
             points=Batch(ids=ids, vectors={}, payloads=data),
@@ -89,14 +89,14 @@ class QdrantVectorDataSink(StatelessSinkPartition):
     def write_batch(self, items: list[DBDataModel]) -> None:
         payloads = [item.save() for item in items]
         ids, vectors, meta_data = zip(*payloads)
-        collection_name = dispatch_vector_collection(data_type=meta_data[0]["type"])
+        collection_name = get_vector_collection(data_type=meta_data[0]["type"])
         self._client.write_data(
             collection_name=collection_name,
             points=Batch(ids=ids, vectors=vectors, payloads=meta_data),
         )
 
 
-def dispatch_clean_collection(data_type: str) -> str:
+def get_clean_collection(data_type: str) -> str:
     if data_type == "posts":
         return "cleaned_posts"
     elif data_type == "articles":
@@ -107,7 +107,7 @@ def dispatch_clean_collection(data_type: str) -> str:
         raise ValueError(f"Unsupported data type: {data_type}")
 
 
-def dispatch_vector_collection(data_type: str) -> str:
+def get_vector_collection(data_type: str) -> str:
     if data_type == "posts":
         return "vector_posts"
     elif data_type == "articles":
