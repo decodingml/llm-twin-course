@@ -7,7 +7,9 @@ from settings import settings
 
 
 def chunk_text(text: str) -> list[str]:
-    character_splitter = RecursiveCharacterTextSplitter(separators=["\n\n"], chunk_size=500, chunk_overlap=0)
+    character_splitter = RecursiveCharacterTextSplitter(
+        separators=["\n\n"], chunk_size=500, chunk_overlap=0
+    )
     text_split = character_splitter.split_text(text)
 
     token_splitter = SentenceTransformersTokenTextSplitter(

@@ -19,7 +19,6 @@ class ChunkingDataHandler(ABC):
 
 
 class PostChunkingHandler(ChunkingDataHandler):
-
     def chunk(self, data_model: PostCleanedModel) -> list[PostChunkModel]:
         data_models_list = []
 
@@ -42,7 +41,6 @@ class PostChunkingHandler(ChunkingDataHandler):
 
 
 class ArticleChunkingHandler(ChunkingDataHandler):
-
     def chunk(self, data_model: ArticleCleanedModel) -> list[ArticleChunkModel]:
         data_models_list = []
 
@@ -65,7 +63,6 @@ class ArticleChunkingHandler(ChunkingDataHandler):
 
 
 class RepositoryChunkingHandler(ChunkingDataHandler):
-
     def chunk(self, data_model: RepositoryCleanedModel) -> list[RepositoryChunkModel]:
         data_models_list = []
 

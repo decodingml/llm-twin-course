@@ -18,7 +18,9 @@ class MongoDatabaseConnector:
                 print(f"Couldn't connect to the database: {str(e)}")
                 raise
 
-        print(f"Connection to database with uri: {settings.MONGO_DATABASE_HOST} successful")
+        print(
+            f"Connection to database with uri: {settings.MONGO_DATABASE_HOST} successful"
+        )
         return cls._instance
 
     def get_database(self):

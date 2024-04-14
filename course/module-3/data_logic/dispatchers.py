@@ -21,7 +21,6 @@ from models.raw import ArticleRawModel, PostsRawModel, RepositoryRawModel
 
 
 class RawDispatcher:
-
     @staticmethod
     def handle_mq_message(message: dict) -> DataModel:
         data_type = message.get("type")
@@ -36,7 +35,6 @@ class RawDispatcher:
 
 
 class CleaningHandlerFactory:
-
     @staticmethod
     def create_handler(data_type) -> CleaningDataHandler:
         if data_type == "posts":

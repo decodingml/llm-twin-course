@@ -15,22 +15,40 @@ def insert_post_into_collection():
 
     #Innovation #TechRevolution #InnovateX #TeamSuccess #ThankYou"""
     }
-    PostDocument(platform="linkedin", content=post, author_id="dbe92510-c33f-4ff7-9908-ee6356fe251f").save()
+    PostDocument(
+        platform="linkedin",
+        content=post,
+        author_id="dbe92510-c33f-4ff7-9908-ee6356fe251f",
+    ).save()
+
+    print("Post inserted into collection")
 
 
 def insert_article_into_collection():
     content = {"test": "Test data for a article content"}
     ArticleDocument(
-        platform="medium", link="/htttps/alex/paul", content=content, author_id="dbe92510-c33f-4ff7-9908-ee6356fe251f"
+        platform="medium",
+        link="/htttps/alex/paul",
+        content=content,
+        author_id="dbe92510-c33f-4ff7-9908-ee6356fe251f",
     ).save()
+
+    print("Article inserted into collection")
 
 
 def insert_repo_into_collection():
     content = {"test": "Test data for a repo content into db"}
     RepositoryDocument(
-        name="test_repo", link="/bla/bla/bla", content=content, owner_id="dbe92510-c33f-4ff7-9908-ee6356fe251f"
+        name="test_repo",
+        link="/bla/bla/bla",
+        content=content,
+        owner_id="dbe92510-c33f-4ff7-9908-ee6356fe251f",
     ).save()
+
+    print("Repository inserted into collection")
 
 
 if __name__ == "__main__":
     insert_post_into_collection()
+    insert_article_into_collection()
+    insert_repo_into_collection()

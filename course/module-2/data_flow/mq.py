@@ -9,7 +9,12 @@ class RabbitMQConnection:
     _instance = None
 
     def __new__(
-        cls, host: str = None, port: int = None, username: str = None, password: str = None, virtual_host: str = "/"
+        cls,
+        host: str = None,
+        port: int = None,
+        username: str = None,
+        password: str = None,
+        virtual_host: str = "/",
     ):
         if not cls._instance:
             cls._instance = super().__new__(cls)
@@ -45,7 +50,10 @@ class RabbitMQConnection:
             credentials = pika.PlainCredentials(self.username, self.password)
             self._connection = pika.BlockingConnection(
                 pika.ConnectionParameters(
-                    host=self.host, port=self.port, virtual_host=self.virtual_host, credentials=credentials
+                    host=self.host,
+                    port=self.port,
+                    virtual_host=self.virtual_host,
+                    credentials=credentials,
                 )
             )
         except pika.exceptions.AMQPConnectionError as e:

@@ -22,7 +22,6 @@ class EmbeddingDataHandler(ABC):
 
 
 class PostEmbeddingHandler(EmbeddingDataHandler):
-
     def embedd(self, data_model: PostChunkModel) -> PostEmbeddedChunkModel:
         return PostEmbeddedChunkModel(
             entry_id=data_model.entry_id,
@@ -35,7 +34,6 @@ class PostEmbeddingHandler(EmbeddingDataHandler):
 
 
 class ArticleEmbeddingHandler(EmbeddingDataHandler):
-
     def embedd(self, data_model: ArticleChunkModel) -> ArticleEmbeddedChunkModel:
         return ArticleEmbeddedChunkModel(
             entry_id=data_model.entry_id,
@@ -49,7 +47,6 @@ class ArticleEmbeddingHandler(EmbeddingDataHandler):
 
 
 class RepositoryEmbeddingHandler(EmbeddingDataHandler):
-
     def embedd(self, data_model: RepositoryChunkModel) -> RepositoryEmbeddedChunkModel:
         return RepositoryEmbeddedChunkModel(
             entry_id=data_model.entry_id,
