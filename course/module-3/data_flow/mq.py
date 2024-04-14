@@ -7,7 +7,12 @@ class RabbitMQConnection:
     _instance = None
 
     def __new__(
-        cls, host: str = None, port: int = None, username: str = None, password: str = None, virtual_host: str = "/"
+        cls,
+        host: str = None,
+        port: int = None,
+        username: str = None,
+        password: str = None,
+        virtual_host: str = "/",
     ):
         if not cls._instance:
             cls._instance = super().__new__(cls)
@@ -21,7 +26,7 @@ class RabbitMQConnection:
         password: str = None,
         virtual_host: str = "/",
         fail_silently: bool = False,
-        **kwargs
+        **kwargs,
     ):
         self.host = host or settings.RABBITMQ_HOST
         self.port = port or settings.RABBITMQ_PORT
@@ -43,7 +48,10 @@ class RabbitMQConnection:
             credentials = pika.PlainCredentials(self.username, self.password)
             self._connection = pika.BlockingConnection(
                 pika.ConnectionParameters(
-                    host=self.host, port=self.port, virtual_host=self.virtual_host, credentials=credentials
+                    host=self.host,
+                    port=self.port,
+                    virtual_host=self.virtual_host,
+                    credentials=credentials,
                 )
             )
         except pika.exceptions.AMQPConnectionError as e:
@@ -53,11 +61,15 @@ class RabbitMQConnection:
 
     def publish_message(self, data, queue):
         channel = self.get_channel()
-        channel.queue_declare(queue=queue, durable=True, exclusive=False, auto_delete=False)
+        channel.queue_declare(
+            queue=queue, durable=True, exclusive=False, auto_delete=False
+        )
         channel.confirm_delivery()
 
         try:
-            channel.basic_publish(exchange="", routing_key="mongo_data", body=data, mandatory=True)
+            channel.basic_publish(
+                exchange="", routing_key="mongo_data", body=data, mandatory=True
+            )
             print("sent changes to RabbitMQ:", data)
         except pika.exceptions.UnroutableError:
             print("Message could not be confirmed")
