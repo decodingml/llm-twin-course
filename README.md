@@ -110,7 +110,7 @@ For the other serverless tools ([Qdrant](https://qdrant.tech/?utm_source=decodin
 
 1. [An End-to-End Framework for Production-Ready LLM Systems by Building Your LLM Twin](https://medium.com/decodingml/an-end-to-end-framework-for-production-ready-llm-systems-by-building-your-llm-twin-2cc6bb01141f)
 2. [The Importance of Data Pipelines in the Era of Generative AI](https://medium.com/decodingml/the-importance-of-data-pipelines-in-the-era-of-generative-ai-673e1505a861)
-3. CDC [Module 1] …WIP
+3. [Change Data Capture: Enabling Event-Driven Architectures](https://medium.com/decodingml/the-3nd-out-of-11-lessons-of-the-llm-twin-free-course-ba82752dad5a)
 4. Streaming ingestion pipeline [Module 2] …WIP
 5. Vector DB retrieval clients [Module 2] …WIP
 6. Training data preparation [Module 3] …WIP
