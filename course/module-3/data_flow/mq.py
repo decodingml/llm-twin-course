@@ -4,8 +4,6 @@ from settings import settings
 
 
 class RabbitMQConnection:
-    """Singleton class to manage RabbitMQ connection."""
-
     _instance = None
 
     def __new__(
@@ -61,6 +59,21 @@ class RabbitMQConnection:
             if not self.fail_silently:
                 raise e
 
+    def publish_message(self, data, queue):
+        channel = self.get_channel()
+        channel.queue_declare(
+            queue=queue, durable=True, exclusive=False, auto_delete=False
+        )
+        channel.confirm_delivery()
+
+        try:
+            channel.basic_publish(
+                exchange="", routing_key="mongo_data", body=data, mandatory=True
+            )
+            print("sent changes to RabbitMQ:", data)
+        except pika.exceptions.UnroutableError:
+            print("Message could not be confirmed")
+
     def is_connected(self) -> bool:
         return self._connection is not None and self._connection.is_open
 
@@ -73,39 +86,3 @@ class RabbitMQConnection:
             self._connection.close()
             self._connection = None
             print("Closed RabbitMQ connection")
-
-
-def publish_to_rabbitmq(queue_name: str, data: str):
-    """Publish data to a RabbitMQ queue."""
-    try:
-        # Create an instance of RabbitMQConnection
-        rabbitmq_conn = RabbitMQConnection()
-
-        # Establish connection
-        with rabbitmq_conn:
-            channel = rabbitmq_conn.get_channel()
-
-            # Ensure the queue exists
-            channel.queue_declare(queue=queue_name, durable=True)
-
-            # Delivery confirmation
-            channel.confirm_delivery()
-
-            # Send data to the queue
-            channel.basic_publish(
-                exchange="",
-                routing_key=queue_name,
-                body=data,
-                properties=pika.BasicProperties(
-                    delivery_mode=2,  # make message persistent
-                ),
-            )
-            print("Sent data to RabbitMQ:", data)
-    except pika.exceptions.UnroutableError:
-        print("Message could not be routed")
-    except Exception as e:
-        print(f"Error publishing to RabbitMQ: {e}")
-
-
-if __name__ == "__main__":
-    publish_to_rabbitmq("test_queue", "Hello, World!")

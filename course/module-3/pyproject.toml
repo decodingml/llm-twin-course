@@ -1,0 +1,24 @@
+[tool.poetry]
+description = ""
+authors = ["vlad_adu <vladadumitracesei02@gmail.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = ">=3.10, <3.12"
+pydantic = "^2.6.3"
+pydantic-settings = "^2.1.0"
+bytewax = "^0.18.2"
+pika = "^1.3.2"
+pymongo = "^4.6.2"
+qdrant-client = "^1.8.0"
+unstructured = "^0.12.6"
+langchain = "^0.1.13"
+sentence-transformers = "^2.6.1"
+instructorembedding = "^1.0.1"
+numpy = "^1.26.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
