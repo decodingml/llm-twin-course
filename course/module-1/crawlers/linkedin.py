@@ -35,6 +35,12 @@ class LinkedInCrawler(BaseAbstractCrawler):
             "Education": self._scrape_education(link),
         }
 
+        self.driver.get(link)
+        time.sleep(5)
+        button = self.driver.find_element(By.CSS_SELECTOR,
+                                          ".app-aware-link.profile-creator-shared-content-view__footer-action")
+        button.click()
+
         # Scrolling and scraping posts
         self.scroll_page()
         soup = BeautifulSoup(self.driver.page_source, "html.parser")
