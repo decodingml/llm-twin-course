@@ -81,7 +81,7 @@ class VectorRetriever:
         generated_queries = self._query_expander.generate_response(self.query)
         metadata_filter_value = self._metadata_extractor.generate_response(self.query)
 
-        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+        with concurrent.futures.ThreadPoolExecutor() as executor:
             search_tasks = [
                 executor.submit(
                     self._search_single_query, query, metadata_filter_value, k
