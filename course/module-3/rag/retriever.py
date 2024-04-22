@@ -1,5 +1,6 @@
 import concurrent.futures
 
+import utils
 from qdrant_client import QdrantClient, models
 from rag.query_expanison import QueryExpansion
 from rag.reranking import Reranker
@@ -74,13 +75,13 @@ class VectorRetriever:
             ),
         ]
 
-        return vectors
+        return utils.flatten(vectors)
 
     def retrieve_top_k(self, k: int) -> list:
         generated_queries = self._query_expander.generate_response(self.query)
         metadata_filter_value = self._metadata_extractor.generate_response(self.query)
 
-        with concurrent.futures.ThreadPoolExecutor() as executor:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
             search_tasks = [
                 executor.submit(
                     self._search_single_query, query, metadata_filter_value, k
@@ -91,12 +92,12 @@ class VectorRetriever:
             hits = [
                 task.result() for task in concurrent.futures.as_completed(search_tasks)
             ]
+            hits = utils.flatten(hits)
 
             return hits
 
     def rerank(self, hits: list) -> list[str]:
-        inner_list = hits[0][0]
-        content_list = [hit.payload["content"] for hit in inner_list]
+        content_list = [hit.payload["content"] for hit in hits]
         passages = "\n".join(content_list)
         rerank_hits = self._reranker.generate_response(
             query=self.query, passages=passages
