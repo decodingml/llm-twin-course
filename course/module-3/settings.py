@@ -16,7 +16,7 @@ class AppSettings(BaseSettings):
     OPENAI_API_KEY: str = "None"
 
     # MongoDB configs
-    MONGO_DATABASE_HOST: str = "mongodb://localhost:30001,localhost:30002,localhost:30003/?replicaSet=my-replica-set"
+    MONGO_DATABASE_HOST: str = "mongodb://localhost:30001,localhost:30002,localhost:30003/?replicaSet=my-replica-set"  # mongodb://127.0.0.1:27017/?replicaSet=rs0
     MONGO_DATABASE_NAME: str = "scrabble"
 
     # QdrantDB config
