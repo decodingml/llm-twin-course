@@ -12,6 +12,7 @@ if __name__ == "__main__":
         Looking forward to sharing valuable insights with my professional network! 
         """
     retriever = VectorRetriever(query=query)
-    hits = retriever.retrieve_top_k(3)
+    hits = retriever.retrieve_top_k(5)
+    print(hits)
     result = retriever.rerank(hits=hits)
     print(result)
