@@ -9,6 +9,7 @@ class PostEmbeddedChunkModel(DBDataModel):
     entry_id: str
     platform: str
     chunk_id: str
+    chunk_content: str
     embedded_content: np.ndarray
     author_id: str
     type: str
@@ -20,6 +21,7 @@ class PostEmbeddedChunkModel(DBDataModel):
         data = {
             "id": self.entry_id,
             "platform": self.platform,
+            "content": self.chunk_content,
             "owner_id": self.author_id,
             "type": self.type,
         }
@@ -32,6 +34,7 @@ class ArticleEmbeddedChunkModel(DBDataModel):
     platform: str
     link: str
     chunk_id: str
+    chunk_content: str
     embedded_content: np.ndarray
     author_id: str
     type: str
@@ -43,6 +46,7 @@ class ArticleEmbeddedChunkModel(DBDataModel):
         data = {
             "id": self.entry_id,
             "platform": self.platform,
+            "content": self.chunk_content,
             "link": self.link,
             "author_id": self.author_id,
             "type": self.type,
@@ -56,6 +60,7 @@ class RepositoryEmbeddedChunkModel(DBDataModel):
     name: str
     link: str
     chunk_id: str
+    chunk_content: str
     embedded_content: np.ndarray
     owner_id: str
     type: str
@@ -67,6 +72,7 @@ class RepositoryEmbeddedChunkModel(DBDataModel):
         data = {
             "id": self.entry_id,
             "name": self.name,
+            "content": self.chunk_content,
             "link": self.link,
             "owner_id": self.owner_id,
             "type": self.type,

@@ -14,4 +14,7 @@ local-insert-data-mongo: #Insert data to mongodb
 	poetry run python insert_data_mongo.py
 
 local-bytewax: # Run bytewax pipeline
-	poetry run python -m bytewax.run data_flow/bytewax_pipeline     
+	poetry run python -m bytewax.run data_flow/bytewax_pipeline 
+
+local-test-retriever: # Test retriever
+	poetry run python retriever.py
