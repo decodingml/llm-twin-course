@@ -38,7 +38,8 @@ class LinkedInCrawler(BaseAbstractCrawler):
         self.driver.get(link)
         time.sleep(5)
         button = self.driver.find_element(
-            By.CSS_SELECTOR, ".app-aware-link.profile-creator-shared-content-view__footer-action"
+            By.CSS_SELECTOR,
+            ".app-aware-link.profile-creator-shared-content-view__footer-action"
         )
         button.click()
 
