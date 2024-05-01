@@ -1,13 +1,15 @@
 import uuid
 from typing import List, Optional
 
+import logger_utils
+from db.errors import ImproperlyConfigured
+from db.mongo import connection
 from pydantic import UUID4, BaseModel, ConfigDict, Field
 from pymongo import errors
 
-from db.errors import ImproperlyConfigured
-from db.mongo import connection
-
 _database = connection.get_database("scrabble")
+
+logger = logger_utils.get_logger(__name__)
 
 
 class BaseDocument(BaseModel):
@@ -44,8 +46,9 @@ class BaseDocument(BaseModel):
         try:
             result = collection.insert_one(self.to_mongo(**kwargs))
             return result.inserted_id
-        except errors.WriteError as e:
-            print(f"Failed to insert document {e}")
+        except errors.WriteError:
+            logger.exception("Failed to insert document.")
+
             return None
 
     @classmethod
@@ -58,8 +61,9 @@ class BaseDocument(BaseModel):
             new_instance = cls(**filter_options)
             new_instance = new_instance.save()
             return new_instance
-        except errors.OperationFailure as e:
-            print(f"Failed to retrieve document: {e}")
+        except errors.OperationFailure:
+            logger.exception("Failed to retrieve or create document.")
+
             return None
 
     @classmethod
@@ -70,8 +74,9 @@ class BaseDocument(BaseModel):
                 [doc.to_mongo(**kwargs) for doc in documents]
             )
             return result.inserted_ids
-        except errors.WriteError as e:
-            print(f"Failed to insert document {e}")
+        except errors.WriteError:
+            logger.exception("Failed to insert documents.")
+
             return None
 
     @classmethod

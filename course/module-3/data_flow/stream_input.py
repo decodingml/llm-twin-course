@@ -6,28 +6,24 @@ from bytewax.inputs import FixedPartitionedSource, StatefulSourcePartition
 
 from data_flow.mq import RabbitMQConnection
 
-DATA = TypeVar(
-    "DATA"
-)  # The type of the items being produced in this case the data from the queue.
-MESSAGE_ID = TypeVar(
-    "MESSAGE_ID"
-)  # The type of the state being saved and resumed in this case last message id from Rabbitmq.
+DataT = TypeVar("DataT")
+MessageT = TypeVar("MessageT")
 
 
-class RabbitMQPartition(StatefulSourcePartition, Generic[DATA, MESSAGE_ID]):
+class RabbitMQPartition(StatefulSourcePartition, Generic[DataT, MessageT]):
     """
     Class responsible for creating a connection between bytewax and rabbitmq that facilitates the transfer of data from mq to bytewax streaming piepline.
     Inherits StatefulSourcePartition for snapshot functionality that enables saving the state of the queue
     """
 
-    def __init__(self, queue_name, resume_state=None):
+    def __init__(self, queue_name: str, resume_state: MessageT | None = None) -> None:
         self._in_flight_msg_ids = resume_state or set()
         self.queue_name = queue_name
         self.connection = RabbitMQConnection()
         self.connection.connect()
         self.channel = self.connection.get_channel()
 
-    def next_batch(self, sched: Optional[datetime]) -> Iterable[DATA]:
+    def next_batch(self, sched: Optional[datetime]) -> Iterable[DataT]:
         method_frame, header_frame, body = self.channel.basic_get(
             queue=self.queue_name, auto_ack=False
         )
@@ -39,7 +35,7 @@ class RabbitMQPartition(StatefulSourcePartition, Generic[DATA, MESSAGE_ID]):
         else:
             return []
 
-    def snapshot(self) -> MESSAGE_ID:
+    def snapshot(self) -> MessageT:
         return self._in_flight_msg_ids
 
     def garbage_collect(self, state):
@@ -57,6 +53,6 @@ class RabbitMQSource(FixedPartitionedSource):
         return ["single partition"]
 
     def build_part(
-        self, now: datetime, for_part: str, resume_state: Optional[MESSAGE_ID]
-    ) -> StatefulSourcePartition[DATA, MESSAGE_ID]:
+        self, now: datetime, for_part: str, resume_state: MessageT | None = None
+    ) -> StatefulSourcePartition[DataT, MessageT]:
         return RabbitMQPartition(queue_name="mongo_data")
