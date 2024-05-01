@@ -12,7 +12,7 @@ class DataModel(ABC, BaseModel):
     type: str
 
 
-class DBDataModel(DataModel):
+class VectorDBDataModel(DataModel):
     """
     Abstract class for all data models that need to be saved into a vector DB (e.g. Qdrant)
     """
@@ -21,5 +21,5 @@ class DBDataModel(DataModel):
     type: str
 
     @abstractmethod
-    def save(self) -> tuple:
+    def to_payload(self) -> tuple:
         pass

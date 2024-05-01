@@ -1,7 +1,4 @@
 import logger_utils
-from models.base import DataModel
-from models.raw import ArticleRawModel, PostsRawModel, RepositoryRawModel
-
 from data_logic.chunking_data_handlers import (
     ArticleChunkingHandler,
     ChunkingDataHandler,
@@ -20,6 +17,8 @@ from data_logic.embedding_data_handlers import (
     PostEmbeddingHandler,
     RepositoryEmbeddingHandler,
 )
+from models.base import DataModel
+from models.raw import ArticleRawModel, PostsRawModel, RepositoryRawModel
 
 logger = logger_utils.get_logger(__name__)
 
@@ -63,7 +62,11 @@ class CleaningDispatcher:
         handler = cls.cleaning_factory.create_handler(data_type)
         clean_model = handler.clean(data_model)
 
-        logger.info("Data cleaned successfully.", data_type=data_type)
+        logger.info(
+            "Data cleaned successfully.",
+            data_type=data_type,
+            cleaned_content_len=len(clean_model.cleaned_content),
+        )
 
         return clean_model
 
@@ -91,7 +94,9 @@ class ChunkingDispatcher:
         chunk_models = handler.chunk(data_model)
 
         logger.info(
-            "Created chunks successfully.", num=len(chunk_models), data_type=data_type
+            "Cleaned content chunked successfully.",
+            num=len(chunk_models),
+            data_type=data_type,
         )
 
         return chunk_models
@@ -119,6 +124,10 @@ class EmbeddingDispatcher:
         handler = cls.cleaning_factory.create_handler(data_type)
         embedded_chunk_model = handler.embedd(data_model)
 
-        logger.info("Chunk embedded successfully.", data_type=data_type)
+        logger.info(
+            "Chunk embedded successfully.",
+            data_type=data_type,
+            embedding_len=len(embedded_chunk_model.embedded_content),
+        )
 
         return embedded_chunk_model

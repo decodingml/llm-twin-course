@@ -21,7 +21,7 @@ class RabbitMQConnection:
     ):
         if not cls._instance:
             cls._instance = super().__new__(cls)
-            
+
         return cls._instance
 
     def __init__(
@@ -62,7 +62,7 @@ class RabbitMQConnection:
             )
         except pika.exceptions.AMQPConnectionError as e:
             logger.exception("Failed to connect to RabbitMQ.")
-            
+
             if not self.fail_silently:
                 raise e
 
@@ -77,9 +77,13 @@ class RabbitMQConnection:
             channel.basic_publish(
                 exchange="", routing_key=queue, body=data, mandatory=True
             )
-            logger.info("Sent message successfully.", queue_type="RabbitMQ", queue_name=queue)
+            logger.info(
+                "Sent message successfully.", queue_type="RabbitMQ", queue_name=queue
+            )
         except pika.exceptions.UnroutableError:
-            logger.info("Failed to send the message.", queue_type="RabbitMQ", queue_name=queue)
+            logger.info(
+                "Failed to send the message.", queue_type="RabbitMQ", queue_name=queue
+            )
 
     def is_connected(self) -> bool:
         return self._connection is not None and self._connection.is_open
@@ -92,5 +96,5 @@ class RabbitMQConnection:
         if self.is_connected():
             self._connection.close()
             self._connection = None
-            
+
             logger.info("Closed RabbitMQ connection.")

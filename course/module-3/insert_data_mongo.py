@@ -65,8 +65,10 @@ def insert_posts(file_name: str, author_id: str) -> None:
     with open(file_name, "r") as file:
         posts: dict[str, dict] = json.load(file)
 
-    for post in posts.values():
-        PostDocument(platform="linkedin", content=post, author_id=author_id).save()
+    for post_content in posts.values():
+        PostDocument(
+            platform="linkedin", content=post_content, author_id=author_id
+        ).save()
 
     logger.info("Posts inserted into collection", num=len(posts), author_id=author_id)
 
@@ -75,11 +77,11 @@ def insert_articles(file_name: str, author_id: str) -> None:
     with open(file_name, "r") as file:
         articles: list[dict] = json.load(file)
 
-    for article in articles:
+    for article_content in articles:
         ArticleDocument(
             platform="medium",
             link="/htttps/alex/paul",
-            content=article,
+            content=article_content,
             author_id=author_id,
         ).save()
 

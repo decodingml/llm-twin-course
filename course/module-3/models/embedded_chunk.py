@@ -2,10 +2,10 @@ from typing import Tuple
 
 import numpy as np
 
-from models.base import DBDataModel
+from models.base import VectorDBDataModel
 
 
-class PostEmbeddedChunkModel(DBDataModel):
+class PostEmbeddedChunkModel(VectorDBDataModel):
     entry_id: str
     platform: str
     chunk_id: str
@@ -17,7 +17,7 @@ class PostEmbeddedChunkModel(DBDataModel):
     class Config:
         arbitrary_types_allowed = True
 
-    def save(self) -> Tuple[str, np.ndarray, dict]:
+    def to_payload(self) -> Tuple[str, np.ndarray, dict]:
         data = {
             "id": self.entry_id,
             "platform": self.platform,
@@ -29,7 +29,7 @@ class PostEmbeddedChunkModel(DBDataModel):
         return self.chunk_id, self.embedded_content, data
 
 
-class ArticleEmbeddedChunkModel(DBDataModel):
+class ArticleEmbeddedChunkModel(VectorDBDataModel):
     entry_id: str
     platform: str
     link: str
@@ -42,7 +42,7 @@ class ArticleEmbeddedChunkModel(DBDataModel):
     class Config:
         arbitrary_types_allowed = True
 
-    def save(self) -> Tuple[str, np.ndarray, dict]:
+    def to_payload(self) -> Tuple[str, np.ndarray, dict]:
         data = {
             "id": self.entry_id,
             "platform": self.platform,
@@ -55,7 +55,7 @@ class ArticleEmbeddedChunkModel(DBDataModel):
         return self.chunk_id, self.embedded_content, data
 
 
-class RepositoryEmbeddedChunkModel(DBDataModel):
+class RepositoryEmbeddedChunkModel(VectorDBDataModel):
     entry_id: str
     name: str
     link: str
@@ -68,7 +68,7 @@ class RepositoryEmbeddedChunkModel(DBDataModel):
     class Config:
         arbitrary_types_allowed = True
 
-    def save(self) -> Tuple[str, np.ndarray, dict]:
+    def to_payload(self) -> Tuple[str, np.ndarray, dict]:
         data = {
             "id": self.entry_id,
             "name": self.name,
