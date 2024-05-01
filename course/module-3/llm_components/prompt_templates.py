@@ -11,54 +11,58 @@ class BasePromptTemplate(ABC, BaseModel):
 
 
 class QueryExpansionTemplate(BasePromptTemplate):
-    prompt: str = """You are an AI language model assistant. Your task is to generate Five
+    prompt: str = """You are an AI language model assistant. Your task is to generate {to_expand_to_n}
     different versions of the given user question to retrieve relevant documents from a vector
     database. By generating multiple perspectives on the user question, your goal is to help
     the user overcome some of the limitations of the distance-based similarity search.
-    Provide these alternative questions seperated by newlines.
+    Provide these alternative questions seperated by '{separator}'.
     Original question: {question}"""
 
-    question: str
+    @property
+    def separator(self) -> str:
+        return "#next-question#"
 
-    def create_template(self) -> PromptTemplate:
-        template = PromptTemplate(
-            template=self.prompt, input_variables=["question"], verbose=True
+    def create_template(self, to_expand_to_n: int) -> PromptTemplate:
+        return PromptTemplate(
+            template=self.prompt,
+            input_variables=["question"],
+            partial_variables={
+                "separator": self.separator,
+                "to_expand_to_n": to_expand_to_n,
+            },
         )
-        template.format(question=self.question)
-        return template
 
 
 class SelfQueryTemplate(BasePromptTemplate):
     prompt: str = """You are an AI language model assistant. Your task is to extract information from a user question.
-    The required information that needs to be extracted is the user id. 
+    The required information that needs to be extracted is the user or author id. 
     Your response should consists of only the extracted id (e.g. 1345256), nothing else.
     User question: {question}"""
 
-    question: str
-
     def create_template(self) -> PromptTemplate:
-        template = PromptTemplate(
-            template=self.prompt, input_variables=["question"], verbose=True
-        )
-        template.format(question=self.question)
-        return template
+        return PromptTemplate(template=self.prompt, input_variables=["question"])
 
 
 class RerankingTemplate(BasePromptTemplate):
     prompt: str = """You are an AI language model assistant. Your task is to rerank passages related to a query
-    based on their relevance. The most relevant passages should be put at the beginning and at the end. 
-    You should only pick at max 5 passages.
+    based on their relevance. 
+    The most relevant passages should be put at the beginning. 
+    You should only pick at max {keep_top_k} passages.
+    The provided and reranked documents are separated by '{separator}'.
+    
     The following are passages related to this query: {question}.
-    Passages: {passages}
+    
+    Passages: 
+    {passages}
     """
 
-    question: str
-
-    passages: str
-
-    def create_template(self) -> PromptTemplate:
-        template = PromptTemplate(
-            template=self.prompt, input_variables=["question", "passages"], verbose=True
+    def create_template(self, keep_top_k: int) -> PromptTemplate:
+        return PromptTemplate(
+            template=self.prompt,
+            input_variables=["question", "passages"],
+            partial_variables={"keep_top_k": keep_top_k, "separator": self.separator},
         )
-        template.format(question=self.question, passages=self.passages)
-        return template
+
+    @property
+    def separator(self) -> str:
+        return "\n#next-document#\n"
