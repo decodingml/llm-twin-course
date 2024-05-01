@@ -1,3 +1,7 @@
+import logger_utils
+from models.base import DataModel
+from models.raw import ArticleRawModel, PostsRawModel, RepositoryRawModel
+
 from data_logic.chunking_data_handlers import (
     ArticleChunkingHandler,
     ChunkingDataHandler,
@@ -16,14 +20,17 @@ from data_logic.embedding_data_handlers import (
     PostEmbeddingHandler,
     RepositoryEmbeddingHandler,
 )
-from models.base import DataModel
-from models.raw import ArticleRawModel, PostsRawModel, RepositoryRawModel
+
+logger = logger_utils.get_logger(__name__)
 
 
 class RawDispatcher:
     @staticmethod
     def handle_mq_message(message: dict) -> DataModel:
         data_type = message.get("type")
+
+        logger.info("Received message.", data_type=data_type)
+
         if data_type == "posts":
             return PostsRawModel(**message)
         elif data_type == "articles":
@@ -55,6 +62,9 @@ class CleaningDispatcher:
         data_type = data_model.type
         handler = cls.cleaning_factory.create_handler(data_type)
         clean_model = handler.clean(data_model)
+
+        logger.info("Data cleaned successfully.", data_type=data_type)
+
         return clean_model
 
 
@@ -79,6 +89,11 @@ class ChunkingDispatcher:
         data_type = data_model.type
         handler = cls.cleaning_factory.create_handler(data_type)
         chunk_models = handler.chunk(data_model)
+
+        logger.info(
+            "Created chunks successfully.", num=len(chunk_models), data_type=data_type
+        )
+
         return chunk_models
 
 
@@ -103,4 +118,7 @@ class EmbeddingDispatcher:
         data_type = data_model.type
         handler = cls.cleaning_factory.create_handler(data_type)
         embedded_chunk_model = handler.embedd(data_model)
+
+        logger.info("Chunk embedded successfully.", data_type=data_type)
+
         return embedded_chunk_model
