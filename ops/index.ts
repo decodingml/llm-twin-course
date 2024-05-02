@@ -2,6 +2,7 @@ import * as pulumi from "@pulumi/pulumi";
 import {Vpc} from "./components/vpc";
 import {DocumentDBCluster} from "./components/docdb";
 import {Crawler} from "./components/crawler";
+import {MessageQueueBroker} from "./components/mq";
 
 const vpc= new Vpc("network-overlay", {})
 
@@ -9,6 +10,11 @@ const docdb = new DocumentDBCluster("warehouse", {
     vpcId: vpc.id,
     instanceClass: "db.t3.medium",
 }, {dependsOn: vpc})
+
+
+const mq = new MessageQueueBroker("mq", {
+    vpcId: vpc.id,
+})
 
 const lambda = new Crawler("crawler", {
     vpcId: vpc.id,
