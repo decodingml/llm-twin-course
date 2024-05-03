@@ -1,5 +1,3 @@
-from typing import Optional
-
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -13,10 +11,10 @@ class AppSettings(BaseSettings):
     EMBEDDING_MODEL_DEVICE: str = "cpu"
 
     OPENAI_MODEL_ID: str = "gpt-4-1106-preview"
-    OPENAI_API_KEY: str = "None"
+    OPENAI_API_KEY: str | None = None
 
     # MongoDB configs
-    MONGO_DATABASE_HOST: str = "mongodb://localhost:30001,localhost:30002,localhost:30003/?replicaSet=my-replica-set"  # mongodb://127.0.0.1:27017/?replicaSet=rs0
+    MONGO_DATABASE_HOST: str = "mongodb://localhost:30001,localhost:30002,localhost:30003/?replicaSet=my-replica-set"
     MONGO_DATABASE_NAME: str = "scrabble"
 
     # QdrantDB config
@@ -24,8 +22,7 @@ class AppSettings(BaseSettings):
     QDRANT_DATABASE_PORT: int = 6333
     QDRANT_DATABASE_URL: str = "http://localhost:6333"
 
-    CLEANED_DATA_OUTPUT_COLLECTION_NAME: str = "cleaned_posts"
-    QDRANT_APIKEY: Optional[str] = None
+    QDRANT_APIKEY: str | None = None
 
     # MQ config
     RABBITMQ_DEFAULT_USERNAME: str = "guest"
