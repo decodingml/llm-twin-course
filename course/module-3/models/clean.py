@@ -1,9 +1,9 @@
 from typing import Optional, Tuple
 
-from models.base import DBDataModel
+from models.base import VectorDBDataModel
 
 
-class PostCleanedModel(DBDataModel):
+class PostCleanedModel(VectorDBDataModel):
     entry_id: str
     platform: str
     cleaned_content: str
@@ -11,7 +11,7 @@ class PostCleanedModel(DBDataModel):
     image: Optional[str] = None
     type: str
 
-    def save(self) -> Tuple[str, dict]:
+    def to_payload(self) -> Tuple[str, dict]:
         data = {
             "platform": self.platform,
             "author_id": self.author_id,
@@ -23,7 +23,7 @@ class PostCleanedModel(DBDataModel):
         return self.entry_id, data
 
 
-class ArticleCleanedModel(DBDataModel):
+class ArticleCleanedModel(VectorDBDataModel):
     entry_id: str
     platform: str
     link: str
@@ -31,7 +31,7 @@ class ArticleCleanedModel(DBDataModel):
     author_id: str
     type: str
 
-    def save(self) -> Tuple[str, dict]:
+    def to_payload(self) -> Tuple[str, dict]:
         data = {
             "platform": self.platform,
             "link": self.link,
@@ -43,7 +43,7 @@ class ArticleCleanedModel(DBDataModel):
         return self.entry_id, data
 
 
-class RepositoryCleanedModel(DBDataModel):
+class RepositoryCleanedModel(VectorDBDataModel):
     entry_id: str
     name: str
     link: str
@@ -51,7 +51,7 @@ class RepositoryCleanedModel(DBDataModel):
     owner_id: str
     type: str
 
-    def save(self) -> Tuple[str, dict]:
+    def to_payload(self) -> Tuple[str, dict]:
         data = {
             "name": self.name,
             "link": self.link,

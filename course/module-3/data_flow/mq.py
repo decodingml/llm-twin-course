@@ -1,6 +1,11 @@
 import pika
 
+import logger_utils
+
 from settings import settings
+
+
+logger = logger_utils.get_logger(__name__)
 
 
 class RabbitMQConnection:
@@ -8,22 +13,23 @@ class RabbitMQConnection:
 
     def __new__(
         cls,
-        host: str = None,
-        port: int = None,
-        username: str = None,
-        password: str = None,
+        host: str | None = None,
+        port: int | None = None,
+        username: str | None = None,
+        password: str | None = None,
         virtual_host: str = "/",
     ):
         if not cls._instance:
             cls._instance = super().__new__(cls)
+
         return cls._instance
 
     def __init__(
         self,
-        host: str = None,
-        port: int = None,
-        username: str = None,
-        password: str = None,
+        host: str | None = None,
+        port: int | None = None,
+        username: str | None = None,
+        password: str | None = None,
         virtual_host: str = "/",
         fail_silently: bool = False,
         **kwargs,
@@ -55,11 +61,12 @@ class RabbitMQConnection:
                 )
             )
         except pika.exceptions.AMQPConnectionError as e:
-            print("Failed to connect to RabbitMQ:", e)
+            logger.exception("Failed to connect to RabbitMQ.")
+
             if not self.fail_silently:
                 raise e
 
-    def publish_message(self, data, queue):
+    def publish_message(self, data: str, queue: str):
         channel = self.get_channel()
         channel.queue_declare(
             queue=queue, durable=True, exclusive=False, auto_delete=False
@@ -68,11 +75,15 @@ class RabbitMQConnection:
 
         try:
             channel.basic_publish(
-                exchange="", routing_key="mongo_data", body=data, mandatory=True
+                exchange="", routing_key=queue, body=data, mandatory=True
             )
-            print("sent changes to RabbitMQ:", data)
+            logger.info(
+                "Sent message successfully.", queue_type="RabbitMQ", queue_name=queue
+            )
         except pika.exceptions.UnroutableError:
-            print("Message could not be confirmed")
+            logger.info(
+                "Failed to send the message.", queue_type="RabbitMQ", queue_name=queue
+            )
 
     def is_connected(self) -> bool:
         return self._connection is not None and self._connection.is_open
@@ -85,4 +96,5 @@ class RabbitMQConnection:
         if self.is_connected():
             self._connection.close()
             self._connection = None
-            print("Closed RabbitMQ connection")
+
+            logger.info("Closed RabbitMQ connection.")

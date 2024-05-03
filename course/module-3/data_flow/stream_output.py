@@ -1,8 +1,11 @@
+import logger_utils
 from bytewax.outputs import DynamicSink, StatelessSinkPartition
 from db.qdrant import QdrantDatabaseConnector
-from models.base import DBDataModel
+from models.base import VectorDBDataModel
 from qdrant_client.http.api_client import UnexpectedResponse
 from qdrant_client.models import Batch
+
+logger = logger_utils.get_logger(__name__)
 
 
 class QdrantOutput(DynamicSink):
@@ -17,44 +20,68 @@ class QdrantOutput(DynamicSink):
 
         try:
             self._connection.get_collection(collection_name="cleaned_posts")
-        except UnexpectedResponse as e:
-            print(f"Error when accessing the collection: {e}")
+        except UnexpectedResponse:
+            logger.exception(
+                "Couldn't access the collection. Creating a new one...",
+                collection_name="cleaned_posts",
+            )
+
             self._connection.create_non_vector_collection(
                 collection_name="cleaned_posts"
             )
 
         try:
             self._connection.get_collection(collection_name="cleaned_articles")
-        except UnexpectedResponse as e:
-            print(f"Error when accessing the collection: {e}")
+        except UnexpectedResponse:
+            logger.exception(
+                "Couldn't access the collection. Creating a new one...",
+                collection_name="cleaned_articles",
+            )
+
             self._connection.create_non_vector_collection(
                 collection_name="cleaned_articles"
             )
 
         try:
             self._connection.get_collection(collection_name="cleaned_repositories")
-        except UnexpectedResponse as e:
-            print(f"Error when accessing the collection: {e}")
+        except UnexpectedResponse:
+            logger.exception(
+                "Couldn't access the collection. Creating a new one...",
+                collection_name="cleaned_repositories",
+            )
+
             self._connection.create_non_vector_collection(
                 collection_name="cleaned_repositories"
             )
 
         try:
             self._connection.get_collection(collection_name="vector_posts")
-        except UnexpectedResponse as e:
-            print(f"Error when accessing the collection: {e}")
+        except UnexpectedResponse:
+            logger.exception(
+                "Couldn't access the collection. Creating a new one...",
+                collection_name="vector_posts",
+            )
+
             self._connection.create_vector_collection(collection_name="vector_posts")
 
         try:
             self._connection.get_collection(collection_name="vector_articles")
-        except UnexpectedResponse as e:
-            print(f"Error when accessing the collection: {e}")
+        except UnexpectedResponse:
+            logger.exception(
+                "Couldn't access the collection. Creating a new one...",
+                collection_name="vector_articles",
+            )
+
             self._connection.create_vector_collection(collection_name="vector_articles")
 
         try:
             self._connection.get_collection(collection_name="vector_repositories")
-        except UnexpectedResponse as e:
-            print(f"Error when accessing the collection: {e}")
+        except UnexpectedResponse:
+            logger.exception(
+                "Couldn't access the collection. Creating a new one...",
+                collection_name="vector_repositories",
+            )
+
             self._connection.create_vector_collection(
                 collection_name="vector_repositories"
             )
@@ -72,8 +99,8 @@ class QdrantCleanedDataSink(StatelessSinkPartition):
     def __init__(self, connection: QdrantDatabaseConnector):
         self._client = connection
 
-    def write_batch(self, items: list[DBDataModel]) -> None:
-        payloads = [item.save() for item in items]
+    def write_batch(self, items: list[VectorDBDataModel]) -> None:
+        payloads = [item.to_payload() for item in items]
         ids, data = zip(*payloads)
         collection_name = get_clean_collection(data_type=data[0]["type"])
         self._client.write_data(
@@ -81,18 +108,30 @@ class QdrantCleanedDataSink(StatelessSinkPartition):
             points=Batch(ids=ids, vectors={}, payloads=data),
         )
 
+        logger.info(
+            "Successfully inserted requested cleaned point(s)",
+            collection_name=collection_name,
+            num=len(ids),
+        )
+
 
 class QdrantVectorDataSink(StatelessSinkPartition):
     def __init__(self, connection: QdrantDatabaseConnector):
         self._client = connection
 
-    def write_batch(self, items: list[DBDataModel]) -> None:
-        payloads = [item.save() for item in items]
+    def write_batch(self, items: list[VectorDBDataModel]) -> None:
+        payloads = [item.to_payload() for item in items]
         ids, vectors, meta_data = zip(*payloads)
         collection_name = get_vector_collection(data_type=meta_data[0]["type"])
         self._client.write_data(
             collection_name=collection_name,
             points=Batch(ids=ids, vectors=vectors, payloads=meta_data),
+        )
+
+        logger.info(
+            "Successfully inserted requested vector point(s)",
+            collection_name=collection_name,
+            num=len(ids),
         )
 
 
