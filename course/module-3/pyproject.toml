@@ -22,7 +22,7 @@ select = [
 python = ">=3.10, <3.12"
 pydantic = "^2.6.3"
 pydantic-settings = "^2.1.0"
-bytewax = "^0.18.2"
+bytewax = "0.18.2"
 pika = "^1.3.2"
 qdrant-client = "^1.8.0"
 unstructured = "^0.12.6"
