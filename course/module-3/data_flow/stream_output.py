@@ -21,7 +21,7 @@ class QdrantOutput(DynamicSink):
         try:
             self._connection.get_collection(collection_name="cleaned_posts")
         except UnexpectedResponse:
-            logger.exception(
+            logger.info(
                 "Couldn't access the collection. Creating a new one...",
                 collection_name="cleaned_posts",
             )
@@ -33,7 +33,7 @@ class QdrantOutput(DynamicSink):
         try:
             self._connection.get_collection(collection_name="cleaned_articles")
         except UnexpectedResponse:
-            logger.exception(
+            logger.info(
                 "Couldn't access the collection. Creating a new one...",
                 collection_name="cleaned_articles",
             )
@@ -45,7 +45,7 @@ class QdrantOutput(DynamicSink):
         try:
             self._connection.get_collection(collection_name="cleaned_repositories")
         except UnexpectedResponse:
-            logger.exception(
+            logger.info(
                 "Couldn't access the collection. Creating a new one...",
                 collection_name="cleaned_repositories",
             )
@@ -57,7 +57,7 @@ class QdrantOutput(DynamicSink):
         try:
             self._connection.get_collection(collection_name="vector_posts")
         except UnexpectedResponse:
-            logger.exception(
+            logger.info(
                 "Couldn't access the collection. Creating a new one...",
                 collection_name="vector_posts",
             )
@@ -67,7 +67,7 @@ class QdrantOutput(DynamicSink):
         try:
             self._connection.get_collection(collection_name="vector_articles")
         except UnexpectedResponse:
-            logger.exception(
+            logger.info(
                 "Couldn't access the collection. Creating a new one...",
                 collection_name="vector_articles",
             )
@@ -77,7 +77,7 @@ class QdrantOutput(DynamicSink):
         try:
             self._connection.get_collection(collection_name="vector_repositories")
         except UnexpectedResponse:
-            logger.exception(
+            logger.info(
                 "Couldn't access the collection. Creating a new one...",
                 collection_name="vector_repositories",
             )
