@@ -108,15 +108,24 @@ For the other serverless tools ([Qdrant](https://qdrant.tech/?utm_source=decodin
 
 > The course is split into 11 lessons. Every Medium article will be its own lesson.
 
+### System Design
 1. [An End-to-End Framework for Production-Ready LLM Systems by Building Your LLM Twin](https://medium.com/decodingml/an-end-to-end-framework-for-production-ready-llm-systems-by-building-your-llm-twin-2cc6bb01141f)
+
+### Data Engineering: Gather & store the data for your LLM twin
 2. [The Importance of Data Pipelines in the Era of Generative AI](https://medium.com/decodingml/the-importance-of-data-pipelines-in-the-era-of-generative-ai-673e1505a861)
 3. [Change Data Capture: Enabling Event-Driven Architectures](https://medium.com/decodingml/the-3nd-out-of-11-lessons-of-the-llm-twin-free-course-ba82752dad5a)
+
+### Feature Pipeline: prepare data for LLM fine-tuning & RAG
 4. [SOTA Python Streaming Pipelines for Fine-tuning LLMs and RAG — in Real-Time!](https://medium.com/decodingml/sota-python-streaming-pipelines-for-fine-tuning-llms-and-rag-in-real-time-82eb07795b87)
-5. Vector DB retrieval clients [Module 2] …WIP
+5. [The 4 Advanced RAG Algorithms You Must Know to Implement](https://medium.com/decodingml/the-4-advanced-rag-algorithms-you-must-know-to-implement-5d0c7f1199d2)
+
+### Training Pipeline: fine-tune your LLM twin
 6. Training data preparation [Module 3] …WIP
 7. Fine-tuning LLM [Module 3] …WIP
 8. LLM evaluation [Module 4] …WIP
 9. Quantization [Module 5] …WIP 
+
+### Inference Pipeline: serve your LLM twin
 10. Build the digital twin inference pipeline [Module 6] …WIP
 11. Deploy the digital twin as a REST API [Module 6] …WIP
 
