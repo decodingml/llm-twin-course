@@ -1,0 +1,9 @@
+numpy
+pandas
+peft
+datasets
+transformers
+safetensors
+comet_ml
+accelerate
+bitsandbytes
