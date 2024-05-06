@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 import gdown
+
 import logger_utils
 from db.documents import ArticleDocument, PostDocument, RepositoryDocument
 
@@ -66,9 +67,7 @@ def insert_posts(file_name: str, author_id: str) -> None:
         posts: dict[str, dict] = json.load(file)
 
     for post_content in posts.values():
-        PostDocument(
-            platform="linkedin", content=post_content, author_id=author_id
-        ).save()
+        PostDocument(platform="linkedin", content=post_content, author_id=author_id).save()
 
     logger.info("Posts inserted into collection", num=len(posts), author_id=author_id)
 
@@ -85,9 +84,7 @@ def insert_articles(file_name: str, author_id: str) -> None:
             author_id=author_id,
         ).save()
 
-    logger.info(
-        "Articles inserted into collection", num=len(articles), author_id=author_id
-    )
+    logger.info("Articles inserted into collection", num=len(articles), author_id=author_id)
 
 
 def insert_repositories(file_name: str, author_id: str) -> None:
