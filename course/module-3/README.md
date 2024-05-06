@@ -1,3 +1,9 @@
+# Introduction
+This module is composed from 2 modules:
+- RAG module
+- Finetuning dataset preparation module
+
+
 # Module 3: RAG
 TBD
 
@@ -122,12 +128,8 @@ The project includes a `Makefile` for easy management of common tasks. Here are 
 - `make local-start-infra`: Build and start mongodb, mq and qdrant.
 - `make local-start-cdc`: Start cdc system
 - `make insert-data-mongo`: Insert data to mongodb
-- `make local-bytewax`: Run bytewax pipeline
+- `make local-bytewax`: Run bytewax pipeline and send data to Qdrant
 - `make generate-dataset`: Generate dataset for finetuning and version it in CometML
-
-
-
-
 
 
 **Before running the commands, ensure your environment variables are correctly set up in your `.env` file to guarantee that everything works properly.**
@@ -159,6 +161,26 @@ COMET_PROJECT='decodingml'
 
 OPENAI_API_KEY = "your-key"
 ```
+
+# Supplementary Tools
+
+This section covers additional tools and scripts included in the project that assist with specific tasks, such as data insertion.
+
+## Script: `insert_data_mongo.py`
+
+### Overview
+The `insert_data_mongo.py` script is designed to manage the automated downloading and insertion of various types of documents (articles, posts, repositories) into a MongoDB database. It facilitates the initial population of the database with structured data for further processing or analysis.
+
+### Features
+- **Dataset Downloading**: Automatically downloads JSON formatted data files from Google Drive based on predefined file IDs.
+- **Dynamic Data Insertion**: Inserts different types of documents (articles, posts, repositories) into the MongoDB database, associating each entry with its respective author.
+- **Logging**: Provides logging for each step of the process to track the number and type of documents inserted.
+
+### How It Works
+1. **Download Data**: The script first checks if the specified `output_dir` directory exists and contains any files. If not, it creates the directory and downloads the data files from Google Drive.
+2. **Insert Data**: Based on the type specified in the downloaded files, it inserts posts, articles, or repositories into the MongoDB database.
+3. **Logging**: After each insertion, the script logs the number of items inserted and their associated author ID to help monitor the process.
+
 
 
 
