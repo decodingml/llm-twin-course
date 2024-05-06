@@ -4,6 +4,9 @@ from openai import OpenAI
 from comet_ml import Experiment, Artifact
 from qdrant_client import QdrantClient
 
+example_file = "example_content.json"
+collection_name = "cleaned_posts"
+data_type = "articles"
 HOST = "localhost"
 PORT = 6333
 MAX_LENGTH = 16384
@@ -12,12 +15,14 @@ COMET_API_KEY = ""
 COMET_WORKSPACE = "915-muscalagiu-ancaioana"
 COMET_PROJECT = "scrabble"
 SYSTEM_PROMPT = "You are a technical writer handing someone's account to post about AI and MLOps."
-USER_PROMPT = "In the following rows I will give you 3 json objects, each of them having an instruction which " \
-              "describes what to write about and the corresponding post that follows this instruction. Afterwards I " \
-              "will give you batches of other posts and please generate me instructions for them. The posts text is " \
-              "under Post number x lines. Please structure them in json format, ready to be loaded in json," \
-              "a list of objects only with field called instruction and post. " \
-              "Please do not add any extra characters!\n"
+USER_PROMPT = (
+    f'In the following rows I will give you 2 json objects as example, each of them having an instruction which '
+    f'describes what to write about and the corresponding {data_type} content that follows this instruction. Afterwards I '
+    f'will give you batches of other contents of {data_type} and please generate me one instruction for each of them. The {data_type} text '
+    f'for which you have to generate the instructions is under Content number x lines. Please structure them in json format,'
+    f'ready to be loaded in json,a list of objects only with fields called instruction ( the generated part ) and content ( the provided part ). '
+    f'Please do not add any extra characters!\n'
+)
 
 
 class DatasetGenerator:
@@ -83,7 +88,7 @@ class DatasetGenerator:
         )
         file_name = f'{collection_name}.json'
         f = open(file_name, "w")
-        f.write(str(data))
+        json.dump(data, f)
         f.close()
 
         artifact = Artifact(collection_name)
@@ -93,11 +98,12 @@ class DatasetGenerator:
         experiment.end()
 
     @staticmethod
-    def format_example_data(data_points: list):
+    def format_data(data_points: list, is_example: bool):
         index = 0
         text = ""
         for data_point in data_points:
-            text += "Post number " + str(index) + "\n"
+            if not is_example:
+                text += "Content number " + str(index + 1) + "\n"
             text += str(data_point)
             text += '\n'
             index += 1
@@ -106,14 +112,16 @@ class DatasetGenerator:
     @staticmethod
     def format_batch(context_msg: str, data_points: list) -> str:
         delimiter_msg = context_msg
-        delimiter_msg += DatasetGenerator.format_example_data(data_points)
+        delimiter_msg += DatasetGenerator.format_data(data_points, False)
         return delimiter_msg
 
     @staticmethod
-    def format_initial_prompt(example_posts: list, inference_posts: list):
+    def format_initial_prompt(example_content: list, inference_posts: list):
         initial_prompt = USER_PROMPT
-        initial_prompt += DatasetGenerator.format_example_data(example_posts)
-        initial_prompt += DatasetGenerator.format_batch("Batch of other posts: \n", inference_posts)
+        initial_prompt += f'You must generate exactly a list of {len(inference_posts)} json objects, using the contents provided under CONTENTS FOR GENERATION, the EXAMPLE JSONS are just for example purpose.\n'
+        initial_prompt += 'EXAMPLE JSONS:\n'
+        initial_prompt += DatasetGenerator.format_data(example_content, True)
+        initial_prompt += DatasetGenerator.format_batch("CONTENTS FOR GENERATION: \n", inference_posts)
         return initial_prompt
 
     @staticmethod
@@ -135,23 +143,21 @@ class DatasetGenerator:
         return all_cleaned_contents
 
     @staticmethod
-    def generate_training_data(example_file: str, collection_name: str, batch_size: int = 5):
+    def generate_training_data(example_file: str, collection_name: str, batch_size: int = 1):
         response = []
-        example_posts = DatasetGenerator.parse_json_file(example_file)
-        all_posts = DatasetGenerator.fetch_all_cleaned_content(collection_name)
-        batch = all_posts[0:batch_size]
-        prompt = DatasetGenerator.format_initial_prompt(example_posts, batch)
+        example_content = DatasetGenerator.parse_json_file(example_file)
+        all_contents = DatasetGenerator.fetch_all_cleaned_content(collection_name)
+        batch = all_contents[0:batch_size]
+        prompt = DatasetGenerator.format_initial_prompt(example_content, batch)
         response += DatasetGenerator.send_prompt_to_llm(prompt)
-        for i in range(batch_size, len(all_posts), batch_size):
-            batch = all_posts[i:i + batch_size]
-            batch_msg = DatasetGenerator.format_initial_prompt(example_posts, batch)
+        for i in range(batch_size, len(all_contents), batch_size):
+            batch = all_contents[i:i + batch_size]
+            batch_msg = DatasetGenerator.format_initial_prompt(example_content, batch)
             response += DatasetGenerator.send_prompt_to_llm(batch_msg)
 
         for i in range(len(response)):
-            response[i]["post"] = all_posts[i]
+            response[i]["content"] = all_contents[i]
         DatasetGenerator.push_to_comet(response, collection_name)
 
 
-example_file = "example_posts.json"
-collection_name = "cleaned_articles"
-DatasetGenerator.generate_training_data(example_file, collection_name, 6)
+DatasetGenerator.generate_training_data(example_file, collection_name, 1)
