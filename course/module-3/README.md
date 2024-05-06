@@ -21,6 +21,10 @@ This Python module automates the generation of datasets specifically formatted f
 
 
 # Module Structure
+
+### Example Content
+- `example_content.json`: Prompt examples used to guide the LLM in dataset generation
+
 ### File Handling
 - `file_handler.py`: Manages file I/O operations, enabling reading and writing of JSON formatted data.
 

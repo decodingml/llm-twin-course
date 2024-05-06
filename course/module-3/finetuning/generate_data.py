@@ -1,16 +1,20 @@
 import json
 import logging
+import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 from comet_ml import Artifact, Experiment
 
 from db.qdrant import connection as client
-from finetune_data.file_handler import FileHandler
-from finetune_data.llm_communication import GptCommunicator
+from finetuning.file_handler import FileHandler
+from finetuning.llm_communication import GptCommunicator
 from settings import settings
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
-data_type = "articles"
+data_type = "posts"
 USER_PROMPT = (
     f"In the following rows I will give you 2 json objects as example, each of them having an instruction which "
     f"describes what to write about and the corresponding {data_type} content that follows this instruction. Afterwards I "
@@ -110,9 +114,9 @@ class DatasetGenerator:
 
 
 if __name__ == "__main__":
-    example_file = (
-        "/Users/vesaalexandru/Workspaces/decodeML/llm-twin-course/course/module-3/finetune_data/example_content.json"
-    )
+    filename = "example_content.json"
+    relative_directory = "finetuning"
+    example_file = Path(relative_directory) / filename
     collection_names = ["cleaned_articles", "cleaned_posts"]
     file_handler = FileHandler()
     api_communicator = GptCommunicator()

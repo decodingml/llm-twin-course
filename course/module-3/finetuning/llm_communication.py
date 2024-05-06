@@ -2,7 +2,7 @@ import json
 
 from openai import OpenAI
 
-from finetune_data.exceptions import APICommunicationError
+from finetuning.exceptions import APICommunicationError
 from settings import settings
 
 MAX_LENGTH = 16384
