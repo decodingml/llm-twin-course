@@ -5,7 +5,7 @@ from comet_ml import Artifact, Experiment
 
 from db.qdrant import connection as client
 from finetune_data.file_handler import FileHandler
-from finetune_data.llm_communicator import GptCommunicator
+from finetune_data.llm_communication import GptCommunicator
 from settings import settings
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -113,9 +113,10 @@ if __name__ == "__main__":
     example_file = (
         "/Users/vesaalexandru/Workspaces/decodeML/llm-twin-course/course/module-3/finetune_data/example_content.json"
     )
-    collection_name = "cleaned_posts"
+    collection_names = ["cleaned_articles", "cleaned_posts"]
     file_handler = FileHandler()
     api_communicator = GptCommunicator()
     data_formatter = DataFormatter()
     dataset_generator = DatasetGenerator(file_handler, api_communicator, data_formatter)
-    dataset_generator.generate_training_data(example_file=example_file, collection_name=collection_name, batch_size=1)
+    for collection in collection_names:
+        dataset_generator.generate_training_data(example_file=example_file, collection_name=collection, batch_size=1)
