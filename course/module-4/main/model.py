@@ -13,7 +13,7 @@ from comet_ml.integration.pytorch import log_model
 import os
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
-access_token = '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'
+access_token = ''
 
 data_files = {"train": "./main/train.json", "validation": "./main/validation.json"}
 max_seq_length = 2048
