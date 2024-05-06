@@ -15,7 +15,6 @@ class QdrantDatabaseConnector:
         if self._instance is None:
             try:
                 if settings.QDRANT_CLOUD:
-                    print("aici")
                     self._instance = QdrantClient(
                         url=settings.QDRANT_CLOUD_URL,
                         api_key=settings.QDRANT_APIKEY,
