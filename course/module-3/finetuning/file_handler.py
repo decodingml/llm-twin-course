@@ -1,6 +1,6 @@
 import json
 
-from finetune_data.exceptions import JSONDecodeError
+from finetuning.exceptions import JSONDecodeError
 
 
 class FileHandler:
