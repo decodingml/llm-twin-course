@@ -3,40 +3,8 @@ This module is composed from 2 modules:
 - RAG module
 - Finetuning dataset preparation module
 
-
-# Module 3: RAG
-TBD
-
-
-# Module 4: Generate Data for LLM finetuning task
-
-# Introduction
-This Python module automates the generation of datasets specifically formatted for training and fine-tuning Large Language Models (LLMs). It interfaces with Qdrant, sends structured prompts to LLMs, and manages data with Comet ML for experiment tracking and artifact logging.
-
-### Why is fine-tuning important?
-1. **Model Customization**: Tailors the LLM's responses to specific domains or tasks.
-2. **Improved Accuracy**: Enhances the model's understanding of nuanced language used in specialized fields.
-3. **Efficiency**: Reduces the need for extensive post-processing by producing more relevant outputs directly.
-4. **Adaptability**: Allows models to continuously learn from new data, staying relevant as language and contexts evolve.
-
-
-# Module Structure
-
-### Example Content
-- `example_content.json`: Prompt examples used to guide the LLM in dataset generation
-
-### File Handling
-- `file_handler.py`: Manages file I/O operations, enabling reading and writing of JSON formatted data.
-
-### LLM Communication
-- `llm_communication.py`: Handles communication with OpenAI's LLMs, sending prompts and processing responses.
-
-### Data Generation
-- `generate_data.py`: Orchestrates the generation of training data by integrating file handling, LLM communication, and data formatting.
-
-
 # Installation and Setup
-To prepare your environment for this module, follow these steps:
+To prepare your environment for these modules, follow these steps:
 - `poetry init`
 - `poetry install`
 
@@ -123,20 +91,7 @@ QDRANT_CLOUD: True  # Set to False to use Docker setup
 ```
 
 
-
-# Usage
-
-The project includes a `Makefile` for easy management of common tasks. Here are the main commands you can use:
-
-- `make help`: Displays help for each make command.
-- `make local-start-infra`: Build and start mongodb, mq and qdrant.
-- `make local-start-cdc`: Start cdc system
-- `make insert-data-mongo`: Insert data to mongodb
-- `make local-bytewax`: Run bytewax pipeline and send data to Qdrant
-- `make generate-dataset`: Generate dataset for finetuning and version it in CometML
-
-
-**Before running the commands, ensure your environment variables are correctly set up in your `.env` file to guarantee that everything works properly.**
+**Before running any commands, ensure your environment variables are correctly set up in your `.env` file to guarantee that everything works properly.**
 
 ## Environment Configuration
 
@@ -167,7 +122,7 @@ OPENAI_API_KEY = "your-key"
 ```
 
 # Supplementary Tools
-
+You need a real dataset to run and test the modules. 
 This section covers additional tools and scripts included in the project that assist with specific tasks, such as data insertion.
 
 ## Script: `insert_data_mongo.py`
@@ -185,6 +140,99 @@ The `insert_data_mongo.py` script is designed to manage the automated downloadin
 2. **Insert Data**: Based on the type specified in the downloaded files, it inserts posts, articles, or repositories into the MongoDB database.
 3. **Logging**: After each insertion, the script logs the number of items inserted and their associated author ID to help monitor the process.
 
+# Module 3: RAG
+
+# Introduction
+
+A production RAG system is split into 3 main components:
+
+    - ingestion: clean, chunk, embed, and load your data to a vector DB
+    - retrieval: query your vector DB for context
+    - generation: attach the retrieved context to your prompt and pass it to an LLM
+
+The ingestion component sits in the feature pipeline, while the retrieval and generation components are implemented inside the inference pipeline.
+
+You can also use the retrieval and generation components in your training pipeline to fine-tune your LLM further on domain-specific prompts.
+
+You can apply advanced techniques to optimize your RAG system for ingestion, retrieval and generation.
+
+That being said, there are 3 main types of advanced RAG techniques:
+
+    - Pre-retrieval optimization [ingestion]: tweak how you create the chunks
+    - Retrieval optimization [retrieval]: improve the queries to your vector DB
+    - Post-retrieval optimization [retrieval]: process the retrieved chunks to filter out the noise
+
+# RAG Module Structure
+### Query Expansion
+- `query_expansion.py`: Handles the expansion of a given query into multiple variations using language model-based templates. It integrates the `ChatOpenAI` class from `langchain_openai` and a custom `QueryExpansionTemplate` to generate expanded queries suitable for further processing.
+
+### Reranking
+- `reranking.py`: Manages the reranking of retrieved documents based on relevance to the original query. It uses a `RerankingTemplate` and the `ChatOpenAI` model to reorder the documents in order of relevance, making use of language model outputs.
+
+### Retriever
+- `retriever.py`: Performs vector-based retrieval of documents from a vector database using query expansion and reranking strategies. It utilizes the `QueryExpansion` and `Reranker` classes, as well as `QdrantClient` for database interactions and `SentenceTransformer` for generating query vectors.
+
+### Self Query
+- `self_query.py`: Generates metadata attributes related to a query, such as author ID, using a self-query mechanism. It employs a `SelfQueryTemplate` and the `ChatOpenAI` model to extract required metadata from the query context.
+
+# Usage
+After you have everything setup, environemnt variables, [CometML](https://www.comet.com/site/?cache=20258256) account and [Qdrant](https://qdrant.tech/) account, it's time to insert data in your environment.
+
+The workflow is straightforward:
+
+- Start all the services: MongoDB, Qdrant, RabbitMQ
+- Start the CDC system (for more details you can check https://medium.com/decodingml/the-3nd-out-of-11-lessons-of-the-llm-twin-free-course-ba82752dad5a)
+- Insert data to mongodb by running  `make insert-data-mongo`
+- Insert data into Qdrant VectorDB by running the [Bytewax](https://bytewax.io/) pipelines
+- Go to retriver.py (outside of rag folder) and write your own query
+
+The project includes a `Makefile` for easy management of common tasks. Here are the main commands you can use:
+
+- `make help`: Displays help for each make command.
+- `make local-start-infra`: Build and start mongodb, mq and qdrant.
+- `make local-start-cdc`: Start cdc system
+- `make insert-data-mongo`: Insert data to mongodb
+- `make local-bytewax`: Run bytewax pipeline and send data to Qdrant
+- `make local-test-retriever:-`: Test RAG retrieval
+
+
+# Module 4: Generate Data for LLM finetuning task
+
+# Introduction
+This Python module automates the generation of datasets specifically formatted for training and fine-tuning Large Language Models (LLMs). It interfaces with Qdrant, sends structured prompts to LLMs, and manages data with Comet ML for experiment tracking and artifact logging.
+
+### Why is fine-tuning important?
+1. **Model Customization**: Tailors the LLM's responses to specific domains or tasks.
+2. **Improved Accuracy**: Enhances the model's understanding of nuanced language used in specialized fields.
+3. **Efficiency**: Reduces the need for extensive post-processing by producing more relevant outputs directly.
+4. **Adaptability**: Allows models to continuously learn from new data, staying relevant as language and contexts evolve.
+
+
+# Module Structure
+
+### Example Content
+- `example_content.json`: Prompt examples used to guide the LLM in dataset generation
+
+### File Handling
+- `file_handler.py`: Manages file I/O operations, enabling reading and writing of JSON formatted data.
+
+### LLM Communication
+- `llm_communication.py`: Handles communication with OpenAI's LLMs, sending prompts and processing responses.
+
+### Data Generation
+- `generate_data.py`: Orchestrates the generation of training data by integrating file handling, LLM communication, and data formatting.
+
+
+# Usage
+
+The project includes a `Makefile` for easy management of common tasks. Here are the main commands you can use:
+
+- `make help`: Displays help for each make command.
+- `make local-start-infra`: Build and start mongodb, mq and qdrant.
+- `make local-start-cdc`: Start cdc system
+- `make insert-data-mongo`: Insert data to mongodb
+- `make local-bytewax`: Run bytewax pipeline and send data to Qdrant
+- `make generate-dataset`: Generate dataset for finetuning and version it in CometML
 
 
 
