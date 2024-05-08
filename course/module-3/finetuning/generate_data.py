@@ -73,9 +73,12 @@ class DatasetGenerator:
         all_contents = self.fetch_all_cleaned_content(collection_name)
         response = []
         for i in range(0, len(all_contents), batch_size):
-            batch = all_contents[i : i + batch_size]
-            initial_prompt = data_formatter.format_prompt(example_content, batch)
-            response += self.api_communicator.send_prompt(initial_prompt)
+            try:
+                batch = all_contents[i : i + batch_size]
+                initial_prompt = data_formatter.format_prompt(example_content, batch)
+                response += self.api_communicator.send_prompt(initial_prompt)
+            except:
+                continue
 
         self.push_to_comet(response, collection_name)
 
