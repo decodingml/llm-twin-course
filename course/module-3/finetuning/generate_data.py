@@ -18,67 +18,62 @@ logging.basicConfig(
 
 data_type = "posts"
 USER_PROMPT = (
-    f"In the following rows I will give you 2 json objects as example, each of them having an instruction which "
-    f"describes what to write about and the corresponding {data_type} content that follows this instruction. Afterwards I "
-    f"will give you batches of other contents of {data_type} and please generate me one instruction for each of them. The {data_type} text "
-    f"for which you have to generate the instructions is under Content number x lines. Please structure them in json format,"
-    f"ready to be loaded in json,a list of objects only with fields called instruction ( the generated part ) and content ( the provided part ). "
-    f"Please do not add any extra characters!\n"
+    f"I will give you batches of contents of {data_type}. Please generate me exactly 1 instruction for each of them. The {data_type} text "
+    f"for which you have to generate the instructions is under Content number x lines. Please structure the answer in json format,"
+    f"ready to be loaded by json.loads(), a list of objects only with fields called instruction and content. For the content field, copy the number of the content only!."
+    f"Please do not add any extra characters and make sure it is a list with objects in valid json format!\n"
 )
 
 
 class DataFormatter:
     @classmethod
-    def format_data(cls, data_points: list, is_example: bool) -> str:
+    def format_data(cls, data_points: list, is_example: bool, start_index: int) -> str:
         text = ""
         for index, data_point in enumerate(data_points):
             if not is_example:
-                text += f"Content number {index + 1}\n"
+                text += f"Content number {start_index + index }\n"
             text += str(data_point) + "\n"
         return text
 
     @classmethod
-    def format_batch(cls, context_msg: str, data_points: list) -> str:
+    def format_batch(cls, context_msg: str, data_points: list, start_index: int) -> str:
         delimiter_msg = context_msg
-        delimiter_msg += cls.format_data(data_points, False)
+        delimiter_msg += cls.format_data(data_points, False, start_index)
         return delimiter_msg
 
     @classmethod
-    def format_prompt(cls, example_content: list, inference_posts: list):
+    def format_prompt(cls, inference_posts: list, start_index : int):
         initial_prompt = USER_PROMPT  # Assuming USER_PROMPT is defined somewhere as a global constant or class attribute
-        initial_prompt += f"You must generate exactly a list of {len(inference_posts)} json objects, using the contents provided under CONTENTS FOR GENERATION, the EXAMPLE JSONS are just for example purpose.\n"
-        initial_prompt += "EXAMPLE JSONS:\n"
-        initial_prompt += cls.format_data(example_content, True)
+        initial_prompt += f"You must generate exactly a list of {len(inference_posts)} json objects, using the contents provided under CONTENTS FOR GENERATION\n"
         initial_prompt += cls.format_batch(
-            "CONTENTS FOR GENERATION: \n", inference_posts
+            "\nCONTENTS FOR GENERATION: \n", inference_posts, start_index
         )
         return initial_prompt
 
 
 class DatasetGenerator:
     def __init__(
-        self,
-        file_handler: FileHandler,
-        api_communicator: GptCommunicator,
-        data_formatter: DataFormatter,
+            self,
+            file_handler: FileHandler,
+            api_communicator: GptCommunicator,
+            data_formatter: DataFormatter,
     ):
         self.file_handler = file_handler
         self.api_communicator = api_communicator
         self.data_formatter = data_formatter
 
     def generate_training_data(
-        self, example_file: str, collection_name: str, batch_size: int = 1
+            self, collection_name: str, batch_size: int = 1
     ):
-        example_content = self.file_handler.read_json(example_file)
         all_contents = self.fetch_all_cleaned_content(collection_name)
         response = []
         for i in range(0, len(all_contents), batch_size):
-            try:
-                batch = all_contents[i : i + batch_size]
-                initial_prompt = data_formatter.format_prompt(example_content, batch)
-                response += self.api_communicator.send_prompt(initial_prompt)
-            except:
-                continue
+            batch = all_contents[i: i + batch_size]
+            initial_prompt = data_formatter.format_prompt(batch, i)
+            response += self.api_communicator.send_prompt(initial_prompt)
+            for j in range(i, i + batch_size):
+                response[j]["content"] = all_contents[j]
+
 
         self.push_to_comet(response, collection_name)
 
@@ -127,9 +122,6 @@ class DatasetGenerator:
 
 
 if __name__ == "__main__":
-    filename = "example_content.json"
-    relative_directory = "finetuning"
-    example_file = Path(relative_directory) / filename
     collection_names = ["cleaned_articles", "cleaned_posts"]
     file_handler = FileHandler()
     api_communicator = GptCommunicator()
@@ -137,5 +129,5 @@ if __name__ == "__main__":
     dataset_generator = DatasetGenerator(file_handler, api_communicator, data_formatter)
     for collection in collection_names:
         dataset_generator.generate_training_data(
-            example_file=example_file, collection_name=collection, batch_size=1
+            collection_name=collection, batch_size=1
         )
