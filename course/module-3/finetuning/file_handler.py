@@ -11,7 +11,9 @@ class FileHandler:
         except FileNotFoundError:
             raise FileNotFoundError(f"The file '{filename}' does not exist.")
         except json.JSONDecodeError:
-            raise JSONDecodeError(f"The file '{filename}' is not properly formatted as JSON.")
+            raise JSONDecodeError(
+                f"The file '{filename}' is not properly formatted as JSON."
+            )
 
     def write_json(self, filename: str, data: list):
         with open(filename, "w") as file:

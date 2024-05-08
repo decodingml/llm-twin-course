@@ -14,7 +14,7 @@ class QdrantDatabaseConnector:
     def __init__(self):
         if self._instance is None:
             try:
-                if settings.QDRANT_CLOUD:
+                if settings.USE_QDRANT_CLOUD:
                     self._instance = QdrantClient(
                         url=settings.QDRANT_CLOUD_URL,
                         api_key=settings.QDRANT_APIKEY,

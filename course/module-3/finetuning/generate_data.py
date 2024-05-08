@@ -12,7 +12,9 @@ from finetuning.file_handler import FileHandler
 from finetuning.llm_communication import GptCommunicator
 from settings import settings
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 data_type = "posts"
 USER_PROMPT = (
@@ -26,7 +28,6 @@ USER_PROMPT = (
 
 
 class DataFormatter:
-
     @classmethod
     def format_data(cls, data_points: list, is_example: bool) -> str:
         text = ""
@@ -43,30 +44,37 @@ class DataFormatter:
         return delimiter_msg
 
     @classmethod
-    def format_initial_prompt(cls, example_content: list, inference_posts: list):
-        initial_prompt = (
-            USER_PROMPT  # Assuming USER_PROMPT is defined somewhere as a global constant or class attribute
-        )
+    def format_prompt(cls, example_content: list, inference_posts: list):
+        initial_prompt = USER_PROMPT  # Assuming USER_PROMPT is defined somewhere as a global constant or class attribute
         initial_prompt += f"You must generate exactly a list of {len(inference_posts)} json objects, using the contents provided under CONTENTS FOR GENERATION, the EXAMPLE JSONS are just for example purpose.\n"
         initial_prompt += "EXAMPLE JSONS:\n"
         initial_prompt += cls.format_data(example_content, True)
-        initial_prompt += cls.format_batch("CONTENTS FOR GENERATION: \n", inference_posts)
+        initial_prompt += cls.format_batch(
+            "CONTENTS FOR GENERATION: \n", inference_posts
+        )
         return initial_prompt
 
 
 class DatasetGenerator:
-    def __init__(self, file_handler: FileHandler, api_communicator: GptCommunicator, data_formatter: DataFormatter):
+    def __init__(
+        self,
+        file_handler: FileHandler,
+        api_communicator: GptCommunicator,
+        data_formatter: DataFormatter,
+    ):
         self.file_handler = file_handler
         self.api_communicator = api_communicator
         self.data_formatter = data_formatter
 
-    def generate_training_data(self, example_file: str, collection_name: str, batch_size: int = 1):
+    def generate_training_data(
+        self, example_file: str, collection_name: str, batch_size: int = 1
+    ):
         example_content = self.file_handler.read_json(example_file)
         all_contents = self.fetch_all_cleaned_content(collection_name)
         response = []
         for i in range(0, len(all_contents), batch_size):
             batch = all_contents[i : i + batch_size]
-            initial_prompt = data_formatter.format_initial_prompt(example_content, batch)
+            initial_prompt = data_formatter.format_prompt(example_content, batch)
             response += self.api_communicator.send_prompt(initial_prompt)
 
         self.push_to_comet(response, collection_name)
@@ -77,7 +85,9 @@ class DatasetGenerator:
 
             # Assuming the settings module has been properly configured with the required attributes
             experiment = Experiment(
-                api_key=settings.COMET_API_KEY, project_name=settings.COMET_PROJECT, workspace=settings.COMET_WORKSPACE
+                api_key=settings.COMET_API_KEY,
+                project_name=settings.COMET_PROJECT,
+                workspace=settings.COMET_WORKSPACE,
             )
 
             file_name = f"{collection_name}.json"
@@ -123,4 +133,6 @@ if __name__ == "__main__":
     data_formatter = DataFormatter()
     dataset_generator = DatasetGenerator(file_handler, api_communicator, data_formatter)
     for collection in collection_names:
-        dataset_generator.generate_training_data(example_file=example_file, collection_name=collection, batch_size=1)
+        dataset_generator.generate_training_data(
+            example_file=example_file, collection_name=collection, batch_size=1
+        )
