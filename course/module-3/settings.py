@@ -22,8 +22,8 @@ class AppSettings(BaseSettings):
     QDRANT_DATABASE_PORT: int = 6333
     QDRANT_DATABASE_URL: str = "http://localhost:6333"
 
-    QDRANT_CLOUD_URL: str = "https://9f7d031c-7c76-4dbb-9c68-481a898d23e9.europe-west3-0.gcp.cloud.qdrant.io"
-    QDRANT_CLOUD: bool = True
+    QDRANT_CLOUD_URL: str = "str"
+    USE_QDRANT_CLOUD: bool = True
     QDRANT_APIKEY: str | None = None
 
     # MQ config
