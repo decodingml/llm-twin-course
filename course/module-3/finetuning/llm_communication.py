@@ -32,6 +32,7 @@ class GptCommunicator:
             return json.loads(self.clean_response(response))
         except Exception as e:
             logging.error(f"Skipping batch! An error occurred while communicating with API: {e}")
+            return []
 
     @staticmethod
     def clean_response(response: str) -> str:
