@@ -3,7 +3,7 @@ This module is composed from 2 components:
 - RAG component
 - Finetuning dataset preparation component
 
-
+# RAG component
 A production RAG system is split into 3 main components:
 
     - ingestion: clean, chunk, embed, and load your data to a vector DB
@@ -28,14 +28,30 @@ You can learn more about RAG from Decoding ML LLM Twin Course:
 
 ![Advanced RAG architecture](https://miro.medium.com/v2/resize:fit:720/format:webp/1*ui2cQRlRDVnKrXPXk7COLA.png "Advanced RAG architecture")
 
-# Installation and Setup
+# TEST
+
+# Finetuning dataset preparation component
+The finetuning dataset preparation module automates the generation of datasets specifically formatted for training and fine-tuning Large Language Models (LLMs). It interfaces with Qdrant, sends structured prompts to LLMs, and manages data with Comet ML for experiment tracking and artifact logging.
+
+### Why is fine-tuning important?
+1. **Model Customization**: Tailors the LLM's responses to specific domains or tasks.
+2. **Improved Accuracy**: Enhances the model's understanding of nuanced language used in specialized fields.
+3. **Efficiency**: Reduces the need for extensive post-processing by producing more relevant outputs directly.
+4. **Adaptability**: Allows models to continuously learn from new data, staying relevant as language and contexts evolve.
+
+TBD add about lesson
+![Finetuning Dataset Preparation Flow](https://cdn-images-1.medium.com/max/800/1*gufpoEo92ZtuGQlVx6HVTw.png "Finetuning Dataset Preparation Flow")
+
+
+# Dependencies
+## Installation and Setup
 To prepare your environment for these components, follow these steps:
 - `poetry init`
 - `poetry install`
 
 
 
-# Docker Settings
+## Docker Settings
 ### Host Configuration
 To ensure that your Docker containers can communicate with each other you need to update your `/etc/hosts` file. 
 Add the following entries to map the hostnames to your local machine:
@@ -47,10 +63,12 @@ Add the following entries to map the hostnames to your local machine:
 127.0.0.1       mongo3
 ```
 
+For the Windows users check this article: https://medium.com/workleap/the-only-local-mongodb-replica-set-with-docker-compose-guide-youll-ever-need-2f0b74dd8384
+
 # CometML Integration
 
 ## Overview
-[CometML](https://www.comet.ml/) is a cloud-based platform that provides tools for tracking, comparing, explaining, and optimizing experiments and models in machine learning. CometML helps data scientists and teams to better manage and collaborate on machine learning experiments.
+[CometML](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github) is a cloud-based platform that provides tools for tracking, comparing, explaining, and optimizing experiments and models in machine learning. CometML helps data scientists and teams to better manage and collaborate on machine learning experiments.
 
 ## Why Use CometML?
 - **Experiment Tracking**: CometML automatically tracks your code, experiments, and results, allowing you to compare between different runs and configurations visually.
@@ -70,7 +88,7 @@ When integrating CometML into your projects, you'll need to set up several envir
 To access and set up the necessary CometML variables for your project, follow these steps:
 
 1. **Create an Account or Log In**:
-   - Visit [CometML's website](https://www.comet.com/) and log in if you already have an account, or sign up if you're a new user.
+   - Visit [CometML's website](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github) and log in if you already have an account, or sign up if you're a new user.
 
 2. **Create a New Project**:
    - Once logged in, navigate to your dashboard. Here, you can create a new project by clicking on "New Project" and entering the relevant details for your project.
@@ -86,7 +104,7 @@ To access and set up the necessary CometML variables for your project, follow th
 # Qdrant Integration
 
 ## Overview
-[Qdrant](https://qdrant.tech/) is an open-source vector database designed for storing and searching large volumes of high-dimensional vector data. It is particularly suited for tasks that require searching through large datasets to find items similar to a query item, such as in recommendation systems or image retrieval applications.
+[Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course) is an open-source vector database designed for storing and searching large volumes of high-dimensional vector data. It is particularly suited for tasks that require searching through large datasets to find items similar to a query item, such as in recommendation systems or image retrieval applications.
 
 ## Why Use Qdrant?
 Qdrant is a robust vector database optimized for handling high-dimensional vector data, making it ideal for machine learning and AI applications. Here are the key reasons for using Qdrant:
@@ -98,7 +116,7 @@ Qdrant is a robust vector database optimized for handling high-dimensional vecto
 
 ## Setting Up Qdrant
 
-Qdrant can be utilized via its Docker implementation or through its managed cloud service(https://cloud.qdrant.io/login). This flexibility allows you to choose an environment that best suits your project's needs.
+[Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course) can be utilized via its Docker implementation or through its managed cloud service(https://cloud.qdrant.io/login). This flexibility allows you to choose an environment that best suits your project's needs.
 
 ### Environment Variables
 To configure your environment for Qdrant, set the following variables:
@@ -110,6 +128,8 @@ To configure your environment for Qdrant, set the following variables:
 ## Qdrant Cloud Variables
 - `QDRANT_CLOUD_URL`: The URL for accessing Qdrant Cloud services.
 - `QDRANT_APIKEY`: The API key for authenticating with Qdrant Cloud.
+
+Please check this article to learn how to obtain these variables (https://qdrant.tech/documentation/cloud/quickstart-cloud/)
 
 Additionally, you can control the connection mode (Cloud or Docker) using a setting in your configuration file. More details can be found in db/qdrant.py :
 
@@ -160,14 +180,14 @@ The `insert_data_mongo.py` script is designed to manage the automated downloadin
 ### Features
 - **Dataset Downloading**: Automatically downloads JSON formatted data files from Google Drive based on predefined file IDs.
 - **Dynamic Data Insertion**: Inserts different types of documents (articles, posts, repositories) into the MongoDB database, associating each entry with its respective author.
-- **Logging**: Provides logging for each step of the process to track the number and type of documents inserted.
+
 
 ### How It Works
 1. **Download Data**: The script first checks if the specified `output_dir` directory exists and contains any files. If not, it creates the directory and downloads the data files from Google Drive.
 2. **Insert Data**: Based on the type specified in the downloaded files, it inserts posts, articles, or repositories into the MongoDB database.
 3. **Logging**: After each insertion, the script logs the number of items inserted and their associated author ID to help monitor the process.
 
-# Module 3: RAG
+# RAG Component
 
 
 # RAG Module Structure
@@ -183,15 +203,15 @@ The `insert_data_mongo.py` script is designed to manage the automated downloadin
 ### Self Query
 - `self_query.py`: Generates metadata attributes related to a query, such as author ID, using a self-query mechanism. It employs a `SelfQueryTemplate` and the `ChatOpenAI` model to extract required metadata from the query context.
 
-# Usage
-After you have everything setup, environemnt variables, [CometML](https://www.comet.com/site/?cache=20258256) account and [Qdrant](https://qdrant.tech/) account, it's time to insert data in your environment.
+### Usage
+After you have everything setup, environemnt variables, [CometML](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github) account and [Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course) account, it's time to insert data in your environment.
 
 The workflow is straightforward:
 
 - Start all the services: MongoDB, Qdrant, RabbitMQ
 - Start the CDC system (for more details you can check https://medium.com/decodingml/the-3nd-out-of-11-lessons-of-the-llm-twin-free-course-ba82752dad5a)
 - Insert data to mongodb by running  `make insert-data-mongo`
-- Insert data into Qdrant VectorDB by running the [Bytewax](https://bytewax.io/) pipelines
+- Insert data into Qdrant VectorDB by running the [Bytewax](https://bytewax.io?utm_source=github&utm_medium=decodingml&utm_campaign=2024_q1) pipelines
 - Go to retriver.py (outside of rag folder) and write your own query
 
 The project includes a `Makefile` for easy management of common tasks. Here are the main commands you can use:
@@ -204,22 +224,10 @@ The project includes a `Makefile` for easy management of common tasks. Here are 
 - `make local-test-retriever:-`: Test RAG retrieval
 
 
-# Module 4: Generate Data for LLM finetuning task
+# Generate Data for LLM finetuning task component
 
-# Introduction
-This Python module automates the generation of datasets specifically formatted for training and fine-tuning Large Language Models (LLMs). It interfaces with Qdrant, sends structured prompts to LLMs, and manages data with Comet ML for experiment tracking and artifact logging.
+# Component Structure
 
-### Why is fine-tuning important?
-1. **Model Customization**: Tailors the LLM's responses to specific domains or tasks.
-2. **Improved Accuracy**: Enhances the model's understanding of nuanced language used in specialized fields.
-3. **Efficiency**: Reduces the need for extensive post-processing by producing more relevant outputs directly.
-4. **Adaptability**: Allows models to continuously learn from new data, staying relevant as language and contexts evolve.
-
-
-# Module Structure
-
-### Example Content
-- `example_content.json`: Prompt examples used to guide the LLM in dataset generation
 
 ### File Handling
 - `file_handler.py`: Manages file I/O operations, enabling reading and writing of JSON formatted data.
@@ -231,7 +239,7 @@ This Python module automates the generation of datasets specifically formatted f
 - `generate_data.py`: Orchestrates the generation of training data by integrating file handling, LLM communication, and data formatting.
 
 
-# Usage
+### Usage
 
 The project includes a `Makefile` for easy management of common tasks. Here are the main commands you can use:
 
