@@ -42,8 +42,8 @@ class DataFormatter:
         return delimiter_msg
 
     @classmethod
-    def format_prompt(cls, inference_posts: list, start_index : int):
-        initial_prompt = USER_PROMPT  # Assuming USER_PROMPT is defined somewhere as a global constant or class attribute
+    def format_prompt(cls, inference_posts: list, start_index: int):
+        initial_prompt = USER_PROMPT
         initial_prompt += f"You must generate exactly a list of {len(inference_posts)} json objects, using the contents provided under CONTENTS FOR GENERATION\n"
         initial_prompt += cls.format_batch(
             "\nCONTENTS FOR GENERATION: \n", inference_posts, start_index
@@ -53,27 +53,24 @@ class DataFormatter:
 
 class DatasetGenerator:
     def __init__(
-            self,
-            file_handler: FileHandler,
-            api_communicator: GptCommunicator,
-            data_formatter: DataFormatter,
+        self,
+        file_handler: FileHandler,
+        api_communicator: GptCommunicator,
+        data_formatter: DataFormatter,
     ):
         self.file_handler = file_handler
         self.api_communicator = api_communicator
         self.data_formatter = data_formatter
 
-    def generate_training_data(
-            self, collection_name: str, batch_size: int = 1
-    ):
+    def generate_training_data(self, collection_name: str, batch_size: int = 1):
         all_contents = self.fetch_all_cleaned_content(collection_name)
         response = []
         for i in range(0, len(all_contents), batch_size):
-            batch = all_contents[i: i + batch_size]
+            batch = all_contents[i : i + batch_size]
             initial_prompt = data_formatter.format_prompt(batch, i)
             response += self.api_communicator.send_prompt(initial_prompt)
             for j in range(i, i + batch_size):
                 response[j]["content"] = all_contents[j]
-
 
         self.push_to_comet(response, collection_name)
 
