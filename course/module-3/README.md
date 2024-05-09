@@ -28,7 +28,6 @@ You can learn more about RAG from Decoding ML LLM Twin Course:
 
 ![Advanced RAG architecture](https://miro.medium.com/v2/resize:fit:720/format:webp/1*ui2cQRlRDVnKrXPXk7COLA.png "Advanced RAG architecture")
 
-# TEST
 
 # Finetuning dataset preparation component
 The finetuning dataset preparation module automates the generation of datasets specifically formatted for training and fine-tuning Large Language Models (LLMs). It interfaces with Qdrant, sends structured prompts to LLMs, and manages data with Comet ML for experiment tracking and artifact logging.
