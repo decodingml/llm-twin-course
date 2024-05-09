@@ -1,12 +1,39 @@
 # Introduction
-This module is composed from 2 modules:
-- RAG module
-- Finetuning dataset preparation module
+This module is composed from 2 components:
+- RAG component
+- Finetuning dataset preparation component
+
+
+A production RAG system is split into 3 main components:
+
+    - ingestion: clean, chunk, embed, and load your data to a vector DB
+    - retrieval: query your vector DB for context
+    - generation: attach the retrieved context to your prompt and pass it to an LLM
+
+The ingestion component sits in the feature pipeline, while the retrieval and generation components are implemented inside the inference pipeline.
+
+You can also use the retrieval and generation components in your training pipeline to fine-tune your LLM further on domain-specific prompts.
+
+You can apply advanced techniques to optimize your RAG system for ingestion, retrieval and generation.
+
+That being said, there are 3 main types of advanced RAG techniques:
+
+    - Pre-retrieval optimization [ingestion]: tweak how you create the chunks
+    - Retrieval optimization [retrieval]: improve the queries to your vector DB
+    - Post-retrieval optimization [retrieval]: process the retrieved chunks to filter out the noise
+
+You can learn more about RAG from Decoding ML LLM Twin Course: 
+- Lesson 4: [SOTA Python Streaming Pipelines for Fine-tuning LLMs and RAG — in Real-Time!](https://medium.com/decodingml/sota-python-streaming-pipelines-for-fine-tuning-llms-and-rag-in-real-time-82eb07795b87)
+- Lesson 5: [The 4 Advanced RAG Algorithms You Must Know to Implement](https://medium.com/decodingml/the-4-advanced-rag-algorithms-you-must-know-to-implement-5d0c7f1199d2)
+
+![Advanced RAG architecture](https://miro.medium.com/v2/resize:fit:720/format:webp/1*ui2cQRlRDVnKrXPXk7COLA.png "Advanced RAG architecture")
 
 # Installation and Setup
-To prepare your environment for these modules, follow these steps:
+To prepare your environment for these components, follow these steps:
 - `poetry init`
 - `poetry install`
+
+
 
 # Docker Settings
 ### Host Configuration
@@ -142,25 +169,6 @@ The `insert_data_mongo.py` script is designed to manage the automated downloadin
 
 # Module 3: RAG
 
-# Introduction
-
-A production RAG system is split into 3 main components:
-
-    - ingestion: clean, chunk, embed, and load your data to a vector DB
-    - retrieval: query your vector DB for context
-    - generation: attach the retrieved context to your prompt and pass it to an LLM
-
-The ingestion component sits in the feature pipeline, while the retrieval and generation components are implemented inside the inference pipeline.
-
-You can also use the retrieval and generation components in your training pipeline to fine-tune your LLM further on domain-specific prompts.
-
-You can apply advanced techniques to optimize your RAG system for ingestion, retrieval and generation.
-
-That being said, there are 3 main types of advanced RAG techniques:
-
-    - Pre-retrieval optimization [ingestion]: tweak how you create the chunks
-    - Retrieval optimization [retrieval]: improve the queries to your vector DB
-    - Post-retrieval optimization [retrieval]: process the retrieved chunks to filter out the noise
 
 # RAG Module Structure
 ### Query Expansion
