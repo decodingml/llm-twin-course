@@ -1,10 +1,7 @@
 import json
 import logging
-import sys
-from pathlib import Path
 
-sys.path.append(str(Path(__file__).resolve().parent.parent))
-
+# sys.path.append(str(Path(__file__).resolve().parent.parent))
 from comet_ml import Artifact, Experiment
 
 from db.qdrant import connection as client
