@@ -128,12 +128,12 @@ To configure your environment for Qdrant, set the following variables:
 - `QDRANT_CLOUD_URL`: The URL for accessing Qdrant Cloud services.
 - `QDRANT_APIKEY`: The API key for authenticating with Qdrant Cloud.
 
-Please check this article to learn how to obtain these variables (https://qdrant.tech/documentation/cloud/quickstart-cloud/)
+Please check this article to learn how to obtain these variables (https://qdrant.tech/documentation/cloud/quickstart-cloud/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course)
 
 Additionally, you can control the connection mode (Cloud or Docker) using a setting in your configuration file. More details can be found in db/qdrant.py :
 
 ```python
-QDRANT_CLOUD: True  # Set to False to use Docker setup
+USE_QDRANT_CLOUD: True  # Set to False to use Docker setup
 ```
 
 
@@ -152,7 +152,7 @@ QDRANT_DATABASE_HOST="localhost"
 QDRANT_DATABASE_PORT=6333
 QDRANT_APIKEY= your-key
 QDRANT_CLOUD_URL=your-url
-QDRANT_CLOUD=False
+USE_QDRANT_CLOUD=False
 
 # MQ config
 RABBITMQ_DEFAULT_USERNAME=guest
