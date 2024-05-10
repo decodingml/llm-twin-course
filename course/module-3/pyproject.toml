@@ -10,6 +10,13 @@ authors = [
 package-mode = false
 readme = "README.md"
 
+[tool.ruff]
+line-length = 88
+select = [
+    "F401",
+    "F403",
+]
+
 
 [tool.poetry.dependencies]
 python = ">=3.10, <3.12"
@@ -28,6 +35,10 @@ gdown = "^5.1.0"
 pymongo = "^4.7.1"
 structlog = "^24.1.0"
 rich = "^13.7.1"
+pip = "^24.0"
+install = "^1.3.5"
+comet-ml = "^3.41.0"
+ruff = "^0.4.3"
 
 
 [build-system]

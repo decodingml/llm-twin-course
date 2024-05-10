@@ -1,11 +1,20 @@
 import json
+import re
 from pathlib import Path
 
 import gdown
+
 import logger_utils
 from db.documents import ArticleDocument, PostDocument, RepositoryDocument
 
 logger = logger_utils.get_logger(__name__)
+
+
+def fix_json_content(content: str) -> str:
+    """
+    Fixes common JSON escape errors in the provided content.
+    """
+    return re.sub(r'\\(?!["\\bfnrt/])', r"\\\\", content)
 
 
 def download_dataset(output_dir: Path = Path("data")) -> list:
@@ -66,24 +75,36 @@ def insert_posts(file_name: str, author_id: str) -> None:
         posts: dict[str, dict] = json.load(file)
 
     for post_content in posts.values():
-        PostDocument(
-            platform="linkedin", content=post_content, author_id=author_id
-        ).save()
-
+        try:
+            PostDocument(
+                platform="linkedin", content=post_content, author_id=author_id
+            ).save()
+        except:
+            continue
     logger.info("Posts inserted into collection", num=len(posts), author_id=author_id)
 
 
 def insert_articles(file_name: str, author_id: str) -> None:
-    with open(file_name, "r") as file:
-        articles: list[dict] = json.load(file)
+    file_name = "/Users/vesaalexandru/Workspaces/decodeML/llm-twin-course/course/module-3/dataset/articles_paul_iusztin.json"
+    try:
+        with open(file_name, "r") as file:
+            articles: list[dict] = json.load(file)
+    except:
+        with open(file_name, "r") as file:
+            content = file.read()
+            corrected_content = fix_json_content(content)
+            articles: list[dict] = json.loads(corrected_content)
 
     for article_content in articles:
-        ArticleDocument(
-            platform="medium",
-            link="/htttps/alex/paul",
-            content=article_content,
-            author_id=author_id,
-        ).save()
+        try:
+            ArticleDocument(
+                platform="medium",
+                link="/htttps/alex/paul",
+                content=article_content,
+                author_id=author_id,
+            ).save()
+        except:
+            continue
 
     logger.info(
         "Articles inserted into collection", num=len(articles), author_id=author_id
