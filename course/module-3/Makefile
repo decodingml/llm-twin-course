@@ -16,5 +16,9 @@ local-insert-data-mongo: #Insert data to mongodb
 local-bytewax: # Run bytewax pipeline
 	RUST_BACKTRACE=full poetry run python -m bytewax.run data_flow/bytewax_pipeline 
 
+generate-dataset: # Generate dataset for finetuning and version it in CometML
+	python finetuning/generate_data.py
+
 local-test-retriever: # Test retriever
 	poetry run python retriever.py
+

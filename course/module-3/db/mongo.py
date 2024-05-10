@@ -1,6 +1,7 @@
-import logger_utils
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
+
+import logger_utils
 from settings import settings
 
 logger = logger_utils.get_logger(__name__)
