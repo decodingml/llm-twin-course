@@ -120,7 +120,7 @@ For the other serverless tools ([Qdrant](https://qdrant.tech/?utm_source=decodin
 5. [The 4 Advanced RAG Algorithms You Must Know to Implement](https://medium.com/decodingml/the-4-advanced-rag-algorithms-you-must-know-to-implement-5d0c7f1199d2)
 
 ### Training Pipeline: fine-tune your LLM twin
-6. Training data preparation [Module 3] …WIP
+6. [The Role of Feature Stores in Fine-Tuning LLMs: From raw data to instruction dataset](https://medium.com/decodingml/the-role-of-feature-stores-in-fine-tuning-llms-22bd60afd4b9)
 7. Fine-tuning LLM [Module 3] …WIP
 8. LLM evaluation [Module 4] …WIP
 9. Quantization [Module 5] …WIP 
