@@ -6,6 +6,8 @@ from datasets import load_dataset, DatasetDict
 from peft import LoraConfig, prepare_model_for_kbit_training, get_peft_model
 from qwak.model.base import QwakModel
 import torch as th
+from qwak.model.schema import ModelSchema
+from qwak.model.schema_entities import RequestInput, InferenceOutput
 from transformers import AutoTokenizer, DataCollatorForLanguageModeling, TrainingArguments, Trainer, BitsAndBytesConfig, \
     AutoModelForCausalLM
 from comet_ml import Experiment
@@ -92,7 +94,7 @@ class CopywriterModel(QwakModel):
 
     def generate_prompt(self, sample):
         full_prompt = f"""<s>[INST]{sample['instruction']}
-        [/INST] {sample['post']}</s>"""
+        [/INST] {sample['content']}</s>"""
         result = self.tokenize(full_prompt)
         return result
 
@@ -113,9 +115,9 @@ class CopywriterModel(QwakModel):
         train_data = raw_datasets['train']
         val_data = raw_datasets['validation']
         generated_train_dataset = train_data.map(self.generate_prompt)
-        generated_train_dataset = generated_train_dataset.remove_columns(["instruction", "post"])
+        generated_train_dataset = generated_train_dataset.remove_columns(["instruction", "content"])
         generated_val_dataset = val_data.map(self.generate_prompt)
-        generated_val_dataset = generated_val_dataset.remove_columns(["instruction", "post"])
+        generated_val_dataset = generated_val_dataset.remove_columns(["instruction", "content"])
         tokenized_datasets = DatasetDict({
             'train': generated_train_dataset,
             'validation': generated_val_dataset
@@ -146,6 +148,9 @@ class CopywriterModel(QwakModel):
         self.model = AutoModelForCausalLM.from_pretrained("./model", token=access_token,
                                                           quantization_config=self.nf4_config)
 
+    def schema(self) -> ModelSchema:
+        return ModelSchema(inputs=[ RequestInput(name="instruction", type=str)],
+                                   outputs=[InferenceOutput(name="content", type=str)])
     @qwak.api()
     def predict(self, df):
         input_text = list(df['instruction'].values)
@@ -157,4 +162,4 @@ class CopywriterModel(QwakModel):
 
         decoded_output = self.tokenizer.batch_decode(generated_ids)
 
-        return pd.DataFrame([{"generated_text": decoded_output}])
+        return pd.DataFrame([{"content": decoded_output}])
