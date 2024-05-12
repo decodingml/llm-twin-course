@@ -4,6 +4,7 @@ import pandas as pd
 import qwak
 from datasets import load_dataset, DatasetDict
 from peft import LoraConfig, prepare_model_for_kbit_training, get_peft_model
+from qwak.model.adapters import DefaultOutputAdapter
 from qwak.model.base import QwakModel
 import torch as th
 from qwak.model.schema import ModelSchema
@@ -14,37 +15,43 @@ from comet_ml import Experiment
 from comet_ml.integration.pytorch import log_model
 import os
 
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
-access_token = ''
+from settings import settings
 
-data_files = {"train": "./main/train.json", "validation": "./main/validation.json"}
-max_seq_length = 2048
-th.cuda.empty_cache()
 
 class CopywriterModel(QwakModel):
-    def __init__(self, is_saved=False):
+    def __init__(self, is_saved: bool = False, train_data_file: str = "./linkedin-train.json",
+                 validation_data_file: str = "./linkedin-validation.json", model_save_dir: str = "./model"):
+        self._prep_environment()
+        self.OPENAI_API_KEY = settings.OPENAI_API_KEY
         self.experiment = None
+        self.data_files = {"train": train_data_file, "validation": validation_data_file}
+        self.model_save_dir = model_save_dir
+        self.model_type = "mistralai/Mistral-7B-Instruct-v0.1"
         if is_saved:
             self.experiment = Experiment(
-                api_key="bg75gdOZg8nZiVbGxVAepDBqE",
-                project_name="scrabble",
-                workspace="915-muscalagiu-ancaioana"
+                api_key=settings.COMET_API_KEY,
+                project_name=settings.COMET_PROJECT,
+                workspace=settings.COMET_WORKSPACE
             )
+
+    def _prep_environment(self):
+        os.environ["TOKENIZERS_PARALLELISM"] = settings.TOKENIZERS_PARALLELISM
+        th.cuda.empty_cache()
+        logging.info("Emptied cuda cache. Environment prepared successfully!")
 
     def init_model(self):
         self.model = AutoModelForCausalLM.from_pretrained(
-            "mistralai/Mistral-7B-Instruct-v0.1",
-            token=access_token,
+            self.model_type,
+            token=self.OPENAI_API_KEY,
             device_map=th.cuda.current_device(),
             quantization_config=self.nf4_config,
             use_cache=False,
             torchscript=True
         )
-        self.tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-v0.1", token=access_token)
-
+        self.tokenizer = AutoTokenizer.from_pretrained(self.model_type, token=self.OPENAI_API_KEY)
         self.tokenizer.pad_token = self.tokenizer.eos_token
         self.tokenizer.padding_side = "right"
-        logging.info("Initialized model")
+        logging.info("Initialized model successfully!")
 
     def _init_4bit_config(self):
         self.nf4_config = BitsAndBytesConfig(
@@ -55,7 +62,7 @@ class CopywriterModel(QwakModel):
         )
         if self.experiment:
             self.experiment.log_parameters(self.nf4_config)
-        logging.info("Initialized config for param representation on 4bits")
+        logging.info("Initialized config for param representation on 4bits successfully!")
 
     def _init_qlora_config(self):
         self.qlora_config = LoraConfig(
@@ -73,7 +80,7 @@ class CopywriterModel(QwakModel):
         self.model = get_peft_model(self.model, self.qlora_config)
         if self.experiment:
             log_model(self.experiment, model=self.model, model_name="Copywriter-v1")
-        logging.info("Initialized qlora config")
+        logging.info("Initialized qlora config successfully!")
 
     def _init_trainig_args(self):
         self.training_arguments = TrainingArguments(
@@ -91,6 +98,11 @@ class CopywriterModel(QwakModel):
         )
         if self.experiment:
             self.experiment.log_parameters(self.training_arguments)
+        logging.info("Initialized training arguments successfully!")
+
+    def _remove_class_attributes(self):
+        del self.model
+        del self.trained_model
 
     def generate_prompt(self, sample):
         full_prompt = f"""<s>[INST]{sample['instruction']}
@@ -108,26 +120,28 @@ class CopywriterModel(QwakModel):
         result["labels"] = result["input_ids"].copy()
         return result
 
-    def build(self):
-        self._init_4bit_config()
-        self.init_model()
-        raw_datasets = load_dataset("json", data_files=data_files)
+    def load_dataset(self):
+        raw_datasets = load_dataset("json", data_files=self.data_files)
         train_data = raw_datasets['train']
         val_data = raw_datasets['validation']
         generated_train_dataset = train_data.map(self.generate_prompt)
         generated_train_dataset = generated_train_dataset.remove_columns(["instruction", "content"])
         generated_val_dataset = val_data.map(self.generate_prompt)
         generated_val_dataset = generated_val_dataset.remove_columns(["instruction", "content"])
-        tokenized_datasets = DatasetDict({
+        return DatasetDict({
             'train': generated_train_dataset,
             'validation': generated_val_dataset
         })
+
+    def build(self):
+        self._init_4bit_config()
+        self.init_model()
         self.model = prepare_model_for_kbit_training(self.model)
         if self.experiment:
             self.experiment.log_parameters(self.nf4_config)
-
         self._init_qlora_config()
         self._init_trainig_args()
+        tokenized_datasets = self.load_dataset()
         self.device = th.device("cuda" if th.cuda.is_available() else "cpu")
         self.model = self.model.to(self.device)
         self.trained_model = Trainer(
@@ -138,20 +152,24 @@ class CopywriterModel(QwakModel):
             tokenizer=self.tokenizer,
             data_collator=DataCollatorForLanguageModeling(self.tokenizer, mlm=False),
         )
-        logging.info("Finished init model trainer")
+        logging.info("Initialized model trainer")
         self.trained_model.train()
-        self.trained_model.save_model("./model")
-        del self.model
-        del self.trained_model
+        logging.info("Finished model finetuning!")
+        self.trained_model.save_model(self.model_save_dir)
+        logging.info(f'Finished saving model to {self.model_save_dir}')
+        self._remove_class_attributes()
+        logging.info("Finished removing model class attributes!")
 
     def initialize_model(self):
-        self.model = AutoModelForCausalLM.from_pretrained("./model", token=access_token,
+        self.model = AutoModelForCausalLM.from_pretrained(self.model_save_dir, token=self.OPENAI_API_KEY,
                                                           quantization_config=self.nf4_config)
+        logging.info(f'Successfully loaded model from {self.model_save_dir}')
 
     def schema(self) -> ModelSchema:
-        return ModelSchema(inputs=[ RequestInput(name="instruction", type=str)],
-                                   outputs=[InferenceOutput(name="content", type=str)])
-    @qwak.api()
+        return ModelSchema(inputs=[RequestInput(name="instruction", type=str)],
+                           outputs=[InferenceOutput(name="content", type=str)])
+
+    @qwak.api(output_adapter=DefaultOutputAdapter())
     def predict(self, df):
         input_text = list(df['instruction'].values)
         input_ids = self.tokenizer(input_text, return_tensors="pt", add_special_tokens=True)
