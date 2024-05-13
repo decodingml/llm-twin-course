@@ -9,24 +9,26 @@ from qwak.model.base import QwakModel
 import torch as th
 from qwak.model.schema import ModelSchema
 from qwak.model.schema_entities import RequestInput, InferenceOutput
-from transformers import AutoTokenizer, DataCollatorForLanguageModeling, TrainingArguments, Trainer, BitsAndBytesConfig, \
+from transformers import AutoTokenizer, TrainingArguments, Trainer, BitsAndBytesConfig, \
     AutoModelForCausalLM, PreTrainedModel
 from comet_ml import Experiment
 from comet_ml.integration.pytorch import log_model
 import os
 
 from settings import settings
-
+from dataset_handler import DatasetHandler
 
 class CopywriterModel(QwakModel):
-    def __init__(self, is_saved: bool = False, train_data_file: str = "./linkedin-train.json",
-                 validation_data_file: str = "./linkedin-validation.json", model_save_dir: str = "./model",
-                 model_type: str = "mistralai/Mistral-7B-Instruct-v0.1"):
+    def __init__(self, is_saved: bool = False, train_data_file: str = "./finetuning/train.json",
+                 validation_data_file: str = "./finetuning/validation.json", model_save_dir: str = "./model",
+                 model_type: str = "mistralai/Mistral-7B-Instruct-v0.1", comet_artifact_name: str = "cleaned_posts"):
         self._prep_environment()
         self.experiment = None
         self.data_files = {"train": train_data_file, "validation": validation_data_file}
         self.model_save_dir = model_save_dir
         self.model_type = model_type
+        self.dataset_handler = DatasetHandler()
+        self.dataset_handler.download_dataset(comet_artifact_name)
         if is_saved:
             self.experiment = Experiment(
                 api_key=settings.COMET_API_KEY,
@@ -112,16 +114,20 @@ class CopywriterModel(QwakModel):
 
     def load_dataset(self) -> DatasetDict:
         raw_datasets = load_dataset("json", data_files=self.data_files)
+        train_dataset, val_dataset = self.preprocess_data_split(raw_datasets)
+        return DatasetDict({
+            'train': train_dataset,
+            'validation': val_dataset
+        })
+
+    def preprocess_data_split(self, raw_datasets: DatasetDict):
         train_data = raw_datasets['train']
         val_data = raw_datasets['validation']
         generated_train_dataset = train_data.map(self.generate_prompt)
         generated_train_dataset = generated_train_dataset.remove_columns(["instruction", "content"])
         generated_val_dataset = val_data.map(self.generate_prompt)
         generated_val_dataset = generated_val_dataset.remove_columns(["instruction", "content"])
-        return DatasetDict({
-            'train': generated_train_dataset,
-            'validation': generated_val_dataset
-        })
+        return generated_train_dataset, generated_val_dataset
 
     def build(self):
         self._init_4bit_config()
