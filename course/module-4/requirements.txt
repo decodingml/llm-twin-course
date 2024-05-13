@@ -7,3 +7,4 @@ safetensors
 comet_ml
 accelerate
 bitsandbytes
+scikit-learn
