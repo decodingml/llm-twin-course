@@ -16,19 +16,19 @@ from comet_ml.integration.pytorch import log_model
 import os
 
 from settings import settings
-from dataset_handler import DatasetHandler
+from dataset_client import DatasetClient
 
-class CopywriterModel(QwakModel):
-    def __init__(self, is_saved: bool = False, train_data_file: str = "./finetuning/train.json",
-                 validation_data_file: str = "./finetuning/validation.json", model_save_dir: str = "./model",
-                 model_type: str = "mistralai/Mistral-7B-Instruct-v0.1", comet_artifact_name: str = "cleaned_posts"):
+
+class CopywriterMistralModel(QwakModel):
+    def __init__(self, is_saved: bool = False, model_save_dir: str = "./model",
+                 model_type: str = "mistralai/Mistral-7B-Instruct-v0.1", comet_artifact_name: str = "cleaned_posts",
+                 config_file: str = "config.yaml"):
         self._prep_environment()
         self.experiment = None
-        self.data_files = {"train": train_data_file, "validation": validation_data_file}
         self.model_save_dir = model_save_dir
         self.model_type = model_type
-        self.dataset_handler = DatasetHandler()
-        self.dataset_handler.download_dataset(comet_artifact_name)
+        self.comet_dataset_artifact = comet_artifact_name
+        self.training_args_config_file = config_file
         if is_saved:
             self.experiment = Experiment(
                 api_key=settings.COMET_API_KEY,
@@ -84,7 +84,7 @@ class CopywriterModel(QwakModel):
         return model
 
     def _init_trainig_args(self):
-        with open('config.yaml', 'r') as file:
+        with open(self.training_args_config_file, 'r') as file:
             config = yaml.safe_load(file)
         self.training_arguments = TrainingArguments(**config['training_arguments'])
         if self.experiment:
@@ -113,7 +113,10 @@ class CopywriterModel(QwakModel):
         return result
 
     def load_dataset(self) -> DatasetDict:
-        raw_datasets = load_dataset("json", data_files=self.data_files)
+        dataset_handler = DatasetClient()
+        train_data_file, validation_data_file = dataset_handler.download_dataset(self.comet_dataset_artifact)
+        data_files = {"train": train_data_file, "validation": validation_data_file}
+        raw_datasets = load_dataset("json", data_files=data_files)
         train_dataset, val_dataset = self.preprocess_data_split(raw_datasets)
         return DatasetDict({
             'train': train_dataset,
