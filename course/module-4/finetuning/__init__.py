@@ -1,5 +1,5 @@
-from .model import CopywriterModel
+from .model import CopywriterMistralModel
 
 
 def load_model():
-    return CopywriterModel()
+    return CopywriterMistralModel()

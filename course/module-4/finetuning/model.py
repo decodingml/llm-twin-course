@@ -15,14 +15,14 @@ from comet_ml import Experiment
 from comet_ml.integration.pytorch import log_model
 import os
 
-from settings import settings
-from dataset_client import DatasetClient
+from finetuning.settings import settings
+from finetuning.dataset_client import DatasetClient
 
 
 class CopywriterMistralModel(QwakModel):
     def __init__(self, is_saved: bool = False, model_save_dir: str = "./model",
                  model_type: str = "mistralai/Mistral-7B-Instruct-v0.1", comet_artifact_name: str = "cleaned_posts",
-                 config_file: str = "config.yaml"):
+                 config_file: str = "./finetuning/config.yaml"):
         self._prep_environment()
         self.experiment = None
         self.model_save_dir = model_save_dir
@@ -95,6 +95,7 @@ class CopywriterMistralModel(QwakModel):
         # remove needed in order to skip default serialization with Pickle done by Qwak
         del self.model
         del self.trainer
+        del self.experiment
 
     def generate_prompt(self, sample: dict) -> dict:
         full_prompt = f"""<s>[INST]{sample['instruction']}
@@ -156,6 +157,7 @@ class CopywriterMistralModel(QwakModel):
         logging.info("Finished model finetuning!")
         self.trainer.save_model(self.model_save_dir)
         logging.info(f'Finished saving model to {self.model_save_dir}')
+        self.experiment.end()
         self._remove_model_class_attributes()
         logging.info("Finished removing model class attributes!")
 
