@@ -1,0 +1,54 @@
+build_env:
+  docker:
+    assumed_iam_role_arn: null
+    base_image: public.ecr.aws/qwak-us-east-1/qwak-base:0.0.13-gpu
+    cache: true
+    env_vars:
+    - HUGGINGFACE_ACCESS_TOKEN=""
+    - COMET_API_KEY=""
+    - COMET_WORKSPACE=""
+    - COMET_PROJECT=""
+    no_cache: false
+    params: []
+    push: true
+  python_env:
+    conda:
+      conda_file: conda.yml
+    dependency_file_path: null
+    git_credentials: null
+    git_credentials_secret: null
+    poetry: null
+    virtualenv: null
+  remote:
+    is_remote: true
+    resources:
+      cpus: null
+      gpu_amount: null
+      gpu_type: null
+      instance: gpu.a10.2xl
+      memory: null
+build_properties:
+  branch: finetuning
+  build_id: null
+  gpu_compatible: false
+  model_id: copywriter_model
+  model_uri:
+    dependency_required_folders: []
+    git_branch: master
+    git_credentials: null
+    git_credentials_secret: null
+    git_secret_ssh: null
+    main_dir: finetuning
+    uri: .
+  tags: []
+deploy: false
+deployment_instance: null
+post_build: null
+pre_build: null
+purchase_option: null
+step:
+  tests: true
+  validate_build_artifact: true
+  validate_build_artifact_timeout: 120
+verbose: 0
+

@@ -4,9 +4,7 @@ import logging
 from comet_ml import Experiment
 from sklearn.model_selection import train_test_split
 
-from settings import settings
-
-
+from finetuning.settings import settings
 class DatasetClient:
     def __init__(self, output_dir: str = "./finetuning"):
         self.project = settings.COMET_PROJECT
@@ -21,6 +19,7 @@ class DatasetClient:
         try:
             logged_artifact = self.experiment.get_artifact(artifact_name)
             logged_artifact.download(self.output_dir)
+            self.experiment.end()
             logging.info(f'Successfully downloaded  {artifact_name} at location {self.output_dir}')
         except Exception as e:
             logging.error(f"Error retrieving artifact: {str(e)}")
