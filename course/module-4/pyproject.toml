@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "finetuning"
+description = ""
+version = "0.1.0"
+authors = [
+    "Paul Iusztin <p.b.iusztin@gmail.com>",
+    "Alex Vesa <vesaalexandru95@gmail.com>",
+    "Anca Muscalagiu <ancamuscalagiu1@gmail.com>"
+    ]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+numpy = "*"
+pandas = "*"
+peft = "*"
+datasets = "*"
+transformers = "*"
+safetensors = "*"
+comet_ml = "*"
+accelerate = "*"
+bitsandbytes = "^0.42.0"
+charset-normalizer = "3.3.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
