@@ -15,7 +15,9 @@ This module reflects the LLM fine-tuning pipeline where we download versioned da
 - the detailed walkthrough of how the Qwak build system works
 
 # What is FineTuning ?
+
 ---
+
 Represents the process of taking pre-trained models and further training them on smaller, specific datasets to refine their capabilities and improve performance in a particular task or domain. Fine-tuning is about turning general-purpose models and turning them into specialized models.
 
 > [!IMPORTANT]
@@ -36,12 +38,12 @@ You can learn more about the Dataset Generation and Fine-tuning Pipeline from De
 
 ## Refresher from Previous Lessons
 
-→ In **Lesson 2** : [The Importance of Data Pipelines in the Era of Generative AI](https://medium.com/decodingml/the-importance-of-data-pipelines-in-the-era-of-generative-ai-673e1505a861)
-We've described the process of data ingestion where we're scrapping articles from Medium, posts from LinkedIn, and Code snippets from GitHub and storing them in our Mongo Database.
-→ In **Lesson 3** : [Change Data Capture: Enabling Event-Driven Architectures](https://medium.com/decodingml/the-3nd-out-of-11-lessons-of-the-llm-twin-free-course-ba82752dad5a)
-We've showcased how to listen to MongoDB Oplog via the CDC pattern, and adapt RabbitMQ to stream captured events, this is our ingestion pipeline.
-→ In **Lesson 6**: [The Role of Feature Stores in Fine-Tuning LLMs](https://medium.com/decodingml/the-role-of-feature-stores-in-fine-tuning-llms-22bd60afd4b9)
-We've showcased how to use filtered data samples from QDrant. Using Knowledge Distillation, we have the GPT3.5 Turbo to structure and generate the fine-tuning dataset that is versioned with CometML.
+- In **Lesson 2** : [The Importance of Data Pipelines in the Era of Generative AI](https://medium.com/decodingml/the-importance-of-data-pipelines-in-the-era-of-generative-ai-673e1505a861)
+  We've described the process of data ingestion where we're scrapping articles from Medium, posts from LinkedIn, and Code snippets from GitHub and storing them in our Mongo Database.
+- In **Lesson 3** : [Change Data Capture: Enabling Event-Driven Architectures](https://medium.com/decodingml/the-3nd-out-of-11-lessons-of-the-llm-twin-free-course-ba82752dad5a)
+  We've showcased how to listen to MongoDB Oplog via the CDC pattern, and adapt RabbitMQ to stream captured events, this is our ingestion pipeline.
+- In **Lesson 6**: [The Role of Feature Stores in Fine-Tuning LLMs](https://medium.com/decodingml/the-role-of-feature-stores-in-fine-tuning-llms-22bd60afd4b9)
+  We've showcased how to use filtered data samples from QDrant. Using Knowledge Distillation, we have the GPT3.5 Turbo to structure and generate the fine-tuning dataset that is versioned with CometML.
 
 ---
 
@@ -67,6 +69,7 @@ To prepare your environment for these components, follow these steps:
 - `poetry install`
 
 # HuggingFace Integration
+
 ---
 
 To be able to download the model checkpoint, and further use it for fine-tuning, we need a Hugging Face Access Token.
@@ -78,6 +81,7 @@ To be able to download the model checkpoint, and further use it for fine-tuning,
 - Save the Token
 
 # CometML Integration
+
 ---
 
 ## Overview
@@ -119,6 +123,7 @@ To access and set up the necessary CometML variables for your project, follow th
    - These variables, `COMET_API_KEY`, `COMET_PROJECT` and `COMET_WORKSPACE`, should be added in the `build_config.yaml` when deploying on qwak. Follow the next module to integrate Qwak.
 
 # Qwak Integration
+
 ---
 
 ## Overview
@@ -216,7 +221,9 @@ verbose: 0
 ```
 
 # Usage
+
 ---
+
 The project includes a `Makefile` for easy management of common tasks. Here are the main commands you can use:
 
 - `make help`: Displays help for each make command.
@@ -224,7 +231,9 @@ The project includes a `Makefile` for easy management of common tasks. Here are 
 - `make deploy`: Triggers a new fine-tuning job to Qwak remotely, using the configuration specified in `build_config.yaml`
 
 # Meet your teachers!
+
 ---
+
 The course is created under the [Decoding ML](https://decodingml.substack.com/) umbrella by:
 
 <table>
