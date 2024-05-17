@@ -10,11 +10,9 @@ build_env:
     - COMET_PROJECT=""
     no_cache: false
     params: []
-    push: true
+    push: true 
   python_env:
-    conda:
-      conda_file: conda.yml
-    dependency_file_path: null
+    dependency_file_path: finetuning/requirements.txt
     git_credentials: null
     git_credentials_secret: null
     poetry: null
