@@ -12,7 +12,7 @@ build_env:
     params: []
     push: true 
   python_env:
-    dependency_file_path: finetuning/requirements.txt
+    dependency_file_path: finetuning_model/requirements.txt
     git_credentials: null
     git_credentials_secret: null
     poetry: null
@@ -26,7 +26,7 @@ build_env:
       instance: gpu.a10.2xl
       memory: null
 build_properties:
-  branch: finetuning
+  branch: finetuning_model
   build_id: null
   gpu_compatible: false
   model_id: copywriter_model
@@ -36,7 +36,7 @@ build_properties:
     git_credentials: null
     git_credentials_secret: null
     git_secret_ssh: null
-    main_dir: finetuning
+    main_dir: finetuning_model
     uri: .
   tags: []
 deploy: false
