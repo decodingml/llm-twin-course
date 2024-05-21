@@ -23,7 +23,7 @@ class AppSettings(BaseSettings):
     QDRANT_DATABASE_URL: str = "http://localhost:6333"
 
     QDRANT_CLOUD_URL: str = "str"
-    USE_QDRANT_CLOUD: bool = True
+    USE_QDRANT_CLOUD: bool = False
     QDRANT_APIKEY: str | None = None
 
     # MQ config
