@@ -35,12 +35,12 @@ class AppSettings(BaseSettings):
 
     # CometML config
     COMET_API_KEY: str | None = None
-    COMET_WORKSPACE: str | None = None
-    COMET_PROJECT: str | None = None
+    COMET_WORKSPACE: str = 'vlad_adu'
+    COMET_PROJECT: str = 'scrabble'
 
     # LLM Model config
     TOKENIZERS_PARALLELISM: str = "false"
-    HUGGINGFACE_ACCESS_TOKEN: str = ""
+    HUGGINGFACE_ACCESS_TOKEN: str | None = None
     MODEL_TYPE: str = "mistralai/Mistral-7B-Instruct-v0.1"
 
     # RAG config
