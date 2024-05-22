@@ -4,7 +4,7 @@ import logging
 from comet_ml import Experiment
 from sklearn.model_selection import train_test_split
 
-from finetuning.settings import settings
+from finetuning_model.settings import settings
 class DatasetClient:
     def __init__(self, output_dir: str = "./finetuning_model"):
         self.project = settings.COMET_PROJECT

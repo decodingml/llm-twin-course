@@ -8,8 +8,8 @@ import torch as th
 import yaml
 from comet_ml import Experiment
 from datasets import DatasetDict, load_dataset
-from finetuning.dataset_client import DatasetClient
-from finetuning.settings import settings
+from finetuning_model.dataset_client import DatasetClient
+from finetuning_model.settings import settings
 from peft import LoraConfig, PeftModel, get_peft_model, prepare_model_for_kbit_training
 from qwak.model.adapters import DefaultOutputAdapter
 from qwak.model.base import QwakModel

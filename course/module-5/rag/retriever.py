@@ -5,6 +5,7 @@ from sentence_transformers.SentenceTransformer import SentenceTransformer
 
 import logger_utils
 import utils
+from qdrant_client import QdrantClient
 from db.qdrant import connection as client
 from rag.query_expanison import QueryExpansion
 from rag.reranking import Reranker
@@ -20,7 +21,10 @@ class VectorRetriever:
     """
 
     def __init__(self, query: str):
-        self._client = client
+        self._client = QdrantClient(
+                        host=settings.QDRANT_DATABASE_HOST,
+                        port=settings.QDRANT_DATABASE_PORT,
+                    )
         self.query = query
         self._embedder = SentenceTransformer(settings.EMBEDDING_MODEL_ID)
         self._query_expander = QueryExpansion()
@@ -29,7 +33,6 @@ class VectorRetriever:
 
     def _search_single_query(self, generated_query: str, metadata_filter_value: str, k: int):
         assert k > 3, "k should be greater than 3"
-
         query_vector = self._embedder.encode(generated_query).tolist()
         vectors = [
             self._client.search(
