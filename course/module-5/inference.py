@@ -1,10 +1,7 @@
-from qwak.model.base import QwakModel
-from qwak.model.tools import run_local
-
-from pandas import DataFrame
+import pandas as pd
+from qwak_inference import RealTimeClient
 
 from rag.retriever import VectorRetriever
-from finetuning_model.model import CopywriterMistralModel
 from llm_components.prompt_monitor import PromptMonitor
 from llm_components.prompt_templates import InferenceTemplateV1
 
@@ -14,7 +11,8 @@ from settings import settings
 class ModelInference:
 
     def __init__(self):
-        self.model: QwakModel = CopywriterMistralModel()
+        self.qwak_client = RealTimeClient(model_id=settings.MODEL_ID,
+                                          model_api=settings.MODEL_API)
         self.template = InferenceTemplateV1()
         self.prompt_monitor = PromptMonitor()
 
@@ -27,18 +25,22 @@ class ModelInference:
         prompt = template.format(question=query,
                                  context=context)
 
-        input_vector = DataFrame(
-            [{
-                'instruction': prompt
-            }]
-        ).to_json()
-        result = run_local(self.model, input_vector)
+        input_ = pd.DataFrame(
+            [
+                {
+                    'instruction': prompt
+                }
+            ]
+        )
+        self.qwak_client = RealTimeClient(model_id=settings.MODEL_ID,
+                                          environment='llm-twin')
+        response = self.qwak_client.predict(input_)
 
         self.prompt_monitor.log_prompt(
             template=template,
             prompt=prompt,
             prompt_template_variables={'question': query, 'context': context},
-            output=result
+            output=response
         )
 
-        return result
+        return response

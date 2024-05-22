@@ -1,6 +1,7 @@
 from inference import ModelInference
-
+from dotenv import load_dotenv
 if __name__ == '__main__':
+    load_dotenv()
     tool = ModelInference()
     query = """
             Hello my author_id is 1.
