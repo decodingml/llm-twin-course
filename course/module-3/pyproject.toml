@@ -42,6 +42,10 @@ ruff = "^0.4.3"
 comet-llm = "^2.2.4"
 qwak-sdk = "^0.5.69"
 pandas = "^2.2.2"
+datasets = "^2.19.1"
+peft = "^0.11.1"
+bitsandbytes = "^0.43.1"
+qwak-inference = "^0.1.17"
 
 
 [build-system]
