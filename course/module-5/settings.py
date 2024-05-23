@@ -35,8 +35,8 @@ class AppSettings(BaseSettings):
 
     # CometML config
     COMET_API_KEY: str | None = None
-    COMET_WORKSPACE: str = 'vlad_adu'
-    COMET_PROJECT: str = 'scrabble'
+    COMET_WORKSPACE: str = 'vladadu'
+    COMET_PROJECT: str = 'llm-twin'
 
     # LLM Model config
     TOKENIZERS_PARALLELISM: str = "false"
