@@ -118,7 +118,7 @@ class CopywriterMistralModel(QwakModel):
         result = self.tokenizer(
             prompt,
             padding="max_length",
-            max_length=2300,
+            max_length=100,
             truncation=True,
         )
         result["labels"] = result["input_ids"].copy()
