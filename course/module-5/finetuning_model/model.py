@@ -202,6 +202,8 @@ class CopywriterMistralModel(QwakModel):
             pad_token_id=self.tokenizer.eos_token_id,
         )
 
-        decoded_output = self.tokenizer.batch_decode(generated_ids)
+        decoded_output = self.tokenizer.batch_decode(
+            generated_ids[input_ids.shape[0] :]
+        )[0]
 
         return pd.DataFrame([{"content": decoded_output}])
