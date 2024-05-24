@@ -81,7 +81,7 @@ To be able to download the model checkpoint, and further use it for fine-tuning,
 - On the left panel, go to Access Tokens and generate a new Token
 - Save the Token
 
-# CometML Integration
+# Comet ML Integration
 
 ---
 
@@ -96,7 +96,7 @@ To be able to download the model checkpoint, and further use it for fine-tuning,
 - **Collaboration and Sharing**: Share findings and models with colleagues or the ML community, enhancing team collaboration and knowledge transfer.
 - **Reproducibility**: By logging every detail of the experiment setup, CometML ensures experiments are reproducible, making it easier to debug and iterate.
 
-## CometML Variables
+## Comet ML Variables
 
 When integrating CometML into your projects, you'll need to set up several environment variables to manage the authentication and configuration:
 
