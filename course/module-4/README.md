@@ -9,8 +9,8 @@ This module reflects the LLM fine-tuning pipeline where we download versioned da
 - how to fine-tune a Mistral7b-Instruct on our custom llm-twin dataset
 - what is PEFT (parameter-efficient-fine-tuning)
 - what purpose do QLoRA Adapters and BitsAndBytes configs serve
-- how to fetch versioned datasets from CometML
-- how to log training metrics and model to CometML
+- how to fetch versioned datasets from Comet ML
+- how to log training metrics and model to Comet ML
 - understanding model-specific special tokens
 - the detailed walkthrough of how the Qwak build system works
 
@@ -56,10 +56,14 @@ You can learn more about the Dataset Generation and Fine-tuning Pipeline from De
 - Set-up the HuggingFace connection to be able to download Mistral7b-Instruct model.
 - Learn how to leverage Qwak to manage our training job at scale.
 - How to efficiently fine-tune a large model using PEFT & QLoRA
-- How to download datasets versioned with CometML
+- How to download datasets versioned with Comet ML
 - How does the Qwak Build Lifecycle works
 
 # Dependencies
+
+- [HuggingFace](https://huggingface.co)
+- [Comet ML](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github)
+- [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml)
 
 ## Installation and Setup
 
@@ -73,7 +77,8 @@ poetry install
 
 ---
 
-To be able to download the model checkpoint, and further use it for fine-tuning, we need a Hugging Face Access Token.
+We need a Hugging Face Access Token to download the model checkpoint and use it for fine-tuning.
+
 **Here's how to get it:**
 
 - Log-in to [HuggingFace](https://huggingface.co)
@@ -129,7 +134,7 @@ To access and set up the necessary CometML variables for your project, follow th
 
 ## Overview
 
-[Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=medium&utm_medium=referral&utm_campaign=decodingml) is an all-in-one MLOps platform designed to streamline the entire machine learning lifecycle from data preparation to deployment and monitoring. It offers a comprehensive suite of tools that allow data science teams to build, train, deploy, manage, and monitor AI and machine learning models efficiently.
+[Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml) is an all-in-one MLOps platform designed to streamline the entire machine learning lifecycle from data preparation to deployment and monitoring. It offers a comprehensive suite of tools that allow data science teams to build, train, deploy, manage, and monitor AI and machine learning models efficiently.
 
 ## Why Use Qwak?
 
@@ -142,9 +147,9 @@ Qwak is used by a range of companies across various industries, from banking and
 
 ## Setting Up Qwak
 
-[Qwak.ai](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=medium&utm_medium=referral&utm_campaign=decodingml) is straightforward and easy to set-up.
+[Qwak.ai](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml) is straightforward and easy to set-up.
 
-To configure your environment for Qwak, log in to [Qwak.ai](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=medium&utm_medium=referral&utm_campaign=decodingml) and go to your profile → settings → Account Settings → Personal API Keys and generate a new key.
+To configure your environment for Qwak, log in to [Qwak.ai](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml) and go to your profile → settings → Account Settings → Personal API Keys and generate a new key.
 
 In your terminal, run `qwak configure` and it'll ask you for your `API-KEY`, paste it and you're done!
 
