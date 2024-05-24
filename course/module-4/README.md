@@ -1,7 +1,5 @@
 # Introduction
 
----
-
 This module reflects the LLM fine-tuning pipeline where we download versioned datsets from CometML and manage the deployment at scale using Qwak.
 **Completing this lesson**, you'll gain a solid understanding of the following:
 
@@ -14,9 +12,7 @@ This module reflects the LLM fine-tuning pipeline where we download versioned da
 - understanding model-specific special tokens
 - the detailed walkthrough of how the Qwak build system works
 
-## What Is Fine-Tuning ?
-
----
+# What Is Fine-Tuning?
 
 Represents the process of taking pre-trained models and further training them on smaller, specific datasets to refine their capabilities and improve performance in a particular task or domain. Fine-tuning is about turning general-purpose models and turning them into specialized models.
 
@@ -45,8 +41,6 @@ You can learn more about the Dataset Generation and Fine-tuning Pipeline from De
 - In **Lesson 6**: [The Role of Feature Stores in Fine-Tuning LLMs](https://medium.com/decodingml/the-role-of-feature-stores-in-fine-tuning-llms-22bd60afd4b9)
   We've showcased how to use filtered data samples from QDrant. Using Knowledge Distillation, we have the GPT3.5 Turbo to structure and generate the fine-tuning dataset that is versioned with CometML.
 
----
-
 # Architecture Overview
 
 ![Architecture](./media/fine-tuning-workflow.png)
@@ -69,8 +63,6 @@ To prepare your environment for these components, follow these steps:
 poetry install
 ```
 
----
-
 # Setup External Services
 
 1. [HuggingFace](https://huggingface.co)
@@ -89,7 +81,6 @@ We need a Hugging Face Access Token to download the model checkpoint and use it 
 - On the left panel, go to Access Tokens and generate a new Token
 - Save the Token
 
------
 
 ## 2. Comet ML Integration
 
@@ -130,8 +121,6 @@ To access and set up the necessary CometML variables for your project, follow th
 
 4. **Set Environment Variables**:
    - These variables, `COMET_API_KEY`, `COMET_PROJECT` and `COMET_WORKSPACE`, should be added in the `build_config.yaml` when deploying on qwak. Follow the next module to integrate Qwak.
-
-----
 
 ## 3. Qwak Integration
 
@@ -228,8 +217,6 @@ step:
   validate_build_artifact_timeout: 120
 verbose: 0
 ```
-
-------
 
 # Usage
 
