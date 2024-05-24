@@ -73,12 +73,12 @@ poetry install
 
 # Setup External Services
 
-- [HuggingFace](https://huggingface.co)
-- [Comet ML](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github)
-- [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml)
+1. [HuggingFace](https://huggingface.co)
+2. [Comet ML](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github)
+3. [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml)
 
 
-## HuggingFace Integration
+## 1. HuggingFace Integration
 
 We need a Hugging Face Access Token to download the model checkpoint and use it for fine-tuning.
 
@@ -89,9 +89,9 @@ We need a Hugging Face Access Token to download the model checkpoint and use it 
 - On the left panel, go to Access Tokens and generate a new Token
 - Save the Token
 
-## Comet ML Integration
+-----
 
----
+## 2. Comet ML Integration
 
 ### Overview
 
@@ -131,9 +131,9 @@ To access and set up the necessary CometML variables for your project, follow th
 4. **Set Environment Variables**:
    - These variables, `COMET_API_KEY`, `COMET_PROJECT` and `COMET_WORKSPACE`, should be added in the `build_config.yaml` when deploying on qwak. Follow the next module to integrate Qwak.
 
-## Qwak Integration
+----
 
----
+## 3. Qwak Integration
 
 ### Overview
 
@@ -229,9 +229,9 @@ step:
 verbose: 0
 ```
 
-# Usage
+------
 
----
+# Usage
 
 The project includes a `Makefile` for easy management of common tasks. Here are the main commands you can use:
 
@@ -239,9 +239,9 @@ The project includes a `Makefile` for easy management of common tasks. Here are 
 - `make test`: Runs tests on local-qwak deployment.
 - `make deploy`: Triggers a new fine-tuning job to Qwak remotely, using the configuration specified in `build_config.yaml`
 
-# Meet your teachers!
+------
 
----
+# Meet your teachers!
 
 The course is created under the [Decoding ML](https://decodingml.substack.com/) umbrella by:
 
