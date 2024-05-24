@@ -34,7 +34,7 @@ We're using the following concepts widely adopted when Fine-Tuning LLMs:
 You can learn more about the Dataset Generation and Fine-tuning Pipeline from Decoding ML LLM Twin Course:
 
 - Lesson 6: [The Role of Feature Stores in Fine-Tuning LLMs](https://medium.com/decodingml/the-role-of-feature-stores-in-fine-tuning-llms-22bd60afd4b9)
-- Lesson 7: TBD
+- Lesson 7: [How to fine-tune LLMs on custom datasets at Scale using Qwak and CometML](https://medium.com/decodingml/how-to-fine-tune-llms-on-custom-datasets-at-scale-using-qwak-and-cometml-12216a777c34)
 
 ## Refresher from Previous Lessons
 
