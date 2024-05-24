@@ -61,11 +61,7 @@ You can learn more about the Dataset Generation and Fine-tuning Pipeline from De
 
 # Dependencies
 
-- [HuggingFace](https://huggingface.co)
-- [Comet ML](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github)
-- [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml)
-
-## Installation and Setup
+## Installation
 
 To prepare your environment for these components, follow these steps:
 
@@ -73,7 +69,16 @@ To prepare your environment for these components, follow these steps:
 poetry install
 ```
 
-# HuggingFace Integration
+---
+
+# Setup External Services
+
+- [HuggingFace](https://huggingface.co)
+- [Comet ML](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github)
+- [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml)
+
+
+## HuggingFace Integration
 
 ---
 
@@ -86,22 +91,22 @@ We need a Hugging Face Access Token to download the model checkpoint and use it 
 - On the left panel, go to Access Tokens and generate a new Token
 - Save the Token
 
-# Comet ML Integration
+## Comet ML Integration
 
 ---
 
-## Overview
+### Overview
 
 [Comet ML](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github) is a cloud-based platform that provides tools for tracking, comparing, explaining, and optimizing experiments and models in machine learning. CometML helps data scientists and teams to better manage and collaborate on machine learning experiments.
 
-## Why Use Comet ML?
+### Why Use Comet ML?
 
 - **Experiment Tracking**: CometML automatically tracks your code, experiments, and results, allowing you to compare between different runs and configurations visually.
 - **Model Optimization**: It offers tools to compare different models side by side, analyze hyperparameters, and track model performance across various metrics.
 - **Collaboration and Sharing**: Share findings and models with colleagues or the ML community, enhancing team collaboration and knowledge transfer.
 - **Reproducibility**: By logging every detail of the experiment setup, CometML ensures experiments are reproducible, making it easier to debug and iterate.
 
-## Comet ML Variables
+### Comet ML Variables
 
 When integrating CometML into your projects, you'll need to set up several environment variables to manage the authentication and configuration:
 
@@ -109,7 +114,7 @@ When integrating CometML into your projects, you'll need to set up several envir
 - `COMET_PROJECT`: The project name under which your experiments will be logged.
 - `COMET_WORKSPACE`: The workspace name that organizes various projects and experiments.
 
-## Obtaining Comet ML Variables
+### Obtaining Comet ML Variables
 
 To access and set up the necessary CometML variables for your project, follow these steps:
 
@@ -128,15 +133,15 @@ To access and set up the necessary CometML variables for your project, follow th
 4. **Set Environment Variables**:
    - These variables, `COMET_API_KEY`, `COMET_PROJECT` and `COMET_WORKSPACE`, should be added in the `build_config.yaml` when deploying on qwak. Follow the next module to integrate Qwak.
 
-# Qwak Integration
+## Qwak Integration
 
 ---
 
-## Overview
+### Overview
 
 [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml) is an all-in-one MLOps platform designed to streamline the entire machine learning lifecycle from data preparation to deployment and monitoring. It offers a comprehensive suite of tools that allow data science teams to build, train, deploy, manage, and monitor AI and machine learning models efficiently.
 
-## Why Use Qwak?
+### Why Use Qwak?
 
 Qwak is used by a range of companies across various industries, from banking and finance to e-commerce and technology, underscoring its versatility and effectiveness in handling diverse AI and ML needs. Here are a few reasons:
 
@@ -145,7 +150,7 @@ Qwak is used by a range of companies across various industries, from banking and
 - **User-Friendly Interface**: Qwak offers a user-friendly interface and managed Jupyter notebooks, making it accessible for both experienced data scientists and those new to the field​
 - **Smooth Developer Experience**: The CLI sdk is very intuitive and easy to use, and allows developers to scale inference/training jobs accordingly without the hassle of managing infrastructure.
 
-## Setting Up Qwak
+### Setting Up Qwak
 
 [Qwak.ai](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml) is straightforward and easy to set-up.
 
@@ -153,7 +158,7 @@ To configure your environment for Qwak, log in to [Qwak.ai](https://www.qwak.com
 
 In your terminal, run `qwak configure` and it'll ask you for your `API-KEY`, paste it and you're done!
 
-## Creating a new Qwak Model
+### Creating a new Qwak Model
 
 In order to deploy model versions remotely on qwak, first you'll have to initialize a `model` and a `project`. To do that, run in the terminal:
 
