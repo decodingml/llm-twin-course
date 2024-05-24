@@ -65,7 +65,6 @@ You can learn more about the Dataset Generation and Fine-tuning Pipeline from De
 
 To prepare your environment for these components, follow these steps:
 
-- `poetry init`
 - `poetry install`
 
 # HuggingFace Integration
