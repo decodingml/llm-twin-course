@@ -80,8 +80,6 @@ poetry install
 
 ## HuggingFace Integration
 
----
-
 We need a Hugging Face Access Token to download the model checkpoint and use it for fine-tuning.
 
 **Here's how to get it:**
