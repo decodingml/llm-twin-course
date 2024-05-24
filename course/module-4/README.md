@@ -87,9 +87,9 @@ To be able to download the model checkpoint, and further use it for fine-tuning,
 
 ## Overview
 
-[CometML](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github) is a cloud-based platform that provides tools for tracking, comparing, explaining, and optimizing experiments and models in machine learning. CometML helps data scientists and teams to better manage and collaborate on machine learning experiments.
+[Comet ML](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github) is a cloud-based platform that provides tools for tracking, comparing, explaining, and optimizing experiments and models in machine learning. CometML helps data scientists and teams to better manage and collaborate on machine learning experiments.
 
-## Why Use CometML?
+## Why Use Comet ML?
 
 - **Experiment Tracking**: CometML automatically tracks your code, experiments, and results, allowing you to compare between different runs and configurations visually.
 - **Model Optimization**: It offers tools to compare different models side by side, analyze hyperparameters, and track model performance across various metrics.
@@ -104,13 +104,13 @@ When integrating CometML into your projects, you'll need to set up several envir
 - `COMET_PROJECT`: The project name under which your experiments will be logged.
 - `COMET_WORKSPACE`: The workspace name that organizes various projects and experiments.
 
-## Obtaining CometML Variables
+## Obtaining Comet ML Variables
 
 To access and set up the necessary CometML variables for your project, follow these steps:
 
 1. **Create an Account or Log In**:
 
-   - Visit [CometML's website](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github) and log in if you already have an account, or sign up if you're a new user.
+   - Visit [Comet ML's website](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github) and log in if you already have an account, or sign up if you're a new user.
 
 2. **Create a New Project**:
 
