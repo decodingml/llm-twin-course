@@ -2,14 +2,16 @@ import json
 import logging
 
 from openai import OpenAI
-
-from finetuning.exceptions import APICommunicationError
 from settings import settings
 
 MAX_LENGTH = 16384
-SYSTEM_PROMPT = "You are a technical writer handing someone's account to post about AI and MLOps."
+SYSTEM_PROMPT = (
+    "You are a technical writer handing someone's account to post about AI and MLOps."
+)
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 
 class GptCommunicator:
@@ -31,7 +33,9 @@ class GptCommunicator:
             response = chat_completion.choices[0].message.content
             return json.loads(self.clean_response(response))
         except Exception as e:
-            logging.error(f"Skipping batch! An error occurred while communicating with API: {e}")
+            logging.error(
+                f"Skipping batch! An error occurred while communicating with API: {e}"
+            )
             return []
 
     @staticmethod
