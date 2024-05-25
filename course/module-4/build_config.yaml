@@ -12,7 +12,7 @@ build_env:
     params: []
     push: true 
   python_env:
-    dependency_file_path: finetuning_model/requirements.txt
+    dependency_file_path: finetuning/requirements.txt
     git_credentials: null
     git_credentials_secret: null
     poetry: null
