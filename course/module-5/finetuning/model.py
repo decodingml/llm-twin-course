@@ -23,7 +23,7 @@ from transformers import (
 
 from settings import settings
 
-from finetuning_model.dataset_client import DatasetClient
+from finetuning.dataset_client import DatasetClient
 
 
 class CopywriterMistralModel(QwakModel):
@@ -33,7 +33,7 @@ class CopywriterMistralModel(QwakModel):
         model_save_dir: str = "./model",
         model_type: str = "mistralai/Mistral-7B-Instruct-v0.1",
         comet_artifact_name: str = "cleaned_posts",
-        config_file: str = "./finetuning_model/config.yaml",
+        config_file: str = "./finetuning/config.yaml",
     ) -> None:
         self._prep_environment()
 
@@ -166,14 +166,15 @@ class CopywriterMistralModel(QwakModel):
             eval_dataset=tokenized_datasets["validation"],
             tokenizer=self.tokenizer,
         )
+        
         logging.info("Initialized model trainer")
         self.trainer.train()
-        logging.info("Finished model finetuning_model!")
+        logging.info(f"Finished training LLM: {self.model_type}")
         self.trainer.save_model(self.model_save_dir)
         logging.info(f"Finished saving model to {self.model_save_dir}")
         self.experiment.end()
+        
         self._remove_model_class_attributes()
-        logging.info("Finished removing model class attributes!")
 
     def initialize_model(self) -> None:
         self.model = AutoModelForCausalLM.from_pretrained(

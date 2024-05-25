@@ -32,7 +32,7 @@ class CopywriterMistralModel(QwakModel):
         model_save_dir: str = "./model",
         model_type: str = "mistralai/Mistral-7B-Instruct-v0.1",
         comet_artifact_name: str = "posts-instruct-dataset",
-        config_file: str = "./finetuning_model/config.yaml",
+        config_file: str = "./finetuning/config.yaml",
     ) -> None:
         self._prep_environment()
         self.experiment = None
@@ -103,7 +103,7 @@ class CopywriterMistralModel(QwakModel):
         logging.info("Initialized training arguments successfully!")
 
     def _remove_model_class_attributes(self) -> None:
-        # remove needed in order to skip default serialization with Pickle done by Qwak
+        # Remove class attributes to skip default serialization with Pickle done by Qwak
         del self.model
         del self.trainer
         del self.experiment
@@ -166,12 +166,12 @@ class CopywriterMistralModel(QwakModel):
         )
         logging.info("Initialized model trainer")
         self.trainer.train()
-        logging.info("Finished model finetuning_model!")
+        logging.info(f"Finished training LLM: {self.model_type}")
         self.trainer.save_model(self.model_save_dir)
         logging.info(f"Finished saving model to {self.model_save_dir}")
         self.experiment.end()
+        
         self._remove_model_class_attributes()
-        logging.info("Finished removing model class attributes!")
 
     def initialize_model(self) -> None:
         self.model = AutoModelForCausalLM.from_pretrained(
