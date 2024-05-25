@@ -63,5 +63,8 @@ class LLMTwin:
                 output=answer,
                 metadata=metadata,
             )
+            self.prompt_monitoring_manager.log_chain(
+                query=query, response=answer, eval_output=evaluation_result
+            )
 
         return {"answer": answer, "llm_evaluation_result": evaluation_result}
