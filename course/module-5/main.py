@@ -1,5 +1,5 @@
 import logger_utils
-from llm_twin import LLMTwin
+from inference_pipeline import LLMTwin
 
 logger = logger_utils.get_logger(__name__)
 
