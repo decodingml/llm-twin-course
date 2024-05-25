@@ -1,17 +1,24 @@
-from dotenv import load_dotenv
-
+import logger_utils
 from inference import ModelInference
+
+logger = logger_utils.get_logger(__name__)
 
 
 if __name__ == "__main__":
-    load_dotenv()
-    tool = ModelInference()
-    query = """
-            Hello my author_id is 1.
+    inference_endpoint = ModelInference()
 
-            Could you please draft a LinkedIn post discussing RAG systems?
-            I'm particularly interested in how RAG works and how it is integrated with vector DBs and large language models (LLMs).
-            """
-    content = tool.generate_content(query=query)
-    for item in content:
-        print(item)
+    query = """
+        Could you please draft a LinkedIn post discussing Vector Databases? 
+        I'm particularly interested in how do they work.
+        """
+
+    response = inference_endpoint.generate(
+        query=query,
+        enable_rag=True,
+        enable_evaluation=True,
+        enable_monitoring=True,
+    )
+
+    logger.info(f"Answer: {response['answer']}")
+    logger.info("=" * 50)
+    logger.info(f"LLM Evaluation Result: {response['llm_evaluation_result']}")

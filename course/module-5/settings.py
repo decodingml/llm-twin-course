@@ -4,19 +4,15 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class AppSettings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
-    # Embeddings config
+     # Embeddings config
     EMBEDDING_MODEL_ID: str = "sentence-transformers/all-MiniLM-L6-v2"
     EMBEDDING_MODEL_MAX_INPUT_LENGTH: int = 256
     EMBEDDING_SIZE: int = 384
     EMBEDDING_MODEL_DEVICE: str = "cpu"
-
+    
     # OpenAI config
     OPENAI_MODEL_ID: str = "gpt-4-1106-preview"
     OPENAI_API_KEY: str | None = None
-
-    # MongoDB config
-    MONGO_DATABASE_HOST: str = "mongodb://localhost:30001,localhost:30002,localhost:30003/?replicaSet=my-replica-set"
-    MONGO_DATABASE_NAME: str = "scrabble"
 
     # QdrantDB config
     QDRANT_DATABASE_HOST: str = "localhost"
@@ -34,16 +30,18 @@ class AppSettings(BaseSettings):
     RABBITMQ_PORT: int = 5673
 
     # CometML config
-    COMET_API_KEY: str | None = None
-    COMET_WORKSPACE: str = 'vladadu'
-    COMET_PROJECT: str = 'llm-twin'
+    COMET_API_KEY: str
+    COMET_WORKSPACE: str
+    COMET_PROJECT: str = "llm-twin-course"
 
     # LLM Model config
     TOKENIZERS_PARALLELISM: str = "false"
     HUGGINGFACE_ACCESS_TOKEN: str | None = None
     MODEL_TYPE: str = "mistralai/Mistral-7B-Instruct-v0.1"
-    MODEL_ID: str = 'copywriter_model'
-    MODEL_API: str = 'https://models.llm-twin.qwak.ai/v1/copywriter_model/default/predict'
+    QWAK_DEPLOYMENT_MODEL_ID: str = "copywriter_model"
+    QWAK_DEPLOYMENT_MODEL_API: str = (
+        "https://models.llm-twin.qwak.ai/v1/copywriter_model/default/predict"
+    )
 
     # RAG config
     TOP_K: int = 5

@@ -1,31 +1,46 @@
 import pandas as pd
 from qwak_inference import RealTimeClient
 
+from evaluation import evaluate_llm
+from llm_components.prompt_templates import InferenceTemplate
+from monitoring import PromptMonitoringManager
 from rag.retriever import VectorRetriever
-from model_evaluation.prompt_monitor import PromptMonitor
-from llm_components.prompt_templates import InferenceTemplateV1
-from model_evaluation.evaluation import evaluate
 
 from settings import settings
 
 
 class ModelInference:
-
-    def __init__(self):
-        self.qwak_client = RealTimeClient(model_id=settings.MODEL_ID,
-                                          model_api=settings.MODEL_API)
-        self.template = InferenceTemplateV1()
-        self.prompt_monitor = PromptMonitor()
-
-    def generate_content(self, query: str) -> dict:
-        retriever = VectorRetriever(query=query)
-        hits = retriever.retrieve_top_k(
-            k=settings.TOP_K, to_expand_to_n_queries=settings.EXPAND_N_QUERY
+    def __init__(self) -> None:
+        self.qwak_client = RealTimeClient(
+            model_id=settings.QWAK_DEPLOYMENT_MODEL_ID,
+            model_api=settings.QWAK_DEPLOYMENT_MODEL_API,
         )
-        context = retriever.rerank(hits=hits, keep_top_k=settings.KEEP_TOP_K)
+        self.template = InferenceTemplate()
+        self.prompt_monitoring_manager = PromptMonitoringManager()
 
-        template = self.template.create_template()
-        prompt = template.format(question=query, context=context)
+    def generate(
+        self,
+        query: str,
+        enable_rag: bool = False,
+        enable_evaluation: bool = False,
+        enable_monitoring: bool = True,
+    ) -> dict:
+        prompt_template = self.template.create_template(enable_rag=enable_rag)
+        prompt_template_variables = {
+            "question": query,
+        }
+
+        if enable_rag is True:
+            retriever = VectorRetriever(query=query)
+            hits = retriever.retrieve_top_k(
+                k=settings.TOP_K, to_expand_to_n_queries=settings.EXPAND_N_QUERY
+            )
+            context = retriever.rerank(hits=hits, keep_top_k=settings.KEEP_TOP_K)
+            prompt_template_variables["context"] = context
+
+            prompt = prompt_template.format(question=query, context=context)
+        else:
+            prompt = prompt_template.format(question=query)
 
         input_ = pd.DataFrame(
             [
@@ -35,18 +50,26 @@ class ModelInference:
             ]
         ).to_json()
 
-        response = self.qwak_client.predict(input_)
-        evaluation = evaluate(query=query,
-                              context=context,
-                              output=str(response))
+        response: list[dict] = self.qwak_client.predict(input_)
+        answer = response[0]["content"][0]
 
-        self.prompt_monitor.log_prompt(
-            prompt=prompt,
-            prompt_template_variables={'question': query, 'context': context},
-            output=response
-        )
+        if enable_evaluation is True:
+            evaluation_result = evaluate_llm(query=query, output=answer)
+        else:
+            evaluation_result = None
 
-        return {
-            'content': response,
-            'evaluation': evaluation
-        }
+        if enable_monitoring is True:
+            if evaluation_result is not None:
+                metadata = {"llm_evaluation_result": evaluation_result}
+            else:
+                metadata = None
+
+            self.prompt_monitoring_manager.log(
+                prompt=prompt,
+                prompt_template=prompt_template.template,
+                prompt_template_variables=prompt_template_variables,
+                output=answer,
+                metadata=metadata,
+            )
+
+        return {"answer": answer, "llm_evaluation_result": evaluation_result}

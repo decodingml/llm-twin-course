@@ -4,15 +4,15 @@ build_env:
     base_image: public.ecr.aws/qwak-us-east-1/qwak-base:0.0.13-gpu
     cache: true
     env_vars:
-    - HUGGINGFACE_ACCESS_TOKEN=""
-    - COMET_API_KEY=""
-    - COMET_WORKSPACE=""
-    - COMET_PROJECT=""
+    - HUGGINGFACE_ACCESS_TOKEN=
+    - COMET_API_KEY=
+    - COMET_WORKSPACE=
+    - COMET_PROJECT=llm-twin-course
     no_cache: false
     params: []
     push: true 
   python_env:
-    dependency_file_path: finetuning_model/requirements.txt
+    dependency_file_path: finetuning/requirements.txt
     git_credentials: null
     git_credentials_secret: null
     poetry: null
@@ -26,17 +26,17 @@ build_env:
       instance: gpu.a10.2xl
       memory: null
 build_properties:
-  branch: finetuning_model
+  branch: finetuning
   build_id: null
   gpu_compatible: false
-  model_id: copywriter_model
+  model_id: llm_twin
   model_uri:
     dependency_required_folders: []
     git_branch: master
     git_credentials: null
     git_credentials_secret: null
     git_secret_ssh: null
-    main_dir: finetuning_model
+    main_dir: finetuning
     uri: .
   tags: []
 deploy: false

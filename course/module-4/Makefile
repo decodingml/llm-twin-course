@@ -4,7 +4,6 @@ GREEN := \033[0;32m
 YELLOW := \033[0;33m
 RESET := \033[0m
 
-ENV_NAME := "py39upstash"
 help:
 	@echo "Usage: make [target]"
 	@echo ""
@@ -22,13 +21,17 @@ help:
 
 list: help
 
+create-qwak-project:
+	@echo "$(YELLOW)Creating Qwak project $(RESET)"
+	qwak models create "llm_twin" --project "llm-twin-course"
+
 deploy:
 	@echo "$(YELLOW)Dumping poetry env requirements to $(RESET) $(GREEN) requirements.txt $(RESET)"
 	poetry export -f requirements.txt --output finetuning/requirements.txt --without-hashes
 	@echo "$(GREEN)Triggering Qwak Model Build$(RESET)"
-	qwak models build -f build_config.yaml .
+	poetry run qwak models build -f build_config.yaml .
 
 test:
-	python test_local.py
+	poetry run python test_local.py
 
 
