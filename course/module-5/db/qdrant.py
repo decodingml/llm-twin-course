@@ -1,17 +1,18 @@
-from qdrant_client import QdrantClient
+import logger_utils
+from qdrant_client import QdrantClient, models
 from qdrant_client.http.exceptions import UnexpectedResponse
 from qdrant_client.http.models import Batch, Distance, VectorParams
 
-import logger_utils
+
 from settings import settings
 
 logger = logger_utils.get_logger(__name__)
 
 
 class QdrantDatabaseConnector:
-    _instance: QdrantClient = None
-
-    def __init__(self):
+    _instance: QdrantClient | None = None
+    
+    def __init__(self) -> None:
         if self._instance is None:
             try:
                 if settings.USE_QDRANT_CLOUD:
@@ -24,12 +25,12 @@ class QdrantDatabaseConnector:
                         host=settings.QDRANT_DATABASE_HOST,
                         port=settings.QDRANT_DATABASE_PORT,
                     )
-
             except UnexpectedResponse:
                 logger.exception(
-                    "Couldn't connect to the database.",
+                    "Couldn't connect to Qdrant.",
                     host=settings.QDRANT_DATABASE_HOST,
                     port=settings.QDRANT_DATABASE_PORT,
+                    url=settings.QDRANT_CLOUD_URL,
                 )
 
                 raise
@@ -57,6 +58,14 @@ class QdrantDatabaseConnector:
             logger.exception("An error occurred while inserting data.")
 
             raise
+        
+    def search(self, collection_name: str, query_vector: list, query_filter: models.Filter, limit: int) -> list:
+        return self._instance.search(
+            collection_name=collection_name,
+            query_vector=query_vector,
+            query_filter=query_filter,
+            limit=limit,
+        )
 
     def scroll(self, collection_name: str, limit: int):
         return self._instance.scroll(collection_name=collection_name, limit=limit)
@@ -66,6 +75,3 @@ class QdrantDatabaseConnector:
             self._instance.close()
 
             logger.info("Connected to database has been closed.")
-
-
-connection = QdrantDatabaseConnector()

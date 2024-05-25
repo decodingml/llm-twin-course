@@ -11,7 +11,8 @@ from settings import settings
 class ModelInference:
     def __init__(self) -> None:
         self.qwak_client = RealTimeClient(
-            model_id=settings.MODEL_ID, model_api=settings.MODEL_API
+            model_id=settings.QWAK_DEPLOYMENT_MODEL_ID,
+            model_api=settings.QWAK_DEPLOYMENT_MODEL_API,
         )
         self.template = InferenceTemplate()
         self.prompt_monitoring_manager = PromptMonitoringManager()

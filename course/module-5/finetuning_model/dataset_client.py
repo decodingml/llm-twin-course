@@ -47,7 +47,10 @@ class DatasetClient:
             return training_file_path, validation_file_path
         except Exception as e:
             logging.error(f"Error splitting data: {str(e)}")
+            
+            raise
 
-    def download_dataset(self, file_name: str):
+    def download_dataset(self, file_name: str) -> tuple:
         self.get_artifact(file_name)
+        
         return self.split_data(file_name)
