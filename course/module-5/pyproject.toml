@@ -1,21 +1,14 @@
 [tool.poetry]
-name = "rag-system"
+name = "inference-pipeline"
 description = ""
 version = "0.1.0"
 authors = [
     "vlad_adu <vladadumitracesei02@gmail.com>",
     "Paul Iusztin <p.b.iusztin@gmail.com>",
-    "Alex Vesa <vesaalexandru95@gmail.com>"
-    ]
-#package-mode = false
-readme = "README.md"
-
-[tool.ruff]
-line-length = 88
-select = [
-    "F401",
-    "F403",
+    "Alex Vesa <vesaalexandru95@gmail.com>",
 ]
+package-mode = false
+readme = "README.md"
 
 
 [tool.poetry.dependencies]
@@ -51,3 +44,8 @@ qwak-inference = "^0.1.17"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+
+[tool.ruff]
+line-length = 88
+select = ["F401", "F403"]
