@@ -1,15 +1,12 @@
 import logging
 import os
 
-import comet_ml
 import pandas as pd
 import qwak
 import torch as th
 import yaml
 from comet_ml import Experiment
 from datasets import DatasetDict, load_dataset
-from finetuning_model.dataset_client import DatasetClient
-from finetuning_model.settings import settings
 from peft import LoraConfig, PeftModel, get_peft_model, prepare_model_for_kbit_training
 from qwak.model.adapters import DefaultOutputAdapter
 from qwak.model.base import QwakModel
@@ -24,6 +21,10 @@ from transformers import (
     TrainingArguments,
 )
 
+from settings import settings
+
+from finetuning_model.dataset_client import DatasetClient
+
 
 class CopywriterMistralModel(QwakModel):
     def __init__(
@@ -33,8 +34,9 @@ class CopywriterMistralModel(QwakModel):
         model_type: str = "mistralai/Mistral-7B-Instruct-v0.1",
         comet_artifact_name: str = "cleaned_posts",
         config_file: str = "./finetuning_model/config.yaml",
-    ):
+    ) -> None:
         self._prep_environment()
+
         self.experiment = None
         self.model_save_dir = model_save_dir
         self.model_type = model_type
@@ -47,12 +49,12 @@ class CopywriterMistralModel(QwakModel):
                 workspace=settings.COMET_WORKSPACE,
             )
 
-    def _prep_environment(self):
+    def _prep_environment(self) -> None:
         os.environ["TOKENIZERS_PARALLELISM"] = settings.TOKENIZERS_PARALLELISM
         th.cuda.empty_cache()
         logging.info("Emptied cuda cache. Environment prepared successfully!")
 
-    def init_model(self):
+    def init_model(self) -> None:
         self.model = AutoModelForCausalLM.from_pretrained(
             self.model_type,
             token=settings.HUGGINGFACE_ACCESS_TOKEN,
@@ -173,7 +175,7 @@ class CopywriterMistralModel(QwakModel):
         self._remove_model_class_attributes()
         logging.info("Finished removing model class attributes!")
 
-    def initialize_model(self):
+    def initialize_model(self) -> None:
         self.model = AutoModelForCausalLM.from_pretrained(
             self.model_save_dir,
             token=settings.HUGGINGFACE_ACCESS_TOKEN,

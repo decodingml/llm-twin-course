@@ -10,4 +10,5 @@ class AppSettings(BaseSettings):
     COMET_WORKSPACE: str = ""
     COMET_PROJECT: str = ""
 
+
 settings = AppSettings()
