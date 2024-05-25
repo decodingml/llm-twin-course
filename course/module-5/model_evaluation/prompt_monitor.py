@@ -4,7 +4,10 @@ from settings import settings
 
 class PromptMonitor:
     @classmethod
-    def log_prompt(cls, prompt: str, prompt_template_variables: dict, output: str):
+    def log_prompt(cls,
+                   prompt: str,
+                   prompt_template_variables: dict,
+                   output: str):
 
         comet_llm.init()
         comet_llm.log_prompt(

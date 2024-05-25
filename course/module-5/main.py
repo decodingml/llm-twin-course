@@ -1,20 +1,17 @@
-import model_evaluation.evaluation as eval
 from dotenv import load_dotenv
+
 from inference import ModelInference
-from model_evaluation.prompt_monitor import PromptMonitor
+
 
 if __name__ == "__main__":
     load_dotenv()
     tool = ModelInference()
-    llm_monitor = PromptMonitor()
-    query = """Could you please draft a LinkedIn post discussing Vector Databases? I'm particularly interested in how do they work."""
-    [content] = tool.infer_only(query=query)["content"]
+    query = """
+            Hello my author_id is 1.
 
-    result = eval.llm_eval_using_GPT(query=query, output=content)
-    print(result)
-    llm_monitor.log_prompt(
-        prompt=result, prompt_template_variables={"query": query}, output=content
-    )
-
+            Could you please draft a LinkedIn post discussing RAG systems?
+            I'm particularly interested in how RAG works and how it is integrated with vector DBs and large language models (LLMs).
+            """
+    content = tool.generate_content(query=query)
     for item in content:
         print(item)
