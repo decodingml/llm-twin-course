@@ -1,20 +1,22 @@
 import logger_utils
-from inference import ModelInference
+from llm_twin import LLMTwin
 
 logger = logger_utils.get_logger(__name__)
 
 
 if __name__ == "__main__":
-    inference_endpoint = ModelInference()
+    inference_endpoint = LLMTwin()
 
     query = """
+        Hello my author_id is 1.
+        
         Could you please draft a LinkedIn post discussing Vector Databases? 
         I'm particularly interested in how do they work.
         """
 
     response = inference_endpoint.generate(
         query=query,
-        enable_rag=True,
+        enable_rag=False,
         enable_evaluation=True,
         enable_monitoring=True,
     )

@@ -1,15 +1,13 @@
 import pandas as pd
-from qwak_inference import RealTimeClient
-
 from evaluation import evaluate_llm
 from llm_components.prompt_templates import InferenceTemplate
 from monitoring import PromptMonitoringManager
+from qwak_inference import RealTimeClient
 from rag.retriever import VectorRetriever
-
 from settings import settings
 
 
-class ModelInference:
+class LLMTwin:
     def __init__(self) -> None:
         self.qwak_client = RealTimeClient(
             model_id=settings.QWAK_DEPLOYMENT_MODEL_ID,
@@ -42,13 +40,7 @@ class ModelInference:
         else:
             prompt = prompt_template.format(question=query)
 
-        input_ = pd.DataFrame(
-            [
-                {
-                    'instruction': prompt
-                }
-            ]
-        ).to_json()
+        input_ = pd.DataFrame([{"instruction": prompt}]).to_json()
 
         response: list[dict] = self.qwak_client.predict(input_)
         answer = response[0]["content"][0]
