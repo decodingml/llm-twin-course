@@ -1,10 +1,11 @@
 import pandas as pd
 from qwak_inference import RealTimeClient
 
-from evaluation import llm_eval
+from evaluation import evaluate_llm
 from llm_components.prompt_templates import InferenceTemplate
 from monitoring import PromptMonitoringManager
 from rag.retriever import VectorRetriever
+
 from settings import settings
 
 
@@ -41,13 +42,19 @@ class ModelInference:
         else:
             prompt = prompt_template.format(question=query)
 
-        input_ = pd.DataFrame([{"instruction": prompt}]).to_json()
+        input_ = pd.DataFrame(
+            [
+                {
+                    'instruction': prompt
+                }
+            ]
+        ).to_json()
 
         response: list[dict] = self.qwak_client.predict(input_)
         answer = response[0]["content"][0]
 
         if enable_evaluation is True:
-            evaluation_result = llm_eval(query=query, output=answer)
+            evaluation_result = evaluate_llm(query=query, output=answer)
         else:
             evaluation_result = None
 

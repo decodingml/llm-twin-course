@@ -1,11 +1,10 @@
-from langchain_openai import ChatOpenAI
-
 import llm_components.prompt_templates as templates
+from langchain_openai import ChatOpenAI
 from llm_components.chain import GeneralChain
 from settings import settings
 
 
-def eval(query: str, context: list[str], output: str) -> str:
+def evaluate(query: str, context: list[str], output: str) -> str:
     evaluation_template = templates.RAGEvaluationTemplate()
     prompt_template = evaluation_template.create_template()
 
