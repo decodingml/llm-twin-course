@@ -1,13 +1,13 @@
 import concurrent.futures
 
-from qdrant_client import QdrantClient, models
-from sentence_transformers.SentenceTransformer import SentenceTransformer
-
 import logger_utils
 import utils
+from db.qdrant import QdrantDatabaseConnector
+from qdrant_client import models
 from rag.query_expanison import QueryExpansion
 from rag.reranking import Reranker
 from rag.self_query import SelfQuery
+from sentence_transformers.SentenceTransformer import SentenceTransformer
 from settings import settings
 
 logger = logger_utils.get_logger(__name__)
@@ -18,11 +18,8 @@ class VectorRetriever:
     Class for retrieving vectors from a Vector store in a RAG system using query expansion and Multitenancy search.
     """
 
-    def __init__(self, query: str):
-        self._client = QdrantClient(
-            host=settings.QDRANT_DATABASE_HOST,
-            port=settings.QDRANT_DATABASE_PORT,
-        )
+    def __init__(self, query: str) -> None:
+        self._client = QdrantDatabaseConnector()
         self.query = query
         self._embedder = SentenceTransformer(settings.EMBEDDING_MODEL_ID)
         self._query_expander = QueryExpansion()
@@ -33,7 +30,9 @@ class VectorRetriever:
         self, generated_query: str, metadata_filter_value: str, k: int
     ):
         assert k > 3, "k should be greater than 3"
+        
         query_vector = self._embedder.encode(generated_query).tolist()
+        
         vectors = [
             self._client.search(
                 collection_name="vector_posts",
