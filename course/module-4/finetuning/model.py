@@ -1,15 +1,12 @@
 import logging
 import os
 
-import comet_ml
 import pandas as pd
 import qwak
 import torch as th
 import yaml
 from comet_ml import Experiment
 from datasets import DatasetDict, load_dataset
-from finetuning.dataset_client import DatasetClient
-from finetuning.settings import settings
 from peft import LoraConfig, PeftModel, get_peft_model, prepare_model_for_kbit_training
 from qwak.model.adapters import DefaultOutputAdapter
 from qwak.model.base import QwakModel
@@ -24,6 +21,9 @@ from transformers import (
     TrainingArguments,
 )
 
+from finetuning.dataset_client import DatasetClient
+from finetuning.settings import settings
+
 
 class CopywriterMistralModel(QwakModel):
     def __init__(
@@ -31,9 +31,9 @@ class CopywriterMistralModel(QwakModel):
         is_saved: bool = False,
         model_save_dir: str = "./model",
         model_type: str = "mistralai/Mistral-7B-Instruct-v0.1",
-        comet_artifact_name: str = "cleaned_posts",
+        comet_artifact_name: str = "posts-instruct-dataset",
         config_file: str = "./finetuning_model/config.yaml",
-    ):
+    ) -> None:
         self._prep_environment()
         self.experiment = None
         self.model_save_dir = model_save_dir
@@ -52,7 +52,7 @@ class CopywriterMistralModel(QwakModel):
         th.cuda.empty_cache()
         logging.info("Emptied cuda cache. Environment prepared successfully!")
 
-    def init_model(self):
+    def init_model(self) -> None:
         self.model = AutoModelForCausalLM.from_pretrained(
             self.model_type,
             token=settings.HUGGINGFACE_ACCESS_TOKEN,
@@ -68,7 +68,7 @@ class CopywriterMistralModel(QwakModel):
         self.tokenizer.padding_side = "right"
         logging.info(f"Initialized model{self.model_type} successfully")
 
-    def _init_4bit_config(self):
+    def _init_4bit_config(self) -> None:
         self.nf4_config = BitsAndBytesConfig(
             load_in_4bit=True,
             bnb_4bit_quant_type="nf4",
@@ -94,7 +94,7 @@ class CopywriterMistralModel(QwakModel):
         logging.info("Initialized qlora config successfully!")
         return model
 
-    def _init_trainig_args(self):
+    def _init_trainig_args(self) -> None:
         with open(self.training_args_config_file, "r") as file:
             config = yaml.safe_load(file)
         self.training_arguments = TrainingArguments(**config["training_arguments"])
@@ -102,7 +102,7 @@ class CopywriterMistralModel(QwakModel):
             self.experiment.log_parameters(self.training_arguments)
         logging.info("Initialized training arguments successfully!")
 
-    def _remove_model_class_attributes(self):
+    def _remove_model_class_attributes(self) -> None:
         # remove needed in order to skip default serialization with Pickle done by Qwak
         del self.model
         del self.trainer
@@ -147,7 +147,7 @@ class CopywriterMistralModel(QwakModel):
         )
         return generated_train_dataset, generated_val_dataset
 
-    def build(self):
+    def build(self) -> None:
         self._init_4bit_config()
         self.init_model()
         if self.experiment:
@@ -173,7 +173,7 @@ class CopywriterMistralModel(QwakModel):
         self._remove_model_class_attributes()
         logging.info("Finished removing model class attributes!")
 
-    def initialize_model(self):
+    def initialize_model(self) -> None:
         self.model = AutoModelForCausalLM.from_pretrained(
             self.model_save_dir,
             token=settings.HUGGINGFACE_ACCESS_TOKEN,
