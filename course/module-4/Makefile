@@ -27,7 +27,7 @@ create-qwak-project:
 
 deploy:
 	@echo "$(YELLOW)Dumping poetry env requirements to $(RESET) $(GREEN) requirements.txt $(RESET)"
-	# poetry export -f requirements.txt --output finetuning/requirements.txt --without-hashes
+	poetry export -f requirements.txt --output finetuning/requirements.txt --without-hashes
 	@echo "$(GREEN)Triggering Qwak Model Build$(RESET)"
 	poetry run qwak models build -f build_config.yaml .
 
