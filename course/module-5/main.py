@@ -1,20 +1,24 @@
-import model_evaluation.evaluation as eval
-from dotenv import load_dotenv
+import logger_utils
 from inference import ModelInference
-from model_evaluation.prompt_monitor import PromptMonitor
+
+logger = logger_utils.get_logger(__name__)
+
 
 if __name__ == "__main__":
-    load_dotenv()
-    tool = ModelInference()
-    llm_monitor = PromptMonitor()
-    query = """Could you please draft a LinkedIn post discussing Vector Databases? I'm particularly interested in how do they work."""
-    [content] = tool.infer_only(query=query)["content"]
+    inference_endpoint = ModelInference()
 
-    result = eval.llm_eval_using_GPT(query=query, output=content)
-    print(result)
-    llm_monitor.log_prompt(
-        prompt=result, prompt_template_variables={"query": query}, output=content
+    query = """
+        Could you please draft a LinkedIn post discussing Vector Databases? 
+        I'm particularly interested in how do they work.
+        """
+
+    response = inference_endpoint.generate(
+        query=query,
+        enable_rag=True,
+        enable_evaluation=True,
+        enable_monitoring=True,
     )
 
-    for item in content:
-        print(item)
+    logger.info(f"Answer: {response['answer']}")
+    logger.info("=" * 50)
+    logger.info(f"LLM Evaluation Result: {response['llm_evaluation_result']}")

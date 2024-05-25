@@ -35,15 +35,17 @@ class AppSettings(BaseSettings):
 
     # CometML config
     COMET_API_KEY: str | None = None
-    COMET_WORKSPACE: str = 'vladadu'
-    COMET_PROJECT: str = 'llm-twin'
+    COMET_WORKSPACE: str = "vladadu"
+    COMET_PROJECT: str = "llm-twin"
 
     # LLM Model config
     TOKENIZERS_PARALLELISM: str = "false"
     HUGGINGFACE_ACCESS_TOKEN: str | None = None
     MODEL_TYPE: str = "mistralai/Mistral-7B-Instruct-v0.1"
-    MODEL_ID: str = 'copywriter_model'
-    MODEL_API: str = 'https://models.llm-twin.qwak.ai/v1/copywriter_model/default/predict'
+    MODEL_ID: str = "copywriter_model"
+    MODEL_API: str = (
+        "https://models.llm-twin.qwak.ai/v1/copywriter_model/default/predict"
+    )
 
     # RAG config
     TOP_K: int = 5
