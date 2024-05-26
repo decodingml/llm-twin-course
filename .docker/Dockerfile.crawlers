@@ -44,7 +44,7 @@ RUN yum install -y \
 COPY --from=build /opt/chrome-linux /opt/chrome
 COPY --from=build /opt/chromedriver /opt/
 
-COPY poetry.lock pyproject.toml ./
+COPY ./pyproject.toml ./poetry.lock ./
 
 # Install Poetry, export dependencies to requirements.txt, and install dependencies
 # in the Lambda task directory, finally cleanup manifest files.

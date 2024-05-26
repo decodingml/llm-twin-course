@@ -5,7 +5,8 @@ from aws_lambda_powertools import Logger
 from aws_lambda_powertools.utilities.typing import LambdaContext
 from crawlers import GithubCrawler, LinkedInCrawler, MediumCrawler
 from dispatcher import CrawlerDispatcher
-from documents import UserDocument
+
+from core.db.documents import UserDocument
 
 logger = Logger(service="decodingml/crawler")
 

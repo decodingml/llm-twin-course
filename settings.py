@@ -21,7 +21,6 @@ class AppSettings(BaseSettings):
     QDRANT_DATABASE_HOST: str = "localhost"
     QDRANT_DATABASE_PORT: int = 6333
     QDRANT_DATABASE_URL: str = "http://localhost:6333"
-
     QDRANT_CLOUD_URL: str = "str"
     USE_QDRANT_CLOUD: bool = False
     QDRANT_APIKEY: str | None = None
@@ -36,6 +35,10 @@ class AppSettings(BaseSettings):
     COMET_API_KEY: str | None = None
     COMET_WORKSPACE: str | None = None
     COMET_PROJECT: str | None = None
+
+    # LinkedIn credentials
+    LINKEDIN_USERNAME: str | None = None
+    LINKEDIN_PASSWORD: str | None = None
 
 
 settings = AppSettings()

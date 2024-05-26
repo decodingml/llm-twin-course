@@ -2,9 +2,9 @@ import json
 import logging
 
 from bson import json_util
-
 from data_flow.mq import publish_to_rabbitmq
-from db.mongo import MongoDatabaseConnector
+
+from core.db.mongo import MongoDatabaseConnector
 
 # Configure logging
 logging.basicConfig(
