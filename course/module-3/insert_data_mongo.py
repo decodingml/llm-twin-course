@@ -85,7 +85,7 @@ def insert_posts(file_name: str, author_id: str) -> None:
 
 
 def insert_articles(file_name: str, author_id: str) -> None:
-    file_name = "/Users/vesaalexandru/Workspaces/decodeML/llm-twin-course/course/module-3/dataset/articles_paul_iusztin.json"
+    file_name = file_name
     try:
         with open(file_name, "r") as file:
             articles: list[dict] = json.load(file)

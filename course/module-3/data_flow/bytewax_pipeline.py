@@ -8,7 +8,9 @@ from data_logic.dispatchers import (
     EmbeddingDispatcher,
     RawDispatcher,
 )
-from db.qdrant import connection
+from db.qdrant import QdrantDatabaseConnector
+
+connection = QdrantDatabaseConnector()
 
 flow = Dataflow("Streaming ingestion pipeline")
 stream = op.input("input", flow, RabbitMQSource())

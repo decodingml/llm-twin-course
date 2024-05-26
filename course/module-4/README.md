@@ -224,6 +224,7 @@ The project includes a `Makefile` for easy management of common tasks. Here are 
 
 - `make help`: Displays help for each make command.
 - `make test`: Runs tests on local-qwak deployment.
+- `make create-qwak-project`: Create a Qwak project to deploy the model.
 - `make deploy`: Triggers a new fine-tuning job to Qwak remotely, using the configuration specified in `build_config.yaml`
 
 ------

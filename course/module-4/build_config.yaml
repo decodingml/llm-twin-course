@@ -4,10 +4,10 @@ build_env:
     base_image: public.ecr.aws/qwak-us-east-1/qwak-base:0.0.13-gpu
     cache: true
     env_vars:
-    - HUGGINGFACE_ACCESS_TOKEN=""
-    - COMET_API_KEY=""
-    - COMET_WORKSPACE=""
-    - COMET_PROJECT=""
+    - HUGGINGFACE_ACCESS_TOKEN=
+    - COMET_API_KEY=
+    - COMET_WORKSPACE=
+    - COMET_PROJECT=llm-twin-course
     no_cache: false
     params: []
     push: true 
@@ -29,7 +29,7 @@ build_properties:
   branch: finetuning
   build_id: null
   gpu_compatible: false
-  model_id: copywriter_model
+  model_id: llm_twin
   model_uri:
     dependency_required_folders: []
     git_branch: master

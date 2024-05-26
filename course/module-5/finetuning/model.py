@@ -21,8 +21,9 @@ from transformers import (
     TrainingArguments,
 )
 
+from settings import settings
+
 from finetuning.dataset_client import DatasetClient
-from finetuning.settings import settings
 
 
 class CopywriterMistralModel(QwakModel):
@@ -31,10 +32,11 @@ class CopywriterMistralModel(QwakModel):
         is_saved: bool = False,
         model_save_dir: str = "./model",
         model_type: str = "mistralai/Mistral-7B-Instruct-v0.1",
-        comet_artifact_name: str = "posts-instruct-dataset",
+        comet_artifact_name: str = "cleaned_posts",
         config_file: str = "./finetuning/config.yaml",
     ) -> None:
         self._prep_environment()
+
         self.experiment = None
         self.model_save_dir = model_save_dir
         self.model_type = model_type
@@ -47,7 +49,7 @@ class CopywriterMistralModel(QwakModel):
                 workspace=settings.COMET_WORKSPACE,
             )
 
-    def _prep_environment(self):
+    def _prep_environment(self) -> None:
         os.environ["TOKENIZERS_PARALLELISM"] = settings.TOKENIZERS_PARALLELISM
         th.cuda.empty_cache()
         logging.info("Emptied cuda cache. Environment prepared successfully!")
@@ -68,7 +70,7 @@ class CopywriterMistralModel(QwakModel):
         self.tokenizer.padding_side = "right"
         logging.info(f"Initialized model{self.model_type} successfully")
 
-    def _init_4bit_config(self) -> None:
+    def _init_4bit_config(self):
         self.nf4_config = BitsAndBytesConfig(
             load_in_4bit=True,
             bnb_4bit_quant_type="nf4",
@@ -94,7 +96,7 @@ class CopywriterMistralModel(QwakModel):
         logging.info("Initialized qlora config successfully!")
         return model
 
-    def _init_trainig_args(self) -> None:
+    def _init_trainig_args(self):
         with open(self.training_args_config_file, "r") as file:
             config = yaml.safe_load(file)
         self.training_arguments = TrainingArguments(**config["training_arguments"])
@@ -102,8 +104,8 @@ class CopywriterMistralModel(QwakModel):
             self.experiment.log_parameters(self.training_arguments)
         logging.info("Initialized training arguments successfully!")
 
-    def _remove_model_class_attributes(self) -> None:
-        # Remove class attributes to skip default serialization with Pickle done by Qwak
+    def _remove_model_class_attributes(self):
+        # remove needed in order to skip default serialization with Pickle done by Qwak
         del self.model
         del self.trainer
         del self.experiment
@@ -118,7 +120,7 @@ class CopywriterMistralModel(QwakModel):
         result = self.tokenizer(
             prompt,
             padding="max_length",
-            max_length=2300,
+            max_length=100,
             truncation=True,
         )
         result["labels"] = result["input_ids"].copy()
@@ -147,7 +149,7 @@ class CopywriterMistralModel(QwakModel):
         )
         return generated_train_dataset, generated_val_dataset
 
-    def build(self) -> None:
+    def build(self):
         self._init_4bit_config()
         self.init_model()
         if self.experiment:
@@ -164,6 +166,7 @@ class CopywriterMistralModel(QwakModel):
             eval_dataset=tokenized_datasets["validation"],
             tokenizer=self.tokenizer,
         )
+        
         logging.info("Initialized model trainer")
         self.trainer.train()
         logging.info(f"Finished training LLM: {self.model_type}")
