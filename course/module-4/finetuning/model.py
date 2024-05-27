@@ -7,21 +7,20 @@ import torch as th
 import yaml
 from comet_ml import Experiment
 from datasets import DatasetDict, load_dataset
-from finetuning.dataset_client import DatasetClient
-from finetuning.settings import settings
 from peft import LoraConfig, PeftModel, get_peft_model, prepare_model_for_kbit_training
 from qwak.model.adapters import DefaultOutputAdapter
 from qwak.model.base import QwakModel
 from qwak.model.schema import ModelSchema
 from qwak.model.schema_entities import InferenceOutput, RequestInput
 from transformers import (
-    AutoModelForCausalLM,
     AutoTokenizer,
     BitsAndBytesConfig,
     PreTrainedModel,
-    Trainer,
     TrainingArguments,
 )
+
+from finetuning.dataset_client import DatasetClient
+from finetuning.settings import settings
 
 
 class CopywriterMistralModel(QwakModel):
@@ -111,7 +110,7 @@ class CopywriterMistralModel(QwakModel):
         )
         self.tokenizer.pad_token = self.tokenizer.eos_token
         self.tokenizer.padding_side = "right"
-        
+
         logging.info(f"Initialized model {self.model_type} successfully")
 
     def _initialize_qlora(self, model: PreTrainedModel) -> PeftModel:
@@ -123,7 +122,7 @@ class CopywriterMistralModel(QwakModel):
 
         model = prepare_model_for_kbit_training(model)
         model = get_peft_model(model, self.qlora_config)
-        
+
         logging.info("Initialized QLoRA config successfully!")
 
         return model
@@ -153,7 +152,7 @@ class CopywriterMistralModel(QwakModel):
     def preprocess_data_split(self, train_val_datasets: DatasetDict) -> tuple:
         train_data = train_val_datasets["train"]
         val_data = train_val_datasets["validation"]
-        
+
         generated_train_dataset = train_data.map(self.generate_prompt)
         generated_train_dataset = generated_train_dataset.remove_columns(
             ["instruction", "content"]
@@ -218,8 +217,9 @@ class CopywriterMistralModel(QwakModel):
             pad_token_id=self.tokenizer.eos_token_id,
         )
 
-        decoded_output = self.tokenizer.batch_decode(
-            generated_ids[input_ids.shape[0] :]
-        )[0]
+        answer_start_idx = input_ids.data["input_ids"].shape[1]
+        decoded_output = self.tokenizer.batch_decode(generated_ids[answer_start_idx:])[
+            0
+        ]
 
         return pd.DataFrame([{"content": decoded_output}])
