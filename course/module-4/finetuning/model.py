@@ -13,9 +13,11 @@ from qwak.model.base import QwakModel
 from qwak.model.schema import ModelSchema
 from qwak.model.schema_entities import InferenceOutput, RequestInput
 from transformers import (
+    AutoModelForCausalLM,
     AutoTokenizer,
     BitsAndBytesConfig,
     PreTrainedModel,
+    Trainer,
     TrainingArguments,
 )
 
@@ -110,7 +112,7 @@ class CopywriterMistralModel(QwakModel):
         )
         self.tokenizer.pad_token = self.tokenizer.eos_token
         self.tokenizer.padding_side = "right"
-
+        
         logging.info(f"Initialized model {self.model_type} successfully")
 
     def _initialize_qlora(self, model: PreTrainedModel) -> PeftModel:
@@ -122,7 +124,7 @@ class CopywriterMistralModel(QwakModel):
 
         model = prepare_model_for_kbit_training(model)
         model = get_peft_model(model, self.qlora_config)
-
+        
         logging.info("Initialized QLoRA config successfully!")
 
         return model
@@ -152,7 +154,7 @@ class CopywriterMistralModel(QwakModel):
     def preprocess_data_split(self, train_val_datasets: DatasetDict) -> tuple:
         train_data = train_val_datasets["train"]
         val_data = train_val_datasets["validation"]
-
+        
         generated_train_dataset = train_data.map(self.generate_prompt)
         generated_train_dataset = generated_train_dataset.remove_columns(
             ["instruction", "content"]
@@ -218,8 +220,8 @@ class CopywriterMistralModel(QwakModel):
         )
 
         answer_start_idx = input_ids.data["input_ids"].shape[1]
-        decoded_output = self.tokenizer.batch_decode(generated_ids[answer_start_idx:])[
-            0
-        ]
+        decoded_output = self.tokenizer.batch_decode(
+            generated_ids[answer_start_idx:]
+        )[0]
 
         return pd.DataFrame([{"content": decoded_output}])
