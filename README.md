@@ -121,8 +121,8 @@ For the other serverless tools ([Qdrant](https://qdrant.tech/?utm_source=decodin
 
 ### Training Pipeline: fine-tune your LLM twin
 6. [The Role of Feature Stores in Fine-Tuning LLMs: From raw data to instruction dataset](https://medium.com/decodingml/the-role-of-feature-stores-in-fine-tuning-llms-22bd60afd4b9)
-7. Fine-tuning LLM [Module 3] …WIP
-8. LLM evaluation [Module 4] …WIP
+7. [How to fine-tune LLMs on custom datasets at Scale using Qwak and CometML](https://medium.com/decodingml/how-to-fine-tune-llms-on-custom-datasets-at-scale-using-qwak-and-cometml-12216a777c34)
+8. [Best Practices when evaluating fine-tuned LLMs](https://medium.com/decodingml/best-practices-when-evaluating-fine-tuned-llms-47f02f5164c2)
 9. Quantization [Module 5] …WIP 
 
 ### Inference Pipeline: serve your LLM twin
