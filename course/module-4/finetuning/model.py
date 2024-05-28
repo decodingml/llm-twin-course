@@ -28,7 +28,7 @@ from finetuning.settings import settings
 class CopywriterMistralModel(QwakModel):
     def __init__(
         self,
-        is_saved: bool = False,
+        use_experiment_tracker: bool = True,
         model_save_dir: str = "./model",
         model_type: str = "mistralai/Mistral-7B-Instruct-v0.1",
         dataset_artifact_name: str = "posts-instruct-dataset",
@@ -41,7 +41,7 @@ class CopywriterMistralModel(QwakModel):
         self.dataset_artifact_name = dataset_artifact_name
         self.training_args_config_file = config_file
 
-        if is_saved:
+        if use_experiment_tracker:
             self.experiment = Experiment(
                 api_key=settings.COMET_API_KEY,
                 project_name=settings.COMET_PROJECT,
@@ -135,6 +135,7 @@ class CopywriterMistralModel(QwakModel):
         self.training_arguments = TrainingArguments(**config["training_arguments"])
         if self.experiment:
             self.experiment.log_parameters(self.training_arguments)
+            
         logging.info("Initialized training arguments successfully!")
 
     def load_dataset(self) -> DatasetDict:
@@ -219,9 +220,8 @@ class CopywriterMistralModel(QwakModel):
             pad_token_id=self.tokenizer.eos_token_id,
         )
 
-        answer_start_idx = input_ids.data["input_ids"].shape[1]
-        decoded_output = self.tokenizer.batch_decode(
-            generated_ids[answer_start_idx:]
-        )[0]
+        answer_start_idx = input_ids["input_ids"].shape[1]
+        generated_answer_ids = generated_ids[:, answer_start_idx:]
+        decoded_output = self.tokenizer.batch_decode(generated_answer_ids)[0]
 
         return pd.DataFrame([{"content": decoded_output}])

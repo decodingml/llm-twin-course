@@ -39,9 +39,6 @@ class AppSettings(BaseSettings):
     HUGGINGFACE_ACCESS_TOKEN: str | None = None
     MODEL_TYPE: str = "mistralai/Mistral-7B-Instruct-v0.1"
     QWAK_DEPLOYMENT_MODEL_ID: str = "llm_twin"
-    QWAK_DEPLOYMENT_MODEL_API: str = (
-        "https://models.llm-twin.qwak.ai/v1/copywriter_model/default/predict"
-    )
 
     # RAG config
     TOP_K: int = 5
