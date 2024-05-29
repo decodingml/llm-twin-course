@@ -4,12 +4,12 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class AppSettings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
-     # Embeddings config
+    # Embeddings config
     EMBEDDING_MODEL_ID: str = "sentence-transformers/all-MiniLM-L6-v2"
     EMBEDDING_MODEL_MAX_INPUT_LENGTH: int = 256
     EMBEDDING_SIZE: int = 384
     EMBEDDING_MODEL_DEVICE: str = "cpu"
-    
+
     # OpenAI config
     OPENAI_MODEL_ID: str = "gpt-4-1106-preview"
     OPENAI_API_KEY: str | None = None
@@ -38,10 +38,7 @@ class AppSettings(BaseSettings):
     TOKENIZERS_PARALLELISM: str = "false"
     HUGGINGFACE_ACCESS_TOKEN: str | None = None
     MODEL_TYPE: str = "mistralai/Mistral-7B-Instruct-v0.1"
-    QWAK_DEPLOYMENT_MODEL_ID: str = "copywriter_model"
-    QWAK_DEPLOYMENT_MODEL_API: str = (
-        "https://models.llm-twin.qwak.ai/v1/copywriter_model/default/predict"
-    )
+    QWAK_DEPLOYMENT_MODEL_ID: str = "llm_twin"
 
     # RAG config
     TOP_K: int = 5
