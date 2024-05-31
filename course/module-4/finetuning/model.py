@@ -7,6 +7,7 @@ import torch as th
 import yaml
 from comet_ml import Experiment
 from datasets import DatasetDict, load_dataset
+
 from peft import LoraConfig, PeftModel, get_peft_model, prepare_model_for_kbit_training
 from qwak.model.adapters import DefaultOutputAdapter
 from qwak.model.base import QwakModel
@@ -23,6 +24,7 @@ from transformers import (
 
 from finetuning.dataset_client import DatasetClient
 from finetuning.settings import settings
+from finetuning.utils import build_qlora_model
 
 
 class CopywriterMistralModel(QwakModel):
@@ -80,6 +82,8 @@ class CopywriterMistralModel(QwakModel):
         logging.info(f"Finished saving model to {self.model_save_dir}")
 
         if self.experiment:
+            self.experiment.log_model("llm-twin", self.model_save_dir)
+
             self.experiment.end()
 
         self._remove_model_class_attributes()
@@ -112,7 +116,7 @@ class CopywriterMistralModel(QwakModel):
         )
         self.tokenizer.pad_token = self.tokenizer.eos_token
         self.tokenizer.padding_side = "right"
-        
+
         logging.info(f"Initialized model {self.model_type} successfully")
 
     def _initialize_qlora(self, model: PreTrainedModel) -> PeftModel:
@@ -124,7 +128,7 @@ class CopywriterMistralModel(QwakModel):
 
         model = prepare_model_for_kbit_training(model)
         model = get_peft_model(model, self.qlora_config)
-        
+
         logging.info("Initialized QLoRA config successfully!")
 
         return model
@@ -135,7 +139,7 @@ class CopywriterMistralModel(QwakModel):
         self.training_arguments = TrainingArguments(**config["training_arguments"])
         if self.experiment:
             self.experiment.log_parameters(self.training_arguments)
-            
+
         logging.info("Initialized training arguments successfully!")
 
     def load_dataset(self) -> DatasetDict:
@@ -155,7 +159,7 @@ class CopywriterMistralModel(QwakModel):
     def preprocess_data_split(self, train_val_datasets: DatasetDict) -> tuple:
         train_data = train_val_datasets["train"]
         val_data = train_val_datasets["validation"]
-        
+
         generated_train_dataset = train_data.map(self.generate_prompt)
         generated_train_dataset = generated_train_dataset.remove_columns(
             ["instruction", "content"]
@@ -192,10 +196,16 @@ class CopywriterMistralModel(QwakModel):
         return result
 
     def initialize_model(self) -> None:
-        self.model = AutoModelForCausalLM.from_pretrained(
-            self.model_save_dir,
-            token=settings.HUGGINGFACE_ACCESS_TOKEN,
-            quantization_config=self.nf4_config,
+        # self.model = AutoModelForCausalLM.from_pretrained(
+        #     self.model_save_dir,
+        #     token=settings.HUGGINGFACE_ACCESS_TOKEN,
+        #     quantization_config=self.nf4_config,
+        # )
+        self.model, self.tokenizer, _ = build_qlora_model(
+            pretrained_model_name_or_path=self.model_type,
+            peft_pretrained_model_name_or_path="llm-twin-lora",
+            bnb_config=self.nf4_config,
+            lora_config=self.qlora_config,
         )
         logging.info(f"Successfully loaded model from {self.model_save_dir}")
 
