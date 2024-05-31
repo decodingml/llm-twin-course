@@ -4,13 +4,13 @@ build_env:
     base_image: public.ecr.aws/qwak-us-east-1/qwak-base:0.0.13-gpu
     cache: true
     env_vars:
-    - HUGGINGFACE_ACCESS_TOKEN=
-    - COMET_API_KEY=
-    - COMET_WORKSPACE=
-    - COMET_PROJECT=llm-twin-course
+      - HUGGINGFACE_ACCESS_TOKEN=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
+      - COMET_API_KEY=5qccQFthifX6ZYUcLrTSjKSpw
+      - COMET_WORKSPACE=decodingml
+      - COMET_PROJECT=llm-twin-course
     no_cache: false
     params: []
-    push: true 
+    push: true
   python_env:
     dependency_file_path: finetuning/requirements.txt
     git_credentials: null
@@ -49,4 +49,3 @@ step:
   validate_build_artifact: true
   validate_build_artifact_timeout: 120
 verbose: 0
-

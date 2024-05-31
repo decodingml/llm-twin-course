@@ -1,3 +1,4 @@
+from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -9,5 +10,7 @@ class AppSettings(BaseSettings):
     COMET_API_KEY: str = ""
     COMET_WORKSPACE: str = ""
     COMET_PROJECT: str = ""
+    
+    CACHE_DIR: Path = Path("./cache")
 
 settings = AppSettings()

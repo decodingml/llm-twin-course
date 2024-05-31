@@ -21,17 +21,15 @@ help:
 
 list: help
 
-create-qwak-project:
+create-qwak-model: # Create a Qwak model before building it.
 	@echo "$(YELLOW)Creating Qwak project $(RESET)"
 	qwak models create "llm_twin" --project "llm-twin-course"
 
-deploy:
+build-llm-microservice: # Build the Qwak model.
 	@echo "$(YELLOW)Dumping poetry env requirements to $(RESET) $(GREEN) requirements.txt $(RESET)"
 	# poetry export -f requirements.txt --output finetuning/requirements.txt --without-hashes
 	@echo "$(GREEN)Triggering Qwak Model Build$(RESET)"
 	poetry run qwak models build -f build_config.yaml .
 
-test:
+test-llm-microservice-locally: # Test the Qwak model locally.
 	poetry run python test_local.py
-
-
