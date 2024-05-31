@@ -4,8 +4,8 @@ build_env:
     base_image: public.ecr.aws/qwak-us-east-1/qwak-base:0.0.13-gpu
     cache: true
     env_vars:
-      - HUGGINGFACE_ACCESS_TOKEN=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
-      - COMET_API_KEY=5qccQFthifX6ZYUcLrTSjKSpw
+      - HUGGINGFACE_ACCESS_TOKEN=
+      - COMET_API_KEY=
       - COMET_WORKSPACE=decodingml
       - COMET_PROJECT=llm-twin-course
     no_cache: false
