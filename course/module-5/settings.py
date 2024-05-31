@@ -41,9 +41,9 @@ class AppSettings(BaseSettings):
     QWAK_DEPLOYMENT_MODEL_ID: str = "llm_twin"
 
     # RAG config
-    TOP_K: int = 5
-    KEEP_TOP_K: int = 5
-    EXPAND_N_QUERY: int = 5
+    TOP_K: int = 3
+    KEEP_TOP_K: int = 3
+    EXPAND_N_QUERY: int = 3
 
 
 settings = AppSettings()
