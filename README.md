@@ -123,11 +123,13 @@ For the other serverless tools ([Qdrant](https://qdrant.tech/?utm_source=decodin
 6. [The Role of Feature Stores in Fine-Tuning LLMs: From raw data to instruction dataset](https://medium.com/decodingml/the-role-of-feature-stores-in-fine-tuning-llms-22bd60afd4b9)
 7. [How to fine-tune LLMs on custom datasets at Scale using Qwak and CometML](https://medium.com/decodingml/how-to-fine-tune-llms-on-custom-datasets-at-scale-using-qwak-and-cometml-12216a777c34)
 8. [Best Practices when evaluating fine-tuned LLMs](https://medium.com/decodingml/best-practices-when-evaluating-fine-tuned-llms-47f02f5164c2)
-9. Quantization [Module 5] …WIP 
 
 ### Inference Pipeline: serve your LLM twin
-10. Build the digital twin inference pipeline [Module 6] …WIP
-11. Deploy the digital twin as a REST API [Module 6] …WIP
+9. [Architect scalable and cost-effective LLM & RAG inference pipelines](https://medium.com/decodingml/architect-scalable-and-cost-effective-llm-rag-inference-pipelines-73b94ef82a99)
+10. RAG evaluation [Module 6] …WIP
+
+### Grand Finale
+11. Conclusion. What have we learned? [Module 6] …WIP
 
 ## Meet your teachers!
 The course is created under the [Decoding ML](https://decodingml.substack.com/) umbrella by:
