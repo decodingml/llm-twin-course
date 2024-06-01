@@ -21,6 +21,12 @@ help:
 
 list: help
 
+install:
+	@echo "Installing ..."
+	
+	PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring poetry install
+	poetry run pip install torch==2.3.0
+
 create-qwak-model: # Create a Qwak model before building it.
 	@echo "$(YELLOW)Creating Qwak project $(RESET)"
 	qwak models create "llm_twin" --project "llm-twin-course"

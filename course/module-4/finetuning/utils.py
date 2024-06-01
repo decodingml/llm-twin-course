@@ -3,12 +3,12 @@ from pathlib import Path
 from typing import Optional, Tuple
 
 import torch
+from comet_ml import API
 from peft import LoraConfig, PeftConfig, PeftModel
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
-from finetuning.settings import settings
 from finetuning import logger_utils
-
+from finetuning.settings import settings
 
 logger = logger_utils.get_logger(__name__)
 
@@ -113,7 +113,7 @@ def download_from_model_registry(
 
         api = API()
         model = api.get_model(workspace=workspace, model_name=model_name)
-        model.download(version=version, output_folder=output_folder, expand=True)
+        model.download(version=version, output_folder=output_folder)
     else:
         logger.info(f"Model {model_id=} already downloaded to: {output_folder}")
 
