@@ -21,7 +21,7 @@ help:
 
 list: help
 
-install:
+install: # Install the project dependencies.
 	@echo "Installing ..."
 	
 	PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring poetry install

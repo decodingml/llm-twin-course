@@ -12,7 +12,7 @@ class AppSettings(BaseSettings):
     COMET_PROJECT: str = ""
     
     DATASET_ARTIFACT_NAME: str = "posts-instruct-dataset"
-    FINE_TUNED_LLM_TWIN_MODEL_TYPE: str = "decodingml/llm-twin:1.1.0"
+    FINE_TUNED_LLM_TWIN_MODEL_TYPE: str = "decodingml/llm-twin:1.0.0"
     CONFIG_FILE: str = "./finetuning/config.yaml"
     
     MODEL_SAVE_DIR: str = "./training_pipeline_output"
