@@ -1,9 +1,11 @@
 import pandas as pd
 from evaluation import evaluate_llm
+from evaluation.rag import evaluate_with_ragas
 from llm_components.prompt_templates import InferenceTemplate
 from monitoring import PromptMonitoringManager
 from qwak_inference import RealTimeClient
 from rag.retriever import VectorRetriever
+
 from settings import settings
 
 
@@ -45,7 +47,10 @@ class LLMTwin:
         answer = response[0]["content"][0]
 
         if enable_evaluation is True:
-            evaluation_result = evaluate_llm(query=query, output=answer)
+            evaluation_result = {
+                'llm_evaluation': evaluate_llm(query=query, output=answer),
+                'rag_evaluation': evaluate_with_ragas(query=query, output=answer, context=context) if enable_rag else None
+            }
         else:
             evaluation_result = None
 
