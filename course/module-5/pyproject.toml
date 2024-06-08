@@ -7,7 +7,6 @@ authors = [
     "Paul Iusztin <p.b.iusztin@gmail.com>",
     "Alex Vesa <vesaalexandru95@gmail.com>",
 ]
-package-mode = false
 readme = "README.md"
 
 
@@ -39,7 +38,7 @@ datasets = "^2.19.1"
 peft = "^0.11.1"
 bitsandbytes = "^0.43.1"
 qwak-inference = "^0.1.17"
-
+ragas= "^0.1.9"
 
 [build-system]
 requires = ["poetry-core"]
