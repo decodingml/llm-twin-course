@@ -1,3 +1,6 @@
+import time
+from typing import List
+
 import comet_llm
 from settings import settings
 
@@ -32,7 +35,19 @@ class PromptMonitoringManager:
         )
 
     @classmethod
-    def log_chain(cls, query: str, response: str, eval_output: str):
+    def log_chain(
+        cls,
+        query: str,
+        context: List[str],
+        llm_gen: str,
+        llm_eval_output: str,
+        rag_eval_scores: dict | None = None,
+        timings: dict | None = None,
+    ) -> None:
+        """Important!!
+        Workaround to get timings/chain, is to time.sleep(timing) for each step!
+        To be removed in production code.
+        """
         comet_llm.init(project=f"{settings.COMET_PROJECT}-monitoring")
         comet_llm.start_chain(
             inputs={"user_query": query},
@@ -41,14 +56,44 @@ class PromptMonitoringManager:
             workspace=settings.COMET_WORKSPACE,
         )
         with comet_llm.Span(
-            category="twin_response",
+            category="Vector Retrieval",
+            name="retrieval_step",
             inputs={"user_query": query},
         ) as span:
-            span.set_outputs(outputs=response)
+            time.sleep(timings.get("retrieval"))
+            span.set_outputs(outputs={"retrieved_context": context})
 
         with comet_llm.Span(
-            category="gpt3.5-eval",
-            inputs={"eval_result": eval_output},
+            category="LLM Generation",
+            name="generation_step",
+            inputs={"user_query": query},
         ) as span:
-            span.set_outputs(outputs=response)
-        comet_llm.end_chain(outputs={"response": response, "eval_output": eval_output})
+            time.sleep(timings.get("generation"))
+            span.set_outputs(outputs={"generation": llm_gen})
+
+        with comet_llm.Span(
+            category="Evaluation",
+            name="llm_eval_step",
+            inputs={"query": llm_gen, "user_query": query},
+            metadata={"model_used": settings.OPENAI_MODEL_ID},
+        ) as span:
+            time.sleep(timings.get("evaluation_llm"))
+            span.set_outputs(outputs={"llm_eval_result": llm_eval_output})
+
+        with comet_llm.Span(
+            category="Evaluation",
+            name="rag_eval_step",
+            inputs={
+                "user_query": query,
+                "retrieved_context": context,
+                "llm_gen": llm_gen,
+            },
+            metadata={
+                "model_used": settings.OPENAI_MODEL_ID,
+                "embd_model": settings.EMBEDDING_MODEL_ID,
+                "eval_framework": "RAGAS",
+            },
+        ) as span:
+            time.sleep(timings.get("evaluation_rag"))
+            span.set_outputs(outputs={"rag_eval_scores": rag_eval_scores})
+        comet_llm.end_chain(outputs={"response": llm_gen})
