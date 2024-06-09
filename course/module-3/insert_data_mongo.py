@@ -43,12 +43,12 @@ def download_dataset(output_dir: Path = Path("data")) -> list:
             "type": "post",
             "author_id": "2",
         },
-        {
-            "file_name": "repositories_paul_iusztin.json",
-            "file_id": "1tSWrlj_u85twAqVus-l0mzqgYVV6WHVz",
-            "type": "repository",
-            "author_id": "2",
-        },
+        # {
+        #     "file_name": "repositories_paul_iusztin.json",
+        #     "file_id": "1tSWrlj_u85twAqVus-l0mzqgYVV6WHVz",
+        #     "type": "repository",
+        #     "author_id": "2",
+        # },
     ]
     for file in files:
         file["file_path"] = str(output_dir / file["file_name"])
