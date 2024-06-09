@@ -43,10 +43,6 @@ class PromptMonitoringManager:
         rag_eval_scores: dict | None = None,
         timings: dict | None = None,
     ) -> None:
-        """Important!!
-        Workaround to get timings/chain, is to time.sleep(timing) for each step!
-        To be removed in production code.
-        """
         comet_llm.init(project=f"{settings.COMET_PROJECT}-monitoring")
         comet_llm.start_chain(
             inputs={"user_query": query},

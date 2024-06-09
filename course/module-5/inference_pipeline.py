@@ -47,7 +47,7 @@ class LLMTwin:
 
             prompt = prompt_template.format(question=query, context=context)
             en_time = time.time_ns()
-            self._timings["retrieval"] = (en_time - st_time) / 1e10
+            self._timings["retrieval"] = (en_time - st_time) / 1e9
         else:
             prompt = prompt_template.format(question=query)
 
@@ -57,7 +57,7 @@ class LLMTwin:
         response: list[dict] = self.qwak_client.predict(input_)
         answer = response[0]["content"]
         en_time = time.time_ns()
-        self._timings["generation"] = (en_time - st_time) / 1e10
+        self._timings["generation"] = (en_time - st_time) / 1e9
 
         if enable_evaluation is True:
             if enable_rag:
@@ -66,11 +66,11 @@ class LLMTwin:
                     query=query, output=answer, context=context
                 )
                 en_time = time.time_ns()
-                self._timings["evaluation_rag"] = (en_time - st_time) / 1e10
+                self._timings["evaluation_rag"] = (en_time - st_time) / 1e9
             st_time = time.time_ns()
             llm_eval = evaluate_llm(query=query, output=answer)
             en_time = time.time_ns()
-            self._timings["evaluation_llm"] = (en_time - st_time) / 1e10
+            self._timings["evaluation_llm"] = (en_time - st_time) / 1e9
             evaluation_result = {
                 "llm_evaluation": "" if not llm_eval else llm_eval,
                 "rag_evaluation": {} if not rag_eval_scores else rag_eval_scores,
