@@ -1,4 +1,3 @@
-import time
 from typing import List
 
 import comet_llm
@@ -59,25 +58,30 @@ class PromptMonitoringManager:
             category="Vector Retrieval",
             name="retrieval_step",
             inputs={"user_query": query},
+            metadata={"duration": timings.get("retrieval")},
         ) as span:
-            time.sleep(timings.get("retrieval"))
             span.set_outputs(outputs={"retrieved_context": context})
 
         with comet_llm.Span(
             category="LLM Generation",
             name="generation_step",
             inputs={"user_query": query},
+            metadata={
+                "model_used": settings.OPENAI_MODEL_ID,
+                "duration": timings.get("generation"),
+            },
         ) as span:
-            time.sleep(timings.get("generation"))
             span.set_outputs(outputs={"generation": llm_gen})
 
         with comet_llm.Span(
             category="Evaluation",
             name="llm_eval_step",
             inputs={"query": llm_gen, "user_query": query},
-            metadata={"model_used": settings.OPENAI_MODEL_ID},
+            metadata={
+                "model_used": settings.OPENAI_MODEL_ID,
+                "duration": timings.get("evaluation_llm"),
+            },
         ) as span:
-            time.sleep(timings.get("evaluation_llm"))
             span.set_outputs(outputs={"llm_eval_result": llm_eval_output})
 
         with comet_llm.Span(
@@ -92,8 +96,8 @@ class PromptMonitoringManager:
                 "model_used": settings.OPENAI_MODEL_ID,
                 "embd_model": settings.EMBEDDING_MODEL_ID,
                 "eval_framework": "RAGAS",
+                "duration": timings.get("evaluation_rag"),
             },
         ) as span:
-            time.sleep(timings.get("evaluation_rag"))
             span.set_outputs(outputs={"rag_eval_scores": rag_eval_scores})
         comet_llm.end_chain(outputs={"response": llm_gen})
