@@ -126,7 +126,7 @@ For the other serverless tools ([Qdrant](https://qdrant.tech/?utm_source=decodin
 
 ### Inference Pipeline: serve your LLM twin
 9. [Architect scalable and cost-effective LLM & RAG inference pipelines](https://medium.com/decodingml/architect-scalable-and-cost-effective-llm-rag-inference-pipelines-73b94ef82a99)
-10. RAG evaluation [Module 6] …WIP
+10. [How to evaluate your RAG using RAGAs Framework](https://medium.com/decodingml/how-to-evaluate-your-rag-using-ragas-framework-18d2325453ae)
 
 ### Grand Finale
 11. Conclusion. What have we learned? [Module 6] …WIP
