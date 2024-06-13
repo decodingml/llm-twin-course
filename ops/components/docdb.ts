@@ -20,6 +20,8 @@ export class DocumentDBCluster extends pulumi.ComponentResource {
     ) {
         super("decodingml:main:DocumentDBCluster", name, {}, opts);
 
+        const username = pulumi.output(aws.ssm.getParameter({ name: `/${name}/cluster/master/username` })).value
+        const password = pulumi.output(aws.ssm.getParameter({ name: `/${name}/cluster/master/password` })).value
 
         const subnetGroup = new aws.docdb.SubnetGroup(`${name}-docdb-subnet-group`, {
             name: `${name}-cluster-subnet-group`,
@@ -58,8 +60,8 @@ export class DocumentDBCluster extends pulumi.ComponentResource {
             // availabilityZones:  pulumi.output(aws.getAvailabilityZones({state: "available"}) if props.multiAZ else
             backupRetentionPeriod: props.backupRetentionPeriod || 7,
             clusterIdentifier: `${name}-cluster`,
-            masterUsername: pulumi.output(aws.ssm.getParameter({ name: `/${name}/cluster/master/username` })).value,
-            masterPassword: pulumi.output(aws.ssm.getParameter({ name: `/${name}/cluster/master/password` })).value,
+            masterUsername: username,
+            masterPassword: password,
             engineVersion: "5.0.0",
             port: props.port || 27017,
             dbSubnetGroupName: subnetGroup.name,
@@ -78,6 +80,15 @@ export class DocumentDBCluster extends pulumi.ComponentResource {
             tags: {
                 Name: `${name}-primary-instance`
             }
+        }, {parent: this})
+
+        const hostSSMParameter = new aws.ssm.Parameter(`${name}-mq-broker-host-ssm-parameter`, {
+            name: `/${name}/cluster/host`,
+            type: aws.ssm.ParameterType.String,
+            description: `DocDB database host for ${name}-cluster`,
+            value: pulumi.all([cluster.endpoint, cluster.port]).apply(([endpoint, port]) =>
+                `mongodb://${username}:${password}@${endpoint}:${port}/?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false`
+            ),
         }, {parent: this})
     }
 }
