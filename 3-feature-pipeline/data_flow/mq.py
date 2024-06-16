@@ -1,9 +1,7 @@
 import pika
 
-import logger_utils
-
+from core import logger_utils
 from settings import settings
-
 
 logger = logger_utils.get_logger(__name__)
 

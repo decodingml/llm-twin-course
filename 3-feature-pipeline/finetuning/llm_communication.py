@@ -2,7 +2,7 @@ import json
 
 from openai import OpenAI
 
-import logger_utils
+import core.logger_utils as logger_utils
 from settings import settings
 
 MAX_LENGTH = 16384

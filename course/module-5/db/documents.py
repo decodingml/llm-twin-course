@@ -1,7 +1,7 @@
 import uuid
 from typing import List, Optional
 
-import logger_utils
+import core.logger_utils as logger_utils
 from db.errors import ImproperlyConfigured
 from db.mongo import connection
 from pydantic import UUID4, BaseModel, ConfigDict, Field

@@ -68,5 +68,18 @@ services:
       - mongo3
       - mq
 
+  bytewax-container:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile.bytewax
+    container_name: bytewax_service
+    depends_on:
+      - mq
+      - qdrant
+    environment:
+      BYTEWAX_PYTHON_FILE_PATH: "/app/3-feature-pipeline/data_flow/bytewax_pipeline"
+      DEBUG: "false"
+      BYTEWAX_KEEP_CONTAINER_ALIVE: "true"
+
 volumes:
   qdrant_data:

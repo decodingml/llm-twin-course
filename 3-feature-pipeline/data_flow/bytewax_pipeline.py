@@ -1,14 +1,16 @@
 import bytewax.operators as op
 from bytewax.dataflow import Dataflow
-from data_flow.stream_input import RabbitMQSource
-from data_flow.stream_output import QdrantOutput
-from data_logic.dispatchers import (
+
+from core.db.qdrant import QdrantDatabaseConnector
+
+from ..data_flow.stream_input import RabbitMQSource
+from ..data_flow.stream_output import QdrantOutput
+from ..data_logic.dispatchers import (
     ChunkingDispatcher,
     CleaningDispatcher,
     EmbeddingDispatcher,
     RawDispatcher,
 )
-from db.qdrant import QdrantDatabaseConnector
 
 connection = QdrantDatabaseConnector()
 

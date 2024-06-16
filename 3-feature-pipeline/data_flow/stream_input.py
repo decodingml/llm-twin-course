@@ -3,7 +3,8 @@ from datetime import datetime
 from typing import Generic, Iterable, List, Optional, TypeVar
 
 from bytewax.inputs import FixedPartitionedSource, StatefulSourcePartition
-from data_flow.mq import RabbitMQConnection
+
+from ..data_flow.mq import RabbitMQConnection
 
 DataT = TypeVar("DataT")
 MessageT = TypeVar("MessageT")

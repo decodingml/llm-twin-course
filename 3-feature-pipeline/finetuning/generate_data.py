@@ -3,7 +3,7 @@ import logging
 
 from comet_ml import Artifact, Experiment
 
-import logger_utils
+import core.logger_utils as logger_utils
 from db.qdrant import QdrantDatabaseConnector
 from finetuning.file_handler import FileHandler
 from finetuning.llm_communication import GptCommunicator

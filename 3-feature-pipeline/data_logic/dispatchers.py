@@ -1,24 +1,25 @@
-import logger_utils
-from data_logic.chunking_data_handlers import (
+from core import logger_utils
+
+from ..data_logic.chunking_data_handlers import (
     ArticleChunkingHandler,
     ChunkingDataHandler,
     PostChunkingHandler,
     RepositoryChunkingHandler,
 )
-from data_logic.cleaning_data_handlers import (
+from ..data_logic.cleaning_data_handlers import (
     ArticleCleaningHandler,
     CleaningDataHandler,
     PostCleaningHandler,
     RepositoryCleaningHandler,
 )
-from data_logic.embedding_data_handlers import (
+from ..data_logic.embedding_data_handlers import (
     ArticleEmbeddingHandler,
     EmbeddingDataHandler,
     PostEmbeddingHandler,
     RepositoryEmbeddingHandler,
 )
-from models.base import DataModel
-from models.raw import ArticleRawModel, PostsRawModel, RepositoryRawModel
+from ..models.base import DataModel
+from ..models.raw import ArticleRawModel, PostsRawModel, RepositoryRawModel
 
 logger = logger_utils.get_logger(__name__)
 

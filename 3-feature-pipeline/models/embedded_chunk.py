@@ -2,7 +2,7 @@ from typing import Tuple
 
 import numpy as np
 
-from models.base import VectorDBDataModel
+from ..models.base import VectorDBDataModel
 
 
 class PostEmbeddedChunkModel(VectorDBDataModel):

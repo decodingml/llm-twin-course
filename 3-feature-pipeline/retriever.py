@@ -1,7 +1,8 @@
-import logger_utils
 from dotenv import load_dotenv
 from langchain.globals import set_verbose
 from rag.retriever import VectorRetriever
+
+import core.logger_utils as logger_utils
 
 set_verbose(True)
 

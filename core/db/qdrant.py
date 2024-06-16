@@ -1,9 +1,8 @@
-import logger_utils
 from qdrant_client import QdrantClient, models
 from qdrant_client.http.exceptions import UnexpectedResponse
 from qdrant_client.http.models import Batch, Distance, VectorParams
 
-
+import core.logger_utils as logger_utils
 from settings import settings
 
 logger = logger_utils.get_logger(__name__)
@@ -11,7 +10,7 @@ logger = logger_utils.get_logger(__name__)
 
 class QdrantDatabaseConnector:
     _instance: QdrantClient | None = None
-    
+
     def __init__(self) -> None:
         if self._instance is None:
             try:
@@ -58,8 +57,14 @@ class QdrantDatabaseConnector:
             logger.exception("An error occurred while inserting data.")
 
             raise
-        
-    def search(self, collection_name: str, query_vector: list, query_filter: models.Filter, limit: int) -> list:
+
+    def search(
+        self,
+        collection_name: str,
+        query_vector: list,
+        query_filter: models.Filter,
+        limit: int,
+    ) -> list:
         return self._instance.search(
             collection_name=collection_name,
             query_vector=query_vector,

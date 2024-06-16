@@ -3,8 +3,8 @@ import re
 from pathlib import Path
 
 import gdown
-import logger_utils
 
+from core import logger_utils
 from core.db.documents import ArticleDocument, PostDocument, RepositoryDocument
 
 logger = logger_utils.get_logger(__name__)

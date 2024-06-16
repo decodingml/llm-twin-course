@@ -1,6 +1,6 @@
 import concurrent.futures
 
-import logger_utils
+import core.logger_utils as logger_utils
 from core.db.qdrant import QdrantDatabaseConnector
 from qdrant_client import models
 from sentence_transformers.SentenceTransformer import SentenceTransformer

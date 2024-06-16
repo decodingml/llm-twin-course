@@ -51,7 +51,7 @@ safetensors = "^0.4.3"
 accelerate = "^0.30.1"
 bitsandbytes = "^0.42.0"
 scikit-learn = "^1.4.2" 
-qwak-sdk="^0.5.68"
+unstructured = "^0.14.2"
 
 
 [build-system]
