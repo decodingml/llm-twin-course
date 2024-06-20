@@ -93,20 +93,28 @@ You can read everything and try out the code at your own pace. 
 ## Costs?
 The **articles** and **code** are **completely free**. They will always remain free.
 
-But if you plan to run the code while reading it, you have to know that we use several cloud tools that might generate additional costs.
+If you plan to run the code while reading it, you have to know that we use several cloud tools that might generate additional costs.
 
-The cloud computing platforms ([AWS](https://aws.amazon.com/), [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml)) have a pay-as-you-go pricing plan. Qwak offers a few hours of free computing. Thus, we did our best to keep costs to a minimum.
+**Pay as you go** 
+- [AWS](https://aws.amazon.com/) offers accessible plans to new joiners.
+    - For a new first-time account, you could get up to 300$ in free credits which are valid for 6 months. For more, consult the [AWS Offerings](https://aws.amazon.com/free/offers/) page.
+- [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml) has a QPU based pricing plan. Here's what you need to know:
+    - A QPU stands for Qwak Processing Unit, and is the equivalent of 4vCPU-16GB.
+    - Qwak offers up to 100QPU/month for free for up to one year after registration.
+    - After that, a policy of 1.2$/QPU is applied as a pay-as-you-go tactic.
+    - To find more about Qwak pricing, consult [Qwak Pricing Page](https://www.qwak.com/pricing?utm_source=github&utm_medium=referral&utm_campaign=decodingml)
+    - To find more about Qwak Compute Instances, consult [Qwak Instances Page](https://docs.qwak.com/docs/instance-sizes?utm_source=github&utm_medium=referral&utm_campaign=decodingml)
 
-For the other serverless tools ([Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course), [Comet](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github)), we will stick to their freemium version, which is free of charge.
+**Freemium** (Free-of-Charge)
+- [Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course)
+- [Comet ML](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github)
 
 ## Lessons
 
 > [!IMPORTANT]
-> **The course is a work in progress. We plan to release a new lesson every 2 weeks.**
-
-`To understand the entire code step-by-step, check out our articles` ↓
-
-> The course is split into 11 lessons. Every Medium article will be its own lesson.
+> **To understand the entire code step-by-step, check out our articles ↓**
+> 
+> `The course is split into 11 lessons. Every Medium article will be its own lesson.`
 
 ### System Design
 1. [An End-to-End Framework for Production-Ready LLM Systems by Building Your LLM Twin](https://medium.com/decodingml/an-end-to-end-framework-for-production-ready-llm-systems-by-building-your-llm-twin-2cc6bb01141f)
@@ -129,7 +137,8 @@ For the other serverless tools ([Qdrant](https://qdrant.tech/?utm_source=decodin
 10. [How to evaluate your RAG using RAGAs Framework](https://medium.com/decodingml/how-to-evaluate-your-rag-using-ragas-framework-18d2325453ae)
 
 ### Grand Finale
-11. Conclusion. What have we learned? [Module 6] …WIP
+11. [The LLM-Twin Free Course on Production-Ready RAG applications](https://medium.com/decodingml/the-llm-twin-free-course-on-production-ready-rag-pipelines-c96472f4e8c8)
+12. Ending Notes (TBD)
 
 ## Meet your teachers!
 The course is created under the [Decoding ML](https://decodingml.substack.com/) umbrella by:
