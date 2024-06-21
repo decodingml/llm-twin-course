@@ -1,27 +1,27 @@
-from core import logger_utils
+from utils.logging import get_logger
 
-from ..data_logic.chunking_data_handlers import (
+from data_logic.chunking_data_handlers import (
     ArticleChunkingHandler,
     ChunkingDataHandler,
     PostChunkingHandler,
     RepositoryChunkingHandler,
 )
-from ..data_logic.cleaning_data_handlers import (
+from data_logic.cleaning_data_handlers import (
     ArticleCleaningHandler,
     CleaningDataHandler,
     PostCleaningHandler,
     RepositoryCleaningHandler,
 )
-from ..data_logic.embedding_data_handlers import (
+from data_logic.embedding_data_handlers import (
     ArticleEmbeddingHandler,
     EmbeddingDataHandler,
     PostEmbeddingHandler,
     RepositoryEmbeddingHandler,
 )
-from ..models.base import DataModel
-from ..models.raw import ArticleRawModel, PostsRawModel, RepositoryRawModel
+from models.base import DataModel
+from models.raw import ArticleRawModel, PostsRawModel, RepositoryRawModel
 
-logger = logger_utils.get_logger(__name__)
+logger = get_logger(__name__)
 
 
 class RawDispatcher:
@@ -31,6 +31,7 @@ class RawDispatcher:
 
         logger.info("Received message.", data_type=data_type)
 
+        print(message)
         if data_type == "posts":
             return PostsRawModel(**message)
         elif data_type == "articles":

@@ -5,10 +5,10 @@ import tempfile
 
 from aws_lambda_powertools import Logger
 
-from core.db.documents import RepositoryDocument
 from crawlers.base import BaseCrawler
+from db.documents import RepositoryDocument
 
-logger = Logger(service="decodingml/crawler")
+logger = Logger(service="llm-twin-course/crawler")
 
 
 class GithubCrawler(BaseCrawler):

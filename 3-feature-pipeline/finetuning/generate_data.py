@@ -3,13 +3,13 @@ import logging
 
 from comet_ml import Artifact, Experiment
 
-import core.logger_utils as logger_utils
+from utils.logging import get_logger
 from db.qdrant import QdrantDatabaseConnector
 from finetuning.file_handler import FileHandler
 from finetuning.llm_communication import GptCommunicator
-from settings import settings
+from config import settings
 
-logger = logger_utils.get_logger(__name__)
+logger = get_logger(__name__)
 
 
 client = QdrantDatabaseConnector()

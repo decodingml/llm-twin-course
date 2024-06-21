@@ -1,30 +1,24 @@
 from typing import Optional
 
-from ..models.base import DataModel
+from models.base import DataModel
 
 
 class RepositoryRawModel(DataModel):
-    entry_id: str
     name: str
     link: str
     content: dict
     owner_id: str
-    type: str
 
 
 class ArticleRawModel(DataModel):
-    entry_id: str
     platform: str
     link: str
     content: dict
     author_id: str
-    type: str
 
 
 class PostsRawModel(DataModel):
-    entry_id: str
     platform: str
     content: dict
-    author_id: str
+    author_id: str | None = None
     image: Optional[str] = None
-    type: str

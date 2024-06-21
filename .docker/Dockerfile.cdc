@@ -27,7 +27,6 @@ RUN poetry install --no-root
 
 # Copy the 2-data-ingestion and core directories
 COPY ./2-data-ingestion ./2-data-ingestion
-COPY ./core ./core
 
 # Set the PYTHONPATH environment variable
 ENV PYTHONPATH=/app

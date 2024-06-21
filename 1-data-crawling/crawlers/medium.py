@@ -2,8 +2,8 @@ from aws_lambda_powertools import Logger
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
 
-from core.db.documents import ArticleDocument
 from crawlers.base import BaseAbstractCrawler
+from db.documents import ArticleDocument
 
 logger = Logger(service="decodingml/crawler")
 

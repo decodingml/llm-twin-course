@@ -9,7 +9,7 @@ import utils
 from rag.query_expanison import QueryExpansion
 from rag.reranking import Reranker
 from rag.self_query import SelfQuery
-from settings import settings
+from config import settings
 
 logger = logger_utils.get_logger(__name__)
 

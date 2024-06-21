@@ -1,9 +1,9 @@
 import pika
 
-from core import logger_utils
-from settings import settings
+from utils.logging import get_logger
+from config import settings
 
-logger = logger_utils.get_logger(__name__)
+logger = get_logger(__name__)
 
 
 class RabbitMQConnection:

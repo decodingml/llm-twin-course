@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
 
-from ..models.base import DataModel
-from ..models.clean import ArticleCleanedModel, PostCleanedModel, RepositoryCleanedModel
-from ..models.raw import ArticleRawModel, PostsRawModel, RepositoryRawModel
-from ..utils.cleaning import clean_text
+from models.base import DataModel
+from models.clean import ArticleCleanedModel, PostCleanedModel, RepositoryCleanedModel
+from models.raw import ArticleRawModel, PostsRawModel, RepositoryRawModel
+from utils.cleaning import clean_text
 
 
 class CleaningDataHandler(ABC):

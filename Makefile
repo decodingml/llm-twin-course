@@ -1,16 +1,21 @@
+include .env
+
+$(eval export $(shell sed -ne 's/ *#.*$$//; /./ s/=.*$$// p' .env))
+
 AWS_CURRENT_REGION_ID := $(shell aws configure get region)
 AWS_CURRENT_ACCOUNT_ID := $(shell aws sts get-caller-identity --query "Account" --output text)
 
 PYTHONPATH := $(shell pwd)
 
+.PHONY: build-all env-var
 
+env-var:
+    @echo "Environment variable VAR is: ${RABBITMQ_HOST}"
 
 # Makefile to build and run Docker services using BuildKit and docker-compose
 
 # Define the builder name
 BUILDER_NAME=my_builder_2
-
-.PHONY: build-all
 
 
 build-all:
@@ -31,18 +36,8 @@ build-all:
 help:
 	@grep -E '^[a-zA-Z0-9 -]+:.*#'  Makefile | sort | while read -r l; do printf "\033[1;32m$$(echo $$l | cut -f 1 -d':')\033[00m:$$(echo $$l | cut -f 2- -d'#')\n"; done
 
-local-build: # Build lambda crawler on local.
-	docker buildx build --platform linux/amd64 -t crawler .
-
-local-deploy: # Deploy lambda crawler custom docker image on local.
-	docker run \
-		-p 9000:8080 \
-		--network llm-twin-course_local \
-		--platform linux/amd64 \
-		crawler:latest
-
 local-test: # Send test command on local to test  the lambda
-	curl -X POST "http://localhost:9000/2015-03-31/functions/function/invocations" \
+	curl -X POST "http://localhost:9010/2015-03-31/functions/function/invocations" \
 	  	-d '{"user": "Paul Iuztin", "link": "https://medium.com/@pauliusztin/the-llms-kit-build-a-production-ready-real-time-financial-advisor-system-using-streaming-ffdcb2b50714"}'
 
 invoke: # Invoke remote lambda from local
@@ -59,26 +54,11 @@ push: # Build & push image to docker ECR (e.g make push IMAGE_TAG=latest)
 	docker buildx build --platform linux/amd64 -t $(AWS_CURRENT_ACCOUNT_ID).dkr.ecr.$(AWS_CURRENT_REGION_ID).amazonaws.com/crawler:$(IMAGE_TAG) .
 	echo "Push completed successfully."
 
-clean: # Cleanup files generated during sam building.
-	@echo "Cleaning old files..."
-	rm -rf /.pytest_cache
-	rm -rf /__pycache
-	rm -rf */.pyc
-	rm -rf .mypy_cache
-	@echo "Done."
-
-
-#2-data-ingestion
-
 local-start: # Buil and start mongodb and mq.
 	docker-compose -f docker-compose.yml up --build -d
 
-local-stop-infra: # Stop mongodb, mq and qdrant.
+local-stop: # Stop mongodb, mq and qdrant.
 	docker-compose -f docker-compose.yml down
-
-local-insert-data-mongo: # Insert data to mongodb
-	@PYTHONPATH=$(PYTHONPATH) poetry run python 3-feature-pipeline/insert_data_mongo.py
-
 
 local-bytewax: # Run bytewax pipeline
 	RUST_BACKTRACE=full poetry run python -m bytewax.run 3-feature-pipeline/data_flow/bytewax_pipeline 

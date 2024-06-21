@@ -1,12 +1,12 @@
 from typing import Any
 
-import lib
 from aws_lambda_powertools import Logger
 from aws_lambda_powertools.utilities.typing import LambdaContext
-from crawlers import GithubCrawler, LinkedInCrawler, MediumCrawler
-from dispatcher import CrawlerDispatcher
 
-from core.db.documents import UserDocument
+import lib
+from crawlers import GithubCrawler, LinkedInCrawler, MediumCrawler
+from db.documents import UserDocument
+from dispatcher import CrawlerDispatcher
 
 logger = Logger(service="decodingml/crawler")
 

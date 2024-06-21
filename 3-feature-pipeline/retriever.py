@@ -2,11 +2,11 @@ from dotenv import load_dotenv
 from langchain.globals import set_verbose
 from rag.retriever import VectorRetriever
 
-import core.logger_utils as logger_utils
+from utils.logging import get_logger
 
 set_verbose(True)
 
-logger = logger_utils.get_logger(__name__)
+logger = get_logger(__name__)
 
 if __name__ == "__main__":
     load_dotenv()

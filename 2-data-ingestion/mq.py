@@ -1,6 +1,6 @@
 import pika
 
-from settings import settings
+from config import settings
 
 
 class RabbitMQConnection:

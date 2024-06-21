@@ -4,7 +4,7 @@ from typing import Generic, Iterable, List, Optional, TypeVar
 
 from bytewax.inputs import FixedPartitionedSource, StatefulSourcePartition
 
-from ..data_flow.mq import RabbitMQConnection
+from mq import RabbitMQConnection
 
 DataT = TypeVar("DataT")
 MessageT = TypeVar("MessageT")
@@ -55,4 +55,4 @@ class RabbitMQSource(FixedPartitionedSource):
     def build_part(
         self, now: datetime, for_part: str, resume_state: MessageT | None = None
     ) -> StatefulSourcePartition[DataT, MessageT]:
-        return RabbitMQPartition(queue_name="mongo_data")
+        return RabbitMQPartition(queue_name="test_queue")
