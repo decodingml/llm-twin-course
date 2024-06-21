@@ -2,14 +2,14 @@
 
 if [ "$DEBUG" = true ]
 then
-    poetry run python -m bytewax.run "tools.run_real_time:build_flow(debug=True)"
+    python -m bytewax.run "tools.run_real_time:build_flow(debug=True)"
 else
     if [ "$BYTEWAX_PYTHON_FILE_PATH" = "" ]
     then
         echo 'BYTEWAX_PYTHON_FILE_PATH is not set. Exiting...'
         exit 1
     fi
-    poetry run python -m bytewax.run $BYTEWAX_PYTHON_FILE_PATH
+    python -m bytewax.run $BYTEWAX_PYTHON_FILE_PATH
 fi
 
 

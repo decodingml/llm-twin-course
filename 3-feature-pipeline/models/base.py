@@ -3,16 +3,16 @@ from abc import ABC, abstractmethod
 from pydantic import BaseModel
 
 
-class DataModel(ABC, BaseModel):
+class DataModel(BaseModel):
     """
-    Abstract class for all data model
+    Abstract class for all data models
     """
 
-    entry_id: int
+    entry_id: str
     type: str
 
 
-class VectorDBDataModel(DataModel):
+class VectorDBDataModel(ABC, DataModel):
     """
     Abstract class for all data models that need to be saved into a vector DB (e.g. Qdrant)
     """

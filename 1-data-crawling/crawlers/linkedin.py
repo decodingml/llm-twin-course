@@ -7,9 +7,9 @@ from bs4.element import Tag
 from errors import ImproperlyConfigured
 from selenium.webdriver.common.by import By
 
-from core.db.documents import PostDocument
+from db.documents import PostDocument
 from crawlers.base import BaseAbstractCrawler
-from settings import settings
+from config import settings
 
 logger = Logger(service="decodingml/crawler")
 

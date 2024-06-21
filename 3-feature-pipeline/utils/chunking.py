@@ -3,7 +3,7 @@ from langchain.text_splitter import (
     SentenceTransformersTokenTextSplitter,
 )
 
-from settings import settings
+from config import settings
 
 
 def chunk_text(text: str) -> list[str]:

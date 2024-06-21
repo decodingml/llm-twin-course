@@ -2,12 +2,11 @@ from bytewax.outputs import DynamicSink, StatelessSinkPartition
 from qdrant_client.http.api_client import UnexpectedResponse
 from qdrant_client.models import Batch
 
-from core import logger_utils
-from core.db.qdrant import QdrantDatabaseConnector
+from utils.logging import get_logger
+from db import QdrantDatabaseConnector
+from models.base import VectorDBDataModel
 
-from ..models.base import VectorDBDataModel
-
-logger = logger_utils.get_logger(__name__)
+logger = get_logger(__name__)
 
 
 class QdrantOutput(DynamicSink):

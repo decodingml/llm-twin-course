@@ -1,6 +1,6 @@
 import concurrent.futures
 
-import core.logger_utils as logger_utils
+from utils.logging import get_logger
 import utils
 from db.qdrant import QdrantDatabaseConnector
 from qdrant_client import models
@@ -8,9 +8,9 @@ from rag.query_expanison import QueryExpansion
 from rag.reranking import Reranker
 from rag.self_query import SelfQuery
 from sentence_transformers.SentenceTransformer import SentenceTransformer
-from settings import settings
+from config import settings
 
-logger = logger_utils.get_logger(__name__)
+logger = get_logger(__name__)
 
 
 class VectorRetriever:

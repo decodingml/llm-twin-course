@@ -1,5 +1,5 @@
-from crawlers.github import GithubCrawler
-from crawlers.linkedin import LinkedInCrawler
-from crawlers.medium import MediumCrawler
+from .github import GithubCrawler
+from .linkedin import LinkedInCrawler
+from .medium import MediumCrawler
 
 __all__ = ["GithubCrawler", "LinkedInCrawler", "MediumCrawler"]

@@ -1,7 +1,7 @@
 from langchain_openai import ChatOpenAI
-from llm_components.chain import GeneralChain
-from llm_components.prompt_templates import SelfQueryTemplate
-from settings import settings
+from llm.chain import GeneralChain
+from llm.prompt_templates import SelfQueryTemplate
+from config import settings
 
 
 class SelfQuery:

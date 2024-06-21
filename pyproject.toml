@@ -3,11 +3,11 @@ name = "rag-system"
 description = ""
 version = "0.1.0"
 authors = [
-    "vlad_adu <vladadumitracesei02@gmail.com>",
+    "Vlad Adumitracesei <vladadumitracesei02@gmail.com>",
     "Paul Iusztin <p.b.iusztin@gmail.com>",
-    "Alex Vesa <vesaalexandru95@gmail.com>"
-    ]
-package-mode = false
+    "Alex Vesa <vesaalexandru95@gmail.com>",
+    "Rares Istoc <istoc.rares@gmail.com>"
+]
 readme = "README.md"
 
 [tool.ruff]
@@ -22,11 +22,11 @@ select = [
 python = ">=3.10, <3.12"
 pydantic = "^2.6.3"
 pydantic-settings = "^2.1.0"
-bytewax = "0.18.2"
 pika = "^1.3.2"
 qdrant-client = "^1.8.0"
 langchain = "^0.1.13"
-sentence-transformers = "^2.6.1"
+aws-lambda-powertools = "^2.38.1"
+selenium = "^4.21.0"
 instructorembedding = "^1.0.1"
 numpy = "^1.26.4"
 langchain-openai = "^0.1.3"
@@ -38,21 +38,24 @@ pip = "^24.0"
 install = "^1.3.5"
 comet-ml = "^3.41.0"
 ruff = "^0.4.3"
-comet-llm = "^2.2.4"
-qwak-sdk = "^0.5.69"
 pandas = "^2.2.2"
 datasets = "^2.19.1"
-peft = "^0.11.1"
-qwak-inference = "^0.1.17"
-selenium = "^4.21.0"
-aws-lambda-powertools = "^2.38.1"
 transformers = "^4.40.2"
 safetensors = "^0.4.3"
-accelerate = "^0.30.1"
 bitsandbytes = "^0.42.0"
 scikit-learn = "^1.4.2" 
 unstructured = "^0.14.2"
 
+[tool.poetry.group.3-feature-pipeline.dependencies]
+bytewax = "0.18.2"
+
+[tool.poetry.group.ml.dependencies]
+qwak-inference = "^0.1.17"
+comet-llm = "^2.2.4"
+qwak-sdk = "^0.5.69"
+peft = "^0.11.1"
+sentence-transformers = "^2.6.1"
+accelerate = "^0.30.1"
 
 [build-system]
 requires = ["poetry-core"]

@@ -2,15 +2,15 @@ import json
 
 from openai import OpenAI
 
-import core.logger_utils as logger_utils
-from settings import settings
+from utils.logging import get_logger
+from ..config import settings
 
 MAX_LENGTH = 16384
 SYSTEM_PROMPT = (
     "You are a technical writer handing someone's account to post about AI and MLOps."
 )
 
-logger = logger_utils.get_logger(__name__)
+logger = get_logger(__name__)
 
 
 class GptCommunicator:

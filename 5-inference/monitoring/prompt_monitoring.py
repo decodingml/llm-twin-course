@@ -1,6 +1,6 @@
 import comet_llm
 
-from settings import settings
+from config import settings
 
 
 class PromptMonitoringManager:

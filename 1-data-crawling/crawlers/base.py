@@ -5,7 +5,7 @@ from tempfile import mkdtemp
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-from core.db.documents import BaseDocument
+from db.documents import BaseDocument
 
 
 class BaseCrawler(ABC):

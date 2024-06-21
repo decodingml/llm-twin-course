@@ -1,7 +1,7 @@
 from InstructorEmbedding import INSTRUCTOR
 from sentence_transformers.SentenceTransformer import SentenceTransformer
 
-from settings import settings
+from config import settings
 
 
 def embedd_text(text: str):

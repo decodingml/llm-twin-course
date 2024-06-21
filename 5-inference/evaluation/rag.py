@@ -1,8 +1,8 @@
 from langchain_openai import ChatOpenAI
 
-import llm_components.prompt_templates as templates
-from llm_components.chain import GeneralChain
-from settings import settings
+import llm as templates
+from llm import GeneralChain
+from config import settings
 
 
 def evaluate(query: str, context: list[str], output: str) -> str:

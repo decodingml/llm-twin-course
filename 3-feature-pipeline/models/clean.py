@@ -1,6 +1,6 @@
 from typing import Optional, Tuple
 
-from ..models.base import VectorDBDataModel
+from models.base import VectorDBDataModel
 
 
 class PostCleanedModel(VectorDBDataModel):

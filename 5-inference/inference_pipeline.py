@@ -1,10 +1,10 @@
 import pandas as pd
 from evaluation import evaluate_llm
-from llm_components.prompt_templates import InferenceTemplate
+from llm.prompt_templates import InferenceTemplate
 from monitoring import PromptMonitoringManager
 from qwak_inference import RealTimeClient
 from rag.retriever import VectorRetriever
-from settings import settings
+from config import settings
 
 
 class LLMTwin:

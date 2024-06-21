@@ -24,8 +24,9 @@ def insert_data_to_mongodb(uri, database_name, collection_name, data):
 
 
 if __name__ == "__main__":
-    mongodb_uri = "mongodb://localhost:30001,localhost:30002,localhost:30003/?replicaSet=my-replica-set"
-    database_name = "scrabble"
-    collection_name = "test"
-    test_data = {"name": "LLM TWIN"}
-    insert_data_to_mongodb(mongodb_uri, database_name, collection_name, test_data)
+    insert_data_to_mongodb(
+        "mongodb://localhost:30001,localhost:30002,localhost:30003/?replicaSet=my-replica-set",
+        "scrabble",
+        "posts",
+        {"platform": "linkedin", "content": "Test content"}
+    )
