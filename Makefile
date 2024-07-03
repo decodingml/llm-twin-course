@@ -58,10 +58,10 @@ local-start: # Buil and start mongodb and mq.
 	docker-compose -f docker-compose.yml up --build -d
 
 local-stop: # Stop mongodb, mq and qdrant.
-	docker-compose -f docker-compose.yml down
+	docker-compose -f docker-compose.yml down --remove-orphans
 
 local-bytewax: # Run bytewax pipeline
-	RUST_BACKTRACE=full poetry run python -m bytewax.run 3-feature-pipeline/data_flow/bytewax_pipeline 
+	RUST_BACKTRACE=full python -m bytewax.run 3-feature-pipeline/main.py
 
 generate-dataset: # Generate dataset for finetuning and version it in Comet ML
 	python -m finetuning.generate_data
