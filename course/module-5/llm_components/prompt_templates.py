@@ -106,7 +106,7 @@ class LLMEvaluationTemplate(BasePromptTemplate):
         [1 sentence justification why coherence = score]
         Conciseness - [score]
         [1 sentence justification why conciseness = score]
-"""
+    """
 
     def create_template(self) -> PromptTemplate:
         return PromptTemplate(template=self.prompt, input_variables=["query", "output"])

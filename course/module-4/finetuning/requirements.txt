@@ -10,3 +10,4 @@ bitsandbytes==0.42.0
 pydantic_settings==2.2.1
 scikit-learn==1.4.2
 qwak-sdk==0.5.68
+structlog==24.2.0

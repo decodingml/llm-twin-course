@@ -1,6 +1,6 @@
 <div align="center">
     <h2>LLM Twin Course: Building Your Production-Ready AI Replica</h2>
-    <h1>An End-to-End Framework for Production-Ready LLM Systems by Building Your LLM Twin</h1>
+    <h1>An End-to-End Framework for Production-Ready LLM & RAG Systems by Building Your LLM Twin</h1>
     <h3>From data gathering to productionizing LLMs using LLMOps good practices.</h3>
     <i>by <a href="https://github.com/iusztinpaul">Paul Iusztin</a>, <a href="https://github.com/alexandruvesa">Alexandru Vesa</a> and <a href="https://github.com/Joywalker">Alexandru Razvant</a></i>
 </div>
@@ -93,20 +93,28 @@ You can read everything and try out the code at your own pace. 
 ## Costs?
 The **articles** and **code** are **completely free**. They will always remain free.
 
-But if you plan to run the code while reading it, you have to know that we use several cloud tools that might generate additional costs.
+If you plan to run the code while reading it, you have to know that we use several cloud tools that might generate additional costs.
 
-The cloud computing platforms ([AWS](https://aws.amazon.com/), [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml)) have a pay-as-you-go pricing plan. Qwak offers a few hours of free computing. Thus, we did our best to keep costs to a minimum.
+**Pay as you go** 
+- [AWS](https://aws.amazon.com/) offers accessible plans to new joiners.
+    - For a new first-time account, you could get up to 300$ in free credits which are valid for 6 months. For more, consult the [AWS Offerings](https://aws.amazon.com/free/offers/) page.
+- [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml) has a QPU based pricing plan. Here's what you need to know:
+    - A QPU stands for Qwak Processing Unit, and is the equivalent of 4vCPU-16GB.
+    - Qwak offers up to 100QPU/month for free for up to one year after registration.
+    - After that, a policy of 1.2$/QPU is applied as a pay-as-you-go tactic.
+    - To find more about Qwak pricing, consult [Qwak Pricing Page](https://www.qwak.com/pricing?utm_source=github&utm_medium=referral&utm_campaign=decodingml)
+    - To find more about Qwak Compute Instances, consult [Qwak Instances Page](https://docs.qwak.com/docs/instance-sizes?utm_source=github&utm_medium=referral&utm_campaign=decodingml)
 
-For the other serverless tools ([Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course), [Comet](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github)), we will stick to their freemium version, which is free of charge.
+**Freemium** (Free-of-Charge)
+- [Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course)
+- [Comet ML](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github)
 
 ## Lessons
 
 > [!IMPORTANT]
-> **The course is a work in progress. We plan to release a new lesson every 2 weeks.**
-
-`To understand the entire code step-by-step, check out our articles` ↓
-
-> The course is split into 11 lessons. Every Medium article will be its own lesson.
+> **To understand the entire code step-by-step, check out our articles ↓**
+> 
+> `The course is split into 11 lessons. Every Medium article will be its own lesson.`
 
 ### System Design
 1. [An End-to-End Framework for Production-Ready LLM Systems by Building Your LLM Twin](https://medium.com/decodingml/an-end-to-end-framework-for-production-ready-llm-systems-by-building-your-llm-twin-2cc6bb01141f)
@@ -121,13 +129,16 @@ For the other serverless tools ([Qdrant](https://qdrant.tech/?utm_source=decodin
 
 ### Training Pipeline: fine-tune your LLM twin
 6. [The Role of Feature Stores in Fine-Tuning LLMs: From raw data to instruction dataset](https://medium.com/decodingml/the-role-of-feature-stores-in-fine-tuning-llms-22bd60afd4b9)
-7. Fine-tuning LLM [Module 3] …WIP
-8. LLM evaluation [Module 4] …WIP
-9. Quantization [Module 5] …WIP 
+7. [How to fine-tune LLMs on custom datasets at Scale using Qwak and CometML](https://medium.com/decodingml/how-to-fine-tune-llms-on-custom-datasets-at-scale-using-qwak-and-cometml-12216a777c34)
+8. [Best Practices when evaluating fine-tuned LLMs](https://medium.com/decodingml/best-practices-when-evaluating-fine-tuned-llms-47f02f5164c2)
 
 ### Inference Pipeline: serve your LLM twin
-10. Build the digital twin inference pipeline [Module 6] …WIP
-11. Deploy the digital twin as a REST API [Module 6] …WIP
+9. [Architect scalable and cost-effective LLM & RAG inference pipelines](https://medium.com/decodingml/architect-scalable-and-cost-effective-llm-rag-inference-pipelines-73b94ef82a99)
+10. [How to evaluate your RAG using RAGAs Framework](https://medium.com/decodingml/how-to-evaluate-your-rag-using-ragas-framework-18d2325453ae)
+
+### Grand Finale
+11. [The LLM-Twin Free Course on Production-Ready RAG applications](https://medium.com/decodingml/the-llm-twin-free-course-on-production-ready-rag-pipelines-c96472f4e8c8)
+12. Ending Notes (TBD)
 
 ## Meet your teachers!
 The course is created under the [Decoding ML](https://decodingml.substack.com/) umbrella by:

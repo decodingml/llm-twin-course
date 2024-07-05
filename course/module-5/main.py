@@ -10,13 +10,13 @@ if __name__ == "__main__":
     query = """
         Hello my author_id is 1.
         
-        Could you please draft a LinkedIn post discussing Vector Databases? 
-        I'm particularly interested in how do they work.
+        Could you please draft a LinkedIn post discussing Feature Stores? 
+        I'm particularly interested in their importance and how they can be used in ML systems.
         """
 
     response = inference_endpoint.generate(
         query=query,
-        enable_rag=False,
+        enable_rag=True,
         enable_evaluation=True,
         enable_monitoring=True,
     )

@@ -1,6 +1,5 @@
 from langchain_openai import ChatOpenAI
 from llm_components.chain import GeneralChain
-from llm_components.chain import GeneralChain
 from llm_components.prompt_templates import LLMEvaluationTemplate
 from settings import settings
 

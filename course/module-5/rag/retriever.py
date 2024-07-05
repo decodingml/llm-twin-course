@@ -29,7 +29,7 @@ class VectorRetriever:
     def _search_single_query(
         self, generated_query: str, metadata_filter_value: str, k: int
     ):
-        assert k > 3, "k should be greater than 3"
+        assert k >= 3, "k should be greater than 3"
         
         query_vector = self._embedder.encode(generated_query).tolist()
         

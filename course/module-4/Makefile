@@ -21,17 +21,21 @@ help:
 
 list: help
 
-create-qwak-project:
+install: # Install the project dependencies.
+	@echo "Installing ..."
+	
+	PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring poetry install
+	poetry run pip install torch==2.3.0
+
+create-qwak-model: # Create a Qwak model before building it.
 	@echo "$(YELLOW)Creating Qwak project $(RESET)"
 	qwak models create "llm_twin" --project "llm-twin-course"
 
-deploy:
+build-llm-microservice: # Build the Qwak model.
 	@echo "$(YELLOW)Dumping poetry env requirements to $(RESET) $(GREEN) requirements.txt $(RESET)"
-	poetry export -f requirements.txt --output finetuning/requirements.txt --without-hashes
+	# poetry export -f requirements.txt --output finetuning/requirements.txt --without-hashes
 	@echo "$(GREEN)Triggering Qwak Model Build$(RESET)"
 	poetry run qwak models build -f build_config.yaml .
 
-test:
+test-llm-microservice-locally: # Test the Qwak model locally.
 	poetry run python test_local.py
-
-
