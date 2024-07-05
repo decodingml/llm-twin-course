@@ -1,4 +1,4 @@
-import logger_utils
+import core.logger_utils as logger_utils
 from inference_pipeline import LLMTwin
 
 logger = logger_utils.get_logger(__name__)

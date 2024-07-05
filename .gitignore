@@ -162,6 +162,10 @@ cython_debug/
 # Ruff
 .ruff_cache
 
+data/
+dataset/
+data
+
 # Data
 output
 .cache

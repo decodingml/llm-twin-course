@@ -1,26 +1,114 @@
 version: '3.8'
 
 services:
-  mongo:
-    image: mongo
-    container_name: "decodingml_mongo"
-    logging:
-      options:
-        max-size: 1g
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: "decodingml"
-      MONGO_INITDB_ROOT_PASSWORD: "decodingml"
-    ports:
-      - '27017:27017'
+  mongo1:
+    image: mongo:5
+    container_name: llm-twin-mongo1
+    command: ["--replSet", "my-replica-set", "--bind_ip_all", "--port", "30001"]
     volumes:
-      - mongo_data:/data/db
-    networks:
-      - local
+      - mongo-replica-1-data:/data/db
+    ports:
+      - "30001:30001"
+    healthcheck:
+      test: test $$(echo "rs.initiate({_id:'my-replica-set',members:[{_id:0,host:\"mongo1:30001\"},{_id:1,host:\"mongo2:30002\"},{_id:2,host:\"mongo3:30003\"}]}).ok || rs.status().ok" | mongo --port 30001 --quiet) -eq 1
+      interval: 10s
+      start_period: 30s
     restart: always
 
-volumes:
-  mongo_data:
+  mongo2:
+    image: mongo:5
+    container_name: llm-twin-mongo2
+    command: ["--replSet", "my-replica-set", "--bind_ip_all", "--port", "30002"]
+    volumes:
+      - mongo-replica-2-data:/data/db
+    ports:
+      - "30002:30002"
+    restart: always
 
-networks:
-  local:
-    driver: bridge
+  mongo3:
+    image: mongo:5
+    container_name: llm-twin-mongo3
+    command: ["--replSet", "my-replica-set", "--bind_ip_all", "--port", "30003"]
+    volumes:
+      - mongo-replica-3-data:/data/db
+    ports:
+      - "30003:30003"
+    restart: always
+
+  mq:
+    image: rabbitmq:3-management-alpine
+    container_name: llm-twin-mq
+    ports:
+      - "5673:5672"
+      - "15673:15672"
+    volumes:
+      - ~/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/rabbitmq/log/:/var/log/rabbitmq
+    restart: always
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: llm-twin-qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    expose:
+      - "6333"
+      - "6334"
+      - "6335"
+    volumes:
+      - qdrant-data:/qdrant_data
+    restart: always
+
+  crawler:
+    image: "llm-twin-crawler"
+    container_name: llm-twin-crawler
+    platform: "linux/amd64"
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile.crawlers
+    env_file:
+      - .env
+    ports:
+      - "9010:8080"
+    depends_on:
+      - mongo1
+      - mongo2
+      - mongo3
+
+  cdc:
+    image: "llm-twin-cdc"
+    container_name: llm-twin-cdc
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile.cdc
+    env_file:
+      - .env
+    depends_on:
+      - mongo1
+      - mongo2
+      - mongo3
+      - mq
+
+  bytewax:
+    image: "llm-twin-bytewax"
+    container_name: llm-twin-bytewax
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile.bytewax
+    environment:
+      BYTEWAX_PYTHON_FILE_PATH: "main:flow"
+      DEBUG: "false"
+      BYTEWAX_KEEP_CONTAINER_ALIVE: "true"
+    env_file:
+      - .env
+    depends_on:
+      - mq
+      - qdrant
+    restart: on-failure
+
+volumes:
+  mongo-replica-1-data:
+  mongo-replica-2-data:
+  mongo-replica-3-data:
+  qdrant-data:
