@@ -4,6 +4,8 @@ from pydantic import BaseModel
 
 
 class RepositoryRawModel(BaseModel):
+    id: str
+    type: str
     name: str
     link: str
     content: dict
@@ -11,6 +13,8 @@ class RepositoryRawModel(BaseModel):
 
 
 class ArticleRawModel(BaseModel):
+    id: str
+    type: str
     platform: str
     link: str
     content: dict
@@ -18,7 +22,12 @@ class ArticleRawModel(BaseModel):
 
 
 class PostsRawModel(BaseModel):
+    id: str
+    type: str
     platform: str
     content: dict
     author_id: str | None = None
     image: Optional[str] = None
+
+
+RawModel = RepositoryRawModel | ArticleRawModel | PostsRawModel

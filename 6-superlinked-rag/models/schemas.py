@@ -4,7 +4,7 @@ from superlinked.framework.common.schema.schema_object import String
 
 
 @schema
-class PostCleanedSchema:
+class PostSchema:
     id: IdField
     platform: String
     cleaned_content: String
@@ -13,7 +13,7 @@ class PostCleanedSchema:
 
 
 @schema
-class ArticleCleanedSchema:
+class ArticleSchema:
     id: IdField
     platform: String
     link: String
@@ -23,7 +23,7 @@ class ArticleCleanedSchema:
 
 
 @schema
-class RepositoryCleanedSchema:
+class RepositorySchema:
     id: IdField
     name: String
     link: String
@@ -32,6 +32,6 @@ class RepositoryCleanedSchema:
     type: String
 
 
-post = PostCleanedSchema()
-article = ArticleCleanedSchema()
-repository = RepositoryCleanedSchema()
+post = PostSchema()
+article = ArticleSchema()
+repository = RepositorySchema()

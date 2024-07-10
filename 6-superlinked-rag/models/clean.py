@@ -25,3 +25,6 @@ class RepositoryCleanedModel(BaseModel):
     cleaned_content: str
     owner_id: str
     type: str
+
+
+CleanedModel = PostCleanedModel | ArticleCleanedModel | RepositoryCleanedModel
