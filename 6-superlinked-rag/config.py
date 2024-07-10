@@ -2,7 +2,6 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-
     # CometML config
     COMET_API_KEY: str | None = None
     COMET_WORKSPACE: str | None = None
@@ -23,14 +22,6 @@ class Settings(BaseSettings):
     RABBITMQ_DEFAULT_PASSWORD: str = "guest"
     RABBITMQ_HOST: str = "localhost"
     RABBITMQ_PORT: int = 5673
-
-    # QdrantDB config
-    QDRANT_DATABASE_HOST: str = "localhost"
-    QDRANT_DATABASE_PORT: int = 6333
-    QDRANT_DATABASE_URL: str = "http://localhost:6333"
-    QDRANT_CLOUD_URL: str = "str"
-    USE_QDRANT_CLOUD: bool = False
-    QDRANT_APIKEY: str | None = None
 
 
 settings = Settings()

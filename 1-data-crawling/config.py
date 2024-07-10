@@ -8,5 +8,8 @@ class Settings(BaseSettings):
     MONGO_DATABASE_HOST: str = "mongodb://localhost:30001,localhost:30002,localhost:30003/?replicaSet=my-replica-set"
     MONGO_DATABASE_NAME: str = "scrabble"
 
+    LINKEDIN_USERNAME: str | None = None
+    LINKEDIN_PASSWORD: str | None = None
+
 
 settings = Settings()

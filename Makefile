@@ -9,6 +9,12 @@ PYTHONPATH := $(shell pwd)
 
 .PHONY: build-all env-var
 
+RED := \033[0;31m
+BLUE := \033[0;34m
+GREEN := \033[0;32m
+YELLOW := \033[0;33m
+RESET := \033[0m
+
 env-var:
     @echo "Environment variable VAR is: ${RABBITMQ_HOST}"
 
@@ -36,7 +42,7 @@ build-all:
 help:
 	@grep -E '^[a-zA-Z0-9 -]+:.*#'  Makefile | sort | while read -r l; do printf "\033[1;32m$$(echo $$l | cut -f 1 -d':')\033[00m:$$(echo $$l | cut -f 2- -d'#')\n"; done
 
-local-test: # Send test command on local to test  the lambda
+local-test: # Send test command on local to test the lambda
 	curl -X POST "http://localhost:9010/2015-03-31/functions/function/invocations" \
 	  	-d '{"user": "Paul Iuztin", "link": "https://medium.com/@pauliusztin/the-llms-kit-build-a-production-ready-real-time-financial-advisor-system-using-streaming-ffdcb2b50714"}'
 
@@ -55,13 +61,16 @@ push: # Build & push image to docker ECR (e.g make push IMAGE_TAG=latest)
 	echo "Push completed successfully."
 
 local-start: # Buil and start mongodb and mq.
-	docker-compose -f docker-compose.yml up --build -d
+	docker compose -f docker-compose.yml up --build -d
 
 local-stop: # Stop mongodb, mq and qdrant.
-	docker-compose -f docker-compose.yml down --remove-orphans
+	docker compose -f docker-compose.yml down --remove-orphans
 
 local-bytewax: # Run bytewax pipeline
 	RUST_BACKTRACE=full python -m bytewax.run 3-feature-pipeline/main.py
+
+local-bytewax-superlinked: # Run bytewax pipeline powered by superlinked
+	RUST_BACKTRACE=full python -m bytewax.run 6-superlinked-rag/main.py
 
 generate-dataset: # Generate dataset for finetuning and version it in Comet ML
 	python -m finetuning.generate_data
@@ -69,41 +78,17 @@ generate-dataset: # Generate dataset for finetuning and version it in Comet ML
 local-test-retriever: # Test retriever
 	poetry run python retriever.py
 
-
-RED := \033[0;31m
-BLUE := \033[0;34m
-GREEN := \033[0;32m
-YELLOW := \033[0;33m
-RESET := \033[0m
-
-help:
-	@echo "Usage: make [target]"
-	@echo ""
-	@echo "Available targets:"
-	@echo "-------------------"
-	@echo "$(YELLOW)list$(RESET)		: List available targets with descriptions"
-	@echo ""
-	@echo "== Deploy =="
-	@echo "$(GREEN)deploy$(RESET)		: Dumps the poetry env requirements to requirements.txt and triggers Qwak Model Build"
-	@echo ""
-	@echo "== Test =="
-	@echo "$(YELLOW)test$(RESET)		: Runs unit-tests on local deployed model wrapped as QwakModel"
-	@echo ""
-	@echo ""
-
-list: help
-
-create-qwak-project:
+create-qwak-project: # Create Qwak project for serving the model
 	@echo "$(YELLOW)Creating Qwak project $(RESET)"
 	qwak models create "llm_twin" --project "llm-twin-course"
 
-deploy:
+deploy: # Deploy the model to Qwak
 	@echo "$(YELLOW)Dumping poetry env requirements to $(RESET) $(GREEN) requirements.txt $(RESET)"
 	poetry export -f requirements.txt --output finetuning/requirements.txt --without-hashes
 	@echo "$(GREEN)Triggering Qwak Model Build$(RESET)"
 	poetry run qwak models build -f build_config.yaml .
 
-test:
+test: # Test Qwak model locally
 	poetry run python test_local.py
 
 
