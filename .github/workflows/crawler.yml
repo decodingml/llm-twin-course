@@ -26,7 +26,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: ./course/module-1
-          file: ./course/module-1/Dockerfile
+          file: .docker/Dockerfile.crawlers
           tags: |
             ${{ steps.login-ecr.outputs.registry }}/crawler:${{ github.sha }}
             ${{ steps.login-ecr.outputs.registry }}/crawler:latest
