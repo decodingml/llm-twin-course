@@ -57,10 +57,6 @@ RUN poetry export --without 3-feature-pipeline,ml -f requirements.txt > requirem
 RUN wget https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem -P ${LAMBDA_TASK_ROOT}
 ENV PYTHONPATH=${LAMBDA_TASK_ROOT}/1-data-crawling
 
-# Debugging: Print environment variables
-RUN echo "LAMBDA_TASK_ROOT=${LAMBDA_TASK_ROOT}" && \
-    echo "PYTHONPATH=${PYTHONPATH}"
-    
 # Copy function code
 COPY ./1-data-crawling ${LAMBDA_TASK_ROOT}/1-data-crawling
 
