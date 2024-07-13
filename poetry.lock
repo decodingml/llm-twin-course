@@ -225,13 +225,13 @@ tests-no-zope = ["attrs[tests-mypy]", "cloudpickle", "hypothesis", "pympler", "p
 
 [[package]]
 name = "aws-lambda-powertools"
-version = "2.40.1"
+version = "2.41.0"
 description = "Powertools for AWS Lambda (Python) is a developer toolkit to implement Serverless best practices and increase developer velocity."
 optional = false
 python-versions = "<4.0.0,>=3.8"
 files = [
-    {file = "aws_lambda_powertools-2.40.1-py3-none-any.whl", hash = "sha256:606feeb4c233d9f2cfbccc44789cf44e0790ddec6ae9d290dff9ca330ae51934"},
-    {file = "aws_lambda_powertools-2.40.1.tar.gz", hash = "sha256:d7a1e2fdf4c8089e5d65fc54ac2f0f4e7fc46ae17f806737e6a1bec494095daf"},
+    {file = "aws_lambda_powertools-2.41.0-py3-none-any.whl", hash = "sha256:3c8a44dcfdb9fad49f161db6bf79d12e727bf440ae2c3d5896905ec8250b8624"},
+    {file = "aws_lambda_powertools-2.41.0.tar.gz", hash = "sha256:024aec66b7f1b453a622117d1ba5df01dfbd06c92fbd25839eae3df4fdc27233"},
 ]
 
 [package.dependencies]
@@ -625,12 +625,12 @@ types-requests = "*"
 
 [[package]]
 name = "comet-ml"
-version = "3.43.2"
+version = "3.44.1"
 description = "Supercharging Machine Learning"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "comet_ml-3.43.2-py3-none-any.whl", hash = "sha256:326d2f92faaff8e77d26748a48f004c060d71e09d408fce7d2a80e00b5233dde"},
+    {file = "comet_ml-3.44.1-py3-none-any.whl", hash = "sha256:ac9a0601f361601eff1f1f509b30f43e4de8ffd2f9e9d2c4bbb940af1b9d8a60"},
 ]
 
 [package.dependencies]
@@ -1042,13 +1042,13 @@ yaml = ["PyYAML"]
 
 [[package]]
 name = "exceptiongroup"
-version = "1.2.1"
+version = "1.2.2"
 description = "Backport of PEP 654 (exception groups)"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "exceptiongroup-1.2.1-py3-none-any.whl", hash = "sha256:5258b9ed329c5bbdd31a309f53cbfb0b155341807f6ff7606a1e801a891b29ad"},
-    {file = "exceptiongroup-1.2.1.tar.gz", hash = "sha256:a4785e48b045528f5bfe627b6ad554ff32def154f42372786903b7abcfe1aa16"},
+    {file = "exceptiongroup-1.2.2-py3-none-any.whl", hash = "sha256:3111b9d131c238bec2f8f516e123e14ba243563fb135d3fe885990585aa7795b"},
+    {file = "exceptiongroup-1.2.2.tar.gz", hash = "sha256:47c2edf7c6738fafb49fd34290706d1a1a2f4d1c6df275526b62cbb4aa5393cc"},
 ]
 
 [package.extras]
@@ -1314,13 +1314,13 @@ grpcio-gcp = ["grpcio-gcp (>=0.2.2,<1.0.dev0)"]
 
 [[package]]
 name = "google-auth"
-version = "2.31.0"
+version = "2.32.0"
 description = "Google Authentication Library"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "google-auth-2.31.0.tar.gz", hash = "sha256:87805c36970047247c8afe614d4e3af8eceafc1ebba0c679fe75ddd1d575e871"},
-    {file = "google_auth-2.31.0-py2.py3-none-any.whl", hash = "sha256:042c4702efa9f7d3c48d3a69341c209381b125faa6dbf3ebe56bc7e40ae05c23"},
+    {file = "google_auth-2.32.0-py2.py3-none-any.whl", hash = "sha256:53326ea2ebec768070a94bee4e1b9194c9646ea0c2bd72422785bd0f9abfad7b"},
+    {file = "google_auth-2.32.0.tar.gz", hash = "sha256:49315be72c55a6a37d62819e3573f6b416aca00721f7e3e31a008d928bf64022"},
 ]
 
 [package.dependencies]
@@ -1947,13 +1947,13 @@ files = [
 
 [[package]]
 name = "jsonschema"
-version = "4.22.0"
+version = "4.23.0"
 description = "An implementation of JSON Schema validation for Python"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "jsonschema-4.22.0-py3-none-any.whl", hash = "sha256:ff4cfd6b1367a40e7bc6411caec72effadd3db0bbe5017de188f2d6108335802"},
-    {file = "jsonschema-4.22.0.tar.gz", hash = "sha256:5b22d434a45935119af990552c862e5d6d564e8f6601206b305a61fdf661a2b7"},
+    {file = "jsonschema-4.23.0-py3-none-any.whl", hash = "sha256:fbadb6f8b144a8f8cf9f0b89ba94501d143e50411a1278633f56a7acf7fd5566"},
+    {file = "jsonschema-4.23.0.tar.gz", hash = "sha256:d71497fef26351a33265337fa77ffeb82423f3ea21283cd9467bb03999266bc4"},
 ]
 
 [package.dependencies]
@@ -1964,7 +1964,7 @@ rpds-py = ">=0.7.1"
 
 [package.extras]
 format = ["fqdn", "idna", "isoduration", "jsonpointer (>1.13)", "rfc3339-validator", "rfc3987", "uri-template", "webcolors (>=1.11)"]
-format-nongpl = ["fqdn", "idna", "isoduration", "jsonpointer (>1.13)", "rfc3339-validator", "rfc3986-validator (>0.1.0)", "uri-template", "webcolors (>=1.11)"]
+format-nongpl = ["fqdn", "idna", "isoduration", "jsonpointer (>1.13)", "rfc3339-validator", "rfc3986-validator (>0.1.0)", "uri-template", "webcolors (>=24.6.0)"]
 
 [[package]]
 name = "jsonschema-specifications"
@@ -2117,13 +2117,13 @@ six = "*"
 
 [[package]]
 name = "langsmith"
-version = "0.1.84"
+version = "0.1.85"
 description = "Client library to connect to the LangSmith LLM Tracing and Evaluation Platform."
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "langsmith-0.1.84-py3-none-any.whl", hash = "sha256:01f3c6390dba26c583bac8dd0e551ce3d0509c7f55cad714db0b5c8d36e4c7ff"},
-    {file = "langsmith-0.1.84.tar.gz", hash = "sha256:5220c0439838b9a5bd320fd3686be505c5083dcee22d2452006c23891153bea1"},
+    {file = "langsmith-0.1.85-py3-none-any.whl", hash = "sha256:c1f94384f10cea96f7b4d33fd3db7ec180c03c7468877d50846f881d2017ff94"},
+    {file = "langsmith-0.1.85.tar.gz", hash = "sha256:acff31f9e53efa48586cf8e32f65625a335c74d7c4fa306d1655ac18452296f6"},
 ]
 
 [package.dependencies]
@@ -2848,13 +2848,13 @@ files = [
 
 [[package]]
 name = "openai"
-version = "1.35.10"
+version = "1.35.13"
 description = "The official Python library for the openai API"
 optional = false
 python-versions = ">=3.7.1"
 files = [
-    {file = "openai-1.35.10-py3-none-any.whl", hash = "sha256:962cb5c23224b5cbd16078308dabab97a08b0a5ad736a4fdb3dc2ffc44ac974f"},
-    {file = "openai-1.35.10.tar.gz", hash = "sha256:85966949f4f960f3e4b239a659f9fd64d3a97ecc43c44dc0a044b5c7f11cccc6"},
+    {file = "openai-1.35.13-py3-none-any.whl", hash = "sha256:36ec3e93e0d1f243f69be85c89b9221a471c3e450dfd9df16c9829e3cdf63e60"},
+    {file = "openai-1.35.13.tar.gz", hash = "sha256:c684f3945608baf7d2dcc0ef3ee6f3e27e4c66f21076df0b47be45d57e6ae6e4"},
 ]
 
 [package.dependencies]
@@ -3872,13 +3872,13 @@ files = [
 
 [[package]]
 name = "qdrant-client"
-version = "1.10.0"
+version = "1.10.1"
 description = "Client library for the Qdrant vector search engine"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "qdrant_client-1.10.0-py3-none-any.whl", hash = "sha256:423c2586709ccf3db20850cd85c3d18954692a8faff98367dfa9dc82ab7f91d9"},
-    {file = "qdrant_client-1.10.0.tar.gz", hash = "sha256:47c4f7abfab152fb7e5e4902ab0e2e9e33483c49ea5e80128ccd0295f342cf9b"},
+    {file = "qdrant_client-1.10.1-py3-none-any.whl", hash = "sha256:b9fb8fe50dd168d92b2998be7c6135d5a229b3a3258ad158cc69c8adf9ff1810"},
+    {file = "qdrant_client-1.10.1.tar.gz", hash = "sha256:2284c8c5bb1defb0d9dbacb07d16f344972f395f4f2ed062318476a7951fd84c"},
 ]
 
 [package.dependencies]
@@ -4607,13 +4607,13 @@ test = ["Cython", "array-api-strict", "asv", "gmpy2", "hypothesis (>=6.30)", "me
 
 [[package]]
 name = "selenium"
-version = "4.22.0"
-description = "Official Python bindings for Selenium WebDriver"
+version = "4.21.0"
+description = ""
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "selenium-4.22.0-py3-none-any.whl", hash = "sha256:e424991196e9857e19bf04fe5c1c0a4aac076794ff5e74615b1124e729d93104"},
-    {file = "selenium-4.22.0.tar.gz", hash = "sha256:903c8c9d61b3eea6fcc9809dc7d9377e04e2ac87709876542cc8f863e482c4ce"},
+    {file = "selenium-4.21.0-py3-none-any.whl", hash = "sha256:4770ffe5a5264e609de7dc914be6b89987512040d5a8efb2abb181330d097993"},
+    {file = "selenium-4.21.0.tar.gz", hash = "sha256:650dbfa5159895ff00ad16e5ddb6ceecb86b90c7ed2012b3f041f64e6e4904fe"},
 ]
 
 [package.dependencies]
@@ -4622,7 +4622,6 @@ trio = ">=0.17,<1.0"
 trio-websocket = ">=0.9,<1.0"
 typing_extensions = ">=4.9.0"
 urllib3 = {version = ">=1.26,<3", extras = ["socks"]}
-websocket-client = ">=1.8.0"
 
 [[package]]
 name = "semantic-version"
@@ -4725,13 +4724,13 @@ files = [
 
 [[package]]
 name = "sentry-sdk"
-version = "2.8.0"
+version = "2.9.0"
 description = "Python client for Sentry (https://sentry.io)"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "sentry_sdk-2.8.0-py2.py3-none-any.whl", hash = "sha256:6051562d2cfa8087bb8b4b8b79dc44690f8a054762a29c07e22588b1f619bfb5"},
-    {file = "sentry_sdk-2.8.0.tar.gz", hash = "sha256:aa4314f877d9cd9add5a0c9ba18e3f27f99f7de835ce36bd150e48a41c7c646f"},
+    {file = "sentry_sdk-2.9.0-py2.py3-none-any.whl", hash = "sha256:0bea5fa8b564cc0d09f2e6f55893e8f70286048b0ffb3a341d5b695d1af0e6ee"},
+    {file = "sentry_sdk-2.9.0.tar.gz", hash = "sha256:4c85bad74df9767976afb3eeddc33e0e153300e887d637775a753a35ef99bee6"},
 ]
 
 [package.dependencies]
@@ -4775,13 +4774,13 @@ tornado = ["tornado (>=6)"]
 
 [[package]]
 name = "setuptools"
-version = "70.2.0"
+version = "70.3.0"
 description = "Easily download, build, install, upgrade, and uninstall Python packages"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "setuptools-70.2.0-py3-none-any.whl", hash = "sha256:b8b8060bb426838fbe942479c90296ce976249451118ef566a5a0b7d8b78fb05"},
-    {file = "setuptools-70.2.0.tar.gz", hash = "sha256:bd63e505105011b25c3c11f753f7e3b8465ea739efddaccef8f0efac2137bac1"},
+    {file = "setuptools-70.3.0-py3-none-any.whl", hash = "sha256:fe384da74336c398e0d956d1cae0669bc02eed936cdb1d49b57de1990dc11ffc"},
+    {file = "setuptools-70.3.0.tar.gz", hash = "sha256:f171bab1dfbc86b132997f26a119f6056a57950d058587841a0082e8830f9dc5"},
 ]
 
 [package.extras]
@@ -5083,17 +5082,20 @@ redis = ["redis (>=5.0.3,<6.0.0)"]
 
 [[package]]
 name = "sympy"
-version = "1.12.1"
+version = "1.13.0"
 description = "Computer algebra system (CAS) in Python"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "sympy-1.12.1-py3-none-any.whl", hash = "sha256:9b2cbc7f1a640289430e13d2a56f02f867a1da0190f2f99d8968c2f74da0e515"},
-    {file = "sympy-1.12.1.tar.gz", hash = "sha256:2877b03f998cd8c08f07cd0de5b767119cd3ef40d09f41c30d722f6686b0fb88"},
+    {file = "sympy-1.13.0-py3-none-any.whl", hash = "sha256:6b0b32a4673fb91bd3cac3b55406c8e01d53ae22780be467301cc452f6680c92"},
+    {file = "sympy-1.13.0.tar.gz", hash = "sha256:3b6af8f4d008b9a1a6a4268b335b984b23835f26d1d60b0526ebc71d48a25f57"},
 ]
 
 [package.dependencies]
-mpmath = ">=1.1.0,<1.4.0"
+mpmath = ">=1.1.0,<1.4"
+
+[package.extras]
+dev = ["hypothesis (>=6.70.0)", "pytest (>=7.1.0)"]
 
 [[package]]
 name = "tabulate"
@@ -5455,13 +5457,13 @@ telegram = ["requests"]
 
 [[package]]
 name = "transformers"
-version = "4.42.3"
+version = "4.42.4"
 description = "State-of-the-art Machine Learning for JAX, PyTorch and TensorFlow"
 optional = false
 python-versions = ">=3.8.0"
 files = [
-    {file = "transformers-4.42.3-py3-none-any.whl", hash = "sha256:a61a0df9609b7d69229d941b2fd857c841ba3043d6da503d0da1a4b133f65b92"},
-    {file = "transformers-4.42.3.tar.gz", hash = "sha256:7539873ff45809145265cbc94ea4619d2713c41ceaa277b692d8b0be3430f7eb"},
+    {file = "transformers-4.42.4-py3-none-any.whl", hash = "sha256:6d59061392d0f1da312af29c962df9017ff3c0108c681a56d1bc981004d16d24"},
+    {file = "transformers-4.42.4.tar.gz", hash = "sha256:f956e25e24df851f650cb2c158b6f4352dfae9d702f04c113ed24fc36ce7ae2d"},
 ]
 
 [package.dependencies]
@@ -5608,13 +5610,13 @@ files = [
 
 [[package]]
 name = "types-requests"
-version = "2.32.0.20240622"
+version = "2.32.0.20240712"
 description = "Typing stubs for requests"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "types-requests-2.32.0.20240622.tar.gz", hash = "sha256:ed5e8a412fcc39159d6319385c009d642845f250c63902718f605cd90faade31"},
-    {file = "types_requests-2.32.0.20240622-py3-none-any.whl", hash = "sha256:97bac6b54b5bd4cf91d407e62f0932a74821bc2211f22116d9ee1dd643826caf"},
+    {file = "types-requests-2.32.0.20240712.tar.gz", hash = "sha256:90c079ff05e549f6bf50e02e910210b98b8ff1ebdd18e19c873cd237737c1358"},
+    {file = "types_requests-2.32.0.20240712-py3-none-any.whl", hash = "sha256:f754283e152c752e46e70942fa2a146b5bc70393522257bb85bd1ef7e019dcc3"},
 ]
 
 [package.dependencies]
@@ -5659,13 +5661,13 @@ files = [
 
 [[package]]
 name = "unstructured"
-version = "0.14.9"
+version = "0.14.10"
 description = "A library that prepares raw documents for downstream ML tasks."
 optional = false
 python-versions = "<3.13,>=3.9.0"
 files = [
-    {file = "unstructured-0.14.9-py3-none-any.whl", hash = "sha256:1bdb461c8595a7dd637372cffc2e03b3b7c7eb5201262f77063757a0ba971c2c"},
-    {file = "unstructured-0.14.9.tar.gz", hash = "sha256:52b651d28746172e03d6352e2ab5eb5aec19e9f4bf5ddb77110f11708798b002"},
+    {file = "unstructured-0.14.10-py3-none-any.whl", hash = "sha256:127052de54f0c49cd7c4432dd5e6c1f3fe0b8521192e32b126a0758dcc06da65"},
+    {file = "unstructured-0.14.10.tar.gz", hash = "sha256:7076567a27e204ddbe129eb99e66bcc90c1cae6c4d4138506f6d555a527be73f"},
 ]
 
 [package.dependencies]
@@ -5679,6 +5681,7 @@ langdetect = "*"
 lxml = "*"
 nltk = "*"
 numpy = "<2"
+psutil = "*"
 python-iso639 = "*"
 python-magic = "*"
 rapidfuzz = "*"
@@ -5748,6 +5751,7 @@ s3 = ["fsspec", "s3fs"]
 salesforce = ["simple-salesforce"]
 sftp = ["fsspec", "paramiko"]
 sharepoint = ["Office365-REST-Python-Client", "msal"]
+singlestore = ["singlestoredb"]
 slack = ["slack-sdk"]
 tsv = ["pandas"]
 weaviate = ["weaviate-client"]
@@ -5756,13 +5760,13 @@ xlsx = ["networkx", "openpyxl", "pandas", "xlrd"]
 
 [[package]]
 name = "unstructured-client"
-version = "0.23.9"
+version = "0.24.1"
 description = "Python Client SDK for Unstructured API"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "unstructured-client-0.23.9.tar.gz", hash = "sha256:c049673810b996ab373d2d8c53f6f6064fa3a096c7bb1b7f5593387d29bbe37d"},
-    {file = "unstructured_client-0.23.9-py3-none-any.whl", hash = "sha256:4edf349466fd54c4bffc16bde265c5a29e392d890fdd7049d7c3cca3cef82ec2"},
+    {file = "unstructured-client-0.24.1.tar.gz", hash = "sha256:1bd82a532497783dd77b30ed4e56837d6abfae8cc6d61442acac0bcacbd568c8"},
+    {file = "unstructured_client-0.24.1-py3-none-any.whl", hash = "sha256:044dab0c3079f908f6adf7088ad44f0e17476b47e2b04e0de608134a482bd0e3"},
 ]
 
 [package.dependencies]
@@ -5808,22 +5812,6 @@ brotli = ["brotli (>=1.0.9)", "brotlicffi (>=0.8.0)"]
 h2 = ["h2 (>=4,<5)"]
 socks = ["pysocks (>=1.5.6,!=1.5.7,<2.0)"]
 zstd = ["zstandard (>=0.18.0)"]
-
-[[package]]
-name = "websocket-client"
-version = "1.8.0"
-description = "WebSocket client for Python with low level API options"
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "websocket_client-1.8.0-py3-none-any.whl", hash = "sha256:17b44cc997f5c498e809b22cdf2d9c7a9e71c02c8cc2b6c56e7c2d1239bfa526"},
-    {file = "websocket_client-1.8.0.tar.gz", hash = "sha256:3239df9f44da632f96012472805d40a23281a991027ce11d2f45a6f24ac4c3da"},
-]
-
-[package.extras]
-docs = ["Sphinx (>=6.0)", "myst-parser (>=2.0.0)", "sphinx-rtd-theme (>=1.1.0)"]
-optional = ["python-socks", "wsaccel"]
-test = ["websockets"]
 
 [[package]]
 name = "wrapt"
@@ -6166,4 +6154,4 @@ termcolor = "2.3.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10, <3.12"
-content-hash = "23d0647c35386e84f761b74067724e28fec0eea2c06a2e58e69af111cc0abced"
+content-hash = "0b948171425ccd7c0580b2f2aa0d1922ae9e40de1e14b02b3e588058b0d30e14"

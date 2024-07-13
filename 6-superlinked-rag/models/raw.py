@@ -6,6 +6,7 @@ from pydantic import BaseModel
 class RepositoryRawModel(BaseModel):
     id: str
     type: str
+    platform: str = "github"
     name: str
     link: str
     content: dict

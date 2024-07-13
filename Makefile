@@ -35,16 +35,20 @@ build-all:
 	@echo "Building Docker images using BuildKit..."
 	@docker buildx bake --builder $(BUILDER_NAME) --load
 	@echo "Starting services using docker-compose..."
-	@docker-compose up
+	@docker compose up
 	@echo "Cleaning up BuildKit builder..."
 	@docker buildx rm $(BUILDER_NAME)
 
 help:
 	@grep -E '^[a-zA-Z0-9 -]+:.*#'  Makefile | sort | while read -r l; do printf "\033[1;32m$$(echo $$l | cut -f 1 -d':')\033[00m:$$(echo $$l | cut -f 2- -d'#')\n"; done
 
-local-test: # Send test command on local to test the lambda
+local-test-medium: # Send test command on local to test the lambda with a Medium article
 	curl -X POST "http://localhost:9010/2015-03-31/functions/function/invocations" \
-	  	-d '{"user": "Paul Iuztin", "link": "https://medium.com/@pauliusztin/the-llms-kit-build-a-production-ready-real-time-financial-advisor-system-using-streaming-ffdcb2b50714"}'
+	  	-d '{"user": "Paul Iuztin", "link": "https://medium.com/decodingml/an-end-to-end-framework-for-production-ready-llm-systems-by-building-your-llm-twin-2cc6bb01141f"}'
+
+local-test-github: # Send test command on local to test the lambda with a Github repository
+	curl -X POST "http://localhost:9010/2015-03-31/functions/function/invocations" \
+	  	-d '{"user": "Paul Iuztin", "link": "https://github.com/decodingml/llm-twin-course"}'
 
 invoke: # Invoke remote lambda from local
 	aws lambda invoke \

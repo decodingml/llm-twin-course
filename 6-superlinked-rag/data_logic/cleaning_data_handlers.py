@@ -49,9 +49,10 @@ class RepositoryCleaningHandler(CleaningDataHandler):
     def clean(self, data_model: RepositoryRawModel) -> RepositoryCleanedModel:
         return RepositoryCleanedModel(
             id=data_model.id,
+            platform=data_model.platform,
             name=data_model.name,
             link=data_model.link,
             cleaned_content=clean_text("".join(data_model.content.values())),
-            owner_id=data_model.owner_id,
+            author_id=data_model.owner_id,
             type=data_model.type,
         )

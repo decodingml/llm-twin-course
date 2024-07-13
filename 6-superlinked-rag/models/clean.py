@@ -1,9 +1,10 @@
-from pydantic import BaseModel
+from typing_extensions import Annotated
+from pydantic import BaseModel, BeforeValidator
 
 
 class PostCleanedModel(BaseModel):
     id: str
-    platform: str
+    platform: Annotated[str, BeforeValidator(str.lower)]
     cleaned_content: str
     author_id: str
     type: str
@@ -11,7 +12,7 @@ class PostCleanedModel(BaseModel):
 
 class ArticleCleanedModel(BaseModel):
     id: str
-    platform: str
+    platform: Annotated[str, BeforeValidator(str.lower)]
     link: str
     cleaned_content: str
     author_id: str
@@ -20,10 +21,11 @@ class ArticleCleanedModel(BaseModel):
 
 class RepositoryCleanedModel(BaseModel):
     id: str
+    platform: Annotated[str, BeforeValidator(str.lower)]
     name: str
     link: str
     cleaned_content: str
-    owner_id: str
+    author_id: str
     type: str
 
 

@@ -2,8 +2,8 @@ FROM  public.ecr.aws/lambda/python:3.11 as build
 
 # Install chrome driver and browser
 RUN yum install -y unzip && \
-    curl -Lo "/tmp/chromedriver.zip" "https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip" && \
-    curl -Lo "/tmp/chrome-linux.zip" "https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F1135561%2Fchrome-linux.zip?alt=media" && \
+    curl -Lo "/tmp/chromedriver.zip" "https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.126/linux64/chromedriver-linux64.zip" && \
+    curl -Lo "/tmp/chrome-linux.zip" "https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.126/linux64/chrome-linux64.zip" && \
     unzip /tmp/chromedriver.zip -d /opt/ && \
     unzip /tmp/chrome-linux.zip -d /opt/
 
@@ -41,8 +41,8 @@ RUN yum install -y \
     libpq-dev
 
 
-COPY --from=build /opt/chrome-linux /opt/chrome
-COPY --from=build /opt/chromedriver /opt/
+COPY --from=build /opt/chrome-linux64 /opt/chrome
+COPY --from=build /opt/chromedriver-linux64 /opt/
 
 COPY ./pyproject.toml ./poetry.lock ./
 

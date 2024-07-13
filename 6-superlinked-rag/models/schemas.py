@@ -25,13 +25,21 @@ class ArticleSchema:
 @schema
 class RepositorySchema:
     id: IdField
+    platform: String
     name: String
     link: String
     cleaned_content: String
-    owner_id: String
+    author_id: String
     type: String
 
 
 post = PostSchema()
 article = ArticleSchema()
 repository = RepositorySchema()
+
+
+schemas_repository = {
+    "posts": post,
+    "articles": article,
+    "repositories": repository,
+}

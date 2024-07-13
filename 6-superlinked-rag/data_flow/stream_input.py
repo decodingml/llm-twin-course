@@ -3,6 +3,7 @@ from datetime import datetime
 from typing import Generic, Iterable, List, Optional, TypeVar
 
 from bytewax.inputs import FixedPartitionedSource, StatefulSourcePartition
+from config import settings
 from mq import RabbitMQConnection
 
 DataT = TypeVar("DataT")
@@ -16,7 +17,7 @@ class RabbitMQSource(FixedPartitionedSource):
     def build_part(
         self, now: datetime, for_part: str, resume_state: MessageT | None = None
     ) -> StatefulSourcePartition[DataT, MessageT]:
-        return RabbitMQPartition(queue_name="test_queue")
+        return RabbitMQPartition(queue_name=settings.RABBITMQ_QUEUE_NAME)
 
 
 class RabbitMQPartition(StatefulSourcePartition, Generic[DataT, MessageT]):
