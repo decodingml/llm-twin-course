@@ -44,7 +44,7 @@ class SuperlinkedEngine(metaclass=SingletonMeta):
         )
 
         self.repository_space_content = TextSimilaritySpace(
-            text=chunk(repository.cleaned_content, chunk_size=600, chunk_overlap=50),
+            text=chunk(repository.cleaned_content, chunk_size=1000, chunk_overlap=50),
             model=settings.EMBEDDING_MODEL_ID,
         )
         self.repository_space_plaform = CategoricalSimilaritySpace(

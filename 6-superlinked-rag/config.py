@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     RABBITMQ_DEFAULT_USERNAME: str = "guest"
     RABBITMQ_DEFAULT_PASSWORD: str = "guest"
     RABBITMQ_HOST: str = "localhost"
-    RABBITMQ_PORT: int = 5673
+    RABBITMQ_PORT: int = 5672
     RABBITMQ_QUEUE_NAME: str = "default"
 
 

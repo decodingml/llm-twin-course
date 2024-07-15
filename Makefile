@@ -64,17 +64,23 @@ push: # Build & push image to docker ECR (e.g make push IMAGE_TAG=latest)
 	docker buildx build --platform linux/amd64 -t $(AWS_CURRENT_ACCOUNT_ID).dkr.ecr.$(AWS_CURRENT_REGION_ID).amazonaws.com/crawler:$(IMAGE_TAG) .
 	echo "Push completed successfully."
 
-local-start: # Buil and start mongodb and mq.
+local-start: # Buil and start local infrastructure.
 	docker compose -f docker-compose.yml up --build -d
 
-local-stop: # Stop mongodb, mq and qdrant.
+local-stop: # Stop local infrastructure.
 	docker compose -f docker-compose.yml down --remove-orphans
 
+local-start-superlinked: # Buil and start local infrastructure used in the Superlinked series.
+	docker compose -f docker-compose-superlinked.yml up --build -d
+
+local-stop-superlinked: # Stop local infrastructure used in the Superlinked series.
+	docker compose -f docker-compose-superlinked.yml down --remove-orphans
+
 local-bytewax: # Run bytewax pipeline
-	RUST_BACKTRACE=full python -m bytewax.run 3-feature-pipeline/main.py
+	RUST_BACKTRACE=full poetry run python -m bytewax.run 3-feature-pipeline/main.py
 
 local-bytewax-superlinked: # Run bytewax pipeline powered by superlinked
-	RUST_BACKTRACE=full python -m bytewax.run 6-superlinked-rag/main.py
+	RUST_BACKTRACE=full poetry run python -m bytewax.run 6-superlinked-rag/main.py
 
 generate-dataset: # Generate dataset for finetuning and version it in Comet ML
 	python -m finetuning.generate_data
@@ -94,5 +100,3 @@ deploy: # Deploy the model to Qwak
 
 test: # Test Qwak model locally
 	poetry run python test_local.py
-
-

@@ -39,8 +39,8 @@ services:
     image: rabbitmq:3-management-alpine
     container_name: llm-twin-mq
     ports:
-      - "5673:5672"
-      - "15673:15672"
+      - "5672:5672"
+      - "15672:15672"
     volumes:
       - ~/rabbitmq/data/:/var/lib/rabbitmq/
       - ~/rabbitmq/log/:/var/log/rabbitmq
@@ -91,8 +91,8 @@ services:
       - mq
 
   bytewax:
-    image: "llm-twin-bytewax"
-    container_name: llm-twin-bytewax
+    image: "llm-twin-bytewax-superlinked"
+    container_name: llm-twin-bytewax-superlinked
     build:
       context: .
       dockerfile: .docker/Dockerfile.bytewax.superlinked

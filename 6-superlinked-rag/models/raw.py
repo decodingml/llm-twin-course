@@ -1,10 +1,10 @@
 from typing import Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class RepositoryRawModel(BaseModel):
-    id: str
+    id: str = Field(alias="entry_id")
     type: str
     platform: str = "github"
     name: str
@@ -14,7 +14,7 @@ class RepositoryRawModel(BaseModel):
 
 
 class ArticleRawModel(BaseModel):
-    id: str
+    id: str = Field(alias="entry_id")
     type: str
     platform: str
     link: str
@@ -23,7 +23,7 @@ class ArticleRawModel(BaseModel):
 
 
 class PostsRawModel(BaseModel):
-    id: str
+    id: str = Field(alias="entry_id")
     type: str
     platform: str
     content: dict

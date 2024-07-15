@@ -1,19 +1,5 @@
-import utils
 from models import utils as model_utils
 from models.clean import ArticleCleanedModel, PostCleanedModel, RepositoryCleanedModel
-from models.schemas import article, post, repository
-from superlinked.framework.common.parser.dataframe_parser import DataFrameParser
-from superlinked.framework.dsl.executor.in_memory.in_memory_executor import (
-    InMemoryExecutor,
-)
-from superlinked.framework.dsl.index.index import Index
-from superlinked.framework.dsl.query.param import Param
-from superlinked.framework.dsl.query.query import Query
-from superlinked.framework.dsl.source.in_memory_source import InMemorySource
-from superlinked.framework.dsl.space.text_similarity_space import (
-    TextSimilaritySpace,
-    chunk,
-)
 from superlinked_engine import SuperlinkedEngine
 
 mock_data_articles = [
@@ -157,7 +143,9 @@ if __name__ == "__main__":
     engine.put(repositories_df, data_type="repositories")
 
     print("Articles:")
-    article_results = engine.query("Cleaned content 1", author_id="author_3", data_type="articles")
+    article_results = engine.query(
+        "Cleaned content 1", author_id="author_3", data_type="articles"
+    )
     print(article_results)
     print("-" * 100)
 
@@ -165,5 +153,3 @@ if __name__ == "__main__":
     post_results = engine.query("Cleaned content 1", data_type="posts")
     print(post_results)
     print("-" * 100)
-
- 

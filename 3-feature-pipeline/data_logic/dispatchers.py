@@ -31,7 +31,6 @@ class RawDispatcher:
 
         logger.info("Received message.", data_type=data_type)
 
-        print(message)
         if data_type == "posts":
             return PostsRawModel(**message)
         elif data_type == "articles":
