@@ -1,0 +1,144 @@
+{
+    "ingest": {
+        "requestBody": {
+            "description": "Ensure the request body includes all fields defined by your schema. Note that only the ID is shown here for simplicity.",
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "required": [
+                            "id"
+                        ],
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "required": true
+        },
+        "responses": {
+            "202": {
+                "description": "Accepted"
+            },
+            "400": {
+                "description": "Bad Request",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "exception": {
+                                    "type": "string",
+                                    "example": "ValueNotProvidedException"
+                                },
+                                "detail": {
+                                    "type": "string",
+                                    "example": "(\"The SchemaField CarSchema.make doesn't have a default value and was not provided in the ParsedSchema.\",)"
+                                }
+                            },
+                            "required": [
+                                "exception",
+                                "detail"
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "query": {
+        "requestBody": {
+            "description": "The request body must include all mandatory `Param` objects specified in the query that you set. If any are missing, an error indicating the missing parameter will be returned.",
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "type": "object"
+                    }
+                }
+            },
+            "required": true
+        },
+        "responses": {
+            "200": {
+                "description": "Successful Response",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "results": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "entity": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string"
+                                                    },
+                                                    "origin": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "string"
+                                                            },
+                                                            "schema": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "additionalProperties": false
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            },
+                                            "obj": {
+                                                "type": "object",
+                                                "additionalProperties": true
+                                            }
+                                        },
+                                        "additionalProperties": false
+                                    }
+                                }
+                            },
+                            "required": [
+                                "schema",
+                                "results"
+                            ]
+                        }
+                    }
+                }
+            },
+            "500": {
+                "description": "Internal Server Error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "exception": {
+                                    "type": "string",
+                                    "example": "QueryException"
+                                },
+                                "detail": {
+                                    "type": "string",
+                                    "example": "Though parameter 'limit' was defined in the query, its value was not provided. Set it properly or register a new query."
+                                }
+                            },
+                            "required": [
+                                "exception",
+                                "detail"
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

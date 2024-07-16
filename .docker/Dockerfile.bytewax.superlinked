@@ -36,7 +36,7 @@ RUN poetry config virtualenvs.create false && poetry install
 WORKDIR $WORKSPACE_ROOT
 
 # Copy the 3-feature-pipeline and any other necessary directories
-COPY ./6-superlinked-rag .
+COPY ./6-bonus-superlinked-rag .
 COPY ./core ./core
 
 # Set the PYTHONPATH environment variable
