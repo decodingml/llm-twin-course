@@ -1,10 +1,10 @@
 # Dependencies
 
-- Docker
-- Poetry
-- PyEnv
-- Python
-- GNU Make
+- [Docker](https://www.docker.com/)
+- [Poetry](https://python-poetry.org/)
+- [PyEnv](https://github.com/pyenv/pyenv)
+- [Python](https://www.python.org/)
+- [GNU Make](https://www.gnu.org/software/make/)
 
 # Install
 
@@ -55,6 +55,9 @@ make local-stop-superlinked
 
 > [!NOTE]
 > After running the ingestion pipeline, you can visualize what's inside the Redis vector DB at http://localhost:8001/redis-stack/browser
+
+
+# Usage
 
 To trigger the ingestion, run:
 ```shell
