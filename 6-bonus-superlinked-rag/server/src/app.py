@@ -23,15 +23,21 @@ from superlinked.framework.dsl.storage.redis_vector_database import RedisVectorD
 class Settings(BaseSettings):
     EMBEDDING_MODEL_ID: str = "sentence-transformers/all-mpnet-base-v2"
 
+    REDIS_HOSTNAME: str = "redis"
+    REDIS_PORT: int = 6379
+
 
 settings = Settings()
+
+
+# ----------------- SCHEMAS ----------------- #
 
 
 @schema
 class PostSchema:
     id: IdField
     platform: String
-    cleaned_content: String
+    content: String
     author_id: String
     type: String
 
@@ -41,7 +47,7 @@ class ArticleSchema:
     id: IdField
     platform: String
     link: String
-    cleaned_content: String
+    content: String
     author_id: String
     type: String
 
@@ -52,7 +58,7 @@ class RepositorySchema:
     platform: String
     name: String
     link: String
-    cleaned_content: String
+    content: String
     author_id: String
     type: String
 
@@ -61,16 +67,11 @@ post = PostSchema()
 article = ArticleSchema()
 repository = RepositorySchema()
 
-
-schemas_repository = {
-    "posts": post,
-    "articles": article,
-    "repositories": repository,
-}
+# ----------------- SPACES ----------------- #
 
 
 articles_space_content = TextSimilaritySpace(
-    text=chunk(article.cleaned_content, chunk_size=500, chunk_overlap=50),
+    text=chunk(article.content, chunk_size=500, chunk_overlap=50),
     model=settings.EMBEDDING_MODEL_ID,
 )
 articles_space_plaform = CategoricalSimilaritySpace(
@@ -80,7 +81,7 @@ articles_space_plaform = CategoricalSimilaritySpace(
 )
 
 repository_space_content = TextSimilaritySpace(
-    text=chunk(repository.cleaned_content, chunk_size=1000, chunk_overlap=50),
+    text=chunk(repository.content, chunk_size=1000, chunk_overlap=50),
     model=settings.EMBEDDING_MODEL_ID,
 )
 repository_space_plaform = CategoricalSimilaritySpace(
@@ -90,7 +91,7 @@ repository_space_plaform = CategoricalSimilaritySpace(
 )
 
 post_space_content = TextSimilaritySpace(
-    text=chunk(post.cleaned_content, chunk_size=300, chunk_overlap=50),
+    text=chunk(post.content, chunk_size=300, chunk_overlap=50),
     model=settings.EMBEDDING_MODEL_ID,
 )
 post_space_plaform = CategoricalSimilaritySpace(
@@ -98,6 +99,9 @@ post_space_plaform = CategoricalSimilaritySpace(
     categories=["linkedin", "twitter"],
     negative_filter=-5.0,
 )
+
+
+# ----------------- INDEXES ----------------- #
 
 article_index = Index(
     [articles_space_content, articles_space_plaform],
@@ -112,6 +116,8 @@ post_index = Index(
     fields=[post.author_id],
 )
 
+# ----------------- QUERIES ----------------- #
+
 post_query = (
     Query(
         post_index,
@@ -123,6 +129,7 @@ post_query = (
     .find(post)
     .similar(post_space_content.text, Param("search_query"))
     .similar(post_space_plaform.category, Param("platform"))
+    .filter(post.author_id == Param("author_id"))
     .limit(Param("limit"))
 )
 article_query = (
@@ -136,6 +143,7 @@ article_query = (
     .find(article)
     .similar(articles_space_content.text, Param("search_query"))
     .similar(articles_space_plaform.category, Param("platform"))
+    .filter(article.author_id == Param("author_id"))
     .limit(Param("limit"))
 )
 repository_query = (
@@ -149,17 +157,26 @@ repository_query = (
     .find(repository)
     .similar(repository_space_content.text, Param("search_query"))
     .similar(repository_space_plaform.category, Param("platform"))
+    .filter(repository.author_id == Param("author_id"))
     .limit(Param("limit"))
 )
+
+# ----------------- SOURCES ----------------- #
 
 article_source = RestSource(article)
 repository_source = RestSource(repository)
 post_source = RestSource(post)
 
+
+# ----------------- VECTOR DB ----------------- #
+
 vector_database = RedisVectorDatabase(
-    "redis",  # (Mandatory) This is your redis URL without any port or extra fields
-    6379,  # (Mandatory) This is the port and it should be an integer
+    settings.REDIS_HOSTNAME,  # (Mandatory) This is your redis URL without any port or extra fields
+    settings.REDIS_PORT,  # (Mandatory) This is the port and it should be an integer
 )
+
+
+# ----------------- EXECUTOR ----------------- #
 
 executor = RestExecutor(
     sources=[article_source, repository_source, post_source],

@@ -18,29 +18,27 @@ RESET := \033[0m
 env-var:
     @echo "Environment variable VAR is: ${RABBITMQ_HOST}"
 
-# Makefile to build and run Docker services using BuildKit and docker-compose
-
-# Define the builder name
-BUILDER_NAME=my_builder_2
-
-
-build-all:
-	@echo "Creating BuildKit builder if it doesn't exist..."
-	@if ! docker buildx inspect $(BUILDER_NAME) > /dev/null 2>&1; then \
-		echo "Creating BuildKit builder..."; \
-		docker buildx create --use --bootstrap --name $(BUILDER_NAME); \
-	else \
-		echo "Using existing BuildKit builder..."; \
-	fi
-	@echo "Building Docker images using BuildKit..."
-	@docker buildx bake --builder $(BUILDER_NAME) --load
-	@echo "Starting services using docker-compose..."
-	@docker compose up
-	@echo "Cleaning up BuildKit builder..."
-	@docker buildx rm $(BUILDER_NAME)
-
 help:
 	@grep -E '^[a-zA-Z0-9 -]+:.*#'  Makefile | sort | while read -r l; do printf "\033[1;32m$$(echo $$l | cut -f 1 -d':')\033[00m:$$(echo $$l | cut -f 2- -d'#')\n"; done
+
+
+# ------  Infrastructure ------ 
+
+push: # Build & push image to docker ECR (e.g make push IMAGE_TAG=latest)
+	echo "Logging into AWS ECR..."
+	aws ecr get-login-password --region $(AWS_CURRENT_REGION_ID) | docker login --username AWS --password-stdin $(AWS_CURRENT_ACCOUNT_ID).dkr.ecr.$(AWS_CURRENT_REGION_ID).amazonaws.com
+	echo "Build & Push Docker image..."
+	docker buildx build --platform linux/amd64 -t $(AWS_CURRENT_ACCOUNT_ID).dkr.ecr.$(AWS_CURRENT_REGION_ID).amazonaws.com/crawler:$(IMAGE_TAG) .
+	echo "Push completed successfully."
+
+local-start: # Buil and start local infrastructure.
+	docker compose -f docker-compose.yml up --build -d
+
+local-stop: # Stop local infrastructure.
+	docker compose -f docker-compose.yml down --remove-orphans
+
+
+# ------ Crawler ------
 
 local-test-medium: # Send test command on local to test the lambda with a Medium article
 	curl -X POST "http://localhost:9010/2015-03-31/functions/function/invocations" \
@@ -57,36 +55,20 @@ invoke: # Invoke remote lambda from local
 		--payload '{"user": "Paul Iuztin", "link": "https://github.com/iusztinpaul/hands-on-llms"}' \
 		response.json
 
-push: # Build & push image to docker ECR (e.g make push IMAGE_TAG=latest)
-	echo "Logging into AWS ECR..."
-	aws ecr get-login-password --region $(AWS_CURRENT_REGION_ID) | docker login --username AWS --password-stdin $(AWS_CURRENT_ACCOUNT_ID).dkr.ecr.$(AWS_CURRENT_REGION_ID).amazonaws.com
-	echo "Build & Push Docker image..."
-	docker buildx build --platform linux/amd64 -t $(AWS_CURRENT_ACCOUNT_ID).dkr.ecr.$(AWS_CURRENT_REGION_ID).amazonaws.com/crawler:$(IMAGE_TAG) .
-	echo "Push completed successfully."
-
-local-start: # Buil and start local infrastructure.
-	docker compose -f docker-compose.yml up --build -d
-
-local-stop: # Stop local infrastructure.
-	docker compose -f docker-compose.yml down --remove-orphans
-
-local-start-superlinked: # Buil and start local infrastructure used in the Superlinked series.
-	docker compose -f docker-compose-superlinked.yml up --build -d
-
-local-stop-superlinked: # Stop local infrastructure used in the Superlinked series.
-	docker compose -f docker-compose-superlinked.yml down --remove-orphans
+# ------ RAG Feature Pipeline ------
 
 local-bytewax: # Run bytewax pipeline
 	RUST_BACKTRACE=full poetry run python -m bytewax.run 3-feature-pipeline/main.py
 
-local-bytewax-superlinked: # Run bytewax pipeline powered by superlinked
-	RUST_BACKTRACE=full poetry run python -m bytewax.run 6-superlinked-rag/main.py
-
 generate-dataset: # Generate dataset for finetuning and version it in Comet ML
 	python -m finetuning.generate_data
 
+# ------ RAG ------
+
 local-test-retriever: # Test retriever
 	poetry run python retriever.py
+
+# ------ Qwak: Fine-tuning & Inference ------
 
 create-qwak-project: # Create Qwak project for serving the model
 	@echo "$(YELLOW)Creating Qwak project $(RESET)"
@@ -98,5 +80,20 @@ deploy: # Deploy the model to Qwak
 	@echo "$(GREEN)Triggering Qwak Model Build$(RESET)"
 	poetry run qwak models build -f build_config.yaml .
 
-test: # Test Qwak model locally
+local-test-qwak: # Test Qwak model locally
 	poetry run python test_local.py
+
+
+# ------ Superlinked Bonus Series ------
+
+local-start-superlinked: # Buil and start local infrastructure used in the Superlinked series.
+	docker compose -f docker-compose-superlinked.yml up --build -d
+
+local-stop-superlinked: # Stop local infrastructure used in the Superlinked series.
+	docker compose -f docker-compose-superlinked.yml down --remove-orphans
+
+test-superlinked-server:
+	poetry run python 6-bonus-superlinked-rag/local_test.py
+
+local-bytewax-superlinked: # Run bytewax pipeline powered by superlinked
+	RUST_BACKTRACE=full poetry run python -m bytewax.run 6-bonus-superlinked-rag/main.py

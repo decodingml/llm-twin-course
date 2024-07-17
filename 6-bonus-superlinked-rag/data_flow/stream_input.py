@@ -47,7 +47,7 @@ class RabbitMQPartition(StatefulSourcePartition, Generic[DataT, MessageT]):
                 f"Error while fetching message from queue.", queue_name=self.queue_name
             )
             time.sleep(10)  # Sleep for 10 seconds before retrying to access the queue.
-            
+
             self.connection.connect()
             self.channel = self.connection.get_channel()
 

@@ -1,12 +1,6 @@
 from abc import ABC, abstractmethod
 
-from models.clean import (
-    ArticleCleanedModel,
-    CleanedModel,
-    PostCleanedModel,
-    RepositoryCleanedModel,
-)
-from models.raw import ArticleRawModel, PostsRawModel, RawModel, RepositoryRawModel
+from models.documents import ArticleDocument, Document, PostDocument, RepositoryDocument
 from models.raw import ArticleRawModel, PostsRawModel, RawModel, RepositoryRawModel
 from utils.cleaning import clean_text
 
@@ -18,41 +12,41 @@ class CleaningDataHandler(ABC):
     """
 
     @abstractmethod
-    def clean(self, data_model: RawModel) -> CleanedModel:
+    def clean(self, data_model: RawModel) -> Document:
         pass
 
 
 class PostCleaningHandler(CleaningDataHandler):
-    def clean(self, data_model: PostsRawModel) -> PostCleanedModel:
-        return PostCleanedModel(
+    def clean(self, data_model: PostsRawModel) -> PostDocument:
+        return PostDocument(
             id=data_model.id,
             platform=data_model.platform,
-            cleaned_content=clean_text("".join(data_model.content.values())),
+            content=clean_text("".join(data_model.content.values())),
             author_id=data_model.author_id,
             type=data_model.type,
         )
 
 
 class ArticleCleaningHandler(CleaningDataHandler):
-    def clean(self, data_model: ArticleRawModel) -> ArticleCleanedModel:
-        return ArticleCleanedModel(
+    def clean(self, data_model: ArticleRawModel) -> ArticleDocument:
+        return ArticleDocument(
             id=data_model.id,
             platform=data_model.platform,
             link=data_model.link,
-            cleaned_content=clean_text("".join(data_model.content.values())),
+            content=clean_text("".join(data_model.content.values())),
             author_id=data_model.author_id,
             type=data_model.type,
         )
 
 
 class RepositoryCleaningHandler(CleaningDataHandler):
-    def clean(self, data_model: RepositoryRawModel) -> RepositoryCleanedModel:
-        return RepositoryCleanedModel(
+    def clean(self, data_model: RepositoryRawModel) -> RepositoryDocument:
+        return RepositoryDocument(
             id=data_model.id,
             platform=data_model.platform,
             name=data_model.name,
             link=data_model.link,
-            cleaned_content=clean_text("".join(data_model.content.values())),
+            content=clean_text("".join(data_model.content.values())),
             author_id=data_model.owner_id,
             type=data_model.type,
         )

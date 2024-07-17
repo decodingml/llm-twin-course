@@ -1,5 +1,5 @@
 from bytewax.outputs import DynamicSink, StatelessSinkPartition
-from models.clean import CleanedModel
+from models.documents import Document
 from superlinked_client import SuperlinkedClient
 from tqdm import tqdm
 from utils.logging import get_logger
@@ -19,7 +19,7 @@ class SuperlinkedSinkPartition(StatelessSinkPartition):
     def __init__(self, client: SuperlinkedClient):
         self._client = client
 
-    def write_batch(self, items: list[CleanedModel]) -> None:
+    def write_batch(self, items: list[Document]) -> None:
         for item in tqdm(items, desc="Sending items to Superlinked..."):
             match item.type:
                 case "repositories":

@@ -3,7 +3,7 @@ from typing import Any, Callable, Dict, List, Optional
 import pandas as pd
 from pydantic import BaseModel
 
-from models.clean import CleanedModel
+from models.documents import Document
 
 
 def pydantic_models_to_dataframe(
@@ -36,11 +36,11 @@ def pydantic_models_to_dataframe(
     return df
 
 
-def group_by_type(documents: list[CleanedModel]) -> Dict[str, list[CleanedModel]]:
+def group_by_type(documents: list[Document]) -> Dict[str, list[Document]]:
     return _group_by(documents, selector=lambda doc: doc.type)
 
 
-def _group_by(documents: list[CleanedModel], selector: Callable) -> Dict[Any, list]:
+def _group_by(documents: list[Document], selector: Callable) -> Dict[Any, list]:
     grouped = {}
     for doc in documents:
         key = selector(doc)

@@ -1,4 +1,4 @@
-from models.clean import CleanedModel
+from models.documents import Document
 from models.raw import ArticleRawModel, PostsRawModel, RawModel, RepositoryRawModel
 from utils.logging import get_logger
 
@@ -46,7 +46,7 @@ class CleaningDispatcher:
     cleaning_factory = CleaningHandlerFactory()
 
     @classmethod
-    def dispatch_cleaner(cls, data_model: RawModel) -> CleanedModel:
+    def dispatch_cleaner(cls, data_model: RawModel) -> Document:
         logger.info("Cleaning data.", data_type=data_model.type)
 
         data_type = data_model.type
@@ -56,7 +56,7 @@ class CleaningDispatcher:
         logger.info(
             "Data cleaned successfully.",
             data_type=data_type,
-            cleaned_content_len=len(clean_model.cleaned_content),
+            content_len=len(clean_model.content),
         )
 
         return clean_model

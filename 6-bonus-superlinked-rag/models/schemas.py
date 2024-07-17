@@ -7,7 +7,7 @@ from superlinked.framework.common.schema.schema_object import String
 class PostSchema:
     id: IdField
     platform: String
-    cleaned_content: String
+    content: String
     author_id: String
     type: String
 
@@ -17,7 +17,7 @@ class ArticleSchema:
     id: IdField
     platform: String
     link: String
-    cleaned_content: String
+    content: String
     author_id: String
     type: String
 
@@ -28,7 +28,7 @@ class RepositorySchema:
     platform: String
     name: String
     link: String
-    cleaned_content: String
+    content: String
     author_id: String
     type: String
 
