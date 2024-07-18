@@ -1,10 +1,14 @@
 import json
 from datetime import datetime
+import time
 from typing import Generic, Iterable, List, Optional, TypeVar
 
 from bytewax.inputs import FixedPartitionedSource, StatefulSourcePartition
-
+from config import settings
 from mq import RabbitMQConnection
+from utils.logging import get_logger
+
+logger = get_logger(__name__)
 
 DataT = TypeVar("DataT")
 MessageT = TypeVar("MessageT")
@@ -24,9 +28,21 @@ class RabbitMQPartition(StatefulSourcePartition, Generic[DataT, MessageT]):
         self.channel = self.connection.get_channel()
 
     def next_batch(self, sched: Optional[datetime]) -> Iterable[DataT]:
-        method_frame, header_frame, body = self.channel.basic_get(
-            queue=self.queue_name, auto_ack=False
-        )
+        try:
+            method_frame, header_frame, body = self.channel.basic_get(
+                queue=self.queue_name, auto_ack=True
+            )
+        except Exception:
+            logger.error(
+                f"Error while fetching message from queue.", queue_name=self.queue_name
+            )
+            time.sleep(10)  # Sleep for 10 seconds before retrying to access the queue.
+
+            self.connection.connect()
+            self.channel = self.connection.get_channel()
+
+            return []
+
         if method_frame:
             message_id = method_frame.delivery_tag
             self._in_flight_msg_ids.add(message_id)
@@ -55,4 +71,4 @@ class RabbitMQSource(FixedPartitionedSource):
     def build_part(
         self, now: datetime, for_part: str, resume_state: MessageT | None = None
     ) -> StatefulSourcePartition[DataT, MessageT]:
-        return RabbitMQPartition(queue_name="test_queue")
+        return RabbitMQPartition(queue_name=settings.RABBITMQ_QUEUE_NAME)

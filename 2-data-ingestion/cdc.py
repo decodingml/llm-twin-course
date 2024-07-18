@@ -4,6 +4,7 @@ import logging
 from bson import json_util
 from mq import publish_to_rabbitmq
 
+from config import settings
 from db import MongoDatabaseConnector
 
 # Configure logging
@@ -33,7 +34,7 @@ def stream_process():
             logging.info(f"Change detected and serialized: {data}")
 
             # Send data to rabbitmq
-            publish_to_rabbitmq(queue_name="default", data=data)
+            publish_to_rabbitmq(queue_name=settings.RABBITMQ_QUEUE_NAME, data=data)
             logging.info("Data published to RabbitMQ.")
 
     except Exception as e:

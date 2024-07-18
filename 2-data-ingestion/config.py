@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     RABBITMQ_PORT: int = 5673  # Port mapped in Docker Compose
     RABBITMQ_DEFAULT_USERNAME: str = "guest"  # Default username
     RABBITMQ_DEFAULT_PASSWORD: str = "guest"  # Default password
+    RABBITMQ_QUEUE_NAME: str = "default"
 
 
 settings = Settings()

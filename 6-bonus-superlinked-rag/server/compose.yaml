@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  poller:
+    build:
+      context: runner
+      dockerfile: poller/Dockerfile
+    mem_limit: 256m
+    cpus: '0.5'
+    volumes:
+      - ./cache:/code/data
+      - ./config:/code/config
+      - ./src:/src
+
+  executor:
+    depends_on:
+      - poller
+      - redis
+    build:
+      context: runner
+      dockerfile: executor/Dockerfile
+    volumes:
+      - ./cache:/code/data
+    environment:
+      - APP_MODULE_PATH=data.src.app
+    ports:
+      - 8080:8080
+    env_file:
+      - runner/executor/.env
+
+  redis:
+    image: redis/redis-stack:latest
+    ports:
+      - "6379:6379"
+      - "8001:8001"
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:
