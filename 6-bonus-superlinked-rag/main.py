@@ -10,7 +10,7 @@ from data_logic.dispatchers import (
 from superlinked_client import SuperlinkedClient
 
 
-flow = Dataflow("Streaming ingestion pipeline")
+flow = Dataflow("Streaming RAG feature pipeline")
 stream = op.input("input", flow, RabbitMQSource())
 stream = op.map("raw", stream, RawDispatcher.handle_mq_message)
 stream = op.map("clean", stream, CleaningDispatcher.dispatch_cleaner)
