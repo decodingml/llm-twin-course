@@ -111,10 +111,12 @@ If you plan to run the code while reading it, you have to know that we use sever
 
 ## Lessons
 
+→ [Quick overview](https://medium.com/decodingml/the-llm-twin-free-course-on-production-ready-rag-pipelines-c96472f4e8c8) of each lesson of the LLM Twin free course.
+
 > [!IMPORTANT]
 > **To understand the entire code step-by-step, check out our articles ↓**
 > 
-> `The course is split into 11 lessons. Every Medium article will be its own lesson.`
+> `The course is split into 12 lessons. Every Medium article will be its own lesson.`
 
 ### System Design
 1. [An End-to-End Framework for Production-Ready LLM Systems by Building Your LLM Twin](https://medium.com/decodingml/an-end-to-end-framework-for-production-ready-llm-systems-by-building-your-llm-twin-2cc6bb01141f)
@@ -136,9 +138,9 @@ If you plan to run the code while reading it, you have to know that we use sever
 9. [Architect scalable and cost-effective LLM & RAG inference pipelines](https://medium.com/decodingml/architect-scalable-and-cost-effective-llm-rag-inference-pipelines-73b94ef82a99)
 10. [How to evaluate your RAG using RAGAs Framework](https://medium.com/decodingml/how-to-evaluate-your-rag-using-ragas-framework-18d2325453ae)
 
-### Grand Finale
-11. [The LLM-Twin Free Course on Production-Ready RAG applications](https://medium.com/decodingml/the-llm-twin-free-course-on-production-ready-rag-pipelines-c96472f4e8c8)
-12. Ending Notes (TBD)
+### Bonus: refactor and optimize the RAG system
+11. [Build a scalable RAG ingestion pipeline using 74.3% less code](https://medium.com/decodingml/build-a-scalable-rag-ingestion-pipeline-using-74-3-less-code-ac50095100d6)
+12. Refactoring the 4 Advanced RAG Algorithms using Superlinked
 
 ## Meet your teachers!
 The course is created under the [Decoding ML](https://decodingml.substack.com/) umbrella by:
