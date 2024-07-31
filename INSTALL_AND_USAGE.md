@@ -4,8 +4,8 @@
 
 Before starting to install the LLM Twin project, make sure you have installed the following dependencies on your system:
 
-- (Docker ">=v27.0.3")[https://www.docker.com/]
-- (GNU Make ">=3.81")[https://www.gnu.org/software/make/]
+- [Docker ">=v27.0.3"](https://www.docker.com/)
+- [GNU Make ">=3.81"](https://www.gnu.org/software/make/)
 
 The whole LLM Twin application will be run locally using Docker. 
 
@@ -92,7 +92,7 @@ docker logs llm-twin-bytewax
 ```
 You should see logs reflecting the cleaning, chunking, and embedding operations (without any errors, of course).
 
-To check that the Qdrant `vector DB` is populated successfully, go to its dashboard at localhost:6333/dashboard. There, you should see the repositories or article collections created and populated.
+To check that the Qdrant `vector DB` is populated successfully, go to its dashboard at [localhost:6333/dashboard](localhost:6333/dashboard). There, you should see the repositories or article collections created and populated.
 
 > [!NOTE]
 > If using the cloud version of Qdrant, go to your Qdrant account and cluster to see the same thing as in the local dashboard.
