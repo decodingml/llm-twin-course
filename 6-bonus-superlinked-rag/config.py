@@ -8,12 +8,12 @@ class Settings(BaseSettings):
     # MQ config
     RABBITMQ_DEFAULT_USERNAME: str = "guest"
     RABBITMQ_DEFAULT_PASSWORD: str = "guest"
-    RABBITMQ_HOST: str = "localhost"
+    RABBITMQ_HOST: str = "mq" # or localhost if running outside Docker
     RABBITMQ_PORT: int = 5672
     RABBITMQ_QUEUE_NAME: str = "default"
     
     # Superlinked
-    SUPERLINKED_SERVER_URL: str = "http://localhost:8080"
+    SUPERLINKED_SERVER_URL: str = "http://executor:8080" # # or http://localhost:8080 if running outside Docker
 
 
 settings = Settings()
