@@ -46,7 +46,9 @@ make local-start-superlinked
 ```
 
 > [!IMPORTANT]
-> Before starting, make sure that you have your `.env` file filled with everything required to run the system. 
+> Before starting, ensure you have your `.env` file filled with everything required to run the system. 
+>
+> For more details on setting up the local infrastructure, you can check out the course's main [INSTALL_AND_USAGE](https://github.com/decodingml/llm-twin-course/blob/main/INSTALL_AND_USAGE.md) document.
 
 To stop the local infrastructure, run:
 ```shell
@@ -71,3 +73,6 @@ To query the vector DB, run:
 ```shell
 make ... # TO BE ADDED
 ```
+
+> [!IMPORTANT]
+> You can check out the main [INSTALL_AND_USAGE](https://github.com/decodingml/llm-twin-course/blob/main/INSTALL_AND_USAGE.md) document of the course for more details on an end-to-end flow.

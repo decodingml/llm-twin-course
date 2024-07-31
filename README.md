@@ -1,6 +1,6 @@
 <div align="center">
     <h2>LLM Twin Course: Building Your Production-Ready AI Replica</h2>
-    <h1>An End-to-End Framework for Production-Ready LLM & RAG Systems by Building Your LLM Twin</h1>
+    <h1>Learn to build an end-to-end system for production-ready LLM & RAG systems by building your LLM Twin</h1>
     <h3>From data gathering to productionizing LLMs using LLMOps good practices.</h3>
     <i>by <a href="https://github.com/iusztinpaul">Paul Iusztin</a>, <a href="https://github.com/alexandruvesa">Alexandru Vesa</a> and <a href="https://github.com/Joywalker">Alexandru Razvant</a></i>
 </div>
@@ -142,7 +142,21 @@ If you plan to run the code while reading it, you have to know that we use sever
 11. [Build a scalable RAG ingestion pipeline using 74.3% less code](https://medium.com/decodingml/build-a-scalable-rag-ingestion-pipeline-using-74-3-less-code-ac50095100d6)
 12. Refactoring the 4 Advanced RAG Algorithms using Superlinked
 
+## Install & Usage
+
+To understand how to install and run the LLM Twin code, go to the [INSTALL_AND_USAGE](https://github.com/decodingml/llm-twin-course/blob/main/INSTALL_AND_USAGE.md) dedicated document.
+
+> [!NOTE]
+> Even though you can run everything solely using the [INSTALL_AND_USAGE](https://github.com/decodingml/llm-twin-course/blob/main/INSTALL_AND_USAGE.md) dedicated document, we recommend that you read the articles to understand the LLM Twin system and design choices fully.
+
+### Bonus Superlinked series
+
+The bonus Superlinked series has an extra dedicated [README](https://github.com/decodingml/llm-twin-course/blob/main/6-bonus-superlinked-rag/README.md) that you can access under the [6-bonus-superlinked-rag](https://github.com/decodingml/llm-twin-course/tree/main/6-bonus-superlinked-rag) directory.
+
+Here we explain all the changes made to the code to run it with the improved RAG layer powered by [Superlinked](https://rebrand.ly/superlinked-github).
+
 ## Meet your teachers!
+
 The course is created under the [Decoding ML](https://decodingml.substack.com/) umbrella by:
 
 <table>
