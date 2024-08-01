@@ -104,8 +104,11 @@ Now that we have some data in our vector DB, let's test out the RAG retriever:
 make local-test-retriever
 ```
 
-> [!NOTE]
+> [!IMPORTANT]
 > Before running this command, check [Qdrant's dashboard](localhost:6333/dashboard) to ensure that your vector DB is populated with data.
+
+> [!NOTE]
+> For more details on the RAG component, please refer to the [RAG](https://github.com/decodingml/llm-twin-course/blob/main/RAG.md) document. 
 
 
 ### Step 4: Generate the instruct dataset
@@ -115,10 +118,14 @@ The last step, before fine-tuning is to generate an instruct dataset and track i
 make generate-dataset
 ```
 
+> [!IMPORTANT]
 > Now open [Comet ML](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github), go to your workspace, and open the `Artifacts` tab. There, you should find three artifacts as follows:
 > - `articles-instruct-dataset` 
 > - `posts-instruct-dataset`
 > - `repositories-instruct-dataset`
+
+> [!NOTE]
+> For more details on generating the instruct dataset component, please refer to the [GENERATE_INSTRUCT_DATASET](https://github.com/decodingml/llm-twin-course/blob/main/GENERATE_INSTRUCT_DATASET.md) document.
 
 
 ### Step 5: Fine-tuning
