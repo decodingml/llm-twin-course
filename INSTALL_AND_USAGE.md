@@ -50,7 +50,7 @@ Behind the scenes it will build and run all the Docker images defined in the [do
 > 127.0.0.1       mongo3
 > ```
 >
-> From what we know, on `Windows`, it `works out-of-the-box`.
+> From what we know, on `Windows`, it `works out-of-the-box`. For more details, check out this article: https://medium.com/workleap/the-only-local-mongodb-replica-set-with-docker-compose-guide-youll-ever-need-2f0b74dd8384
 
 > [!WARNING]
 > For `arm` users (e.g., `M1/M2/M3 macOS devices`), go to your Docker desktop application and enable `Use Rosetta for x86_64/amd64 emulation on Apple Silicon` from the Settings. There is a checkbox you have to check.
@@ -112,7 +112,7 @@ make local-test-retriever
 
 The last step, before fine-tuning is to generate an instruct dataset and track it as an artifact in Comet ML. To do so, run:
 ```shell
-make local-generate-dataset
+make generate-dataset
 ```
 
 > Now open [Comet ML](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github), go to your workspace, and open the `Artifacts` tab. There, you should find three artifacts as follows:
@@ -123,11 +123,11 @@ make local-generate-dataset
 
 ### Step 5: Fine-tuning
 
-For details on setting up the training pipeline on [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml) and running it, please referr to the [TRAINING]() document.
+For details on setting up the training pipeline on [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml) and running it, please refer to the [TRAINING](https://github.com/decodingml/llm-twin-course/blob/main/TRAINING.md) document.
 
 ### Step 6: Inference
 
-After you finetuned your model, the first step is to deploy the inference pipeline to Qwak as a REST API service:
+After you have finetuned your model, the first step is to deploy the inference pipeline to Qwak as a REST API service:
 ```shell
 deploy-inference-pipeline 
 ```
@@ -135,7 +135,7 @@ deploy-inference-pipeline
 > [!NOTE]
 > You can check out the progress of the deployment on [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml).
 
-After the deployment is finished (it will take a while) you can call it by calling:
+After the deployment is finished (it will take a while), you can call it by calling:
 ```shell
 make call-inference-pipeline
 ```

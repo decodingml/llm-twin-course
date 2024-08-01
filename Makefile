@@ -60,7 +60,7 @@ cloud-test-github: # Send command to the cloud lambda with a Github repository
 local-feature-pipeline: # Run the RAG feature pipeline
 	RUST_BACKTRACE=full poetry run python -m bytewax.run 3-feature-pipeline/main.py
 
-local-generate-dataset: # Generate dataset for finetuning and version it in Comet ML
+generate-dataset: # Generate dataset for finetuning and version it in Comet ML
 	docker exec -it llm-twin-bytewax python -m finetuning.generate_data
 
 # ------ RAG ------

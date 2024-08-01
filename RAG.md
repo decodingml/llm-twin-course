@@ -1,8 +1,3 @@
-# Introduction
-This module is composed from 2 components:
-- RAG component
-- Finetuning dataset preparation component
-
 # RAG component
 A production RAG system is split into 3 main components:
 
@@ -48,8 +43,6 @@ To prepare your environment for these components, follow these steps:
 - `poetry init`
 - `poetry install`
 
-
-
 ## Docker Settings
 ### Host Configuration
 To ensure that your Docker containers can communicate with each other you need to update your `/etc/hosts` file. 
@@ -62,7 +55,7 @@ Add the following entries to map the hostnames to your local machine:
 127.0.0.1       mongo3
 ```
 
-For the Windows users check this article: https://medium.com/workleap/the-only-local-mongodb-replica-set-with-docker-compose-guide-youll-ever-need-2f0b74dd8384
+For Windows users check this article: https://medium.com/workleap/the-only-local-mongodb-replica-set-with-docker-compose-guide-youll-ever-need-2f0b74dd8384
 
 # CometML Integration
 
@@ -97,8 +90,6 @@ To access and set up the necessary CometML variables for your project, follow th
 
 4. **Set Environment Variables**:
    - Add the obtained `COMET_API_KEY` to your environment variables, along with the `COMET_PROJECT` and `COMET_WORKSPACE` names you have set up.
-
-
 
 # Qdrant Integration
 
@@ -188,8 +179,8 @@ The `insert_data_mongo.py` script is designed to manage the automated downloadin
 
 # RAG Component
 
+## RAG Module Structure
 
-# RAG Module Structure
 ### Query Expansion
 - `query_expansion.py`: Handles the expansion of a given query into multiple variations using language model-based templates. It integrates the `ChatOpenAI` class from `langchain_openai` and a custom `QueryExpansionTemplate` to generate expanded queries suitable for further processing.
 
@@ -216,78 +207,6 @@ The workflow is straightforward:
 The project includes a `Makefile` for easy management of common tasks. Here are the main commands you can use:
 
 - `make help`: Displays help for each make command.
-- `make local-start-infra`: Build and start mongodb, mq and qdrant.
-- `make local-start-cdc`: Start cdc system
-- `make insert-data-mongo`: Insert data to mongodb
-- `make local-bytewax`: Run bytewax pipeline and send data to Qdrant
-- `make local-test-retriever:-`: Test RAG retrieval
-
-
-# Generate Data for LLM finetuning task component
-
-# Component Structure
-
-
-### File Handling
-- `file_handler.py`: Manages file I/O operations, enabling reading and writing of JSON formatted data.
-
-### LLM Communication
-- `llm_communication.py`: Handles communication with OpenAI's LLMs, sending prompts and processing responses.
-
-### Data Generation
-- `generate_data.py`: Orchestrates the generation of training data by integrating file handling, LLM communication, and data formatting.
-
-
-### Usage
-
-The project includes a `Makefile` for easy management of common tasks. Here are the main commands you can use:
-
-- `make help`: Displays help for each make command.
-- `make local-start-infra`: Build and start mongodb, mq and qdrant.
-- `make local-start-cdc`: Start cdc system
-- `make insert-data-mongo`: Insert data to mongodb
-- `make local-bytewax`: Run bytewax pipeline and send data to Qdrant
-- `make generate-dataset`: Generate dataset for finetuning and version it in CometML
-
-
-
-# Meet your teachers!
-The course is created under the [Decoding ML](https://decodingml.substack.com/) umbrella by:
-
-<table>
-  <tr>
-    <td><a href="https://github.com/iusztinpaul" target="_blank"><img src="https://github.com/iusztinpaul.png" width="100" style="border-radius:50%;"/></a></td>
-    <td>
-      <strong>Paul Iusztin</strong><br />
-      <i>Senior ML & MLOps Engineer</i>
-    </td>
-  </tr>
-  <tr>
-    <td><a href="https://github.com/alexandruvesa" target="_blank"><img src="https://github.com/alexandruvesa.png" width="100" style="border-radius:50%;"/></a></td>
-    <td>
-      <strong>Alexandru Vesa</strong><br />
-      <i>Senior AI Engineer</i>
-    </td>
-  </tr>
-  <tr>
-    <td><a href="https://github.com/Joywalker" target="_blank"><img src="https://github.com/Joywalker.png" width="100" style="border-radius:50%;"/></a></td>
-    <td>
-      <strong>Răzvanț Alexandru</strong><br />
-      <i>Senior ML Engineer</i>
-    </td>
-  </tr>
-</table>
-
-# License
-
-This course is an open-source project released under the MIT license. Thus, as long you distribute our LICENSE and acknowledge our work, you can safely clone or fork this project and use it as a source of inspiration for whatever you want (e.g., university projects, college degree projects, personal projects, etc.).
-
-# 🏆 Contribution
-
-A big "Thank you 🙏" to all our contributors! This course is possible only because of their efforts.
-
-<p align="center">
-    <a href="https://github.com/decodingml/llm-twin-course/graphs/contributors">
-      <img src="https://contrib.rocks/image?repo=decodingml/llm-twin-course" />
-    </a>
-</p>
+- `make local-start`: Build and start mongodb, mq and qdrant.
+- `make local-test-github`: Insert data to mongodb
+- `make local-test-retriever:`: Test RAG retrieval
