@@ -223,9 +223,9 @@ verbose: 0
 The project includes a `Makefile` for easy management of common tasks. Here are the main commands you can use:
 
 - `make help`: Displays help for each make command.
-- `make test`: Runs tests on local-qwak deployment.
+- `make local-test-inference-pipeline`: Runs tests on local-qwak deployment.
 - `make create-qwak-project`: Create a Qwak project to deploy the model.
-- `make deploy`: Triggers a new fine-tuning job to Qwak remotely, using the configuration specified in `build_config.yaml`
+- `make deploy-inference-pipeline`: Triggers a new fine-tuning job to Qwak remotely, using the configuration specified in `build_config.yaml`
 
 ------
 

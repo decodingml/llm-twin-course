@@ -6,7 +6,7 @@ from config import settings
 
 class SelfQuery:
     @staticmethod
-    def generate_response(query: str) -> str:
+    def generate_response(query: str) -> str | None:
         prompt = SelfQueryTemplate().create_template()
         model = ChatOpenAI(model=settings.OPENAI_MODEL_ID, temperature=0)
 
@@ -15,6 +15,9 @@ class SelfQuery:
         )
 
         response = chain.invoke({"question": query})
-        result = response["metadata_filter_value"]
+        result = response.get("metadata_filter_value", "none")
+        
+        if result.lower() == "none":
+            return None
 
         return result

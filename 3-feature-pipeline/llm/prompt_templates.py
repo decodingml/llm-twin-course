@@ -37,6 +37,7 @@ class SelfQueryTemplate(BasePromptTemplate):
     prompt: str = """You are an AI language model assistant. Your task is to extract information from a user question.
     The required information that needs to be extracted is the user or author id. 
     Your response should consists of only the extracted id (e.g. 1345256), nothing else.
+    If you cannot find the author id, return the string "None".
     User question: {question}"""
 
     def create_template(self) -> PromptTemplate:

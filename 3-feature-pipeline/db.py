@@ -62,8 +62,8 @@ class QdrantDatabaseConnector:
         self,
         collection_name: str,
         query_vector: list,
-        query_filter: models.Filter,
-        limit: int,
+        query_filter: models.Filter | None = None,
+        limit: int = 3,
     ) -> list:
         return self._instance.search(
             collection_name=collection_name,

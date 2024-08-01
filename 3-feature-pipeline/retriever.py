@@ -11,8 +11,6 @@ logger = get_logger(__name__)
 if __name__ == "__main__":
     load_dotenv()
     query = """
-        Hello my author_id is 1.
-        
         Could you please draft a LinkedIn post discussing RAG systems?
         I'm particularly interested in how RAG works and how it is integrated with vector DBs and large language models (LLMs).
         """

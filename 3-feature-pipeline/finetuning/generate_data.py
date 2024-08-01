@@ -4,7 +4,7 @@ import logging
 from comet_ml import Artifact, Experiment
 
 from utils.logging import get_logger
-from db.qdrant import QdrantDatabaseConnector
+from db import QdrantDatabaseConnector
 from finetuning.file_handler import FileHandler
 from finetuning.llm_communication import GptCommunicator
 from config import settings
@@ -126,7 +126,7 @@ if __name__ == "__main__":
     data_formatter = DataFormatter()
     dataset_generator = DatasetGenerator(file_handler, api_communicator, data_formatter)
 
-    collections = [("cleaned_articles", "articles"), ("cleaned_posts", "posts")]
+    collections = [("cleaned_articles", "articles"), ("cleaned_posts", "posts"), ("cleaned_repositories", "repositories")]
     for (collection_name, data_type) in collections:
         logger.info("Generating training data.", collection_name=collection_name, data_type=data_type)
         

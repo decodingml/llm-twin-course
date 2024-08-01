@@ -3,7 +3,7 @@ import json
 from openai import OpenAI
 
 from utils.logging import get_logger
-from ..config import settings
+from config import settings
 
 MAX_LENGTH = 16384
 SYSTEM_PROMPT = (

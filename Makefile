@@ -48,41 +48,52 @@ local-test-github: # Send test command on local to test the lambda with a Github
 	curl -X POST "http://localhost:9010/2015-03-31/functions/function/invocations" \
 	  	-d '{"user": "Paul Iuztin", "link": "https://github.com/decodingml/llm-twin-course"}'
 
-invoke: # Invoke remote lambda from local
+cloud-test-github: # Send command to the cloud lambda with a Github repository
 	aws lambda invoke \
 		--function-name crawler \
 		--cli-binary-format raw-in-base64-out \
-		--payload '{"user": "Paul Iuztin", "link": "https://github.com/iusztinpaul/hands-on-llms"}' \
+		--payload '{"user": "Paul Iuztin", "link": "https://github.com/decodingml/llm-twin-course"}' \
 		response.json
 
 # ------ RAG Feature Pipeline ------
 
-local-bytewax: # Run bytewax pipeline
+local-feature-pipeline: # Run the RAG feature pipeline
 	RUST_BACKTRACE=full poetry run python -m bytewax.run 3-feature-pipeline/main.py
 
-generate-dataset: # Generate dataset for finetuning and version it in Comet ML
-	python -m finetuning.generate_data
+local-generate-dataset: # Generate dataset for finetuning and version it in Comet ML
+	docker exec -it llm-twin-bytewax python -m finetuning.generate_data
 
 # ------ RAG ------
 
 local-test-retriever: # Test retriever
-	poetry run python retriever.py
+	docker exec -it llm-twin-bytewax python -m retriever
 
-# ------ Qwak: Fine-tuning & Inference ------
+# ------ Qwak: Training pipeline ------
 
 create-qwak-project: # Create Qwak project for serving the model
 	@echo "$(YELLOW)Creating Qwak project $(RESET)"
 	qwak models create "llm_twin" --project "llm-twin-course"
 
-deploy: # Deploy the model to Qwak
+local-test-training-pipeline: # Test Qwak model locally
+	poetry run python test_local.py
+
+deploy-training-pipeline: # Deploy the model to Qwak
 	@echo "$(YELLOW)Dumping poetry env requirements to $(RESET) $(GREEN) requirements.txt $(RESET)"
 	poetry export -f requirements.txt --output finetuning/requirements.txt --without-hashes
 	@echo "$(GREEN)Triggering Qwak Model Build$(RESET)"
 	poetry run qwak models build -f build_config.yaml .
 
-local-test-qwak: # Test Qwak model locally
-	poetry run python test_local.py
 
+# ------ Qwak: Inference pipeline ------
+
+deploy-inference-pipeline: # Deploy the inference pipeline to Qwak.
+	poetry run qwak models deploy realtime --model-id "llm_twin" --instance "gpu.a10.2xl" --timeout 50000 --replicas 2 --server-workers 2
+
+undeploy-infernece-pipeline: # Remove the inference pipeline deployment from Qwak.
+	poetry run qwak models undeploy --model-id "llm_twin"
+
+call-inference-pipeline: # Call the inference pipeline.
+	poetry run python main.py
 
 # ------ Superlinked Bonus Series ------
 

@@ -2,7 +2,7 @@ import concurrent.futures
 
 from utils.logging import get_logger
 import utils
-from db.qdrant import QdrantDatabaseConnector
+from db import QdrantDatabaseConnector
 from qdrant_client import models
 from rag.query_expanison import QueryExpansion
 from rag.reranking import Reranker
@@ -27,7 +27,7 @@ class VectorRetriever:
         self._reranker = Reranker()
 
     def _search_single_query(
-        self, generated_query: str, metadata_filter_value: str, k: int
+        self, generated_query: str, metadata_filter_value: str | None, k: int
     ):
         assert k > 3, "k should be greater than 3"
 
@@ -44,7 +44,7 @@ class VectorRetriever:
                             ),
                         )
                     ]
-                ),
+                ) if metadata_filter_value else None,
                 query_vector=query_vector,
                 limit=k // 3,
             ),
@@ -59,7 +59,7 @@ class VectorRetriever:
                             ),
                         )
                     ]
-                ),
+                ) if metadata_filter_value else None,
                 query_vector=query_vector,
                 limit=k // 3,
             ),
@@ -74,7 +74,7 @@ class VectorRetriever:
                             ),
                         )
                     ]
-                ),
+                ) if metadata_filter_value else None,
                 query_vector=query_vector,
                 limit=k // 3,
             ),
@@ -92,10 +92,13 @@ class VectorRetriever:
         )
 
         author_id = self._metadata_extractor.generate_response(self.query)
-        logger.info(
-            "Successfully extracted the author_id from the query.",
-            author_id=author_id,
-        )
+        if author_id:
+            logger.info(
+                "Successfully extracted the author_id from the query.",
+                author_id=author_id,
+            )
+        else:
+            logger.info("Couldn't extract the author_id from the query.")
 
         with concurrent.futures.ThreadPoolExecutor() as executor:
             search_tasks = [
