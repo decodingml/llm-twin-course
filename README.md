@@ -116,7 +116,7 @@ If you plan to run the code while reading it, you have to know that we use sever
 > [!IMPORTANT]
 > **To understand the entire code step-by-step, check out our articles ↓**
 > 
-> `The course is split into 12 lessons. Every Medium article will be its own lesson.`
+> `The course is split into 12 lessons. Every Medium article represents an independent lesson.`
 
 ### System Design
 1. [An End-to-End Framework for Production-Ready LLM Systems by Building Your LLM Twin](https://medium.com/decodingml/an-end-to-end-framework-for-production-ready-llm-systems-by-building-your-llm-twin-2cc6bb01141f)
