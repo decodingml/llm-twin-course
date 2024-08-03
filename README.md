@@ -51,7 +51,7 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 - [7. Install & Usage](#install--usage)
 - [8. Meet your teachers!](#meet-your-teachers)
 - [9. License](#license)
-- [10. 🏆 Contributors](#🏆-contributors)
+- [10. Contributors](#contributors)
 - [11. Sponsors](#sponsors)
 
 ## The architecture of the LLM twin is split into 4 Python microservices:
@@ -219,7 +219,7 @@ The course is created under the [Decoding ML](https://decodingml.substack.com/) 
 
 This course is an open-source project released under the MIT license. Thus, as long you distribute our LICENSE and acknowledge our work, you can safely clone or fork this project and use it as a source of inspiration for whatever you want (e.g., university projects, college degree projects, personal projects, etc.).
 
-## 🏆 Contributors
+## Contributors
 
 A big "Thank you 🙏" to all our contributors! This course is possible only because of their efforts.
 
