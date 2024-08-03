@@ -13,32 +13,6 @@
 
 </br>
 
-## Table of Contents
-
-- [1. Why is this course different?](#1-why-is-this-course-different)
-- [2. What will you learn to build by the end of this course?](#2-what-will-you-learn-to-build-by-the-end-of-this-course)
-- [3. The architecture of the LLM twin is split into 4 Python microservices:](#3-the-architecture-of-the-llm-twin-is-split-into-4-python-microservices)
-    - [3.1. The data collection pipeline](#31-the-data-collection-pipeline)
-    - [3.2. The feature pipeline](#32-the-feature-pipeline)
-    - [3.3. The training pipeline](#33-the-training-pipeline)
-    - [3.4. The inference pipeline](#34-the-inference-pipeline)
-- [4. Who is this for?](#4-who-is-this-for)
-- [5. How will you learn?](#5-how-will-you-learn)
-- [6. Costs?](#6-costs)
-- [7. Questions and troubleshooting](#7-questions-and-troubleshooting)
-- [8. Lessons](#8-lessons)
-    - [8.1. System design](#81-system-design)
-    - [8.2. Data engineering: Gather & store the data for your LLM twin](#82-data-engineering-gather--store-the-data-for-your-llm-twin)
-    - [8.3. Feature pipeline: prepare data for LLM fine-tuning & RAG](#83-feature-pipeline-prepare-data-for-llm-fine-tuning--rag)
-    - [8.4. Training pipeline: fine-tune your LLM twin](#84-training-pipeline-fine-tune-your-llm-twin)
-    - [8.5. Inference pipeline: serve your LLM twin](#85-inference-pipeline-serve-your-llm-twin)
-    - [8.6. Bonus: refactor and optimize the RAG system](#86-bonus-refactor-and-optimize-the-rag-system)
-- [9. Install & Usage](#9-install--usage)
-- [10. Bonus Superlinked series](#10-bonus-superlinked-series)
-- [11. Meet your teachers!](#11-meet-your-teachers)
-- [12. License](#12-license)
-- [13. 🏆 Contribution](#13-contribution)
-
 ## Why is this course different?
 
 *By finishing the **"LLM Twin: Building Your Production-Ready AI Replica"** free course, you will learn how to design, train, and deploy a production-ready LLM twin of yourself powered by LLMs, vector DBs, and LLMOps good practices.*
@@ -57,6 +31,29 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 **The end goal?** Build and deploy your own LLM twin.
 
 **What is an LLM Twin?** It is an AI character that learns to write like somebody by incorporating its style and personality into an LLM.
+
+## Table of contents
+
+- [1. The architecture of the LLM twin is split into 4 Python microservices:](#the-architecture-of-the-llm-twin-is-split-into-4-python-microservices)
+    - [1.1. The data collection pipeline](#the-data-collection-pipeline)
+    - [1.2. The feature pipeline](#the-feature-pipeline)
+    - [1.3. The training pipeline](#the-training-pipeline)
+    - [1.4. The inference pipeline](#the-inference-pipeline)
+- [2. Who is this for?](#who-is-this-for)
+- [3. How will you learn?](#how-will-you-learn)
+- [4. Costs?](#costs)
+- [5. Questions and troubleshooting](#questions-and-troubleshooting)
+- [6. Lessons](#lessons)
+    - [6.1. System design](#system-design)
+    - [6.2. Data engineering: Gather & store the data for your LLM twin](#data-engineering-gather--store-the-data-for-your-llm-twin)
+    - [6.3. Feature pipeline: prepare data for LLM fine-tuning & RAG](#feature-pipeline-prepare-data-for-llm-fine-tuning--rag)
+    - [6.4. Training pipeline: fine-tune your LLM twin](#training-pipeline-fine-tune-your-llm-twin)
+    - [6.5. Inference pipeline: serve your LLM twin](#inference-pipeline-serve-your-llm-twin)
+    - [6.6. Bonus: refactor and optimize the RAG system](#bonus-refactor-and-optimize-the-rag-system)
+- [7. Install & Usage](#install--usage)
+- [8. Meet your teachers!](#meet-your-teachers)
+- [9. License](#license)
+- [10. 🏆 Contribution](#contribution)
 
 ## The architecture of the LLM twin is split into 4 Python microservices:
 
