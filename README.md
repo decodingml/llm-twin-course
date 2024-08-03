@@ -13,6 +13,32 @@
 
 </br>
 
+## Table of Contents
+
+- [1. Why is this course different?](#1-why-is-this-course-different)
+- [2. What will you learn to build by the end of this course?](#2-what-will-you-learn-to-build-by-the-end-of-this-course)
+- [3. The architecture of the LLM twin is split into 4 Python microservices:](#3-the-architecture-of-the-llm-twin-is-split-into-4-python-microservices)
+    - [3.1. The data collection pipeline](#31-the-data-collection-pipeline)
+    - [3.2. The feature pipeline](#32-the-feature-pipeline)
+    - [3.3. The training pipeline](#33-the-training-pipeline)
+    - [3.4. The inference pipeline](#34-the-inference-pipeline)
+- [4. Who is this for?](#4-who-is-this-for)
+- [5. How will you learn?](#5-how-will-you-learn)
+- [6. Costs?](#6-costs)
+- [7. Questions and troubleshooting](#7-questions-and-troubleshooting)
+- [8. Lessons](#8-lessons)
+    - [8.1. System design](#81-system-design)
+    - [8.2. Data engineering: Gather & store the data for your LLM twin](#82-data-engineering-gather--store-the-data-for-your-llm-twin)
+    - [8.3. Feature pipeline: prepare data for LLM fine-tuning & RAG](#83-feature-pipeline-prepare-data-for-llm-fine-tuning--rag)
+    - [8.4. Training pipeline: fine-tune your LLM twin](#84-training-pipeline-fine-tune-your-llm-twin)
+    - [8.5. Inference pipeline: serve your LLM twin](#85-inference-pipeline-serve-your-llm-twin)
+    - [8.6. Bonus: refactor and optimize the RAG system](#86-bonus-refactor-and-optimize-the-rag-system)
+- [9. Install & Usage](#9-install--usage)
+- [10. Bonus Superlinked series](#10-bonus-superlinked-series)
+- [11. Meet your teachers!](#11-meet-your-teachers)
+- [12. License](#12-license)
+- [13. 🏆 Contribution](#13-contribution)
+
 ## Why is this course different?
 
 *By finishing the **"LLM Twin: Building Your Production-Ready AI Replica"** free course, you will learn how to design, train, and deploy a production-ready LLM twin of yourself powered by LLMs, vector DBs, and LLMOps good practices.*
@@ -109,6 +135,12 @@ If you plan to run the code while reading it, you have to know that we use sever
 - [Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course)
 - [Comet ML](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github)
 
+## Questions and troubleshooting
+
+Please ask us any questions if anything gets confusing while studying the articles or running the code.
+
+You can `ask any question` by `opening an issue` in this GitHub repository by clicking [here](https://github.com/decodingml/llm-twin-course/issues).
+
 ## Lessons
 
 → [Quick overview](https://medium.com/decodingml/the-llm-twin-free-course-on-production-ready-rag-pipelines-c96472f4e8c8) of each lesson of the LLM Twin free course.
@@ -118,23 +150,23 @@ If you plan to run the code while reading it, you have to know that we use sever
 > 
 > `The course is split into 12 lessons. Every Medium article will be its own lesson.`
 
-### System Design
+### System design
 1. [An End-to-End Framework for Production-Ready LLM Systems by Building Your LLM Twin](https://medium.com/decodingml/an-end-to-end-framework-for-production-ready-llm-systems-by-building-your-llm-twin-2cc6bb01141f)
 
-### Data Engineering: Gather & store the data for your LLM twin
+### Data engineering: Gather & store the data for your LLM twin
 2. [The Importance of Data Pipelines in the Era of Generative AI](https://medium.com/decodingml/the-importance-of-data-pipelines-in-the-era-of-generative-ai-673e1505a861)
 3. [Change Data Capture: Enabling Event-Driven Architectures](https://medium.com/decodingml/the-3nd-out-of-11-lessons-of-the-llm-twin-free-course-ba82752dad5a)
 
-### Feature Pipeline: prepare data for LLM fine-tuning & RAG
+### Feature pipeline: prepare data for LLM fine-tuning & RAG
 4. [SOTA Python Streaming Pipelines for Fine-tuning LLMs and RAG — in Real-Time!](https://medium.com/decodingml/sota-python-streaming-pipelines-for-fine-tuning-llms-and-rag-in-real-time-82eb07795b87)
 5. [The 4 Advanced RAG Algorithms You Must Know to Implement](https://medium.com/decodingml/the-4-advanced-rag-algorithms-you-must-know-to-implement-5d0c7f1199d2)
 
-### Training Pipeline: fine-tune your LLM twin
+### Training pipeline: fine-tune your LLM twin
 6. [The Role of Feature Stores in Fine-Tuning LLMs: From raw data to instruction dataset](https://medium.com/decodingml/the-role-of-feature-stores-in-fine-tuning-llms-22bd60afd4b9)
 7. [How to fine-tune LLMs on custom datasets at Scale using Qwak and CometML](https://medium.com/decodingml/how-to-fine-tune-llms-on-custom-datasets-at-scale-using-qwak-and-cometml-12216a777c34)
 8. [Best Practices when evaluating fine-tuned LLMs](https://medium.com/decodingml/best-practices-when-evaluating-fine-tuned-llms-47f02f5164c2)
 
-### Inference Pipeline: serve your LLM twin
+### Inference pipeline: serve your LLM twin
 9. [Architect scalable and cost-effective LLM & RAG inference pipelines](https://medium.com/decodingml/architect-scalable-and-cost-effective-llm-rag-inference-pipelines-73b94ef82a99)
 10. [How to evaluate your RAG using RAGAs Framework](https://medium.com/decodingml/how-to-evaluate-your-rag-using-ragas-framework-18d2325453ae)
 
