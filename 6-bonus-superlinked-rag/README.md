@@ -76,3 +76,10 @@ make ... # TO BE ADDED
 
 > [!IMPORTANT]
 > You can check out the main [INSTALL_AND_USAGE](https://github.com/decodingml/llm-twin-course/blob/main/INSTALL_AND_USAGE.md) document of the course for more details on an end-to-end flow.
+
+
+# Next steps
+
+If you enjoyed our [Superlinked](https://rebrand.ly/superlinked-github) bonus series, we recommend checking out their site for more examples. As Superlinked is not just a RAG tool but a general vector compute engine, you can build other awesome stuff with it, such as recommender systems. 
+
+→ 🔗 More on [Superlinked](https://rebrand.ly/superlinked-github) ←
