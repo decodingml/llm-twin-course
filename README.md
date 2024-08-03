@@ -230,12 +230,40 @@ A big "Thank you 🙏" to all our contributors! This course is possible only bec
 
 ## Sponsors
 
+Also, another big "Thank you 🙏" to all our sponsors who supported our work and made this course possible. 
+
 <table>
   <tr>
-    <td align="center"><img src="media/sponsors/comet.png" width="150" alt="Image 1"></td>
-    <td align="center"><img src="media/sponsors/bytewax.png" width="150" alt="Image 2"></td>
-    <td align="center"><img src="media/sponsors/qdrant.svg" width="150" alt="Image 3"></td>
-    <td align="center"><img src="media/sponsors/qwak.png" width="150" alt="Image 4"></td>
-    <td align="center"><img src="media/sponsors/superlinked.png" width="150" alt="Image 5"></td>
+    <td align="center">
+      <a href="https://www.comet.com" target="_blank">
+        <div>Comet</div>
+        <img src="media/sponsors/comet.png" width="150" alt="Comet">
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://www.bytewax.io" target="_blank">
+        <div>Bytewax</div>
+        <img src="media/sponsors/bytewax.png" width="150" alt="Bytewax">
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://qdrant.tech" target="_blank">
+        <div>Qdrant</div>
+        <img src="media/sponsors/qdrant.svg" width="150" alt="Qdrant">
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://www.qwak.com" target="_blank">
+        <div>Qwak</div>
+        <img src="media/sponsors/qwak.png" width="150" alt="Qwak">
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://www.superlinked.com" target="_blank">
+        <div>Superlinked</div>
+        <img src="media/sponsors/superlinked.png" width="150" alt="Superlinked">
+      </a>
+    </td>
   </tr>
 </table>
+
