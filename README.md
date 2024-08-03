@@ -51,7 +51,7 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 - [7. Install & Usage](#install--usage)
 - [8. Meet your teachers!](#meet-your-teachers)
 - [9. License](#license)
-- [10. 🏆 Contribution](#contribution)
+- [10. 🏆 Contributors](#🏆-contributors)
 - [11. Sponsors](#sponsors)
 
 ## The architecture of the LLM twin is split into 4 Python microservices:
@@ -219,7 +219,7 @@ The course is created under the [Decoding ML](https://decodingml.substack.com/) 
 
 This course is an open-source project released under the MIT license. Thus, as long you distribute our LICENSE and acknowledge our work, you can safely clone or fork this project and use it as a source of inspiration for whatever you want (e.g., university projects, college degree projects, personal projects, etc.).
 
-## 🏆 Contribution
+## 🏆 Contributors
 
 A big "Thank you 🙏" to all our contributors! This course is possible only because of their efforts.
 
@@ -237,31 +237,31 @@ Also, another big "Thank you 🙏" to all our sponsors who supported our work an
   <tr>
     <td align="center">
       <a href="https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github" target="_blank">
-        <div style="height: 50px; display: flex; align-items: center; justify-content: center;">Comet</div>
+        <div>Comet</div>
         <img src="media/sponsors/comet.png" width="150" alt="Comet">
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/bytewax/bytewax?utm_source=github&utm_medium=decodingml&utm_campaign=2024_q1" target="_blank">
-        <div style="height: 50px; display: flex; align-items: center; justify-content: center;">Bytewax</div>
+        <div>Bytewax</div></br>
         <img src="media/sponsors/bytewax.png" width="150" alt="Bytewax">
       </a>
     </td>
     <td align="center">
       <a href="https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course" target="_blank">
-        <div style="height: 50px; display: flex; align-items: center; justify-content: center;">Qdrant</div>
+        <div>Qdrant</div></br>
         <img src="media/sponsors/qdrant.svg" width="150" alt="Qdrant">
       </a>
     </td>
     <td align="center">
       <a href="https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml" target="_blank">
-        <div style="height: 50px; display: flex; align-items: center; justify-content: center;">Qwak</div>
+        <div>Qwak</div></br>
         <img src="media/sponsors/qwak.png" width="150" alt="Qwak">
       </a>
     </td>
     <td align="center">
       <a href="https://rebrand.ly/superlinked-github" target="_blank">
-        <div style="height: 50px; display: flex; align-items: center; justify-content: center;">Superlinked</div>
+        <div>Superlinked</div></br>
         <img src="media/sponsors/superlinked.png" width="150" alt="Superlinked">
       </a>
     </td>
