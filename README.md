@@ -52,6 +52,7 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 - [8. Meet your teachers!](#meet-your-teachers)
 - [9. License](#license)
 - [10. 🏆 Contribution](#contribution)
+- [11. Sponsors](#sponsors)
 
 ## The architecture of the LLM twin is split into 4 Python microservices:
 
@@ -236,7 +237,7 @@ Also, another big "Thank you 🙏" to all our sponsors who supported our work an
   <tr>
     <td align="center">
       <a href="https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github" target="_blank">
-        <div>Comet</div></br>
+        <div>Comet</div>
         <img src="media/sponsors/comet.png" width="150" alt="Comet">
       </a>
     </td>
