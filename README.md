@@ -11,8 +11,6 @@
   <img src="media/cover.png" alt="Your image description">
 </p>
 
-</br>
-
 ## Why is this course different?
 
 *By finishing the **"LLM Twin: Building Your Production-Ready AI Replica"** free course, you will learn how to design, train, and deploy a production-ready LLM twin of yourself powered by LLMs, vector DBs, and LLMOps good practices.*
@@ -67,10 +65,12 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 ### The feature pipeline
 
 - Consume messages from a queue through a [Bytewax](https://github.com/bytewax/bytewax?utm_source=github&utm_medium=decodingml&utm_campaign=2024_q1) streaming pipeline.
-- Every message will be cleaned, chunked, embedded (using [Superlinked](https://github.com/superlinked/superlinked-alpha?utm_source=community&utm_medium=github&utm_campaign=oscourse), and loaded into a [Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course) vector DB in real-time.
+- Every message will be cleaned, chunked, embedded and loaded into a [Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course) vector DB in real-time.
+In the bonus series, we refactor the cleaning, chunking, and embedding logic using [Superlinked](https://rebrand.ly/superlinked-github), a specialized vector compute engine. We will also load and index the vectors to [Redis vector search](https://redis.io/solutions/vector-search/).
 - ☁️ Deployed on [AWS](https://aws.amazon.com/).
 
 ### The training pipeline
+
 - Create a custom dataset based on your digital data.
 - Fine-tune an LLM using QLoRA.
 - Use [Comet ML's](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github) experiment tracker to monitor the experiments.
@@ -78,11 +78,13 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 - ☁️ Deployed on [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml).
 
 ### The inference pipeline
-- Load and quantize the fine-tuned LLM from [Comet's](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github) model registry.
+
+- Load the fine-tuned LLM from [Comet's](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github) model registry.
 - Deploy it as a REST API.
-- Enhance the prompts using RAG.
+- Enhance the prompts using advanced RAG.
 - Generate content using your LLM twin.
 - Monitor the LLM using [Comet's](https://www.comet.com/signup/?framework=llm&utm_source=decoding_ml&utm_medium=partner&utm_content=github) prompt monitoring dashboard.
+- In the bonus series, we refactor the advanced RAG layer to write more optimal queries using [Superlinked](https://rebrand.ly/superlinked-github).
 - ☁️ Deployed on [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml).
 
 </br>
@@ -225,3 +227,15 @@ A big "Thank you 🙏" to all our contributors! This course is possible only bec
       <img src="https://contrib.rocks/image?repo=decodingml/llm-twin-course" />
     </a>
 </p>
+
+## Sponsors
+
+<table>
+  <tr>
+    <td align="center"><img src="media/sponsors/comet.png" width="150" alt="Image 1"></td>
+    <td align="center"><img src="media/sponsors/bytewax.png" width="150" alt="Image 2"></td>
+    <td align="center"><img src="media/sponsors/qdrant.svg" width="150" alt="Image 3"></td>
+    <td align="center"><img src="media/sponsors/qwak.png" width="150" alt="Image 4"></td>
+    <td align="center"><img src="media/sponsors/superlinked.png" width="150" alt="Image 5"></td>
+  </tr>
+</table>
