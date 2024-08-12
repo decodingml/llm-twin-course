@@ -67,7 +67,7 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 
 - Consume messages from a queue through a [Bytewax](https://github.com/bytewax/bytewax?utm_source=github&utm_medium=decodingml&utm_campaign=2024_q1) streaming pipeline.
 - Every message will be cleaned, chunked, embedded and loaded into a [Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course) vector DB in real-time.
-In the bonus series, we refactor the cleaning, chunking, and embedding logic using [Superlinked](https://rebrand.ly/superlinked-github), a specialized vector compute engine. We will also load and index the vectors to [Redis vector search](https://redis.io/solutions/vector-search/).
+- In the bonus series, we refactor the cleaning, chunking, and embedding logic using [Superlinked](https://rebrand.ly/superlinked-github), a specialized vector compute engine. We will also load and index the vectors to [Redis vector search](https://redis.io/solutions/vector-search/).
 - ☁️ Deployed on [AWS](https://aws.amazon.com/).
 
 ### The training pipeline
