@@ -31,7 +31,7 @@ class SuperlinkedClient:
         self.__ingest(f"{self.base_url}/api/v1/ingest/article_schema", data)
 
     def __ingest(self, url: str, data: T) -> None:
-        logger.info(f"Sending article {data.id} to Superlinked at {url}")
+        logger.info(f"Sending {type(data)} {data.id} to Superlinked at {url}")
 
         response = httpx.post(
             url, headers=self.headers, json=data.model_dump(), timeout=self.timeout
@@ -41,6 +41,8 @@ class SuperlinkedClient:
             raise httpx.HTTPStatusError(
                 "Ingestion failed", request=response.request, response=response
             )
+
+        logger.info(f"Successfully sent {type(data)} {data.id} to Superlinked at {url}")
 
     def search_repository(
         self, search_query: str, platform: str, author_id: str, *, limit: int = 3
@@ -88,8 +90,6 @@ class SuperlinkedClient:
         *,
         limit: int = 3,
     ) -> list[T]:
-        url = f"{self.base_url}/api/v1/search/repository_query"
-
         data = {
             "search_query": search_query,
             "platform": platform,
@@ -98,6 +98,7 @@ class SuperlinkedClient:
             "content_weight": self._content_weight,
             "platform_weight": self._platform_weight,
         }
+        logger.info(f"Searching Superlinked for {document_class.__name__} at: {url}")
         response = httpx.post(
             url, headers=self.headers, json=data, timeout=self.timeout
         )
@@ -110,5 +111,9 @@ class SuperlinkedClient:
         parsed_results = []
         for result in response.json()["results"]:
             parsed_results.append(document_class(**result["obj"]))
+
+        logger.info(
+            f"Successfully retrieved {len(parsed_results)} {document_class.__name__} from Superlinked for at: {url}"
+        )
 
         return parsed_results

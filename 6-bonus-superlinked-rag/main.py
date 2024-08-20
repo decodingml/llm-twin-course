@@ -14,6 +14,7 @@ flow = Dataflow("Streaming RAG feature pipeline")
 stream = op.input("input", flow, RabbitMQSource())
 stream = op.map("raw", stream, RawDispatcher.handle_mq_message)
 stream = op.map("clean", stream, CleaningDispatcher.dispatch_cleaner)
+stream = op.flatten("flatten_final_output", stream)
 op.output(
     "superlinked_output",
     stream,

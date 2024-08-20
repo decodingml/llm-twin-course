@@ -18,7 +18,7 @@ class VectorRetriever:
     Class for retrieving vectors from a Vector store in a RAG system using query expansion and Multitenancy search.
     """
 
-    def __init__(self, query: str):
+    def __init__(self, query: str) -> None:
         self._client = QdrantDatabaseConnector()
         self.query = query
         self._embedder = SentenceTransformer(settings.EMBEDDING_MODEL_ID)
@@ -125,5 +125,5 @@ class VectorRetriever:
 
         return rerank_hits
 
-    def set_query(self, query: str):
+    def set_query(self, query: str) -> None:
         self.query = query

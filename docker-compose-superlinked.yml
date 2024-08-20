@@ -48,8 +48,8 @@ services:
       - "5672:5672"
       - "15672:15672"
     volumes:
-      - ~/rabbitmq/data/:/var/lib/rabbitmq/
-      - ~/rabbitmq/log/:/var/log/rabbitmq
+      - ./rabbitmq/data/:/var/lib/rabbitmq/
+      - ./rabbitmq/log/:/var/log/rabbitmq
     healthcheck:
       test: ["CMD", "rabbitmqctl", "ping"]
       interval: 30s
@@ -107,7 +107,7 @@ services:
       - .env
     depends_on:
       - mq
-    restart: on-failure
+    restart: always
     networks:
       - server_default
 

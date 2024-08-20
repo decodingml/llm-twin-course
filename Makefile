@@ -103,8 +103,11 @@ local-start-superlinked: # Buil and start local infrastructure used in the Super
 local-stop-superlinked: # Stop local infrastructure used in the Superlinked series.
 	docker compose -f docker-compose-superlinked.yml down --remove-orphans
 
-test-superlinked-server:
+test-superlinked-server: # Ingest dummy data into the local superlinked server to check if it's working.
 	poetry run python 6-bonus-superlinked-rag/local_test.py
 
-local-bytewax-superlinked: # Run bytewax pipeline powered by superlinked
+local-bytewax-superlinked: # Run the Bytewax streaming pipeline powered by Superlinked.
 	RUST_BACKTRACE=full poetry run python -m bytewax.run 6-bonus-superlinked-rag/main.py
+
+local-test-retriever-superlinked: # Call the retrieval module and query the Superlinked server & vector DB
+	docker exec -it llm-twin-bytewax-superlinked python -m retriever

@@ -61,7 +61,7 @@ class RabbitMQConnection:
                 )
             )
         except pika.exceptions.AMQPConnectionError as e:
-            logger.exception("Failed to connect to RabbitMQ.")
+            logger.warning("Failed to connect to RabbitMQ.")
 
             if not self.fail_silently:
                 raise e
