@@ -40,7 +40,7 @@ You should see that some mock data has been sent to the Superlinked server and i
 
 ## 2. Start the rest of the infrastructure
 
-From the root of the repository, run the following to start all necessary components to run locally the LLM twin project powered by Superlinked:
+After your Superlinked server successfully started (from the root of the repository), run the following to start all necessary components to run locally the LLM twin project powered by Superlinked:
 ```shell
 make local-start-superlinked
 ```
@@ -63,15 +63,15 @@ make local-stop-superlinked
 
 To trigger the ingestion, run:
 ```shell
-make local-test-medium
-# OR
 make local-test-github
+# #OR
+make local-test-medium
 ```
-You can use other Medium or GitHub links to populate the vector DB with more data.
+You can use other GitHub or Medium links to populate the vector DB with more data.
 
-To query the vector DB, run:
+To call the retrieval module and query the Superlinked server & vector DB, run:
 ```shell
-make ... # TO BE ADDED
+make local-test-retriever-superlinked
 ```
 
 > [!IMPORTANT]

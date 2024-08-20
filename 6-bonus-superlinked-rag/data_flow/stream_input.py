@@ -34,8 +34,14 @@ class RabbitMQPartition(StatefulSourcePartition, Generic[DataT, MessageT]):
         self._in_flight_msg_ids = resume_state or set()
         self.queue_name = queue_name
         self.connection = RabbitMQConnection()
-        self.connection.connect()
-        self.channel = self.connection.get_channel()
+
+        try:
+            self.connection.connect()
+            self.channel = self.connection.get_channel()
+        except Exception:
+            logger.warning(
+                f"Error while trying to connect to the queue and get the current channel {self.queue_name}",
+            )
 
     def next_batch(self, sched: Optional[datetime]) -> Iterable[DataT]:
         try:
@@ -43,8 +49,8 @@ class RabbitMQPartition(StatefulSourcePartition, Generic[DataT, MessageT]):
                 queue=self.queue_name, auto_ack=True
             )
         except Exception:
-            logger.error(
-                f"Error while fetching message from queue.", queue_name=self.queue_name
+            logger.warning(
+                f"Error while fetching message from queue: {self.queue_name}", 
             )
             time.sleep(10)  # Sleep for 10 seconds before retrying to access the queue.
 

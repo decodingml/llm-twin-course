@@ -42,8 +42,8 @@ services:
       - "5673:5672"
       - "15673:15672"
     volumes:
-      - ~/rabbitmq/data/:/var/lib/rabbitmq/
-      - ~/rabbitmq/log/:/var/log/rabbitmq
+      - ./rabbitmq/data/:/var/lib/rabbitmq/
+      - ./rabbitmq/log/:/var/log/rabbitmq
     restart: always
 
   qdrant:
@@ -105,7 +105,7 @@ services:
     depends_on:
       - mq
       - qdrant
-    restart: on-failure
+    restart: always
 
 volumes:
   mongo-replica-1-data:

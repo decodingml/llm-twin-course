@@ -1,13 +1,12 @@
-from models.documents import Document
-from models.raw import ArticleRawModel, PostsRawModel, RawModel, RepositoryRawModel
-from utils.logging import get_logger
-
 from data_logic.cleaning_data_handlers import (
     ArticleCleaningHandler,
     CleaningDataHandler,
     PostCleaningHandler,
     RepositoryCleaningHandler,
 )
+from models.documents import Document
+from models.raw import ArticleRawModel, PostsRawModel, RawModel, RepositoryRawModel
+from utils.logging import get_logger
 
 logger = get_logger(__name__)
 
@@ -26,7 +25,7 @@ class RawDispatcher:
         elif data_type == "repositories":
             return RepositoryRawModel(**message)
         else:
-            raise ValueError("Unsupported data type")
+            raise ValueError(f"Unsupported data type: {data_type}")
 
 
 class CleaningHandlerFactory:
@@ -46,17 +45,18 @@ class CleaningDispatcher:
     cleaning_factory = CleaningHandlerFactory()
 
     @classmethod
-    def dispatch_cleaner(cls, data_model: RawModel) -> Document:
+    def dispatch_cleaner(cls, data_model: RawModel) -> list[Document]:
         logger.info("Cleaning data.", data_type=data_model.type)
 
         data_type = data_model.type
         handler = cls.cleaning_factory.create_handler(data_type)
-        clean_model = handler.clean(data_model)
+        cleaned_models = handler.clean(data_model)
 
         logger.info(
             "Data cleaned successfully.",
             data_type=data_type,
-            content_len=len(clean_model.content),
+            len_cleaned_documents=len(cleaned_models),
+            len_content=sum([len(doc.content) for doc in cleaned_models]),
         )
 
-        return clean_model
+        return cleaned_models
