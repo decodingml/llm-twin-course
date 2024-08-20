@@ -149,6 +149,8 @@ You can `ask any question` by `opening an issue` in this GitHub repository by cl
 > **To understand the entire code step-by-step, check out our articles ↓**
 > 
 > `The course is split into 12 lessons. Every Medium article represents an independent lesson.`
+>
+> The lessons are NOT 1:1 with the folder structure!
 
 ### System design
 1. [An End-to-End Framework for Production-Ready LLM Systems by Building Your LLM Twin](https://medium.com/decodingml/an-end-to-end-framework-for-production-ready-llm-systems-by-building-your-llm-twin-2cc6bb01141f)
