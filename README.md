@@ -172,7 +172,7 @@ You can `ask any question` by `opening an issue` in this GitHub repository by cl
 
 ### Bonus: refactor and optimize the RAG system
 11. [Build a scalable RAG ingestion pipeline using 74.3% less code](https://medium.com/decodingml/build-a-scalable-rag-ingestion-pipeline-using-74-3-less-code-ac50095100d6)
-12. Refactoring the 4 Advanced RAG Algorithms using Superlinked
+12. [Build Multi-Index Advanced RAG Apps](https://medium.com/decodingml/build-multi-index-advanced-rag-apps-bd33d2f0ec5c)
 
 ## Install & Usage
 
