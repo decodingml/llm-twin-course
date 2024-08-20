@@ -40,7 +40,7 @@ You should see that some mock data has been sent to the Superlinked server and i
 
 ## 2. Start the rest of the infrastructure
 
-From the root of the repository, run the following to start all necessary components to run locally the LLM twin project powered by Superlinked:
+After your Superlinked server successfully started (from the root of the repository), run the following to start all necessary components to run locally the LLM twin project powered by Superlinked:
 ```shell
 make local-start-superlinked
 ```
