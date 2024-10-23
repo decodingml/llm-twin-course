@@ -15,9 +15,6 @@ GREEN := \033[0;32m
 YELLOW := \033[0;33m
 RESET := \033[0m
 
-env-var:
-    @echo "Environment variable VAR is: ${RABBITMQ_HOST}"
-
 help:
 	@grep -E '^[a-zA-Z0-9 -]+:.*#'  Makefile | sort | while read -r l; do printf "\033[1;32m$$(echo $$l | cut -f 1 -d':')\033[00m:$$(echo $$l | cut -f 2- -d'#')\n"; done
 
