@@ -1,7 +1,7 @@
-from errors import ImproperlyConfigured
+from core.errors import ImproperlyConfigured
 
 
-def user_to_names(user: str | None) -> tuple[str, str]:
+def split_user_full_name(user: str | None) -> tuple[str, str]:
     if user is None:
         raise ImproperlyConfigured("User name is empty")
 

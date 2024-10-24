@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 
-from settings import settings
+from core.config import settings
 
 
 class MongoDatabaseConnector:

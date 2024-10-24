@@ -2,7 +2,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class AppSettings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
+    model_config = SettingsConfigDict(env_file="../.env", env_file_encoding="utf-8")
 
     # Embeddings config
     EMBEDDING_MODEL_ID: str = "sentence-transformers/all-MiniLM-L6-v2"
@@ -15,7 +15,7 @@ class AppSettings(BaseSettings):
     OPENAI_API_KEY: str | None = None
 
     # QdrantDB config
-    QDRANT_DATABASE_HOST: str = "mq"  # Or localhost if running outside Docker
+    QDRANT_DATABASE_HOST: str = "localhost"  # Or 'qdrant' if running inside Docker
     QDRANT_DATABASE_PORT: int = 6333
 
     USE_QDRANT_CLOUD: bool = (
@@ -45,7 +45,7 @@ class AppSettings(BaseSettings):
     HUGGINGFACE_ACCESS_TOKEN: str | None = None
     MODEL_TYPE: str = "mistralai/Mistral-7B-Instruct-v0.1"
 
-    QWAK_DEPLOYMENT_MODEL_ID: str = "copywriter_model"
+    QWAK_DEPLOYMENT_MODEL_ID: str = "llm_twin"
     QWAK_DEPLOYMENT_MODEL_API: str = (
         "https://models.llm-twin.qwak.ai/v1/copywriter_model/default/predict"
     )

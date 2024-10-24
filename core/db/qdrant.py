@@ -1,9 +1,9 @@
+from config import settings
 from qdrant_client import QdrantClient, models
 from qdrant_client.http.exceptions import UnexpectedResponse
 from qdrant_client.http.models import Batch, Distance, VectorParams
 
 import core.logger_utils as logger_utils
-from settings import settings
 
 logger = logger_utils.get_logger(__name__)
 
@@ -62,8 +62,8 @@ class QdrantDatabaseConnector:
         self,
         collection_name: str,
         query_vector: list,
-        query_filter: models.Filter,
-        limit: int,
+        query_filter: models.Filter | None = None,
+        limit: int = 3,
     ) -> list:
         return self._instance.search(
             collection_name=collection_name,

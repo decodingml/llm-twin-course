@@ -1,8 +1,8 @@
 from langchain_openai import ChatOpenAI
-from llm_components.chain import GeneralChain
-from llm_components.prompt_templates import RerankingTemplate
 
 from config import settings
+from llm.chain import GeneralChain
+from llm.prompt_templates import RerankingTemplate
 
 
 class Reranker:
@@ -13,7 +13,9 @@ class Reranker:
         reranking_template = RerankingTemplate()
         prompt_template = reranking_template.create_template(keep_top_k=keep_top_k)
 
-        model = ChatOpenAI(model=settings.OPENAI_MODEL_ID, api_key=settings.OPENAI_API_KEY)
+        model = ChatOpenAI(
+            model=settings.OPENAI_MODEL_ID, api_key=settings.OPENAI_API_KEY
+        )
         chain = GeneralChain().get_chain(
             llm=model, output_key="rerank", template=prompt_template
         )

@@ -2,7 +2,7 @@ from langchain_openai import ChatOpenAI
 
 from llm.chain import GeneralChain
 from llm.prompt_templates import LLMEvaluationTemplate
-from settings import settings
+from config import settings
 
 
 def evaluate(query: str, output: str) -> str:

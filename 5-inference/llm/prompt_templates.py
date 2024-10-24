@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+import opik
 from langchain.prompts import PromptTemplate
 from pydantic import BaseModel
 
@@ -35,8 +36,26 @@ class QueryExpansionTemplate(BasePromptTemplate):
 
 class SelfQueryTemplate(BasePromptTemplate):
     prompt: str = """You are an AI language model assistant. Your task is to extract information from a user question.
-    The required information that needs to be extracted is the user or author id. 
-    Your response should consists of only the extracted id (e.g. 1345256), nothing else.
+    The required information that needs to be extracted is the user name or user id. 
+    Your response should consists of only the extracted user name (e.g., John Doe) or id (e.g. 1345256), nothing else.
+    If the user question does not contain any user name or id, you should return the following token: none.
+    
+    For example:
+    QUESTION 1:
+    My name is Paul Iusztin and I want a post about...
+    RESPONSE 1:
+    Paul Iusztin
+    
+    QUESTION 2:
+    I want to write a post about...
+    RESPONSE 2:
+    none
+    
+    QUESTION 3:
+    My user id is 1345256 and I want to write a post about...
+    RESPONSE 3:
+    1345256
+    
     User question: {question}"""
 
     def create_template(self) -> PromptTemplate:
@@ -82,6 +101,7 @@ class InferenceTemplate(BasePromptTemplate):
     Step 3: Generate the content keeping in mind that it needs to be as cohesive and concise as possible related to the subject presented in the query and similar to the users writing style and knowledge presented in the context.
     """
 
+    @opik.track(name="inference_template.create_template")
     def create_template(self, enable_rag: bool = True) -> PromptTemplate:
         if enable_rag is True:
             return PromptTemplate(

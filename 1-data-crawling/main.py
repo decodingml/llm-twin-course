@@ -2,11 +2,11 @@ from typing import Any
 
 from aws_lambda_powertools import Logger
 from aws_lambda_powertools.utilities.typing import LambdaContext
-
-import lib
 from crawlers import GithubCrawler, LinkedInCrawler, MediumCrawler
-from db.documents import UserDocument
 from dispatcher import CrawlerDispatcher
+
+from core import lib
+from core.db.documents import UserDocument
 
 logger = Logger(service="decodingml/crawler")
 
@@ -16,8 +16,8 @@ _dispatcher.register("linkedin", LinkedInCrawler)
 _dispatcher.register("github", GithubCrawler)
 
 
-def handler(event, context: LambdaContext) -> dict[str, Any]:
-    first_name, last_name = lib.user_to_names(event.get("user"))
+def handler(event, context: LambdaContext | None = None) -> dict[str, Any]:
+    first_name, last_name = lib.split_user_full_name(event.get("user"))
 
     user = UserDocument.get_or_create(first_name=first_name, last_name=last_name)
 

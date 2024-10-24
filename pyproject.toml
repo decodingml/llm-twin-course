@@ -50,11 +50,11 @@ bytewax = "0.18.2"
 
 [tool.poetry.group.ml.dependencies]
 qwak-inference = "^0.1.17"
-comet-llm = "^2.2.4"
 qwak-sdk = "^0.5.69"
 peft = "^0.11.1"
 sentence-transformers = "^2.2.2"
 accelerate = "^0.30.1"
+opik = "^0.2.2"
 
 [tool.poetry.group.6-superlinked-rag.dependencies]
 superlinked = "7.2.1"

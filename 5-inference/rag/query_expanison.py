@@ -1,12 +1,14 @@
+import opik
 from langchain_openai import ChatOpenAI
 
-from llm_components.chain import GeneralChain
-from llm_components.prompt_templates import QueryExpansionTemplate
 from config import settings
+from llm.chain import GeneralChain
+from llm.prompt_templates import QueryExpansionTemplate
 
 
 class QueryExpansion:
     @staticmethod
+    @opik.track(name="QueryExpansion.generate_response")
     def generate_response(query: str, to_expand_to_n: int) -> list[str]:
         query_expansion_template = QueryExpansionTemplate()
         prompt_template = query_expansion_template.create_template(to_expand_to_n)

@@ -2,7 +2,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class AppSettings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
+    model_config = SettingsConfigDict(env_file="../.env", env_file_encoding="utf-8")
 
     # Embeddings config
     EMBEDDING_MODEL_ID: str = "sentence-transformers/all-MiniLM-L6-v2"
@@ -39,6 +39,16 @@ class AppSettings(BaseSettings):
     # LinkedIn credentials
     LINKEDIN_USERNAME: str | None = None
     LINKEDIN_PASSWORD: str | None = None
+
+    # LLM Model config
+    TOKENIZERS_PARALLELISM: str = "false"
+    HUGGINGFACE_ACCESS_TOKEN: str | None = None
+    MODEL_TYPE: str = "mistralai/Mistral-7B-Instruct-v0.1"
+
+    QWAK_DEPLOYMENT_MODEL_ID: str = "copywriter_model"
+    QWAK_DEPLOYMENT_MODEL_API: str = (
+        "https://models.llm-twin.qwak.ai/v1/copywriter_model/default/predict"
+    )
 
 
 settings = AppSettings()

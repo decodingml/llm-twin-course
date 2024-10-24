@@ -39,17 +39,17 @@ local-stop: # Stop local infrastructure.
 
 local-test-medium: # Send test command on local to test the lambda with a Medium article
 	curl -X POST "http://localhost:9010/2015-03-31/functions/function/invocations" \
-	  	-d '{"user": "Paul Iuztin", "link": "https://medium.com/decodingml/an-end-to-end-framework-for-production-ready-llm-systems-by-building-your-llm-twin-2cc6bb01141f"}'
+	  	-d '{"user": "Paul Iusztin", "link": "https://medium.com/decodingml/an-end-to-end-framework-for-production-ready-llm-systems-by-building-your-llm-twin-2cc6bb01141f"}'
 
 local-test-github: # Send test command on local to test the lambda with a Github repository
 	curl -X POST "http://localhost:9010/2015-03-31/functions/function/invocations" \
-	  	-d '{"user": "Paul Iuztin", "link": "https://github.com/decodingml/llm-twin-course"}'
+	  	-d '{"user": "Paul Iusztin", "link": "https://github.com/decodingml/llm-twin-course"}'
 
 cloud-test-github: # Send command to the cloud lambda with a Github repository
 	aws lambda invoke \
 		--function-name crawler \
 		--cli-binary-format raw-in-base64-out \
-		--payload '{"user": "Paul Iuztin", "link": "https://github.com/decodingml/llm-twin-course"}' \
+		--payload '{"user": "Paul Iusztin", "link": "https://github.com/decodingml/llm-twin-course"}' \
 		response.json
 
 # ------ RAG Feature Pipeline ------
@@ -90,7 +90,7 @@ undeploy-infernece-pipeline: # Remove the inference pipeline deployment from Qwa
 	poetry run qwak models undeploy --model-id "llm_twin"
 
 call-inference-pipeline: # Call the inference pipeline.
-	poetry run python main.py
+	poetry run python 5-inference/main.py
 
 # ------ Superlinked Bonus Series ------
 

@@ -12,6 +12,7 @@ from qwak.model.adapters import DefaultOutputAdapter
 from qwak.model.base import QwakModel
 from qwak.model.schema import ModelSchema
 from qwak.model.schema_entities import InferenceOutput, RequestInput
+from settings import settings
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
@@ -22,7 +23,6 @@ from transformers import (
 )
 
 from finetuning.dataset_client import DatasetClient
-from settings import settings
 
 
 class CopywriterMistralModel(QwakModel):
