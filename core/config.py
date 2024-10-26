@@ -10,7 +10,7 @@ class AppSettings(BaseSettings):
     EMBEDDING_SIZE: int = 384
     EMBEDDING_MODEL_DEVICE: str = "cpu"
 
-    OPENAI_MODEL_ID: str = "gpt-4-1106-preview"
+    OPENAI_MODEL_ID: str = "gpt-4o-mini"
     OPENAI_API_KEY: str | None = None
 
     # MongoDB configs

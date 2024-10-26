@@ -17,8 +17,6 @@ if __name__ == "__main__":
     response = inference_endpoint.generate(
         query=query,
         enable_rag=True,
-        enable_evaluation=True,
-        enable_monitoring=True,
     )
 
     logger.info(f"Answer: {response['answer']}")

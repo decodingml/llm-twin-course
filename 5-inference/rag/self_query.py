@@ -1,16 +1,19 @@
-import core.logger_utils as logger_utils
 import opik
+from config import settings
+from langchain_openai import ChatOpenAI
+from llm.prompt_templates import SelfQueryTemplate
+from opik.integrations.langchain import OpikTracer
+
+import core.logger_utils as logger_utils
 from core import lib
 from core.db.documents import UserDocument
-from langchain_openai import ChatOpenAI
-
-from config import settings
-from llm.prompt_templates import SelfQueryTemplate
 
 logger = logger_utils.get_logger(__name__)
 
 
 class SelfQuery:
+    opik_tracer = OpikTracer(tags=["SelfQuery"])
+
     @staticmethod
     @opik.track(name="SelQuery.generate_response")
     def generate_response(query: str) -> str | None:
@@ -20,11 +23,11 @@ class SelfQuery:
             api_key=settings.OPENAI_API_KEY,
             temperature=0,
         )
-
-        chain = prompt | model
+        chain = prompt | model | str
+        chain = chain.with_config({"callbacks": [SelfQuery.opik_tracer]})
 
         response = chain.invoke({"question": query})
-        user_full_name = response.content.strip("\n ")
+        user_full_name = response.strip("\n ")
 
         if user_full_name == "none":
             return None

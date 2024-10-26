@@ -1,26 +1,25 @@
 import json
 
 import opik
-from core import logger_utils
+from config import settings
 from langchain.prompts import PromptTemplate
+from llm.prompt_templates import InferenceTemplate
 from opik import opik_context
 from qwak_inference import RealTimeClient
-
-from config import settings
-from evaluation import evaluate_llm
-from llm.prompt_templates import InferenceTemplate
 from rag.retriever import VectorRetriever
 from utils import misc
+
+from core import logger_utils
+from core.opik_utils import add_to_dataset_with_sampling
 
 logger = logger_utils.get_logger(__name__)
 
 
 class LLMTwin:
-    def __init__(self, mock: bool = True) -> None:
+    def __init__(self, mock: bool = False) -> None:
         self._mock = mock
         self.qwak_client = RealTimeClient(
             model_id=settings.QWAK_DEPLOYMENT_MODEL_ID,
-            # model_api=settings.QWAK_DEPLOYMENT_MODEL_API,
         )
         self.template = InferenceTemplate()
 
@@ -29,12 +28,10 @@ class LLMTwin:
         self,
         query: str,
         enable_rag: bool = False,
-        enable_evaluation: bool = False,
+        sample_for_evaluation: bool = False,
     ) -> dict:
         prompt_template = self.template.create_template(enable_rag=enable_rag)
-        prompt_template_variables = {
-            "question": query,
-        }
+        prompt_template_variables = {"question": query}
 
         if enable_rag is True:
             retriever = VectorRetriever(query=query)
@@ -43,16 +40,14 @@ class LLMTwin:
             )
             context = retriever.rerank(hits=hits, keep_top_k=settings.KEEP_TOP_K)
             prompt_template_variables["context"] = context
+        else:
+            context = None
 
         prompt = self.format_prompt(prompt_template, prompt_template_variables)
 
         logger.debug(f"Prompt: {prompt}")
         answer = self.call_llm_service(prompt=prompt)
         logger.debug(f"Answer: {answer}")
-
-        evaluation_result = self.evaluate(
-            query=query, answer=answer, enable_evaluation=enable_evaluation
-        )
 
         opik_context.update_current_trace(
             tags=["rag"],
@@ -66,7 +61,14 @@ class LLMTwin:
             },
         )
 
-        return {"answer": answer, "llm_evaluation_result": evaluation_result}
+        answer = {"answer": answer, "context": context}
+        if sample_for_evaluation is True:
+            add_to_dataset_with_sampling(
+                item={"input": {"query": query}, "expected_output": answer},
+                dataset_name="LLMTwinMonitoringDataset",
+            )
+
+        return answer
 
     @opik.track(name="inference_pipeline.format_prompt")
     def format_prompt(
@@ -92,14 +94,14 @@ class LLMTwin:
 
         return answer
 
-    @opik.track(name="inference_pipeline.evaluate_llm")
-    def evaluate(self, query: str, answer: str, enable_evaluation: bool) -> str | None:
-        if self._mock is True:
-            logger.warning("Mocking LLM evaluation.")
+    # @opik.track(name="inference_pipeline.evaluate_llm")
+    # def evaluate(self, query: str, answer: str, enable_evaluation: bool) -> str | None:
+    #     if self._mock is True:
+    #         logger.warning("Mocking LLM evaluation.")
 
-            return "Mocked evaluation result."
+    #         return "Mocked evaluation result."
 
-        if enable_evaluation is False:
-            return None
+    #     if enable_evaluation is False:
+    #         return None
 
-        return evaluate_llm(query=query, output=answer)
+    #     return evaluate_llm(query=query, output=answer)

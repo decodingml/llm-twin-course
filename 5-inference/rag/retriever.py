@@ -1,16 +1,16 @@
 import concurrent.futures
 
-import core.logger_utils as logger_utils
 import opik
-from core.db.qdrant import QdrantDatabaseConnector
-from qdrant_client import models
-from sentence_transformers.SentenceTransformer import SentenceTransformer
-
 import utils
 from config import settings
+from qdrant_client import models
 from rag.query_expanison import QueryExpansion
 from rag.reranking import Reranker
 from rag.self_query import SelfQuery
+from sentence_transformers.SentenceTransformer import SentenceTransformer
+
+import core.logger_utils as logger_utils
+from core.db.qdrant import QdrantDatabaseConnector
 
 logger = logger_utils.get_logger(__name__)
 

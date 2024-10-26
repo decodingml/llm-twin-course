@@ -4,9 +4,9 @@ from pathlib import Path
 ROOT_DIR = str(Path(__file__).parent.parent)
 sys.path.append(ROOT_DIR)
 
-from core import logger_utils
-
 from inference_pipeline import LLMTwin
+
+from core import logger_utils
 
 logger = logger_utils.get_logger(__name__)
 logger.info(
@@ -15,7 +15,7 @@ logger.info(
 
 
 if __name__ == "__main__":
-    inference_endpoint = LLMTwin()
+    inference_endpoint = LLMTwin(mock=False)
 
     query = """
         Hello I am Paul Iusztin.
@@ -27,13 +27,11 @@ if __name__ == "__main__":
     response = inference_endpoint.generate(
         query=query,
         enable_rag=True,
-        enable_evaluation=False,
+        sample_for_evaluation=True
     )
 
     logger.info("=" * 50)
     logger.info(f"Query: {query}")
     logger.info("=" * 50)
     logger.info(f"Answer: {response['answer']}")
-    logger.info("=" * 50)
-    logger.info(f"LLM Evaluation Result: {response['llm_evaluation_result']}")
     logger.info("=" * 50)

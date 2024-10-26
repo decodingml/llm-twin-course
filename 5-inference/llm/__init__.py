@@ -1,4 +1,3 @@
-from .chain import GeneralChain
 from .prompt_templates import (
     InferenceTemplate,
     LLMEvaluationTemplate,
@@ -9,7 +8,6 @@ from .prompt_templates import (
 )
 
 __all__ = [
-    "GeneralChain",
     "QueryExpansionTemplate",
     "SelfQueryTemplate",
     "RerankingTemplate",
