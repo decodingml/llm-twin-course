@@ -1,7 +1,10 @@
+import argparse
+
 import opik
 from config import settings
+from evaluation import Style
 from opik.evaluation import evaluate
-from opik.evaluation.metrics import Hallucination
+from opik.evaluation.metrics import AnswerRelevance, Hallucination, Moderation
 
 from core.logger_utils import get_logger
 
@@ -16,22 +19,40 @@ def evaluation_task(x: dict) -> dict:
     }
 
 
-if __name__ == "__main__":
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Evaluate monitoring script.")
+    parser.add_argument(
+        "--dataset_name",
+        type=str,
+        default="LLMTwinMonitoringDataset",
+        help="Name of the dataset to evaluate",
+    )
+
+    args = parser.parse_args()
+
+    dataset_name = args.dataset_name
+
+    logger.info(f"Evaluating Opik dataset: '{dataset_name}'")
+
     client = opik.Opik()
-    dataset_name = "LLMTwinMonitoringDataset"
     try:
         dataset = client.get_dataset(dataset_name)
-    except Exception as e:
-        logger.error("Monitoring dataset not found in Opik. Exiting.")
+    except Exception:
+        logger.error(f"Monitoring dataset '{dataset_name}' not found in Opik. Exiting.")
         exit(1)
 
     experiment_config = {
         "model_id": settings.QWAK_DEPLOYMENT_MODEL_ID,
     }
 
-    res = evaluate(
+    scoring_metrics = [Hallucination(), Moderation(), AnswerRelevance(), Style()]
+    evaluate(
         dataset=dataset,
         task=evaluation_task,
-        scoring_metrics=[Hallucination(model=settings.OPENAI_MODEL_ID)],
+        scoring_metrics=scoring_metrics,
         experiment_config=experiment_config,
     )
+
+
+if __name__ == "__main__":
+    main()
