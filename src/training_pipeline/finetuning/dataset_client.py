@@ -65,7 +65,7 @@ class DatasetClient:
 
     def _split_data(self, data: list) -> tuple:
         train_data, validation_data = train_test_split(
-            data, test_size=0.2, random_state=42
+            data, test_size=0.1, random_state=42
         )
 
         training_data_path = self.output_dir / "train.json"
