@@ -136,7 +136,7 @@ Ensure your `.env` file includes the following configurations:
 
 ```plaintext
 MONGO_DATABASE_HOST="mongodb://localhost:30001,localhost:30002,localhost:30003/?replicaSet=my-replica-set"
-MONGO_DATABASE_NAME="scrabble"
+MONGO_DATABASE_NAME="twin"
 
 # QdrantDB config
 QDRANT_DATABASE_HOST="localhost"

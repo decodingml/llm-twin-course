@@ -9,6 +9,8 @@ RUN yum install -y unzip && \
 
 FROM  public.ecr.aws/lambda/python:3.11
 
+ENV POETRY_VERSION=1.8.3
+
 # Install the function's OS dependencies using yum
 RUN yum install -y \
     atk \
@@ -48,17 +50,18 @@ COPY ./pyproject.toml ./poetry.lock ./
 
 # Install Poetry, export dependencies to requirements.txt, and install dependencies
 # in the Lambda task directory, finally cleanup manifest files.
-RUN python -m pip install --upgrade pip && pip install poetry
-RUN poetry export --without 3-feature-pipeline,ml -f requirements.txt > requirements.txt && \
+RUN python -m pip install --upgrade pip && pip install --no-cache-dir "poetry==$POETRY_VERSION"
+RUN poetry export --without ml,feature_pipeline -f requirements.txt > requirements.txt && \
     pip install --no-cache-dir -r requirements.txt --target "${LAMBDA_TASK_ROOT}" && \
     rm requirements.txt pyproject.toml poetry.lock
 
 # Optional TLS CA only if you plan to store the extracted data into Document DB
 RUN wget https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem -P ${LAMBDA_TASK_ROOT}
-ENV PYTHONPATH=${LAMBDA_TASK_ROOT}/1-data-crawling
+ENV PYTHONPATH="${LAMBDA_TASK_ROOT}/data_crawling:${LAMBDA_TASK_ROOT}"
 
 # Copy function code
-COPY ./1-data-crawling ${LAMBDA_TASK_ROOT}/1-data-crawling
+COPY ./src/data_crawling ${LAMBDA_TASK_ROOT}/data_crawling
+COPY ./src/core ${LAMBDA_TASK_ROOT}/core
 
 # Set the CMD to your handler (could also be done as a parameter override outside of the Dockerfile)
-CMD ["1-data-crawling.main.handler"]
+CMD ["data_crawling.main.handler"]

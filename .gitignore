@@ -168,6 +168,7 @@ data
 
 # Data
 output
+generated_dataset
 .cache
 training_pipeline_output
 mistral_instruct_generation

@@ -5,7 +5,8 @@ ENV WORKSPACE_ROOT=/usr/src/app \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     POETRY_HOME="/opt/poetry" \
-    POETRY_NO_INTERACTION=1
+    POETRY_NO_INTERACTION=1 \
+    POETRY_VERSION=1.8.3
 
 RUN mkdir -p $WORKSPACE_ROOT
 
@@ -18,8 +19,9 @@ RUN apt-get update -y \
     build-essential \
     && apt-get clean
 
-# Install Poetry
-RUN curl -sSL https://install.python-poetry.org | python -
+# Install Poetry using pip and clear cache
+RUN pip install --no-cache-dir "poetry==$POETRY_VERSION"
+RUN poetry config installer.max-workers 20
 
 # Add Poetry to PATH
 ENV PATH="$POETRY_HOME/bin:$PATH"
@@ -35,9 +37,9 @@ RUN poetry config virtualenvs.create false && poetry install
 # Set the working directory
 WORKDIR $WORKSPACE_ROOT
 
-# Copy the 3-feature-pipeline and any other necessary directories
-COPY ./3-feature-pipeline .
-COPY ./core ./core
+# Copy the feature pipeline and any other necessary directories
+COPY ./src/feature_pipeline .
+COPY ./src/core ./core
 
 # Set the PYTHONPATH environment variable
 ENV PYTHONPATH=/usr/src/app

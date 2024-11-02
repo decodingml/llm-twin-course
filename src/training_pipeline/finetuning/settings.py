@@ -2,9 +2,11 @@ from pathlib import Path
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+ROOT_DIR = str(Path(__file__).parent.parent.parent.parent)
 
-class AppSettings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
+
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=ROOT_DIR, env_file_encoding="utf-8")
 
     TOKENIZERS_PARALLELISM: str = "false"
     HUGGINGFACE_ACCESS_TOKEN: str = ""
@@ -20,4 +22,5 @@ class AppSettings(BaseSettings):
     CACHE_DIR: Path = Path("./.cache")
 
 
-settings = AppSettings()
+settings = Settings()
+print(settings)

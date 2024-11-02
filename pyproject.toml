@@ -1,13 +1,14 @@
 [tool.poetry]
-name = "rag-system"
+name = "llm-twin-course"
 description = ""
 version = "0.1.0"
 authors = [
-    "Vlad Adumitracesei <vladadumitracesei02@gmail.com>",
     "Paul Iusztin <p.b.iusztin@gmail.com>",
+    "Vlad Adumitracesei <vladadumitracesei02@gmail.com>",
     "Alex Vesa <vesaalexandru95@gmail.com>",
     "Rares Istoc <istoc.rares@gmail.com>"
 ]
+package-mode = false
 readme = "README.md"
 
 [tool.ruff]
@@ -17,25 +18,22 @@ select = [
     "F403",
 ]
 
-
 [tool.poetry.dependencies]
-python = ">=3.10, <3.12"
+python = "~3.11"
 pydantic = "^2.6.3"
 pydantic-settings = "^2.1.0"
 pika = "^1.3.2"
 qdrant-client = "^1.8.0"
-langchain = "^0.1.13"
 aws-lambda-powertools = "^2.38.1"
 selenium = "4.21.0"
 instructorembedding = "^1.0.1"
 numpy = "^1.26.4"
-langchain-openai = "^0.1.3"
 gdown = "^5.1.0"
 pymongo = "^4.7.1"
 structlog = "^24.1.0"
 rich = "^13.7.1"
-pip = "^24.0"
 comet-ml = "^3.41.0"
+opik = "1.0.1"
 ruff = "^0.4.3"
 pandas = "^2.0.3"
 datasets = "^2.19.1"
@@ -45,19 +43,23 @@ bitsandbytes = "^0.42.0"
 scikit-learn = "^1.4.2" 
 unstructured = "^0.14.2"
 litellm = "^1.50.4"
+langchain = "^0.2.11"
+langchain-openai = "^0.1.3"
+langchain-community = "^0.2.11"
+html2text = "^2024.2.26"
+huggingface-hub = "0.25.0"
 
-[tool.poetry.group.3-feature-pipeline.dependencies]
+[tool.poetry.group.feature_pipeline.dependencies]
 bytewax = "0.18.2"
 
 [tool.poetry.group.ml.dependencies]
 qwak-inference = "^0.1.17"
-qwak-sdk = "^0.5.69"
+qwak-sdk = "^0.5.85"
 peft = "^0.11.1"
 sentence-transformers = "^2.2.2"
 accelerate = "^0.30.1"
-opik = "1.0.1"
 
-[tool.poetry.group.6-superlinked-rag.dependencies]
+[tool.poetry.group.superlinked_rag.dependencies]
 superlinked = "7.2.1"
 
 [build-system]
