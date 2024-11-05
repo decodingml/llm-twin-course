@@ -24,17 +24,16 @@ class AppSettings(BaseSettings):
     MONGO_DATABASE_NAME: str = "twin"
 
     # QdrantDB config
-    QDRANT_DATABASE_HOST: str = "localhost"
-    QDRANT_DATABASE_PORT: int = 6333
-    QDRANT_DATABASE_URL: str = "http://localhost:6333"
     QDRANT_CLOUD_URL: str = "str"
+    QDRANT_DATABASE_HOST: str = "qdrant"
+    QDRANT_DATABASE_PORT: int = 6333
     USE_QDRANT_CLOUD: bool = False
     QDRANT_APIKEY: str | None = None
 
     # MQ config
     RABBITMQ_DEFAULT_USERNAME: str = "guest"
     RABBITMQ_DEFAULT_PASSWORD: str = "guest"
-    RABBITMQ_HOST: str = "localhost"
+    RABBITMQ_HOST: str = "mq"
     RABBITMQ_PORT: int = 5673
 
     # CometML config
@@ -42,19 +41,11 @@ class AppSettings(BaseSettings):
     COMET_WORKSPACE: str | None = None
     COMET_PROJECT: str | None = None
 
-    # LinkedIn credentials
-    LINKEDIN_USERNAME: str | None = None
-    LINKEDIN_PASSWORD: str | None = None
-
-    # LLM Model config
-    TOKENIZERS_PARALLELISM: str = "false"
-    HUGGINGFACE_ACCESS_TOKEN: str | None = None
-    MODEL_TYPE: str = "mistralai/Mistral-7B-Instruct-v0.1"
-
-    QWAK_DEPLOYMENT_MODEL_ID: str = "copywriter_model"
-    QWAK_DEPLOYMENT_MODEL_API: str = (
-        "https://models.llm-twin.qwak.ai/v1/copywriter_model/default/predict"
-    )
+    # AWS Authentication
+    AWS_REGION: str = "eu-central-1"
+    AWS_ACCESS_KEY: str | None = None
+    AWS_SECRET_KEY: str | None = None
+    AWS_ARN_ROLE: str | None = None
 
 
 settings = AppSettings()

@@ -31,8 +31,7 @@ class Settings(BaseSettings):
     RABBITMQ_QUEUE_NAME: str = "default"
 
     # QdrantDB config
-    # QDRANT_DATABASE_HOST: str = "qdrant" # or localhost if running outside Docker
-    QDRANT_DATABASE_HOST: str = "localhost"  # or localhost if running outside Docker
+    QDRANT_DATABASE_HOST: str = "qdrant"  # or localhost if running outside Docker
     QDRANT_DATABASE_PORT: int = 6333
     USE_QDRANT_CLOUD: bool = (
         False  # if True, fill in QDRANT_CLOUD_URL and QDRANT_APIKEY

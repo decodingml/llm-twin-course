@@ -33,26 +33,21 @@ class Settings(BaseSettings):
     KEEP_TOP_K: int = 5
     EXPAND_N_QUERY: int = 5
 
-    # MQ config
-    RABBITMQ_HOST: str = "mq"
-    RABBITMQ_PORT: int = 5672
-    RABBITMQ_DEFAULT_USERNAME: str = "guest"
-    RABBITMQ_DEFAULT_PASSWORD: str = "guest"
-
     # CometML config
     COMET_API_KEY: str
     COMET_WORKSPACE: str
     COMET_PROJECT: str = "llm-twin-course"
 
     # LLM Model config
-    TOKENIZERS_PARALLELISM: str = "false"
     HUGGINGFACE_ACCESS_TOKEN: str | None = None
-    MODEL_TYPE: str = "mistralai/Mistral-7B-Instruct-v0.1"
+    MODEL_ID: str = "mistralai/Mistral-7B-Instruct-v0.1"
+    DEPLOYMENT_ENDPOINT_NAME: str = "twin"
 
-    QWAK_DEPLOYMENT_MODEL_ID: str = "llm_twin"
-    QWAK_DEPLOYMENT_MODEL_API: str = (
-        "https://models.llm-twin.qwak.ai/v1/copywriter_model/default/predict"
-    )
+    # AWS Authentication
+    AWS_REGION: str = "eu-central-1"
+    AWS_ACCESS_KEY: str | None = None
+    AWS_SECRET_KEY: str | None = None
+    AWS_ARN_ROLE: str | None = None
 
 
 settings = Settings()

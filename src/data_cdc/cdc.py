@@ -5,7 +5,7 @@ from bson import json_util
 from config import settings
 from core.db.mongo import MongoDatabaseConnector
 from core.logger_utils import get_logger
-from mq import publish_to_rabbitmq
+from core.mq import publish_to_rabbitmq
 
 logger = get_logger(__file__)
 

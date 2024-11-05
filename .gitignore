@@ -169,8 +169,12 @@ data
 # Data
 output
 generated_dataset
+finetuning_dataset
 .cache
 training_pipeline_output
 mistral_instruct_generation
 cache
 rabbitmq
+
+# Credentials
+sagemaker_execution_role.json

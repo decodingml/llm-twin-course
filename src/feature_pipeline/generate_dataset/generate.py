@@ -4,9 +4,9 @@ from pathlib import Path
 
 from comet_ml import Artifact, Experiment
 from config import settings
-from db import QdrantDatabaseConnector
+from core import get_logger
+from core.db.qdrant import QdrantDatabaseConnector
 from sklearn.model_selection import train_test_split
-from utils.logging import get_logger
 
 from .chunk_documents import chunk_documents
 from .file_handler import FileHandler

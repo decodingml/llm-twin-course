@@ -1,8 +1,8 @@
 import json
 
 from config import settings
+from core import get_logger
 from openai import OpenAI
-from utils.logging import get_logger
 
 MAX_LENGTH = 16384
 SYSTEM_PROMPT = (

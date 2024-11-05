@@ -1,9 +1,8 @@
-from config import settings
 from qdrant_client import QdrantClient, models
-from qdrant_client.http.exceptions import UnexpectedResponse
 from qdrant_client.http.models import Batch, Distance, VectorParams
 
 import core.logger_utils as logger_utils
+from core.config import settings
 
 logger = logger_utils.get_logger(__name__)
 
@@ -13,26 +12,16 @@ class QdrantDatabaseConnector:
 
     def __init__(self) -> None:
         if self._instance is None:
-            try:
-                if settings.USE_QDRANT_CLOUD:
-                    self._instance = QdrantClient(
-                        url=settings.QDRANT_CLOUD_URL,
-                        api_key=settings.QDRANT_APIKEY,
-                    )
-                else:
-                    self._instance = QdrantClient(
-                        host=settings.QDRANT_DATABASE_HOST,
-                        port=settings.QDRANT_DATABASE_PORT,
-                    )
-            except UnexpectedResponse:
-                logger.exception(
-                    "Couldn't connect to Qdrant.",
+            if settings.USE_QDRANT_CLOUD:
+                self._instance = QdrantClient(
+                    url=settings.QDRANT_CLOUD_URL,
+                    api_key=settings.QDRANT_APIKEY,
+                )
+            else:
+                self._instance = QdrantClient(
                     host=settings.QDRANT_DATABASE_HOST,
                     port=settings.QDRANT_DATABASE_PORT,
-                    url=settings.QDRANT_CLOUD_URL,
                 )
-
-                raise
 
     def get_collection(self, collection_name: str):
         return self._instance.get_collection(collection_name=collection_name)

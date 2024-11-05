@@ -1,12 +1,12 @@
 import json
-from datetime import datetime
 import time
+from datetime import datetime
 from typing import Generic, Iterable, List, Optional, TypeVar
 
 from bytewax.inputs import FixedPartitionedSource, StatefulSourcePartition
 from config import settings
-from mq import RabbitMQConnection
-from utils.logging import get_logger
+from core import get_logger
+from core.mq import RabbitMQConnection
 
 logger = get_logger(__name__)
 

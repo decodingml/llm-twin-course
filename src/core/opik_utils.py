@@ -1,8 +1,8 @@
 import json
 import os
+import random
 import tempfile
 from pathlib import Path
-from random import random
 
 from tqdm import tqdm
 

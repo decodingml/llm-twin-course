@@ -1,10 +1,8 @@
 from bytewax.outputs import DynamicSink, StatelessSinkPartition
-from qdrant_client.http.api_client import UnexpectedResponse
-from qdrant_client.models import Batch
-
-from utils.logging import get_logger
-from db import QdrantDatabaseConnector
+from core import get_logger
+from core.db.qdrant import QdrantDatabaseConnector
 from models.base import VectorDBDataModel
+from qdrant_client.models import Batch
 
 logger = get_logger(__name__)
 
@@ -19,73 +17,32 @@ class QdrantOutput(DynamicSink):
         self._connection = connection
         self._sink_type = sink_type
 
-        try:
-            self._connection.get_collection(collection_name="cleaned_posts")
-        except UnexpectedResponse:
-            logger.info(
-                "Couldn't access the collection. Creating a new one...",
-                collection_name="cleaned_posts",
-            )
+        collections = {
+            "cleaned_posts": False,
+            "cleaned_articles": False,
+            "cleaned_repositories": False,
+            "vector_posts": True,
+            "vector_articles": True,
+            "vector_repositories": True,
+        }
 
-            self._connection.create_non_vector_collection(
-                collection_name="cleaned_posts"
-            )
+        for collection_name, is_vector in collections.items():
+            try:
+                self._connection.get_collection(collection_name=collection_name)
+            except Exception:
+                logger.warning(
+                    "Couldn't access the collection. Creating a new one...",
+                    collection_name=collection_name,
+                )
 
-        try:
-            self._connection.get_collection(collection_name="cleaned_articles")
-        except UnexpectedResponse:
-            logger.info(
-                "Couldn't access the collection. Creating a new one...",
-                collection_name="cleaned_articles",
-            )
-
-            self._connection.create_non_vector_collection(
-                collection_name="cleaned_articles"
-            )
-
-        try:
-            self._connection.get_collection(collection_name="cleaned_repositories")
-        except UnexpectedResponse:
-            logger.info(
-                "Couldn't access the collection. Creating a new one...",
-                collection_name="cleaned_repositories",
-            )
-
-            self._connection.create_non_vector_collection(
-                collection_name="cleaned_repositories"
-            )
-
-        try:
-            self._connection.get_collection(collection_name="vector_posts")
-        except UnexpectedResponse:
-            logger.info(
-                "Couldn't access the collection. Creating a new one...",
-                collection_name="vector_posts",
-            )
-
-            self._connection.create_vector_collection(collection_name="vector_posts")
-
-        try:
-            self._connection.get_collection(collection_name="vector_articles")
-        except UnexpectedResponse:
-            logger.info(
-                "Couldn't access the collection. Creating a new one...",
-                collection_name="vector_articles",
-            )
-
-            self._connection.create_vector_collection(collection_name="vector_articles")
-
-        try:
-            self._connection.get_collection(collection_name="vector_repositories")
-        except UnexpectedResponse:
-            logger.info(
-                "Couldn't access the collection. Creating a new one...",
-                collection_name="vector_repositories",
-            )
-
-            self._connection.create_vector_collection(
-                collection_name="vector_repositories"
-            )
+                if is_vector:
+                    self._connection.create_vector_collection(
+                        collection_name=collection_name
+                    )
+                else:
+                    self._connection.create_non_vector_collection(
+                        collection_name=collection_name
+                    )
 
     def build(self, worker_index: int, worker_count: int) -> StatelessSinkPartition:
         if self._sink_type == "clean":

@@ -51,7 +51,7 @@ COPY ./pyproject.toml ./poetry.lock ./
 # Install Poetry, export dependencies to requirements.txt, and install dependencies
 # in the Lambda task directory, finally cleanup manifest files.
 RUN python -m pip install --upgrade pip && pip install --no-cache-dir "poetry==$POETRY_VERSION"
-RUN poetry export --without ml,feature_pipeline -f requirements.txt > requirements.txt && \
+RUN poetry export --without feature_pipeline -f requirements.txt > requirements.txt && \
     pip install --no-cache-dir -r requirements.txt --target "${LAMBDA_TASK_ROOT}" && \
     rm requirements.txt pyproject.toml poetry.lock
 

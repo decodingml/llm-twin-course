@@ -8,8 +8,9 @@ def evaluate(query: str, context: list[str], output: str) -> str:
     prompt = evaluation_template.create_template()
 
     model = ChatOpenAI(model=settings.OPENAI_MODEL_ID)
-    chain = prompt | model | str
+    chain = prompt | model
 
     response = chain.invoke({"query": query, "context": context, "output": output})
+    response = response.content
 
     return response

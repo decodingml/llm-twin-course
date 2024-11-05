@@ -16,14 +16,17 @@ RUN apt-get update && apt-get install -y \
 RUN pip install --no-cache-dir "poetry==$POETRY_VERSION"
 RUN poetry config installer.max-workers 20
 
-# Add Poetry to PATH
-ENV PATH="/etc/poetry/bin:$PATH"
-
 # Set the working directory
 WORKDIR /app
 
 # Copy the pyproject.toml and poetry.lock files from the root directory
 COPY ./pyproject.toml ./poetry.lock ./
+
+# Install the dependencies and clear cache
+RUN poetry config virtualenvs.create false && \
+    poetry install --no-root --no-interaction --no-cache && \
+    rm -rf ~/.cache/pypoetry/cache/ && \
+    rm -rf ~/.cache/pypoetry/artifacts/
 
 # Install dependencies
 RUN poetry install --no-root

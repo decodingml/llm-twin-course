@@ -1,8 +1,7 @@
+from core import get_logger
+from core.rag.retriever import VectorRetriever
 from dotenv import load_dotenv
 from langchain.globals import set_verbose
-from rag.retriever import VectorRetriever
-
-from utils.logging import get_logger
 
 set_verbose(True)
 

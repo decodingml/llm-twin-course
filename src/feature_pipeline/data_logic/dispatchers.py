@@ -1,4 +1,6 @@
-from utils.logging import get_logger
+from core import get_logger
+from models.base import DataModel
+from models.raw import ArticleRawModel, PostsRawModel, RepositoryRawModel
 
 from data_logic.chunking_data_handlers import (
     ArticleChunkingHandler,
@@ -18,8 +20,6 @@ from data_logic.embedding_data_handlers import (
     PostEmbeddingHandler,
     RepositoryEmbeddingHandler,
 )
-from models.base import DataModel
-from models.raw import ArticleRawModel, PostsRawModel, RepositoryRawModel
 
 logger = get_logger(__name__)
 

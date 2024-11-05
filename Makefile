@@ -37,6 +37,9 @@ local-start: # Buil and start local infrastructure.
 local-stop: # Stop local infrastructure.
 	docker compose -f docker-compose.yml down --remove-orphans
 
+create-sagemaker-execution-role: # Create SageMaker execution role.
+	cd src && poetry run python -m core.aws.create_execution_role
+
 # ======================================
 # ------------- Crawler ----------------
 # ======================================
@@ -58,12 +61,11 @@ local-ingest-data: # Ingest all links from data/links.txt file
 		sleep 2; \
 	done < data/links.txt
 
-
-cloud-test-github: # Send command to the cloud lambda with a Github repository
+cloud-test-medium: # Send command to the cloud lambda with a Github repository
 	aws lambda invoke \
 		--function-name crawler \
 		--cli-binary-format raw-in-base64-out \
-		--payload '{"user": "Paul Iusztin", "link": "https://github.com/decodingml/llm-twin-course"}' \
+		--payload '{"user": "Paul Iusztin", "link": "https://medium.com/decodingml/an-end-to-end-framework-for-production-ready-llm-systems-by-building-your-llm-twin-2cc6bb01141f"}' \
 		response.json
 
 # ======================================
@@ -73,22 +75,21 @@ cloud-test-github: # Send command to the cloud lambda with a Github repository
 local-feature-pipeline: # Run the RAG feature pipeline
 	RUST_BACKTRACE=full poetry run python -m bytewax.run src/feature_pipeline/main.py
 
+local-test-retriever: # Test retriever
+	docker exec -it llm-twin-bytewax python -m retriever
+
 generate-dataset: # Generate dataset for finetuning and version it in Comet ML
 	docker exec -it llm-twin-bytewax python -m finetuning.generate_data
 
 # ======================================
-# ---------------- RAG -----------------
-# ======================================
-
-local-test-retriever: # Test retriever
-	docker exec -it llm-twin-bytewax python -m retriever
-
-# ======================================
-# ------ Qwak: Training pipeline ------
+# ------ AWS SageMaker: Training pipeline ------
 # ======================================
 
 generate-instruct-dataset:
 	cd src/feature_pipeline && poetry run python -m generate_dataset.generate
+
+start-training-pipeline:
+	cd src/training_pipeline && poetry run python run_on_sagemaker.py
 
 create-qwak-project: # Create Qwak project for serving the model
 	@echo "$(YELLOW)Creating Qwak project...$(RESET)"
@@ -103,17 +104,17 @@ deploy-training-pipeline: # Trigger Qwak model build and start training pipeline
 	cd src/training_pipeline && poetry run qwak models build -f build_config.yaml .
 
 # ======================================
-# ------ Qwak: Inference pipeline ------
+# ------ AWS SageMaker: Inference pipeline ------
 # ======================================
 
-deploy-inference-pipeline: # Deploy the inference pipeline to Qwak.
-	poetry run qwak models deploy realtime --model-id "llm_twin" --instance "gpu.a10.2xl" --timeout 50000 --replicas 2 --server-workers 2
+deploy-inference-pipeline: # Deploy the inference pipeline to AWS SageMaker.
+	cd src/inference_pipeline && poetry run python -m aws.deploy_sagemaker_endpoint
 
-undeploy-infernece-pipeline: # Remove the inference pipeline deployment from Qwak.
-	poetry run qwak models undeploy --model-id "llm_twin"
+delete-inference-pipeline-deployment: # Delete the deployment of the AWS SageMaker inference pipeline.
+	cd src/inference_pipeline && PYTHONPATH=$(PYTHONPATH) poetry run python -m aws.delete_sagemaker_endpoint
 
 call-inference-pipeline: # Call the inference pipeline.
-	poetry run python src/inference_pipeline/main.py
+	cd src/inference_pipeline && poetry run python -m main
 
 # ======================================
 # ------ Superlinked Bonus Series ------
