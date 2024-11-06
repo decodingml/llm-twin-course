@@ -1,8 +1,9 @@
 import opik
 from config import settings
 from langchain_openai import ChatOpenAI
-from core.rag.prompt_templates import QueryExpansionTemplate
 from opik.integrations.langchain import OpikTracer
+
+from core.rag.prompt_templates import QueryExpansionTemplate
 
 
 class QueryExpansion:

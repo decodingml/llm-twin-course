@@ -3,14 +3,14 @@ import concurrent.futures
 import opik
 from config import settings
 from qdrant_client import models
-from rag.query_expanison import QueryExpansion
-from rag.reranking import Reranker
-from rag.self_query import SelfQuery
 from sentence_transformers.SentenceTransformer import SentenceTransformer
 
 import core.logger_utils as logger_utils
 from core import lib
 from core.db.qdrant import QdrantDatabaseConnector
+from core.rag.query_expanison import QueryExpansion
+from core.rag.reranking import Reranker
+from core.rag.self_query import SelfQuery
 
 logger = logger_utils.get_logger(__name__)
 

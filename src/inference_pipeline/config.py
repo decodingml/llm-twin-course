@@ -40,8 +40,12 @@ class Settings(BaseSettings):
 
     # LLM Model config
     HUGGINGFACE_ACCESS_TOKEN: str | None = None
-    MODEL_ID: str = "mistralai/Mistral-7B-Instruct-v0.1"
+    MODEL_ID: str = "pauliusztin/LLMTwinLlama-3.1-8B"
     DEPLOYMENT_ENDPOINT_NAME: str = "twin"
+
+    MAX_INPUT_TOKENS: int = 1536  # Max length of input text.
+    MAX_TOTAL_TOKENS: int = 2048  # Max length of the generation (including input text).
+    MAX_BATCH_TOTAL_TOKENS: int = 2048  # Limits the number of tokens that can be processed in parallel during the generation.
 
     # AWS Authentication
     AWS_REGION: str = "eu-central-1"

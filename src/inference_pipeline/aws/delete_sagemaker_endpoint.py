@@ -75,6 +75,6 @@ def delete_endpoint_and_config(endpoint_name) -> None:
 
 
 if __name__ == "__main__":
-    endpoint_name = "huggingface-pytorch-tgi-inference-2024-11-04-10-16-36-988"
+    endpoint_name = settings.DEPLOYMENT_ENDPOINT_NAME
     logger.info(f"Attempting to delete endpoint: {endpoint_name}")
     delete_endpoint_and_config(endpoint_name=endpoint_name)

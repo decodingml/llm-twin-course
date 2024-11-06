@@ -1,15 +1,24 @@
-from sagemaker.huggingface import HuggingFaceModel, get_huggingface_llm_image_uri
-
 from config import settings
+from sagemaker.huggingface import HuggingFaceModel, get_huggingface_llm_image_uri
 
 
 def main() -> None:
     assert settings.HUGGINGFACE_ACCESS_TOKEN, "HUGGINGFACE_ACCESS_TOKEN is required."
 
     env_vars = {
-        "HF_MODEL_ID": "pauliusztin/LLMTwinLlama-3.1-8B",
-        "SM_NUM_GPUS": "1",
+        "HF_MODEL_ID": settings.MODEL_ID,
+        "SM_NUM_GPUS": "1",  # Number of GPU used per replica.
         "HUGGING_FACE_HUB_TOKEN": settings.HUGGINGFACE_ACCESS_TOKEN,
+        "MAX_INPUT_TOKENS": str(
+            settings.MAX_INPUT_TOKENS
+        ),  # Max length of input tokens.
+        "MAX_TOTAL_TOKENS": str(
+            settings.MAX_TOTAL_TOKENS
+        ),  # Max length of the generation (including input text).
+        "MAX_BATCH_TOTAL_TOKENS": str(
+            settings.MAX_BATCH_TOTAL_TOKENS
+        ),  # Limits the number of tokens that can be processed in parallel during the generation.
+        "MESSAGES_API_ENABLED": "true",  # Enable/disable the messages API, following OpenAI's standard.
         "HF_MODEL_QUANTIZE": "bitsandbytes",
     }
 

@@ -1,5 +1,6 @@
 from config import settings
 from langchain_openai import ChatOpenAI
+
 from core.rag.prompt_templates import RerankingTemplate
 
 

@@ -1,15 +1,16 @@
+import pprint
+
 import opik
 import sagemaker
+from config import settings
 from core import logger_utils
 from core.opik_utils import add_to_dataset_with_sampling
+from core.rag.retriever import VectorRetriever
 from langchain.prompts import PromptTemplate
 from opik import opik_context
+from prompt_templates import InferenceTemplate
 from sagemaker.huggingface.model import HuggingFacePredictor
-
-from config import settings
-from inference_pipeline.prompt_templates import InferenceTemplate
-from core.rag.retriever import VectorRetriever
-from utils import misc
+from utils import compute_num_tokens, truncate_text_to_max_tokens
 
 logger = logger_utils.get_logger(__name__)
 
@@ -18,7 +19,7 @@ class LLMTwin:
     def __init__(self, mock: bool = False) -> None:
         self._mock = mock
         self._llm_endpoint = self.build_sagemaker_predictor()
-        self.template = InferenceTemplate()
+        self.prompt_template_builder = InferenceTemplate()
 
     def build_sagemaker_predictor(self) -> HuggingFacePredictor:
         return HuggingFacePredictor(
@@ -33,7 +34,9 @@ class LLMTwin:
         enable_rag: bool = False,
         sample_for_evaluation: bool = False,
     ) -> dict:
-        prompt_template = self.template.create_template(enable_rag=enable_rag)
+        system_prompt, prompt_template = self.prompt_template_builder.create_template(
+            enable_rag=enable_rag
+        )
         prompt_template_variables = {"question": query}
 
         if enable_rag is True:
@@ -46,14 +49,15 @@ class LLMTwin:
         else:
             context = None
 
-        prompt = self.format_prompt(prompt_template, prompt_template_variables)
+        messages, input_num_tokens = self.format_prompt(
+            system_prompt, prompt_template, prompt_template_variables
+        )
 
-        logger.debug(f"Prompt: {prompt}")
-        answer = self.call_llm_service(prompt=prompt)
+        logger.debug(f"Prompt: {pprint.pformat(messages)}")
+        answer = self.call_llm_service(messages=messages)
         logger.debug(f"Answer: {answer}")
 
-        num_prompt_tokens = misc.compute_num_tokens(prompt)
-        num_answer_tokens = misc.compute_num_tokens(answer)
+        num_answer_tokens = compute_num_tokens(answer)
         opik_context.update_current_trace(
             tags=["rag"],
             metadata={
@@ -61,9 +65,9 @@ class LLMTwin:
                 "prompt_template_variables": prompt_template_variables,
                 "model_id": settings.MODEL_ID,
                 "embedding_model_id": settings.EMBEDDING_MODEL_ID,
-                "prompt_tokens": num_prompt_tokens,
+                "input_tokens": input_num_tokens,
                 "answer_tokens": num_answer_tokens,
-                "total_tokens": num_prompt_tokens + num_answer_tokens,
+                "total_tokens": input_num_tokens + num_answer_tokens,
             },
         )
 
@@ -78,30 +82,46 @@ class LLMTwin:
 
     @opik.track(name="inference_pipeline.format_prompt")
     def format_prompt(
-        self, prompt_template: PromptTemplate, prompt_template_variables: dict
-    ) -> str:
+        self,
+        system_prompt,
+        prompt_template: PromptTemplate,
+        prompt_template_variables: dict,
+    ) -> tuple[list[dict[str, str]], int]:
         prompt = prompt_template.format(**prompt_template_variables)
 
-        return prompt
+        num_system_prompt_tokens = compute_num_tokens(system_prompt)
+        prompt, prompt_num_tokens = truncate_text_to_max_tokens(
+            prompt, max_tokens=settings.MAX_INPUT_TOKENS - num_system_prompt_tokens
+        )
+        total_input_tokens = num_system_prompt_tokens + prompt_num_tokens
+
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": prompt},
+        ]
+
+        return messages, total_input_tokens
 
     @opik.track(name="inference_pipeline.call_llm_service")
-    def call_llm_service(self, prompt: str) -> str:
+    def call_llm_service(self, messages: list[dict[str, str]]) -> str:
         if self._mock is True:
             logger.warning("Mocking LLM service call.")
 
             return "Mocked answer."
 
         answer = self._llm_endpoint.predict(
-            {
-                "inputs": prompt,
+            data={
+                "messages": messages,
                 "parameters": {
-                    "max_new_tokens": 256,
+                    "max_new_tokens": settings.MAX_TOTAL_TOKENS
+                    - settings.MAX_INPUT_TOKENS,
                     "temperature": 0.01,
-                    "top_p": 0.9,
+                    "top_p": 0.6,
+                    "stop": ["<|eot_id|>"],
                     "return_full_text": False,
                 },
             }
         )
-        answer = answer[0]["generated_text"]
+        answer = answer["choices"][0]["message"]["content"].strip()
 
         return answer

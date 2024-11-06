@@ -1,12 +1,12 @@
 import opik
 from config import settings
 from langchain_openai import ChatOpenAI
-from core.rag.prompt_templates import SelfQueryTemplate
 from opik.integrations.langchain import OpikTracer
 
 import core.logger_utils as logger_utils
 from core import lib
 from core.db.documents import UserDocument
+from core.rag.prompt_templates import SelfQueryTemplate
 
 logger = logger_utils.get_logger(__name__)
 

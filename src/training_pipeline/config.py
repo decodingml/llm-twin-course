@@ -15,8 +15,6 @@ class Settings(BaseSettings):
     COMET_PROJECT: str = ""
 
     DATASET_ARTIFACT_NAME: str = "posts-instruct-dataset"
-    FINE_TUNED_LLM_TWIN_MODEL_TYPE: str = "llm-twin:1.0.0"
-    CONFIG_FILE: str = "./finetuning/config.yaml"
 
     # AWS Authentication
     AWS_REGION: str = "eu-central-1"
