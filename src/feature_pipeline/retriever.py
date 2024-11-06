@@ -1,11 +1,14 @@
 from core import get_logger
+from core.config import settings
 from core.rag.retriever import VectorRetriever
 from dotenv import load_dotenv
-from langchain.globals import set_verbose
-
-set_verbose(True)
 
 logger = get_logger(__name__)
+
+settings.patch_localhost()
+logger.warning(
+    "Patched settings to work with 'localhost' URLs. When deploying remove the 'settings.patch_localhost()' call."
+)
 
 if __name__ == "__main__":
     load_dotenv()
