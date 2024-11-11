@@ -81,7 +81,7 @@ Run the following `Make` command to tear down all your docker containers:
 make local-stop
 ```
 
-## Run an end-to-end flow
+# Usage: Run an end-to-end flow
 
 Now that we have configured our credentials, local environemnt and Docker infrastructure let's look at how to run an end-to-end flow of the LLM Twin course.
 
