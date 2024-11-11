@@ -67,7 +67,7 @@ Behind the scenes it will build and run all the Docker images defined in the [do
 > 127.0.0.1       mongo3
 > ```
 >
-> From what we know, on `Windows`, it `works out-of-the-box`. For more details, check out this article: https://medium.com/workleap/the-only-local-mongodb-replica-set-with-docker-compose-guide-youll-ever-need-2f0b74dd8384
+> From what we know, on `Windows`, it `works out-of-the-box`. For more details, check out this [article](https://medium.com/workleap/the-only-local-mongodb-replica-set-with-docker-compose-guide-youll-ever-need-2f0b74dd8384)
 
 > [!WARNING]
 > For `arm` users (e.g., `M macOS devices`), go to your Docker desktop application and enable `Use Rosetta for x86_64/amd64 emulation on Apple Silicon` from the Settings. There is a checkbox you have to check.
