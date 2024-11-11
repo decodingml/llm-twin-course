@@ -165,7 +165,6 @@ For your AWS set-up to work correctly, you need the AWS CLI installed on your lo
 
 With the same configuration used to set up your AWS CLI, also fill in the following environment variables from your `.env` file:
 ```bash
-AWS_ARN_ROLE=str
 AWS_REGION=eu-central-1
 AWS_ACCESS_KEY=str
 AWS_SECRET_KEY=str
