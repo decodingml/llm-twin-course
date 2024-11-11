@@ -18,7 +18,8 @@ logger.info(
     f"Added the following directory to PYTHONPATH to simulate multiple modules: {ROOT_DIR}"
 )
 logger.warning(
-    "Patched settings to work with 'localhost' URLs. When deploying remove the 'settings.patch_localhost()' call."
+    "Patched settings to work with 'localhost' URLs. \
+    Remove the 'settings.patch_localhost()' call from above when deploying or running inside Docker."
 )
 
 

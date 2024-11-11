@@ -9,8 +9,8 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=ROOT_DIR, env_file_encoding="utf-8")
 
     # Embeddings config
-    EMBEDDING_MODEL_ID: str = "sentence-transformers/all-MiniLM-L6-v2"
-    EMBEDDING_MODEL_MAX_INPUT_LENGTH: int = 256
+    EMBEDDING_MODEL_ID: str = "BAAI/bge-small-en-v1.5"
+    EMBEDDING_MODEL_MAX_INPUT_LENGTH: int = 512
     EMBEDDING_SIZE: int = 384
     EMBEDDING_MODEL_DEVICE: str = "cpu"
 
@@ -36,7 +36,7 @@ class Settings(BaseSettings):
     # CometML config
     COMET_API_KEY: str
     COMET_WORKSPACE: str
-    COMET_PROJECT: str = "llm-twin-course"
+    COMET_PROJECT: str = "llm-twin"
 
     # LLM Model config
     HUGGINGFACE_ACCESS_TOKEN: str | None = None

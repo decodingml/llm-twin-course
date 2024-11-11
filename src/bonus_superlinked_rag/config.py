@@ -3,7 +3,7 @@ from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     # Embeddings config
-    EMBEDDING_MODEL_ID: str = "sentence-transformers/all-mpnet-base-v2"
+    EMBEDDING_MODEL_ID: str = "BAAI/bge-small-en-v1.5"
 
     # MQ config
     RABBITMQ_DEFAULT_USERNAME: str = "guest"

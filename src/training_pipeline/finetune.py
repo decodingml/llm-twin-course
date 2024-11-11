@@ -29,33 +29,45 @@ class DatasetClient:
         self,
         output_dir: Path = Path("./finetuning_dataset"),
     ) -> None:
+        self.output_dir = output_dir
+        self.output_dir.mkdir(parents=True, exist_ok=True)
+
+    def download_dataset(self, dataset_id: str) -> Dataset:
         # self.experiment = Experiment(
         #     api_key=settings.COMET_API_KEY,
         #     workspace=settings.COMET_WORKSPACE,
         #     project_name=settings.COMET_PROJECT,
         # )
-        self.experiment = Experiment()
 
-        self.output_dir = output_dir
-        self.output_dir.mkdir(parents=True, exist_ok=True)
+        if "/" in dataset_id:
+            tokens = dataset_id.split("/")
+            assert (
+                len(tokens) == 2
+            ), f"Wrong format for the {dataset_id}. It should have a maximum one '/' character following the next template: 'comet_ml_workspace/comet_ml_artiface_name'"
+            workspace, artifact_name = dataset_id
 
-    def download_dataset(self, artifact_name: str) -> Dataset:
-        artifact = self._download_artifact(artifact_name)
+            experiment = Experiment(workspace=workspace)
+        else:
+            artifact_name = dataset_id
+
+            experiment = Experiment()
+
+        artifact = self._download_artifact(artifact_name, experiment)
         asset = self._artifact_to_asset(artifact)
         dataset = self._load_data(asset)
 
+        experiment.end()
+
         return dataset
 
-    def _download_artifact(self, artifact_name: str) -> Artifact:
+    def _download_artifact(self, artifact_name: str, experiment) -> Artifact:
         try:
-            logged_artifact = self.experiment.get_artifact(artifact_name)
+            logged_artifact = experiment.get_artifact(artifact_name)
             artifact = logged_artifact.download(self.output_dir)
         except Exception as e:
             print(f"Error retrieving artifact: {str(e)}")
 
             raise
-
-        self.experiment.end()
 
         print(f"Successfully downloaded  {artifact_name} at location {self.output_dir}")
 
@@ -121,7 +133,7 @@ def load_model(
 def finetune(
     model_name: str,
     output_dir: str,
-    dataset_huggingface_workspace: str,
+    dataset_id: str,
     max_seq_length: int = 2048,
     load_in_4bit: bool = False,
     lora_rank: int = 32,
@@ -174,10 +186,10 @@ def finetune(
         return {"text": text}
 
     dataset_client = DatasetClient()
-    custom_dataset = dataset_client.download_dataset(
-        artifact_name="posts-instruct-dataset"
+    custom_dataset = dataset_client.download_dataset(dataset_id=dataset_id)
+    static_dataset = load_dataset(
+        "mlabonne/FineTome-Alpaca-100k", split="train[:10000]"
     )
-    static_dataset = load_dataset("mlabonne/FineTome-Alpaca-100k", split="train[:10000]")
     dataset = concatenate_datasets([custom_dataset, static_dataset])
     if is_dummy:
         dataset = dataset.select(range(400))
@@ -273,27 +285,20 @@ def check_if_huggingface_model_exists(
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
+    parser.add_argument(
+        "--base_model_name", type=str, default="meta-llama/Meta-Llama-3.1-8B"
+    )
+    parser.add_argument("--dataset_id", type=str)
     parser.add_argument("--num_train_epochs", type=int, default=3)
     parser.add_argument("--per_device_train_batch_size", type=int, default=2)
     parser.add_argument("--learning_rate", type=float, default=3e-4)
-    parser.add_argument("--dataset_huggingface_workspace", type=str, default="mlabonne")
-    parser.add_argument(
-        "--model_output_huggingface_workspace", type=str, default="mlabonne"
-    )
+    parser.add_argument("--model_output_huggingface_workspace", type=str)
     parser.add_argument(
         "--is_dummy",
         type=bool,
         default=False,
         help="Flag to reduce the dataset size for testing",
     )
-    parser.add_argument(
-        "--finetuning_type",
-        type=str,
-        choices=["sft", "dpo"],
-        default="sft",
-        help="Parameter to choose the finetuning stage.",
-    )
-
     parser.add_argument(
         "--output_data_dir", type=str, default=os.environ["SM_OUTPUT_DATA_DIR"]
     )
@@ -305,28 +310,24 @@ if __name__ == "__main__":
     print(f"Num training epochs: '{args.num_train_epochs}'")  # noqa
     print(f"Per device train batch size: '{args.per_device_train_batch_size}'")  # noqa
     print(f"Learning rate: {args.learning_rate}")  # noqa
-    print(
-        f"Datasets will be loaded from Hugging Face workspace: '{args.dataset_huggingface_workspace}'"
-    )  # noqa
+    print(f"Datasets will be loaded from Comet ML artifact: '{args.dataset_id}'")  # noqa
     print(
         f"Models will be saved to Hugging Face workspace: '{args.model_output_huggingface_workspace}'"
     )  # noqa
     print(f"Training in dummy mode? '{args.is_dummy}'")  # noqa
-    print(f"Finetuning type: '{args.finetuning_type}'")  # noqa
 
     print(f"Output data dir: '{args.output_data_dir}'")  # noqa
     print(f"Model dir: '{args.model_dir}'")  # noqa
     print(f"Number of GPUs: '{args.n_gpus}'")  # noqa
 
     print("Starting SFT training...")  # noqa
-    base_model_name = "meta-llama/Meta-Llama-3.1-8B"
-    print(f"Training from base model '{base_model_name}'")  # noqa
+    print(f"Training from base model '{args.base_model_name}'")  # noqa
 
     output_dir_sft = Path(args.model_dir) / "output_sft"
     model, tokenizer = finetune(
-        model_name=base_model_name,
+        model_name=args.base_model_name,
         output_dir=str(output_dir_sft),
-        dataset_huggingface_workspace=args.dataset_huggingface_workspace,
+        dataset_id=args.dataset_id,
         num_train_epochs=args.num_train_epochs,
         per_device_train_batch_size=args.per_device_train_batch_size,
         learning_rate=args.learning_rate,
@@ -334,7 +335,7 @@ if __name__ == "__main__":
     inference(model, tokenizer)
 
     sft_output_model_repo_id = (
-        f"{args.model_output_huggingface_workspace}/LLMTwinLlama-3.1-8B"
+        f"{args.model_output_huggingface_workspace}/LLMTwin{args.base_model_name}"
     )
     save_model(
         model,

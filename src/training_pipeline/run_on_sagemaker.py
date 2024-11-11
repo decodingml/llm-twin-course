@@ -1,3 +1,4 @@
+import argparse
 import sys
 from pathlib import Path
 
@@ -25,8 +26,19 @@ def run_finetuning_on_sagemaker(
     learning_rate: float = 3e-4,
     is_dummy: bool = False,
 ) -> None:
-    assert settings.HUGGINGFACE_ACCESS_TOKEN, "Hugging Face access token is required."
-    assert settings.AWS_ARN_ROLE, "AWS ARN role is required."
+    assert settings.HUGGINGFACE_ACCESS_TOKEN, "Hugging Face access token (HUGGINGFACE_ACCESS_TOKEN) is required. Update your .env file."
+    assert (
+        settings.AWS_ARN_ROLE
+    ), "AWS ARN role (AWS_ARN_ROLE) is required. Update your .env file."
+    assert (
+        settings.COMET_API_KEY
+    ), "Comet ML API key (COMET_API_KEY) is required. Update your .env file."
+    assert (
+        settings.COMET_WORKSPACE
+    ), "Comet ML workspace (COMET_WORKSPACE) is required. Update your .env file."
+    assert (
+        settings.COMET_PROJECT
+    ), "Comet ML project name (COMET_PROJECT) is required. Update your .env file."
 
     if not finetuning_dir.exists():
         raise FileNotFoundError(f"The directory {finetuning_dir} does not exist.")
@@ -41,6 +53,8 @@ def run_finetuning_on_sagemaker(
     logger.info(f"Current Hugging Face user: {huggingface_user}")
 
     hyperparameters = {
+        "base_model_name": settings.HUGGINGFACE_BASE_MODEL_ID,
+        "dataset_id": settings.DATASET_MODEL_ID,
         "num_train_epochs": num_train_epochs,
         "per_device_train_batch_size": per_device_train_batch_size,
         "learning_rate": learning_rate,
@@ -74,4 +88,10 @@ def run_finetuning_on_sagemaker(
 
 
 if __name__ == "__main__":
-    run_finetuning_on_sagemaker(is_dummy=True)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--is-dummy", action="store_true", help="Run in dummy mode")
+    args = parser.parse_args()
+
+    logger.info(f"Is the training pipeline in DUMMY mode? '{args.is_dummy}'")
+
+    run_finetuning_on_sagemaker(is_dummy=args.is_dummy)

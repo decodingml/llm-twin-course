@@ -21,7 +21,7 @@ from superlinked.framework.dsl.storage.redis_vector_database import RedisVectorD
 
 
 class Settings(BaseSettings):
-    EMBEDDING_MODEL_ID: str = "sentence-transformers/all-mpnet-base-v2"
+    EMBEDDING_MODEL_ID: str = "BAAI/bge-small-en-v1.5"
 
     REDIS_HOSTNAME: str = "redis"
     REDIS_PORT: int = 6379

@@ -44,6 +44,7 @@ langchain-community = "^0.2.11"
 html2text = "^2024.2.26"
 huggingface-hub = "0.25.0"
 sagemaker = ">=2.232.2"
+sentence-transformers = "^2.2.2"
 
 [tool.poetry.group.feature_pipeline.dependencies]
 bytewax = "0.18.2"

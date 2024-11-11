@@ -11,11 +11,11 @@ class Settings(BaseSettings):
     # CometML config
     COMET_API_KEY: str | None = None
     COMET_WORKSPACE: str | None = None
-    COMET_PROJECT: str | None = None
+    COMET_PROJECT: str = "llm-twin"
 
     # Embeddings config
-    EMBEDDING_MODEL_ID: str = "sentence-transformers/all-MiniLM-L6-v2"
-    EMBEDDING_MODEL_MAX_INPUT_LENGTH: int = 256
+    EMBEDDING_MODEL_ID: str = "BAAI/bge-small-en-v1.5"
+    EMBEDDING_MODEL_MAX_INPUT_LENGTH: int = 512
     EMBEDDING_SIZE: int = 384
     EMBEDDING_MODEL_DEVICE: str = "cpu"
 

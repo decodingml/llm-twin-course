@@ -1,9 +1,30 @@
+import sys
+from pathlib import Path
+
+# To mimic using multiple Python modules, such as 'core' and 'feature_pipeline',
+# we will add the './src' directory to the PYTHONPATH. This is not intended for
+# production use cases but for development and educational purposes.
+ROOT_DIR = str(Path(__file__).parent.parent.parent)
+sys.path.append(ROOT_DIR)
+
+
+from core import get_logger
+from core.config import settings
+
+logger = get_logger(__name__)
+
+settings.patch_localhost()
+logger.warning(
+    "Patched settings to work with 'localhost' URLs. \
+    Remove the 'settings.patch_localhost()' call from above when deploying or running inside Docker."
+)
+
+
 import json
 import logging
 from pathlib import Path
 
-from comet_ml import Artifact, Experiment
-from config import settings
+from comet_ml import Artifact, start
 from core import get_logger
 from core.db.qdrant import QdrantDatabaseConnector
 from sklearn.model_selection import train_test_split
@@ -64,7 +85,7 @@ class DatasetGenerator:
         file_handler: FileHandler,
         api_communicator: GptCommunicator,
         data_formatter: DataFormatter,
-    ):
+    ) -> None:
         self.file_handler = file_handler
         self.api_communicator = api_communicator
         self.data_formatter = data_formatter
@@ -72,6 +93,19 @@ class DatasetGenerator:
     def generate_training_data(
         self, collection_name: str, data_type: str, batch_size: int = 3
     ) -> None:
+        assert (
+            settings.COMET_API_KEY
+        ), "COMET_API_KEY must be set in settings, fill it in your .env file."
+        assert (
+            settings.COMET_WORKSPACE
+        ), "COMET_PROJECT must be set in settings, fill it in your .env file."
+        assert (
+            settings.COMET_WORKSPACE
+        ), "COMET_PROJECT must be set in settings, fill it in your .env file."
+        assert (
+            settings.OPENAI_API_KEY
+        ), "OPENAI_API_KEY must be set in settings, fill it in your .env file."
+
         cleaned_documents = self.fetch_all_cleaned_content(collection_name)
         cleaned_documents = chunk_documents(cleaned_documents)
         num_cleaned_documents = len(cleaned_documents)
@@ -80,9 +114,18 @@ class DatasetGenerator:
         for i in range(0, num_cleaned_documents, batch_size):
             batch = cleaned_documents[i : i + batch_size]
             prompt = data_formatter.format_prompt(batch, data_type, i)
-            generated_instruct_dataset += self.api_communicator.send_prompt(prompt)
-            for j in range(i, min(i + batch_size, num_cleaned_documents)):
-                generated_instruct_dataset[j]["content"] = cleaned_documents[j]
+            batch_instructions = self.api_communicator.send_prompt(prompt)
+
+            if len(batch_instructions) != len(batch):
+                logger.error(
+                    f"Received {len(batch_instructions)} instructions for {len(batch)} documents. \
+                    Skipping this batch..."
+                )
+                continue
+
+            for instruction, content in zip(batch_instructions, batch):
+                instruction["content"] = content
+                generated_instruct_dataset.append(instruction)
 
         train_test_split = self._split_dataset(generated_instruct_dataset)
 
@@ -121,12 +164,7 @@ class DatasetGenerator:
         try:
             logger.info(f"Starting to push data to Comet: {collection_name}")
 
-            # Assuming the settings module has been properly configured with the required attributes
-            experiment = Experiment(
-                api_key=settings.COMET_API_KEY,
-                project_name=settings.COMET_PROJECT,
-                workspace=settings.COMET_WORKSPACE,
-            )
+            experiment = start()
 
             training_data, testing_data = train_test_split
 
