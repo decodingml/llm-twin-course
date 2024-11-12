@@ -1,0 +1,50 @@
+# Use an official Python runtime as a parent image
+FROM python:3.11-slim-bullseye
+
+ENV WORKSPACE_ROOT=/usr/src/app \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    POETRY_HOME="/opt/poetry" \
+    POETRY_NO_INTERACTION=1 \
+    POETRY_VERSION=1.8.3
+
+RUN mkdir -p $WORKSPACE_ROOT
+
+# Install system dependencies
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends build-essential \
+    gcc \
+    python3-dev \
+    curl \
+    build-essential \
+    && apt-get clean
+
+# Install Poetry using pip and clear cache
+RUN pip install --no-cache-dir "poetry==$POETRY_VERSION"
+RUN poetry config installer.max-workers 20
+
+RUN apt-get remove -y curl
+
+# Copy the pyproject.toml and poetry.lock files from the root directory
+COPY ./pyproject.toml ./poetry.lock ./
+
+# Install the dependencies and clear cache
+RUN poetry config virtualenvs.create false && \
+    poetry install --no-root --no-interaction --no-cache && \
+    rm -rf ~/.cache/pypoetry/cache/ && \
+    rm -rf ~/.cache/pypoetry/artifacts/
+
+# Set the working directory
+WORKDIR $WORKSPACE_ROOT
+
+# Copy the 3-feature-pipeline and any other necessary directories
+COPY ./src/bonus_superlinked_rag .
+COPY ./src/core ./core
+
+# Set the PYTHONPATH environment variable
+ENV PYTHONPATH=/usr/src/app
+
+RUN chmod +x /usr/src/app/scripts/bytewax_entrypoint.sh
+
+# Command to run the Bytewax pipeline script
+CMD ["/usr/src/app/scripts/bytewax_entrypoint.sh"]

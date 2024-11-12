@@ -1,0 +1,67 @@
+FROM  public.ecr.aws/lambda/python:3.11 as build
+
+# Install chrome driver and browser
+RUN yum install -y unzip && \
+    curl -Lo "/tmp/chromedriver.zip" "https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.126/linux64/chromedriver-linux64.zip" && \
+    curl -Lo "/tmp/chrome-linux.zip" "https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.126/linux64/chrome-linux64.zip" && \
+    unzip /tmp/chromedriver.zip -d /opt/ && \
+    unzip /tmp/chrome-linux.zip -d /opt/
+
+FROM  public.ecr.aws/lambda/python:3.11
+
+ENV POETRY_VERSION=1.8.3
+
+# Install the function's OS dependencies using yum
+RUN yum install -y \
+    atk \
+    wget \
+    git \
+    cups-libs \
+    gtk3 \
+    libXcomposite \
+    alsa-lib \
+    libXcursor \
+    libXdamage \
+    libXext \
+    libXi \
+    libXrandr \
+    libXScrnSaver \
+    libXtst \
+    pango \
+    at-spi2-atk \
+    libXt \
+    xorg-x11-server-Xvfb \
+    xorg-x11-xauth \
+    dbus-glib \
+    dbus-glib-devel \
+    nss \
+    mesa-libgbm \
+    ffmpeg \
+    libxext6 \
+    libssl-dev \
+    libcurl4-openssl-dev \
+    libpq-dev
+
+
+COPY --from=build /opt/chrome-linux64 /opt/chrome
+COPY --from=build /opt/chromedriver-linux64 /opt/
+
+COPY ./pyproject.toml ./poetry.lock ./
+
+# Install Poetry, export dependencies to requirements.txt, and install dependencies
+# in the Lambda task directory, finally cleanup manifest files.
+RUN python -m pip install --upgrade pip && pip install --no-cache-dir "poetry==$POETRY_VERSION"
+RUN poetry export --without feature_pipeline -f requirements.txt > requirements.txt && \
+    pip install --no-cache-dir -r requirements.txt --target "${LAMBDA_TASK_ROOT}" && \
+    rm requirements.txt pyproject.toml poetry.lock
+
+# Optional TLS CA only if you plan to store the extracted data into Document DB
+RUN wget https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem -P ${LAMBDA_TASK_ROOT}
+ENV PYTHONPATH="${LAMBDA_TASK_ROOT}/data_crawling:${LAMBDA_TASK_ROOT}"
+
+# Copy function code
+COPY ./src/data_crawling ${LAMBDA_TASK_ROOT}/data_crawling
+COPY ./src/core ${LAMBDA_TASK_ROOT}/core
+
+# Set the CMD to your handler (could also be done as a parameter override outside of the Dockerfile)
+CMD ["data_crawling.main.handler"]

@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   mongo1:
     image: mongo:5
@@ -60,13 +58,13 @@ services:
       - qdrant-data:/qdrant_data
     restart: always
 
-  crawler:
-    image: "llm-twin-crawler"
-    container_name: llm-twin-crawler
+  data-crawlers:
+    image: "llm-twin-data-crawlers"
+    container_name: llm-twin-data-crawlers
     platform: "linux/amd64"
     build:
       context: .
-      dockerfile: .docker/Dockerfile.crawlers
+      dockerfile: .docker/Dockerfile.data_crawlers
     env_file:
       - .env
     ports:
@@ -76,12 +74,12 @@ services:
       - mongo2
       - mongo3
 
-  cdc:
-    image: "llm-twin-cdc"
-    container_name: llm-twin-cdc
+  data_cdc:
+    image: "llm-twin-data-cdc"
+    container_name: llm-twin-data-cdc
     build:
       context: .
-      dockerfile: .docker/Dockerfile.cdc
+      dockerfile: .docker/Dockerfile.data_cdc
     env_file:
       - .env
     depends_on:
@@ -90,12 +88,12 @@ services:
       - mongo3
       - mq
 
-  bytewax:
-    image: "llm-twin-bytewax"
-    container_name: llm-twin-bytewax
+  feature_pipeline:
+    image: "llm-twin-feature-pipeline"
+    container_name: llm-twin-feature-pipeline
     build:
       context: .
-      dockerfile: .docker/Dockerfile.bytewax
+      dockerfile: .docker/Dockerfile.feature_pipeline
     environment:
       BYTEWAX_PYTHON_FILE_PATH: "main:flow"
       DEBUG: "false"
