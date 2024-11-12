@@ -32,19 +32,15 @@ class DatasetClient:
         self.output_dir = output_dir
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
-    def download_dataset(self, dataset_id: str) -> Dataset:
-        # self.experiment = Experiment(
-        #     api_key=settings.COMET_API_KEY,
-        #     workspace=settings.COMET_WORKSPACE,
-        #     project_name=settings.COMET_PROJECT,
-        # )
+    def download_dataset(self, dataset_id: str, split: str = "train") -> Dataset:
+        assert split in ["train", "test"], "Split must be either 'train' or 'test'"
 
         if "/" in dataset_id:
             tokens = dataset_id.split("/")
             assert (
                 len(tokens) == 2
             ), f"Wrong format for the {dataset_id}. It should have a maximum one '/' character following the next template: 'comet_ml_workspace/comet_ml_artiface_name'"
-            workspace, artifact_name = dataset_id
+            workspace, artifact_name = tokens
 
             experiment = Experiment(workspace=workspace)
         else:
@@ -53,7 +49,7 @@ class DatasetClient:
             experiment = Experiment()
 
         artifact = self._download_artifact(artifact_name, experiment)
-        asset = self._artifact_to_asset(artifact)
+        asset = self._artifact_to_asset(artifact, split)
         dataset = self._load_data(asset)
 
         experiment.end()
@@ -73,13 +69,16 @@ class DatasetClient:
 
         return artifact
 
-    def _artifact_to_asset(self, artifact: Artifact) -> ArtifactAsset:
+    def _artifact_to_asset(self, artifact: Artifact, split: str) -> ArtifactAsset:
         if len(artifact.assets) == 0:
             raise RuntimeError("Artifact has no assets")
-        elif len(artifact.assets) > 1:
-            raise RuntimeError("Artifact has more than one asset")
-        else:
-            asset = artifact.assets[0]
+        elif len(artifact.assets) != 2:
+            raise RuntimeError(
+                f"Artifact has more {len(artifact.assets)} assets, which is invalid. It should have only 2."
+            )
+
+        print(f"Picking split = '{split}'")
+        asset = [asset for asset in artifact.assets if split in asset.logical_path][0]
 
         return asset
 
@@ -334,8 +333,9 @@ if __name__ == "__main__":
     )
     inference(model, tokenizer)
 
+    base_model_suffix = args.base_model_name.split("/")[-1]
     sft_output_model_repo_id = (
-        f"{args.model_output_huggingface_workspace}/LLMTwin{args.base_model_name}"
+        f"{args.model_output_huggingface_workspace}/LLMTwin-{base_model_suffix}"
     )
     save_model(
         model,
