@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     COMET_WORKSPACE: str | None = None
     COMET_PROJECT: str = "llm-twin"
 
-    DATASET_MODEL_ID: str = "decodingml/articles-instruct-dataset"
+    DATASET_ID: str = "decodingml/articles-instruct-dataset"
 
     # AWS Authentication
     AWS_REGION: str = "eu-central-1"

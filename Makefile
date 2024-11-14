@@ -74,7 +74,7 @@ start-training-pipeline-dummy-mode: # Start the training pipeline in AWS SageMak
 start-training-pipeline: # Start the training pipeline in AWS SageMaker.
 	cd src/training_pipeline && poetry run python run_on_sagemaker.py
 
-local-test-training-pipeline: # Start the training pipeline in your Poetry env.
+local-start-training-pipeline: # Start the training pipeline in your Poetry env.
 	cd src/training_pipeline && poetry run python -m finetune
 
 deploy-inference-pipeline: # Deploy the inference pipeline to AWS SageMaker.
@@ -85,6 +85,15 @@ call-inference-pipeline: # Call the inference pipeline client using your Poetry 
 
 delete-inference-pipeline-deployment: # Delete the deployment of the AWS SageMaker inference pipeline.
 	cd src/inference_pipeline && PYTHONPATH=$(PYTHONPATH) poetry run python -m aws.delete_sagemaker_endpoint
+
+evaluate-llm:
+	cd src/inference_pipeline && poetry run python -m evaluation.evaluate
+
+evaluate-rag:
+	cd src/inference_pipeline && poetry run python -m evaluation.evaluate_rag
+
+evaluate-llm-monitoring:
+	cd src/inference_pipeline && poetry run python -m evaluation.evaluate_monitoring
 
 # ======================================
 # ------ Superlinked Bonus Series ------

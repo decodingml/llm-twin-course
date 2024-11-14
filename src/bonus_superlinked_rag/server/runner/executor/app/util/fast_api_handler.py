@@ -20,8 +20,6 @@ from pydantic import Field
 from superlinked.framework.common.util.immutable_model import ImmutableBaseModel
 from superlinked.framework.dsl.executor.rest.rest_handler import RestHandler
 
-# TODO: resolve the noqa comments [ENG-1767]
-
 
 class QueryResponse(ImmutableBaseModel):
     schema_: str = Field(..., alias="schema")
