@@ -1,28 +1,38 @@
 import argparse
 
-from config import settings
+from core.config import settings
 from core.logger_utils import get_logger
 from core.opik_utils import create_dataset_from_artifacts
 from llm_twin import LLMTwin
 from opik.evaluation import evaluate
-from opik.evaluation.metrics import Hallucination, LevenshteinRatio, Moderation
+from opik.evaluation.metrics import (
+    ContextPrecision,
+    ContextRecall,
+    Hallucination,
+)
 
-from .style import Style
+settings.patch_localhost()
 
 logger = get_logger(__name__)
+logger.warning(
+    "Patched settings to work with 'localhost' URLs. \
+    Remove the 'settings.patch_localhost()' call from above when deploying or running inside Docker."
+)
 
 
 def evaluation_task(x: dict) -> dict:
     inference_pipeline = LLMTwin(mock=False)
     result = inference_pipeline.generate(
         query=x["instruction"],
-        enable_rag=False,
+        enable_rag=True,
     )
     answer = result["answer"]
+    context = result["context"]
 
     return {
         "input": x["instruction"],
         "output": answer,
+        "context": context,
         "expected_output": x["content"],
         "reference": x["content"],
     }
@@ -47,6 +57,7 @@ def main() -> None:
         dataset_name="LLMTwinArtifactTestDataset",
         artifact_names=[
             "articles-instruct-dataset",
+            "posts-instruct-dataset",
             "repositories-instruct-dataset",
         ],
     )
@@ -56,12 +67,12 @@ def main() -> None:
 
     experiment_config = {
         "model_id": settings.MODEL_ID,
+        "embedding_model_id": settings.EMBEDDING_MODEL_ID,
     }
     scoring_metrics = [
-        LevenshteinRatio(),
         Hallucination(),
-        Moderation(),
-        Style(),
+        ContextRecall(),
+        ContextPrecision(),
     ]
     evaluate(
         dataset=dataset,

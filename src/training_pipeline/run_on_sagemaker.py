@@ -54,7 +54,7 @@ def run_finetuning_on_sagemaker(
 
     hyperparameters = {
         "base_model_name": settings.HUGGINGFACE_BASE_MODEL_ID,
-        "dataset_id": settings.DATASET_MODEL_ID,
+        "dataset_id": settings.DATASET_ID,
         "num_train_epochs": num_train_epochs,
         "per_device_train_batch_size": per_device_train_batch_size,
         "learning_rate": learning_rate,

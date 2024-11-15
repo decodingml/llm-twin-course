@@ -119,7 +119,7 @@ docker logs llm-twin-feature-pipeline
 ```
 You should see logs reflecting the cleaning, chunking, and embedding operations (without any errors, of course).
 
-To check that the Qdrant `vector DB` is populated successfully, go to its dashboard at [localhost:6333/dashboard](localhost:6333/dashboard). There, you should see the repositories or article collections created and populated.
+To check that the Qdrant `vector DB` is populated successfully, go to its dashboard at **[localhost:6333/dashboard](localhost:6333/dashboard)**. There, you should see the repositories or article collections created and populated.
 
 > [!NOTE]
 > If using the cloud version of Qdrant, go to your Qdrant account and cluster to see the same thing as in the local dashboard.
@@ -222,7 +222,7 @@ make start-training-pipeline
 
 After you have finetuned your model, the first step is to deploy the LLM to AWS SageMaker as a REST API service:
 ```shell
-deploy-inference-pipeline 
+make deploy-inference-pipeline 
 ```
 
 > [!NOTE]

@@ -42,6 +42,15 @@ class AppSettings(BaseSettings):
     AWS_SECRET_KEY: str | None = None
     AWS_ARN_ROLE: str | None = None
 
+    # LLM Model config
+    HUGGINGFACE_ACCESS_TOKEN: str | None = None
+    MODEL_ID: str = "pauliusztin/LLMTwin-Meta-Llama-3.1-8B"
+    DEPLOYMENT_ENDPOINT_NAME: str = "twin"
+
+    MAX_INPUT_TOKENS: int = 1536  # Max length of input text.
+    MAX_TOTAL_TOKENS: int = 2048  # Max length of the generation (including input text).
+    MAX_BATCH_TOTAL_TOKENS: int = 2048  # Limits the number of tokens that can be processed in parallel during the generation.
+
     # Embeddings config
     EMBEDDING_MODEL_ID: str = "BAAI/bge-small-en-v1.5"
     EMBEDDING_MODEL_MAX_INPUT_LENGTH: int = 512

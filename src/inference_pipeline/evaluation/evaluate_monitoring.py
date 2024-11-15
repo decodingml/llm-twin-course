@@ -2,11 +2,11 @@ import argparse
 
 import opik
 from config import settings
-from evaluation import Style
+from core.logger_utils import get_logger
 from opik.evaluation import evaluate
 from opik.evaluation.metrics import AnswerRelevance, Hallucination, Moderation
 
-from core.logger_utils import get_logger
+from .style import Style
 
 logger = get_logger(__name__)
 

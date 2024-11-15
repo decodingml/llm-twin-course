@@ -84,9 +84,14 @@ def create_dataset_from_artifacts(
 
                 continue
 
-            # TODO: Grab only testing data
-            artifact_file = list(artifact_dir.glob("*"))[0]
-            with open(artifact_file, "r") as file:
+            testing_artifact_file = list(artifact_dir.glob("*_testing.json"))
+            assert (
+                len(testing_artifact_file) == 1
+            ), "Expected exactly one testing artifact file."
+            testing_artifact_file = testing_artifact_file[0]
+
+            logger.info(f"Loading testing data from: {testing_artifact_file}")
+            with open(testing_artifact_file, "r") as file:
                 items = json.load(file)
 
             enhanced_items = [
@@ -95,7 +100,7 @@ def create_dataset_from_artifacts(
             dataset_items.extend(enhanced_items)
     experiment.end()
 
-    if len(dataset_name) == 0:
+    if len(dataset_items) == 0:
         logger.warning("No items found in the artifacts. Dataset creation skipped.")
 
         return None
@@ -113,8 +118,6 @@ def create_dataset(name: str, description: str, items: list[dict]) -> opik.Datas
     client = opik.Opik()
 
     dataset = client.get_or_create_dataset(name=name, description=description)
-    # TODO: Delete this
-    items = items[:10]
     dataset.insert(items)
 
     dataset = client.get_dataset(name=name)

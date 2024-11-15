@@ -8,8 +8,6 @@ import torch  # noqa
 from comet_ml import Artifact, Experiment
 from comet_ml.artifacts import ArtifactAsset
 from datasets import Dataset, concatenate_datasets, load_dataset  # noqa: E402
-from huggingface_hub import HfApi  # noqa: E402
-from huggingface_hub.utils import RepositoryNotFoundError  # noqa: E402
 from transformers import TextStreamer, TrainingArguments  # noqa: E402
 from trl import SFTTrainer  # noqa: E402
 from unsloth import FastLanguageModel, is_bfloat16_supported  # noqa: E402
@@ -263,22 +261,6 @@ def save_model(
     if push_to_hub and repo_id:
         print(f"Saving model to '{repo_id}'")  # noqa
         model.push_to_hub_merged(repo_id, tokenizer, save_method="merged_16bit")
-
-
-def check_if_huggingface_model_exists(
-    model_id: str, default_value: str = "mlabonne/TwinLlama-3.1-8B"
-) -> str:
-    api = HfApi()
-
-    try:
-        api.model_info(model_id)
-    except RepositoryNotFoundError:
-        print(f"Model '{model_id}' does not exist.")  # noqa
-        model_id = default_value
-        print(f"Defaulting to '{model_id}'")  # noqa
-        print("Train your own 'TwinLlama-3.1-8B' to avoid this behavior.")  # noqa
-
-    return model_id
 
 
 if __name__ == "__main__":
