@@ -2,16 +2,7 @@ include .env
 
 $(eval export $(shell sed -ne 's/ *#.*$$//; /./ s/=.*$$// p' .env))
 
-AWS_CURRENT_REGION_ID := $(shell aws configure get region)
-AWS_CURRENT_ACCOUNT_ID := $(shell aws sts get-caller-identity --query "Account" --output text)
-
 PYTHONPATH := $(shell pwd)/src
-
-RED := \033[0;31m
-BLUE := \033[0;34m
-GREEN := \033[0;32m
-YELLOW := \033[0;33m
-RESET := \033[0m
 
 install: # Create a local Poetry virtual environment and install all required Python dependencies.
 	poetry env use 3.11
@@ -86,20 +77,23 @@ call-inference-pipeline: # Call the inference pipeline client using your Poetry 
 delete-inference-pipeline-deployment: # Delete the deployment of the AWS SageMaker inference pipeline.
 	cd src/inference_pipeline && PYTHONPATH=$(PYTHONPATH) poetry run python -m aws.delete_sagemaker_endpoint
 
-evaluate-llm:
+local-start-ui: # Start the Gradio UI for chatting with your LLM Twin using your Poetry env.
+	cd src/inference_pipeline && poetry run python -m ui
+
+evaluate-llm: # Run evaluation tests on the LLM model's performance using your Poetry env.
 	cd src/inference_pipeline && poetry run python -m evaluation.evaluate
 
-evaluate-rag:
+evaluate-rag: # Run evaluation tests specifically on the RAG system's performance using your Poetry env.
 	cd src/inference_pipeline && poetry run python -m evaluation.evaluate_rag
 
-evaluate-llm-monitoring:
+evaluate-llm-monitoring: # Run evaluation tests for monitoring the LLM system using your Poetry env.
 	cd src/inference_pipeline && poetry run python -m evaluation.evaluate_monitoring
 
 # ======================================
 # ------ Superlinked Bonus Series ------
 # ======================================
 
-install-superlinked:
+install-superlinked: # Create a local Poetry virtual environment and install all required Python dependencies (with Superlinked enabled).
 	poetry env use 3.11
 	poetry install
 

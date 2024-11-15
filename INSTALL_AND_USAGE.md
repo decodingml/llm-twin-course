@@ -218,9 +218,24 @@ make start-training-pipeline
 > If you get any `Service Quotas` errors, you must increase your AWS quotas for `ml.g5.2xlarge` instances. More exactly, you have to go to your AWS account -> Service Quatas -> AWS services -> search `SageMaker` -> search `ml.g5.2xlarge`, then increase the quotas to 1 for `ml.g5.2xlarge for training job usage` (training jobs) and `ml.g5.2xlarge for endpoint usage` (inference jobs). More details on changing service quotas are in [this article](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-quota-increase.html).
 
 
-### Step 8: Testing the inference pipeline
+### Step 8: Ruuning the evaluation pipelines
 
-After you have finetuned your model, the first step is to deploy the LLM to AWS SageMaker as a REST API service:
+After you have finetuned your LLM, you can start the LLM evaluation pipeline by running:
+```shell
+make evaluate-llm
+```
+
+To start the RAG evaluation pipeline, run:
+```shell
+make evaluate-rag
+```
+
+Next, check the evaluation datasets and experiment results in [Opik's Dashboard](https://www.comet.com/opik).
+
+
+### Step 9: Testing the inference pipeline
+
+After you have finetuned and evaluated your model, the first step is to deploy the LLM to AWS SageMaker as a REST API service:
 ```shell
 make deploy-inference-pipeline 
 ```
@@ -233,7 +248,26 @@ After the deployment is finished (it will take a few minutes), you can call it w
 make call-inference-pipeline
 ```
 
-Ultimately, after testing it, you can delete the AWS SageMaker deployment, by running:
+After testing the inference pipeline from the CLI, you can start playing around with the LLM Twin from our GUI, by running:
+```shell
+make local-start-ui
+```
+
+Now you can access the GUI at **[http://localhost:7860](http://localhost:7860)** and start asking the LLM Twin to generate some content for you, such as: **"Draft a post about RAG systems."** as in the example below:
+
+![UI Example](media/ui-example.png)
+
+After playing around with the model, you will start collecting and monitoring your prompts which you can visualize again in [Opik's Dashboard](https://www.comet.com/opik).
+
+Also, you can kick off the monitoring LLM evaluation pipeline by running:
+```bash
+make evaluate-llm-monitoring
+```
+
+> [!WARNING]
+> Clear up your AWS resources to avoid any unexpected costs.
+
+Ultimately, after testing the inference pipeline, you can delete the AWS SageMaker deployment, by running:
 ```shell
 make delete-inference-pipeline-deployment
 ```

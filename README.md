@@ -56,6 +56,10 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 
 ## The architecture of the LLM twin is split into 4 Python microservices:
 
+<p align="center">
+  <img src="media/architecture.png" alt="LLM Twin Architecture">
+</p>
+
 ### The data collection pipeline
 
 - Crawl your digital data from various social media platforms.
@@ -87,14 +91,11 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 - Monitor the LLM using [Comet's](https://www.comet.com/signup/?framework=llm&utm_source=decoding_ml&utm_medium=partner&utm_content=github) prompt monitoring dashboard.
 - In the bonus series, we refactor the advanced RAG layer to write more optimal queries using [Superlinked](https://rebrand.ly/superlinked-github).
 - ☁️ Deployed on [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml).
-
-</br>
+- Wrap up everything with a Gradio UI (as seen below) where you can start playing around with the LLM Twin.
 
 <p align="center">
-  <img src="media/architecture.png" alt="Your image description">
+  <img src="media/ui-example.png" alt="Gradio UI">
 </p>
-
-</br>
 
 Along the 4 microservices, you will learn to integrate 3 serverless tools:
 
