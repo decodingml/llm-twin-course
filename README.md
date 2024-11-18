@@ -2,7 +2,7 @@
     <h2>LLM Twin Course: Building Your Production-Ready AI Replica</h2>
     <h1>Learn to architect and implement a production-ready LLM & RAG system by building your LLM Twin</h1>
     <h3>From data gathering to productionizing LLMs using LLMOps good practices.</h3>
-    <i>by <a href="https://github.com/iusztinpaul">Paul Iusztin</a>, <a href="https://github.com/alexandruvesa">Alexandru Vesa</a> and <a href="https://github.com/Joywalker">Alexandru Razvant</a></i>
+    <i>by <a href="https://decodingml.substack.com">Decoding ML</i>
 </div>
 
 </br>
@@ -156,24 +156,24 @@ You can `ask any question` by `opening an issue` in this GitHub repository by cl
 ### System design
 1. [An End-to-End Framework for Production-Ready LLM Systems by Building Your LLM Twin](https://medium.com/decodingml/an-end-to-end-framework-for-production-ready-llm-systems-by-building-your-llm-twin-2cc6bb01141f)
 
-### Data engineering: Gather & store the data for your LLM twin
-2. [The Importance of Data Pipelines in the Era of Generative AI](https://medium.com/decodingml/the-importance-of-data-pipelines-in-the-era-of-generative-ai-673e1505a861)
-3. [Change Data Capture: Enabling Event-Driven Architectures](https://medium.com/decodingml/the-3nd-out-of-11-lessons-of-the-llm-twin-free-course-ba82752dad5a)
+### Data engineering: Gathering and storing the data for your LLM Twin
+2. [Your Content is Gold: I Turned 3 Years of Blog Posts into an LLM Training](https://medium.com/decodingml/your-content-is-gold-i-turned-3-years-of-blog-posts-into-an-llm-training-d19c265bdd6e)
+3. [I Replaced 1000 Lines of Polling Code with 50 Lines of CDC Magic](https://medium.com/decodingml/i-replaced-1000-lines-of-polling-code-with-50-lines-of-cdc-magic-4d31abd3bc3b)
 
-### Feature pipeline: prepare data for LLM fine-tuning & RAG
+### Feature pipeline: Feature engineering data for LLM fine-tuning & RAG
 4. [SOTA Python Streaming Pipelines for Fine-tuning LLMs and RAG — in Real-Time!](https://medium.com/decodingml/sota-python-streaming-pipelines-for-fine-tuning-llms-and-rag-in-real-time-82eb07795b87)
 5. [The 4 Advanced RAG Algorithms You Must Know to Implement](https://medium.com/decodingml/the-4-advanced-rag-algorithms-you-must-know-to-implement-5d0c7f1199d2)
 
-### Training pipeline: fine-tune your LLM twin
-6. [The Role of Feature Stores in Fine-Tuning LLMs: From raw data to instruction dataset](https://medium.com/decodingml/the-role-of-feature-stores-in-fine-tuning-llms-22bd60afd4b9)
-7. [How to fine-tune LLMs on custom datasets at Scale using Qwak and CometML](https://medium.com/decodingml/how-to-fine-tune-llms-on-custom-datasets-at-scale-using-qwak-and-cometml-12216a777c34)
-8. [Best Practices when evaluating fine-tuned LLMs](https://medium.com/decodingml/best-practices-when-evaluating-fine-tuned-llms-47f02f5164c2)
+### Training pipeline: Fine-tuning your LLM Twin
+6. [Turning Raw Data Into Fine-Tuning Datasets](https://medium.com/decodingml/turning-raw-data-into-fine-tuning-datasets-dc83657d1280)
+7. [8B Parameters, 1 GPU, No Problems: The Ultimate LLM Fine-tuning Pipeline](https://medium.com/decodingml/8b-parameters-1-gpu-no-problems-the-ultimate-llm-fine-tuning-pipeline-f68ef6c359c2)
+8. [The Engineer’s Framework for LLM & RAG Evaluation](https://medium.com/decodingml/the-engineers-framework-for-llm-rag-evaluation-59897381c326)
 
-### Inference pipeline: serve your LLM twin
-9. [Architect scalable and cost-effective LLM & RAG inference pipelines](https://medium.com/decodingml/architect-scalable-and-cost-effective-llm-rag-inference-pipelines-73b94ef82a99)
-10. [How to evaluate your RAG using RAGAs Framework](https://medium.com/decodingml/how-to-evaluate-your-rag-using-ragas-framework-18d2325453ae)
+### Inference pipeline: Serving and monitoring your LLM Twin
+9. [Beyond Proof of Concept: Building RAG Systems That Scale](https://medium.com/decodingml/beyond-proof-of-concept-building-rag-systems-that-scale-e537d0eb063a)
+10. [Prompt monitoring WIP]()
 
-### Bonus: refactor and optimize the RAG system
+### Bonus: Refactoring and optimizing the RAG system
 11. [Build a scalable RAG ingestion pipeline using 74.3% less code](https://medium.com/decodingml/build-a-scalable-rag-ingestion-pipeline-using-74-3-less-code-ac50095100d6)
 12. [Build Multi-Index Advanced RAG Apps](https://medium.com/decodingml/build-multi-index-advanced-rag-apps-bd33d2f0ec5c)
 
@@ -199,23 +199,8 @@ The course is created under the [Decoding ML](https://decodingml.substack.com/) 
     <td><a href="https://github.com/iusztinpaul" target="_blank"><img src="https://github.com/iusztinpaul.png" width="100" style="border-radius:50%;"/></a></td>
     <td>
       <strong>Paul Iusztin</strong><br />
-      <i>Senior ML & MLOps Engineer</i>
+      <i>Senior AI & LLM Engineer</i>
     </td>
-  </tr>
-  <tr>
-    <td><a href="https://github.com/alexandruvesa" target="_blank"><img src="https://github.com/alexandruvesa.png" width="100" style="border-radius:50%;"/></a></td>
-    <td>
-      <strong>Alexandru Vesa</strong><br />
-      <i>Senior AI Engineer</i>
-    </td>
-  </tr>
-  <tr>
-    <td><a href="https://github.com/Joywalker" target="_blank"><img src="https://github.com/Joywalker.png" width="100" style="border-radius:50%;"/></a></td>
-    <td>
-      <strong>Răzvanț Alexandru</strong><br />
-      <i>Senior ML Engineer</i>
-    </td>
-  </tr>
 </table>
 
 ## License

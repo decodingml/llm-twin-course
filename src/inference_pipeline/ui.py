@@ -43,7 +43,7 @@ def predict(message: str, history: list[list[str]], author: str) -> str:
 demo = gr.ChatInterface(
     predict,
     textbox=gr.Textbox(
-        placeholder="Chat with your digital twin",
+        placeholder="Chat with your LLM Twin",
         label="Message",
         container=False,
         scale=7,

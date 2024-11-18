@@ -107,6 +107,11 @@ After running the command, this will happen:
 3. the CDC component will be triggered, which will populate the RabbitMQ with the event
 4. the RAG feature pipeline will read the event from RabbitMQ, process it for RAG, and add it to the Qdrant vector DB
 
+You can check the logs from the crawler Docker image, by running:
+```bash
+docker logs llm-twin-data-crawlers
+``` 
+
 ### Step 2: Feature engineering & Vector DB
 
 The previous step actually called both the crawling and RAG feature engineering pipeline. But now, let's check that everything worked as expected.
@@ -117,9 +122,18 @@ To do so, check the logs of the `llm-twin-feature-pipeline` Docker container by 
 ```shell
 docker logs llm-twin-feature-pipeline
 ```
+Also, you can check the logs of the CDC and RabbitMQ Docker containers, by running:
+```bash
+docker logs llm-twin-data-cdc # CDC service
+docker logs llm-twin-mq # RabbitMQ
+```
+
 You should see logs reflecting the cleaning, chunking, and embedding operations (without any errors, of course).
 
-To check that the Qdrant `vector DB` is populated successfully, go to its dashboard at **[localhost:6333/dashboard](localhost:6333/dashboard)**. There, you should see the repositories or article collections created and populated.
+To check that the Qdrant `vector DB` is populated successfully, go to its dashboard at **[localhost:6333/dashboard](localhost:6333/dashboard)**. There, you should see the repositories or article collections created and populated, similar to the image below:
+
+![Qdrant Example](media/qdrant-example.png)
+
 
 > [!NOTE]
 > If using the cloud version of Qdrant, go to your Qdrant account and cluster to see the same thing as in the local dashboard.
