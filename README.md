@@ -53,6 +53,7 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 - [9. License](#license)
 - [10. Contributors](#contributors)
 - [11. Sponsors](#sponsors)
+- [12. Next Steps ⬅](#next-steps)
 
 ## The architecture of the LLM twin is split into 4 Python microservices:
 
@@ -80,7 +81,7 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 - Fine-tune an LLM using QLoRA.
 - Use [Comet ML's](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github) experiment tracker to monitor the experiments.
 - Evaluate and save the best model to [Comet's](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github) model registry.
-- ☁️ Deployed on [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml).
+- ☁️ Deployed on AWS SageMaker
 
 ### The inference pipeline
 
@@ -90,18 +91,19 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 - Generate content using your LLM twin.
 - Monitor the LLM using [Comet's](https://www.comet.com/signup/?framework=llm&utm_source=decoding_ml&utm_medium=partner&utm_content=github) prompt monitoring dashboard.
 - In the bonus series, we refactor the advanced RAG layer to write more optimal queries using [Superlinked](https://rebrand.ly/superlinked-github).
-- ☁️ Deployed on [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml).
+- ☁️ Deployed on AWS SagaMaker
 - Wrap up everything with a Gradio UI (as seen below) where you can start playing around with the LLM Twin.
 
 <p align="center">
   <img src="media/ui-example.png" alt="Gradio UI">
 </p>
 
-Along the 4 microservices, you will learn to integrate 3 serverless tools:
+Along the 4 microservices, you will learn to integrate 4 serverless tools:
 
 * [Comet ML](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github) as your ML Platform;
 * [Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course) as your vector DB;
-* [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml) as your ML infrastructure;
+* [AWS SageMaker](https://aws.amazon.com/sagemaker/) as your ML infrastructure;
+* [Opik](https://github.com/comet-ml/opik) as your prompt evaluation and monitoring tool.
 
 ## Who is this for?
 
@@ -125,12 +127,6 @@ If you plan to run the code while reading it, you have to know that we use sever
 **Pay as you go** 
 - [AWS](https://aws.amazon.com/) offers accessible plans to new joiners.
     - For a new first-time account, you could get up to 300$ in free credits which are valid for 6 months. For more, consult the [AWS Offerings](https://aws.amazon.com/free/offers/) page.
-- [Qwak](https://www.qwak.com/lp/end-to-end-mlops/?utm_source=github&utm_medium=referral&utm_campaign=decodingml) has a QPU based pricing plan. Here's what you need to know:
-    - A QPU stands for Qwak Processing Unit, and is the equivalent of 4vCPU-16GB.
-    - Qwak offers up to 100QPU/month for free for up to one year after registration.
-    - After that, a policy of 1.2$/QPU is applied as a pay-as-you-go tactic.
-    - To find more about Qwak pricing, consult [Qwak Pricing Page](https://www.qwak.com/pricing?utm_source=github&utm_medium=referral&utm_campaign=decodingml)
-    - To find more about Qwak Compute Instances, consult [Qwak Instances Page](https://docs.qwak.com/docs/instance-sizes?utm_source=github&utm_medium=referral&utm_campaign=decodingml)
 
 **Freemium** (Free-of-Charge)
 - [Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course)
