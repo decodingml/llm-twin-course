@@ -12,6 +12,16 @@ Before starting to install the LLM Twin project, make sure you have installed th
 
 ## Cloud / services dependencies
 
+The code also uses and depends on the following cloud services. For now, you don't have to do anything. We will guide you in the installation and deployment sections on how to use them:
+
+| Service | Purpose |
+|---------|---------|
+| [HuggingFace](https://huggingface.com/) | Model registry |
+| [Comet ML](https://www.comet.com/site/) | Experiment tracker |
+| [Opik](https://www.comet.com/site/products/opik/) | Prompt monitoring & LLM Evaluation |
+| [AWS](https://aws.amazon.com/) | Compute and storage |
+| [MongoDB](https://www.mongodb.com/) | NoSQL database |
+| [Qdrant](https://qdrant.tech/) | Vector database |
 
 
 ## Supported commands
@@ -31,6 +41,40 @@ Go to the root of the repository, copy our `.env.example` file and fill it with 
 ```shell
 cp .env.example .env
 ```
+
+### Getting credentials for cloud services
+
+Now, let's understand how to fill in all the essential variables within the `.env` file to get you started. The following are the mandatory settings we must complete when working locally:
+
+#### OpenAI
+
+To authenticate to OpenAI's API, you must fill out the `OPENAI_API_KEY` env var with an authentication token.
+
+```env
+OPENAI_API_KEY=your_api_key_here
+```
+
+→ Check out this [tutorial](https://platform.openai.com/docs/quickstart) to learn how to provide one from OpenAI.
+
+#### Hugging Face
+
+To authenticate to Hugging Face, you must fill out the `HUGGINGFACE_ACCESS_TOKEN` env var with an authentication token.
+
+```env
+HUGGINGFACE_ACCESS_TOKEN=your_token_here
+```
+
+→ Check out this [tutorial](https://huggingface.co/docs/hub/en/security-tokens) to learn how to provide one from Hugging Face.
+
+#### Comet ML & Opik
+
+To authenticate to Comet ML (required only during training) and Opik, you must fill out the `COMET_API_KEY` env var with your authentication token.
+
+```env
+COMET_API_KEY=your_api_key_here
+```
+
+→ Check out this [tutorial](https://www.comet.com/docs/v2/api-and-sdk/rest-api/overview/) to learn how to get the Comet ML variables from above. You can also access Opik's dashboard using 🔗[this link](https://www.comet.com/opik).
 
 ## Install local dependencies
 
