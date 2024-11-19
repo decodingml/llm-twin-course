@@ -49,11 +49,10 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
     - [6.5. Inference pipeline: serve your LLM twin](#inference-pipeline-serve-your-llm-twin)
     - [6.6. Bonus: refactor and optimize the RAG system](#bonus-refactor-and-optimize-the-rag-system)
 - [7. Install & Usage](#install--usage)
-- [8. Meet your teachers!](#meet-your-teachers)
-- [9. License](#license)
-- [10. Contributors](#contributors)
-- [11. Sponsors](#sponsors)
-- [12. Next Steps 🧑‍💻](#next-steps)
+- [8. License](#license)
+- [9. Contributors](#contributors)
+- [10. Sponsors](#sponsors)
+- [11. Next steps 🧑‍💻](#next-steps)
 
 ## The architecture of the LLM Twin is split into 4 Python microservices:
 
@@ -251,7 +250,7 @@ Also, another big "Thank you 🙏" to all our sponsors who supported our work an
   </tr>
 </table>
 
-## Next Steps
+## Next steps
 
 Our **LLM Engineer’s Handbook** inspired the **open-source LLM Twin course**.
 
