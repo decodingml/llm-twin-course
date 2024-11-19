@@ -186,19 +186,6 @@ The bonus Superlinked series has an extra dedicated [README](https://github.com/
 
 In that section, we explain how to run it with the improved RAG layer powered by [Superlinked](https://rebrand.ly/superlinked-github).
 
-## Meet your teachers!
-
-The course is created under the [Decoding ML](https://decodingml.substack.com/) umbrella by:
-
-<table>
-  <tr>
-    <td><a href="https://github.com/iusztinpaul" target="_blank"><img src="https://github.com/iusztinpaul.png" width="100" style="border-radius:50%;"/></a></td>
-    <td>
-      <strong>Paul Iusztin</strong><br />
-      <i>Senior AI & LLM Engineer</i>
-    </td>
-</table>
-
 ## License
 
 This course is an open-source project released under the MIT license. Thus, as long you distribute our LICENSE and acknowledge our work, you can safely clone or fork this project and use it as a source of inspiration for whatever you want (e.g., university projects, college degree projects, personal projects, etc.).
