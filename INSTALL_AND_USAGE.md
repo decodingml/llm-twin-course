@@ -68,10 +68,11 @@ HUGGINGFACE_ACCESS_TOKEN=your_token_here
 
 #### Comet ML & Opik
 
-To authenticate to Comet ML (required only during training) and Opik, you must fill out the `COMET_API_KEY` env var with your authentication token.
+To authenticate to Comet ML (required only during training) and Opik, you must fill out the `COMET_API_KEY` and `COMET_WORKSPACE` env vars with your authentication token and workspace name.
 
 ```env
 COMET_API_KEY=your_api_key_here
+COMET_WORKSPACE=your_workspace_name_here
 ```
 
 → Check out this [tutorial](https://www.comet.com/docs/v2/api-and-sdk/rest-api/overview/) to learn how to get the Comet ML variables from above. You can also access Opik's dashboard using 🔗[this link](https://www.comet.com/opik).
