@@ -4,7 +4,11 @@ description = ""
 version = "0.1.0"
 authors = [
     "Paul Iusztin <p.b.iusztin@gmail.com>",
+    "Vesa Alexandru <vesaalexandru95@gmail.com>",
+    "Razvant Alexandru <AlexandruRazvant@gmail.com>",
+    "Rares Istoc <istoc.rares@gmail.com>",
     "Vlad Adumitracesei <vladadumitracesei02@gmail.com>",
+    "Anca Muscalagiu <ancamuscalagiu1@gmail.com>"
 ]
 package-mode = false
 readme = "README.md"

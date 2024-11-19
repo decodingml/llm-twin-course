@@ -32,7 +32,7 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 
 ## Table of contents
 
-- [1. The architecture of the LLM twin is split into 4 Python microservices:](#the-architecture-of-the-llm-twin-is-split-into-4-python-microservices)
+- [1. The architecture of the LLM Twin is split into 4 Python microservices:](#the-architecture-of-the-llm-twin-is-split-into-4-python-microservices)
     - [1.1. The data collection pipeline](#the-data-collection-pipeline)
     - [1.2. The feature pipeline](#the-feature-pipeline)
     - [1.3. The training pipeline](#the-training-pipeline)
@@ -53,9 +53,9 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 - [9. License](#license)
 - [10. Contributors](#contributors)
 - [11. Sponsors](#sponsors)
-- [12. Next Steps ⬅](#next-steps)
+- [12. Next Steps 🧑‍💻](#next-steps)
 
-## The architecture of the LLM twin is split into 4 Python microservices:
+## The architecture of the LLM Twin is split into 4 Python microservices:
 
 <p align="center">
   <img src="media/architecture.png" alt="LLM Twin Architecture">
@@ -63,36 +63,34 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 
 ### The data collection pipeline
 
-- Crawl your digital data from various social media platforms.
+- Crawl your digital data from various social media platforms, such as Medium, Substack and GitHub.
 - Clean, normalize and load the data to a [Mongo NoSQL DB](https://www.mongodb.com/) through a series of ETL pipelines.
 - Send database changes to a [RabbitMQ](https://www.rabbitmq.com/) queue using the CDC pattern.
-- ☁️ Deployed on [AWS](https://aws.amazon.com/).
+- Learn to package the crawlers as AWS Lambda functions.
 
 ### The feature pipeline
 
-- Consume messages from a queue through a [Bytewax](https://github.com/bytewax/bytewax?utm_source=github&utm_medium=decodingml&utm_campaign=2024_q1) streaming pipeline.
-- Every message will be cleaned, chunked, embedded and loaded into a [Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course) vector DB in real-time.
-- In the bonus series, we refactor the cleaning, chunking, and embedding logic using [Superlinked](https://rebrand.ly/superlinked-github), a specialized vector compute engine. We will also load and index the vectors to [Redis vector search](https://redis.io/solutions/vector-search/).
-- ☁️ Deployed on [AWS](https://aws.amazon.com/).
+- Consume messages in real-time from a queue through a [Bytewax](https://github.com/bytewax/bytewax?utm_source=github&utm_medium=decodingml&utm_campaign=2024_q1) streaming pipeline.
+- Every message will be cleaned, chunked, embedded and loaded into a [Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course) vector DB.
+- In the bonus series, we refactor the cleaning, chunking, and embedding logic using [Superlinked](https://rebrand.ly/superlinked-github), a specialized vector compute engine. We will also load and index the vectors to a [Redis vector DB](https://redis.io/solutions/vector-search/).
 
 ### The training pipeline
 
-- Create a custom dataset based on your digital data.
-- Fine-tune an LLM using QLoRA.
+- Create a custom instruction dataset based on your custom digital data to do SFT.
+- Fine-tune an LLM using LoRA or QLoRA.
 - Use [Comet ML's](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github) experiment tracker to monitor the experiments.
-- Evaluate and save the best model to [Comet's](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github) model registry.
-- ☁️ Deployed on AWS SageMaker
+- Evaluate the LLM using [Opik](https://github.com/comet-ml/opik)
+- Save and version the best model to the [Hugging Face model registry](https://huggingface.co/models).
+- Run and automate the training pipeline using [AWS SageMaker](https://aws.amazon.com/sagemaker/).
 
 ### The inference pipeline
 
-- Load the fine-tuned LLM from [Comet's](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github) model registry.
-- Deploy it as a REST API.
-- Enhance the prompts using advanced RAG.
-- Generate content using your LLM twin.
-- Monitor the LLM using [Comet's](https://www.comet.com/signup/?framework=llm&utm_source=decoding_ml&utm_medium=partner&utm_content=github) prompt monitoring dashboard.
+- Load the fine-tuned LLM from the [Hugging Face model registry](https://huggingface.co/models).
+- Deploy the LLM as a scalable REST API using [AWS SageMaker inference endpoints](https://aws.amazon.com/sagemaker/deploy/).
+- Enhance the prompts using advanced RAG techniques.
+- Monitor the prompts and LLM generated results using [Opik](https://github.com/comet-ml/opik)
 - In the bonus series, we refactor the advanced RAG layer to write more optimal queries using [Superlinked](https://rebrand.ly/superlinked-github).
-- ☁️ Deployed on AWS SagaMaker
-- Wrap up everything with a Gradio UI (as seen below) where you can start playing around with the LLM Twin.
+- Wrap up everything with a Gradio UI (as seen below) where you can start playing around with the LLM Twin to generate content that follows your writing style.
 
 <p align="center">
   <img src="media/ui-example.png" alt="Gradio UI">
@@ -100,29 +98,32 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 
 Along the 4 microservices, you will learn to integrate 4 serverless tools:
 
-* [Comet ML](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github) as your ML Platform;
+* [Comet ML](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github) as your experiment tracker and data registry;
 * [Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course) as your vector DB;
 * [AWS SageMaker](https://aws.amazon.com/sagemaker/) as your ML infrastructure;
 * [Opik](https://github.com/comet-ml/opik) as your prompt evaluation and monitoring tool.
 
 ## Who is this for?
 
-**Audience:** MLE, DE, DS, or SWE who want to learn to engineer production-ready LLM systems using LLMOps good principles.
+**Audience:** MLE, DE, DS, or SWE who want to learn to engineer production-ready LLM & RAG systems using LLMOps good principles.
 
 **Level:** intermediate
 
-**Prerequisites:** basic knowledge of Python, ML, and the cloud
+**Prerequisites:** basic knowledge of Python and ML
 
 ## How will you learn?
 
-The course contains **11 hands-on written lessons** and the **open-source code** you can access on GitHub.
+The course contains **10 hands-on written lessons** and the **open-source code** you can access on GitHub, showing how to build an end-to-end LLM system.
 
-You can read everything and try out the code at your own pace. 
+Also, it includes **2 bonus lessons** on how to **improve the RAG system**.
+
+You can read everything at your own pace.
+
 
 ## Costs?
 The **articles** and **code** are **completely free**. They will always remain free.
 
-If you plan to run the code while reading it, you have to know that we use several cloud tools that might generate additional costs.
+If you plan to run the code while reading it, you must know that we use several cloud tools that might generate additional costs.
 
 **Pay as you go** 
 - [AWS](https://aws.amazon.com/) offers accessible plans to new joiners.
@@ -131,6 +132,7 @@ If you plan to run the code while reading it, you have to know that we use sever
 **Freemium** (Free-of-Charge)
 - [Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course)
 - [Comet ML](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github)
+- [Opik](https://github.com/comet-ml/opik)
 
 ## Questions and troubleshooting
 
@@ -139,8 +141,6 @@ Please ask us any questions if anything gets confusing while studying the articl
 You can `ask any question` by `opening an issue` in this GitHub repository by clicking [here](https://github.com/decodingml/llm-twin-course/issues).
 
 ## Lessons
-
-→ [Quick overview](https://medium.com/decodingml/the-llm-twin-free-course-on-production-ready-rag-pipelines-c96472f4e8c8) of each lesson of the LLM Twin free course.
 
 > [!IMPORTANT]
 > **To understand the entire code step-by-step, check out our articles ↓**
@@ -175,14 +175,14 @@ You can `ask any question` by `opening an issue` in this GitHub repository by cl
 
 ## Install & Usage
 
-To understand how to install and run the LLM Twin code, go to the [INSTALL_AND_USAGE](https://github.com/decodingml/llm-twin-course/blob/main/INSTALL_AND_USAGE.md) dedicated document.
+To understand how to **install and run the LLM Twin code end-to-end**, go to the [INSTALL_AND_USAGE](https://github.com/decodingml/llm-twin-course/blob/main/INSTALL_AND_USAGE.md) dedicated document.
 
 > [!NOTE]
 > Even though you can run everything solely using the [INSTALL_AND_USAGE](https://github.com/decodingml/llm-twin-course/blob/main/INSTALL_AND_USAGE.md) dedicated document, we recommend that you read the articles to understand the LLM Twin system and design choices fully.
 
 ### Bonus Superlinked series
 
-The bonus Superlinked series has an extra dedicated [README](https://github.com/decodingml/llm-twin-course/blob/main/6-bonus-superlinked-rag/README.md) that you can access under the [6-bonus-superlinked-rag](https://github.com/decodingml/llm-twin-course/tree/main/6-bonus-superlinked-rag) directory.
+The **bonus Superlinked series** has an extra dedicated [README](https://github.com/decodingml/llm-twin-course/blob/main/6-bonus-superlinked-rag/README.md) that you can access under the [6-bonus-superlinked-rag](https://github.com/decodingml/llm-twin-course/tree/main/6-bonus-superlinked-rag) directory.
 
 In that section, we explain how to run it with the improved RAG layer powered by [Superlinked](https://rebrand.ly/superlinked-github).
 
@@ -253,11 +253,11 @@ Also, another big "Thank you 🙏" to all our sponsors who supported our work an
 
 ## Next Steps
 
-Our LLM Engineer’s Handbook inspired the open-source LLM Twin course.
+Our **LLM Engineer’s Handbook** inspired the **open-source LLM Twin course**.
 
-Consider supporting our work by getting our book to learn a complete framework for building and deploying production LLM & RAG systems — from data to deployment.
+Consider supporting our work by getting our book to **learn** a **complete framework** for **building and deploying production LLM & RAG systems** — from data to deployment.
 
-Perfect for practitioners who want both theory and hands-on expertise by connecting the dots between DE, research, MLE and MLOps:
+Perfect for practitioners who want **both theory** and **hands-on** expertise by connecting the dots between DE, research, MLE and MLOps:
 
 **[Buy the LLM Engineer’s Handbook](https://www.amazon.com/LLM-Engineers-Handbook-engineering-production/dp/1836200072/)**
 
