@@ -1,6 +1,6 @@
 # Introduction
 
-This module reflects the LLM fine-tuning pipeline where we download versioned datsets from CometML and manage the deployment at scale using Qwak.
+This module reflects the LLM fine-tuning pipeline where we download versioned datasets from CometML and manage the deployment at scale using Qwak.
 **Completing this lesson**, you'll gain a solid understanding of the following:
 
 - what is Qwak AI and how does it help solve MLOps challenges
