@@ -18,7 +18,7 @@ brew install pyenv
 
 Now, let's start the Superlinked server by running the following commands:
 ```shell
-# Create a virtual environment and install all necesary dependencies to deploy the server.
+# Create a virtual environment and install all necessary dependencies to deploy the server.
 cd 6-bonus-superlinked-rag/server
 ./tools/init-venv.sh
 cd runner

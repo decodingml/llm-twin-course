@@ -97,7 +97,7 @@ install-superlinked: # Create a local Poetry virtual environment and install all
 	poetry env use 3.11
 	poetry install
 
-local-start-superlinked: # Buil and start local infrastructure used in the Superlinked series.
+local-start-superlinked: # Build and start local infrastructure used in the Superlinked series.
 	docker compose -f docker-compose-superlinked.yml up --build -d
 
 local-stop-superlinked: # Stop local infrastructure used in the Superlinked series.

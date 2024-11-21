@@ -79,7 +79,7 @@ COMET_WORKSPACE=your_workspace_name_here
 
 ## Install local dependencies
 
-You can create a Python virtual environment and install all the necesary dependencies using Poetry, by running:
+You can create a Python virtual environment and install all the necessary dependencies using Poetry, by running:
 ```shell
 make install
 ```
@@ -128,7 +128,7 @@ make local-stop
 
 # Usage: Run an end-to-end flow
 
-Now that we have configured our credentials, local environemnt and Docker infrastructure let's look at how to run an end-to-end flow of the LLM Twin course.
+Now that we have configured our credentials, local environment and Docker infrastructure let's look at how to run an end-to-end flow of the LLM Twin course.
 
 > [!IMPORTANT]
 > Note that we won't go into the details of the system here. To fully understand it, check out our free lessons, which explains everything step-by-step: [LLM Twin articles series](https://medium.com/decodingml/llm-twin-course/home).
@@ -260,7 +260,7 @@ Now, we can move on to the fine-tunine and inference pipelines, which use AWS Sa
 
 ### Step 7: Starting the fine-tuning pipeline
 
-After setting up everything necesary for AWS SageMaker, to kick of the training in dummy mode, is as easy as. The dummy mode will reduce the dataset size and epochs to quickly see that everything works fine:
+After setting up everything necessary for AWS SageMaker, to kick of the training in dummy mode, is as easy as. The dummy mode will reduce the dataset size and epochs to quickly see that everything works fine:
 ```bash
 make start-training-pipeline-dummy-mode
 ```
