@@ -181,7 +181,7 @@ To understand how to **install and run the LLM Twin code end-to-end**, go to the
 
 ### Bonus Superlinked series
 
-The **bonus Superlinked series** has an extra dedicated [README](https://github.com/decodingml/llm-twin-course/blob/main/6-bonus-superlinked-rag/README.md) that you can access under the [6-bonus-superlinked-rag](https://github.com/decodingml/llm-twin-course/tree/main/6-bonus-superlinked-rag) directory.
+The **bonus Superlinked series** has an extra dedicated [README](https://github.com/decodingml/llm-twin-course/blob/main/6-bonus-superlinked-rag/README.md) that you can access under the [src/bonus_superlinked_rag](https://github.com/decodingml/llm-twin-course/tree/main/src/bonus_superlinked_rag) directory.
 
 In that section, we explain how to run it with the improved RAG layer powered by [Superlinked](https://github.com/superlinked/superlinked?utm_source=community&utm_medium=github&utm_campaign=oscourse).
 
