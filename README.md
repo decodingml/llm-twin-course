@@ -71,7 +71,7 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 
 - Consume messages in real-time from a queue through a [Bytewax](https://github.com/bytewax/bytewax?utm_source=github&utm_medium=decodingml&utm_campaign=2024_q1) streaming pipeline.
 - Every message will be cleaned, chunked, embedded and loaded into a [Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course) vector DB.
-- In the bonus series, we refactor the cleaning, chunking, and embedding logic using [Superlinked](https://rebrand.ly/superlinked-github), a specialized vector compute engine. We will also load and index the vectors to a [Redis vector DB](https://redis.io/solutions/vector-search/).
+- In the bonus series, we refactor the cleaning, chunking, and embedding logic using [Superlinked](https://github.com/superlinked/superlinked?utm_source=community&utm_medium=github&utm_campaign=oscourse), a specialized vector compute engine. We will also load and index the vectors to a [Redis vector DB](https://redis.io/solutions/vector-search/).
 
 ### The training pipeline
 
@@ -88,7 +88,7 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 - Deploy the LLM as a scalable REST API using [AWS SageMaker inference endpoints](https://aws.amazon.com/sagemaker/deploy/).
 - Enhance the prompts using advanced RAG techniques.
 - Monitor the prompts and LLM generated results using [Opik](https://github.com/comet-ml/opik)
-- In the bonus series, we refactor the advanced RAG layer to write more optimal queries using [Superlinked](https://rebrand.ly/superlinked-github).
+- In the bonus series, we refactor the advanced RAG layer to write more optimal queries using [Superlinked](https://github.com/superlinked/superlinked?utm_source=community&utm_medium=github&utm_campaign=oscourse).
 - Wrap up everything with a Gradio UI (as seen below) where you can start playing around with the LLM Twin to generate content that follows your writing style.
 
 <p align="center">
@@ -183,7 +183,7 @@ To understand how to **install and run the LLM Twin code end-to-end**, go to the
 
 The **bonus Superlinked series** has an extra dedicated [README](https://github.com/decodingml/llm-twin-course/blob/main/6-bonus-superlinked-rag/README.md) that you can access under the [6-bonus-superlinked-rag](https://github.com/decodingml/llm-twin-course/tree/main/6-bonus-superlinked-rag) directory.
 
-In that section, we explain how to run it with the improved RAG layer powered by [Superlinked](https://rebrand.ly/superlinked-github).
+In that section, we explain how to run it with the improved RAG layer powered by [Superlinked](https://github.com/superlinked/superlinked?utm_source=community&utm_medium=github&utm_campaign=oscourse).
 
 ## License
 
@@ -218,7 +218,7 @@ Also, another big "Thank you 🙏" to all our sponsors who supported our work an
       <a href="https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course" target="_blank">Qdrant</a>
     </td>
     <td align="center">
-      <a href="https://rebrand.ly/superlinked-github" target="_blank">Superlinked</a>
+      <a href="https://github.com/superlinked/superlinked?utm_source=community&utm_medium=github&utm_campaign=oscourse" target="_blank">Superlinked</a>
     </td>
   </tr>
   <tr>
@@ -243,7 +243,7 @@ Also, another big "Thank you 🙏" to all our sponsors who supported our work an
       </a>
     </td>
     <td align="center">
-      <a href="https://rebrand.ly/superlinked-github" target="_blank">
+      <a href="https://github.com/superlinked/superlinked?utm_source=community&utm_medium=github&utm_campaign=oscourse" target="_blank">
         <img src="media/sponsors/superlinked.png" width="150" alt="Superlinked">
       </a>
     </td>
