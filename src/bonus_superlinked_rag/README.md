@@ -80,6 +80,6 @@ make local-test-retriever-superlinked
 
 # Next steps
 
-If you enjoyed our [Superlinked](https://rebrand.ly/superlinked-github) bonus series, we recommend checking out their site for more examples. As Superlinked is not just a RAG tool but a general vector compute engine, you can build other awesome stuff with it, such as recommender systems. 
+If you enjoyed our [Superlinked](https://github.com/superlinked/superlinked?utm_source=community&utm_medium=github&utm_campaign=oscourse) bonus series, we recommend checking out their site for more examples. As Superlinked is not just a RAG tool but a general vector compute engine, you can build other awesome stuff with it, such as recommender systems. 
 
-→ 🔗 More on [Superlinked](https://rebrand.ly/superlinked-github) ←
+→ 🔗 More on [Superlinked](https://github.com/superlinked/superlinked?utm_source=community&utm_medium=github&utm_campaign=oscourse) ←
