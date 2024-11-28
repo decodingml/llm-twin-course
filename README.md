@@ -263,4 +263,8 @@ Perfect for practitioners who want **both theory** and **hands-on** expertise by
 * [On Amazon](https://www.amazon.com/LLM-Engineers-Handbook-engineering-production/dp/1836200072/)
 * [On Packt](https://www.packtpub.com/en-us/product/llm-engineers-handbook-9781836200062)
 
-![LLM Engineer's Handbook](media/llm_engineers_handbook_cover.png)
+<p align="center">
+  <a href="https://www.amazon.com/LLM-Engineers-Handbook-engineering-production/dp/1836200072/">
+    <img src="media/llm_engineers_handbook_cover.png" alt="LLM Engineer's Handbook">
+  </a>
+</p>
