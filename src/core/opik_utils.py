@@ -126,9 +126,9 @@ def create_dataset(name: str, description: str, items: list[dict]) -> opik.Datas
 
 
 def add_to_dataset_with_sampling(item: dict, dataset_name: str) -> bool:
-    if "1" in random.choices(["0", "1"], weights=[0.5, 0.5]):
+    if "1" in random.choices(["0", "1"], weights=[0.3, 0.7]):
         client = opik.Opik()
-        dataset = client.get_dataset(name=dataset_name)
+        dataset = client.get_or_create_dataset(name=dataset_name)
         dataset.insert([item])
 
         return True

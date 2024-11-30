@@ -34,7 +34,7 @@ I'm particularly interested in how to design a RAG system.
         """
 
     response = inference_endpoint.generate(
-        query=query, enable_rag=True, sample_for_evaluation=False
+        query=query, enable_rag=True, sample_for_evaluation=True
     )
 
     logger.info("=" * 50)

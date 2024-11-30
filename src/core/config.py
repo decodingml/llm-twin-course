@@ -44,7 +44,7 @@ class AppSettings(BaseSettings):
 
     # LLM Model config
     HUGGINGFACE_ACCESS_TOKEN: str | None = None
-    MODEL_ID: str = "pauliusztin/LLMTwin-Meta-Llama-3.1-8B"
+    MODEL_ID: str = "pauliusztin/LLMTwin-Llama-3.1-8B"
     DEPLOYMENT_ENDPOINT_NAME: str = "twin"
 
     MAX_INPUT_TOKENS: int = 1536  # Max length of input text.

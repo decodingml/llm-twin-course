@@ -148,18 +148,17 @@ At Decoding ML we teach how to build production ML systems, thus the course foll
 
 ```text
 llm-twin-course/
-├── src/ # Source code for all microservices
-│ ├── data_crawling/ # Data collection pipeline code
-│ ├── data_cdc/ # Change Data Capture pipeline code
-│ ├── feature_pipeline/ # Feature engineering pipeline code
-│ ├── training_pipeline/ # Training pipeline code
-│ ├── inference_pipeline/ # Inference service code
+├── src/                     # Source code for all microservices
+│ ├── data_crawling/         # Data collection pipeline code
+│ ├── data_cdc/              # Change Data Capture pipeline code
+│ ├── feature_pipeline/      # Feature engineering pipeline code
+│ ├── training_pipeline/     # Training pipeline code
+│ ├── inference_pipeline/    # Inference service code
 │ └── bonus_superlinked_rag/ # Bonus RAG optimization code
-├── .env.example # Example environment variables template
-├── Makefile # Commands to build and run the project
-├── pyproject.toml # Project dependencies
+├── .env.example             # Example environment variables template
+├── Makefile                 # Commands to build and run the project
+├── pyproject.toml           # Project dependencies
 ```
-
 
 ## Install & Usage
 

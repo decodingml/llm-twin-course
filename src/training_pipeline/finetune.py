@@ -267,7 +267,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        "--base_model_name", type=str, default="meta-llama/Meta-Llama-3.1-8B"
+        "--base_model_name", type=str, default="meta-llama/Llama-3.1-8B"
     )
     parser.add_argument("--dataset_id", type=str)
     parser.add_argument("--num_train_epochs", type=int, default=3)

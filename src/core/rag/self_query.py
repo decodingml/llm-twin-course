@@ -40,7 +40,7 @@ class SelfQuery:
         first_name, last_name = lib.split_user_full_name(user_full_name)
         logger.info(
             f"Successfully extracted the user first and last name from the query.",
-            user_full_name=first_name,
+            first_name=first_name,
             last_name=last_name,
         )
         user_id = UserDocument.get_or_create(first_name=first_name, last_name=last_name)
