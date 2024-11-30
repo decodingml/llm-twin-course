@@ -30,30 +30,6 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 
 **What is an LLM Twin?** It is an AI character that learns to write like somebody by incorporating its style and personality into an LLM.
 
-## Table of contents
-
-- [1. The architecture of the LLM Twin is split into 4 Python microservices:](#the-architecture-of-the-llm-twin-is-split-into-4-python-microservices)
-    - [1.1. The data collection pipeline](#the-data-collection-pipeline)
-    - [1.2. The feature pipeline](#the-feature-pipeline)
-    - [1.3. The training pipeline](#the-training-pipeline)
-    - [1.4. The inference pipeline](#the-inference-pipeline)
-- [2. Who is this for?](#who-is-this-for)
-- [3. How will you learn?](#how-will-you-learn)
-- [4. Costs?](#costs)
-- [5. Questions and troubleshooting](#questions-and-troubleshooting)
-- [6. Lessons](#lessons)
-    - [6.1. System design](#system-design)
-    - [6.2. Data engineering: Gather & store the data for your LLM twin](#data-engineering-gather--store-the-data-for-your-llm-twin)
-    - [6.3. Feature pipeline: prepare data for LLM fine-tuning & RAG](#feature-pipeline-prepare-data-for-llm-fine-tuning--rag)
-    - [6.4. Training pipeline: fine-tune your LLM twin](#training-pipeline-fine-tune-your-llm-twin)
-    - [6.5. Inference pipeline: serve your LLM twin](#inference-pipeline-serve-your-llm-twin)
-    - [6.6. Bonus: refactor and optimize the RAG system](#bonus-refactor-and-optimize-the-rag-system)
-- [7. Install & Usage](#install--usage)
-- [8. License](#license)
-- [9. Contributors](#contributors)
-- [10. Sponsors](#sponsors)
-- [11. Next steps 🧑‍💻](#next-steps)
-
 ## The architecture of the LLM Twin is split into 4 Python microservices:
 
 <p align="center">
@@ -141,36 +117,49 @@ You can `ask any question` by `opening an issue` in this GitHub repository by cl
 
 ## Lessons
 
-> [!IMPORTANT]
-> **To understand the entire code step-by-step, check out our articles ↓**
-> 
-> `The course is split into 12 lessons. Every Medium article represents an independent lesson.`
->
-> The lessons are NOT 1:1 with the folder structure!
+This self-paced course consists of 12 comprehensive lessons covering theory, system design, and hands-on implementation.
 
-### System design
-1. [An End-to-End Framework for Production-Ready LLM Systems by Building Your LLM Twin](https://medium.com/decodingml/an-end-to-end-framework-for-production-ready-llm-systems-by-building-your-llm-twin-2cc6bb01141f)
+Our recommendation for each lesson:
+1. Read the article
+2. Run the code
+3. Review the source code
 
-### Data engineering: Gathering and storing the data for your LLM Twin
-2. [Your Content is Gold: I Turned 3 Years of Blog Posts into an LLM Training](https://medium.com/decodingml/your-content-is-gold-i-turned-3-years-of-blog-posts-into-an-llm-training-d19c265bdd6e)
-3. [I Replaced 1000 Lines of Polling Code with 50 Lines of CDC Magic](https://medium.com/decodingml/i-replaced-1000-lines-of-polling-code-with-50-lines-of-cdc-magic-4d31abd3bc3b)
+| Module | Article | Category | Description | Source Code |
+|--------|---------|----------|-------------|-------------|
+| 1 | [An End-to-End Framework for Production-Ready LLM Systems](https://medium.com/decodingml/an-end-to-end-framework-for-production-ready-llm-systems-by-building-your-llm-twin-2cc6bb01141f) | System Design | Learn the overall architecture and design principles of production LLM systems | No code |
+| 2 | [Your Content is Gold](https://medium.com/decodingml/your-content-is-gold-i-turned-3-years-of-blog-posts-into-an-llm-training-d19c265bdd6e) | Data Engineering | Learn to crawl and process blog posts for LLM training | `src/data_crawling` |
+| 3 | [CDC Magic](https://medium.com/decodingml/i-replaced-1000-lines-of-polling-code-with-50-lines-of-cdc-magic-4d31abd3bc3b) | Data Engineering | Learn to implement Change Data Capture for efficient data pipelines | `src/data_cdc` |
+| 4 | [SOTA Python Streaming Pipelines](https://medium.com/decodingml/sota-python-streaming-pipelines-for-fine-tuning-llms-and-rag-in-real-time-82eb07795b87) | Feature Pipeline | Build real-time streaming pipelines for LLM data processing | `src/feature_pipeline` |
+| 5 | [Advanced RAG Algorithms](https://medium.com/decodingml/the-4-advanced-rag-algorithms-you-must-know-to-implement-5d0c7f1199d2) | Feature Pipeline | Implement advanced RAG techniques for better retrieval | `src/feature_pipeline` |
+| 6 | [Fine-Tuning Datasets](https://medium.com/decodingml/turning-raw-data-into-fine-tuning-datasets-dc83657d1280) | Training Pipeline | Create custom datasets for LLM fine-tuning | `src/training_pipeline/datasets` |
+| 7 | [LLM Fine-tuning Pipeline](https://medium.com/decodingml/8b-parameters-1-gpu-no-problems-the-ultimate-llm-fine-tuning-pipeline-f68ef6c359c2) | Training Pipeline | Build an end-to-end LLM fine-tuning pipeline | `src/training_pipeline` |
+| 8 | [LLM & RAG Evaluation](https://medium.com/decodingml/the-engineers-framework-for-llm-rag-evaluation-59897381c326) | Training Pipeline | Learn to evaluate LLM and RAG system performance | `src/inference_pipeline/evaluation` |
+| 9 | [Scalable RAG Systems](https://medium.com/decodingml/beyond-proof-of-concept-building-rag-systems-that-scale-e537d0eb063a) | Inference Pipeline | Design and implement production-grade RAG systems | `src/inference_pipeline` |
+| 10 | [Prompt Monitoring](https://medium.com/decodingml/the-ultimate-prompt-monitoring-pipeline-886cbb75ae25) | Inference Pipeline | Build robust prompt monitoring systems | `src/inference_pipeline` |
+| 11 | [Scalable RAG Ingestion](https://medium.com/decodingml/build-a-scalable-rag-ingestion-pipeline-using-74-3-less-code-ac50095100d6) | RAG Optimization | Optimize RAG ingestion pipelines | `src/bonus_superlinked_rag` |
+| 12 | [Multi-Index RAG Apps](https://medium.com/decodingml/build-multi-index-advanced-rag-apps-bd33d2f0ec5c) | RAG Optimization | Build advanced multi-index RAG applications | `src/bonus_superlinked_rag` |
 
-### Feature pipeline: Feature engineering data for LLM fine-tuning & RAG
-4. [SOTA Python Streaming Pipelines for Fine-tuning LLMs and RAG — in Real-Time!](https://medium.com/decodingml/sota-python-streaming-pipelines-for-fine-tuning-llms-and-rag-in-real-time-82eb07795b87)
-5. [The 4 Advanced RAG Algorithms You Must Know to Implement](https://medium.com/decodingml/the-4-advanced-rag-algorithms-you-must-know-to-implement-5d0c7f1199d2)
+> [!NOTE]
+> Check the [INSTALL_AND_USAGE](https://github.com/decodingml/llm-twin-course/blob/main/INSTALL_AND_USAGE.md) doc for a step-by-step installation and usage guide.
 
-### Training pipeline: Fine-tuning your LLM Twin
-6. [Turning Raw Data Into Fine-Tuning Datasets](https://medium.com/decodingml/turning-raw-data-into-fine-tuning-datasets-dc83657d1280)
-7. [8B Parameters, 1 GPU, No Problems: The Ultimate LLM Fine-tuning Pipeline](https://medium.com/decodingml/8b-parameters-1-gpu-no-problems-the-ultimate-llm-fine-tuning-pipeline-f68ef6c359c2)
-8. [The Engineer’s Framework for LLM & RAG Evaluation](https://medium.com/decodingml/the-engineers-framework-for-llm-rag-evaluation-59897381c326)
+## Project Structure
 
-### Inference pipeline: Serving and monitoring your LLM Twin
-9. [Beyond Proof of Concept: Building RAG Systems That Scale](https://medium.com/decodingml/beyond-proof-of-concept-building-rag-systems-that-scale-e537d0eb063a)
-10. [Prompt monitoring WIP]()
+At Decoding ML we teach how to build production ML systems, thus the course follows the structure of a real-world Python project:
 
-### Bonus: Refactoring and optimizing the RAG system
-11. [Build a scalable RAG ingestion pipeline using 74.3% less code](https://medium.com/decodingml/build-a-scalable-rag-ingestion-pipeline-using-74-3-less-code-ac50095100d6)
-12. [Build Multi-Index Advanced RAG Apps](https://medium.com/decodingml/build-multi-index-advanced-rag-apps-bd33d2f0ec5c)
+```text
+llm-twin-course/
+├── src/ # Source code for all microservices
+│ ├── data_crawling/ # Data collection pipeline code
+│ ├── data_cdc/ # Change Data Capture pipeline code
+│ ├── feature_pipeline/ # Feature engineering pipeline code
+│ ├── training_pipeline/ # Training pipeline code
+│ ├── inference_pipeline/ # Inference service code
+│ └── bonus_superlinked_rag/ # Bonus RAG optimization code
+├── .env.example # Example environment variables template
+├── Makefile # Commands to build and run the project
+├── pyproject.toml # Project dependencies
+```
+
 
 ## Install & Usage
 
