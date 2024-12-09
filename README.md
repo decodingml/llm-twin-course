@@ -122,22 +122,22 @@ This self-paced course consists of 12 comprehensive lessons covering theory, sys
 Our recommendation for each lesson:
 1. Read the article
 2. Run the code
-3. Review the source code
+3. Read the source code in depth
 
-| Module | Article | Category | Description | Source Code |
+| Lesson | Article | Category | Description | Source Code |
 |--------|---------|----------|-------------|-------------|
-| 1 | [An End-to-End Framework for Production-Ready LLM Systems](https://medium.com/decodingml/an-end-to-end-framework-for-production-ready-llm-systems-by-building-your-llm-twin-2cc6bb01141f) | System Design | Learn the overall architecture and design principles of production LLM systems | No code |
-| 2 | [Your Content is Gold](https://medium.com/decodingml/your-content-is-gold-i-turned-3-years-of-blog-posts-into-an-llm-training-d19c265bdd6e) | Data Engineering | Learn to crawl and process blog posts for LLM training | `src/data_crawling` |
-| 3 | [CDC Magic](https://medium.com/decodingml/i-replaced-1000-lines-of-polling-code-with-50-lines-of-cdc-magic-4d31abd3bc3b) | Data Engineering | Learn to implement Change Data Capture for efficient data pipelines | `src/data_cdc` |
-| 4 | [SOTA Python Streaming Pipelines](https://medium.com/decodingml/sota-python-streaming-pipelines-for-fine-tuning-llms-and-rag-in-real-time-82eb07795b87) | Feature Pipeline | Build real-time streaming pipelines for LLM data processing | `src/feature_pipeline` |
-| 5 | [Advanced RAG Algorithms](https://medium.com/decodingml/the-4-advanced-rag-algorithms-you-must-know-to-implement-5d0c7f1199d2) | Feature Pipeline | Implement advanced RAG techniques for better retrieval | `src/feature_pipeline` |
-| 6 | [Fine-Tuning Datasets](https://medium.com/decodingml/turning-raw-data-into-fine-tuning-datasets-dc83657d1280) | Training Pipeline | Create custom datasets for LLM fine-tuning | `src/training_pipeline/datasets` |
-| 7 | [LLM Fine-tuning Pipeline](https://medium.com/decodingml/8b-parameters-1-gpu-no-problems-the-ultimate-llm-fine-tuning-pipeline-f68ef6c359c2) | Training Pipeline | Build an end-to-end LLM fine-tuning pipeline | `src/training_pipeline` |
-| 8 | [LLM & RAG Evaluation](https://medium.com/decodingml/the-engineers-framework-for-llm-rag-evaluation-59897381c326) | Training Pipeline | Learn to evaluate LLM and RAG system performance | `src/inference_pipeline/evaluation` |
-| 9 | [Scalable RAG Systems](https://medium.com/decodingml/beyond-proof-of-concept-building-rag-systems-that-scale-e537d0eb063a) | Inference Pipeline | Design and implement production-grade RAG systems | `src/inference_pipeline` |
-| 10 | [Prompt Monitoring](https://medium.com/decodingml/the-ultimate-prompt-monitoring-pipeline-886cbb75ae25) | Inference Pipeline | Build robust prompt monitoring systems | `src/inference_pipeline` |
-| 11 | [Scalable RAG Ingestion](https://medium.com/decodingml/build-a-scalable-rag-ingestion-pipeline-using-74-3-less-code-ac50095100d6) | RAG Optimization | Optimize RAG ingestion pipelines | `src/bonus_superlinked_rag` |
-| 12 | [Multi-Index RAG Apps](https://medium.com/decodingml/build-multi-index-advanced-rag-apps-bd33d2f0ec5c) | RAG Optimization | Build advanced multi-index RAG applications | `src/bonus_superlinked_rag` |
+| 1 | [An End-to-End Framework for Production-Ready LLM Systems](https://medium.com/decodingml/an-end-to-end-framework-for-production-ready-llm-systems-by-building-your-llm-twin-2cc6bb01141f) | System Design | Learn the overall architecture and design principles of production LLM systems. | No code |
+| 2 | [Data Crawling](https://medium.com/decodingml/your-content-is-gold-i-turned-3-years-of-blog-posts-into-an-llm-training-d19c265bdd6e) | Data Engineering | Learn to crawl and process social media content for LLM training. | `src/data_crawling` |
+| 3 | [CDC Magic](https://medium.com/decodingml/i-replaced-1000-lines-of-polling-code-with-50-lines-of-cdc-magic-4d31abd3bc3b) | Data Engineering | Learn to implement Change Data Capture (CDC) for syncing two data sources. | `src/data_cdc` |
+| 4 | [Feature Streaming Pipelines](https://medium.com/decodingml/sota-python-streaming-pipelines-for-fine-tuning-llms-and-rag-in-real-time-82eb07795b87) | Feature Pipeline | Build real-time streaming pipelines for LLM and RAG data processing. | `src/feature_pipeline` |
+| 5 | [Advanced RAG Algorithms](https://medium.com/decodingml/the-4-advanced-rag-algorithms-you-must-know-to-implement-5d0c7f1199d2) | Feature Pipeline | Implement advanced RAG techniques for better retrieval. | `src/feature_pipeline` |
+| 6 | [Generate Fine-Tuning Instruct Datasets](https://medium.com/decodingml/turning-raw-data-into-fine-tuning-datasets-dc83657d1280) | Training Pipeline | Create custom instruct datasets for LLM fine-tuning. | `src/feature_pipeline/generate_dataset` |
+| 7 | [LLM Fine-tuning Pipeline](https://medium.com/decodingml/8b-parameters-1-gpu-no-problems-the-ultimate-llm-fine-tuning-pipeline-f68ef6c359c2) | Training Pipeline | Build an end-to-end LLM fine-tuning pipeline and deploy it to AWS SageMaker. | `src/training_pipeline` |
+| 8 | [LLM & RAG Evaluation](https://medium.com/decodingml/the-engineers-framework-for-llm-rag-evaluation-59897381c326) | Training Pipeline | Learn to evaluate LLM and RAG system performance. | `src/inference_pipeline/evaluation` |
+| 9 | [Implement and Deploy the RAG Inference Pipeline](https://medium.com/decodingml/beyond-proof-of-concept-building-rag-systems-that-scale-e537d0eb063a) | Inference Pipeline | Design,  implement and deploy the RAG inference to AWS SageMaker. | `src/inference_pipeline` |
+| 10 | [Prompt Monitoring](https://medium.com/decodingml/the-ultimate-prompt-monitoring-pipeline-886cbb75ae25) | Inference Pipeline | Build the prompt monitoring and production evaluation pipeline. | `src/inference_pipeline` |
+| 11 | [Refactor the RAG module using 74.3% Less Code ](https://medium.com/decodingml/build-a-scalable-rag-ingestion-pipeline-using-74-3-less-code-ac50095100d6) | Bonus on RAG | Optimize the RAG system. | `src/bonus_superlinked_rag` |
+| 12 | [Multi-Index RAG Apps](https://medium.com/decodingml/build-multi-index-advanced-rag-apps-bd33d2f0ec5c) | Bonus on RAG | Build advanced multi-index RAG apps. | `src/bonus_superlinked_rag` |
 
 > [!NOTE]
 > Check the [INSTALL_AND_USAGE](https://github.com/decodingml/llm-twin-course/blob/main/INSTALL_AND_USAGE.md) doc for a step-by-step installation and usage guide.

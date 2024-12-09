@@ -212,6 +212,11 @@ Now go to [Comet ML](https://www.comet.com/signup/?utm_source=decoding_ml&utm_me
 > - `posts-instruct-dataset`
 > - `repositories-instruct-dataset`
 
+To download the instruct dataset from Comet, run:
+```bash
+make download-instruct-dataset
+```
+
 > [!NOTE]
 > We also publicly provide our own artifacts that you can use to fine-tune your LLMs in case you got stuck or don't want to generate them yourself:
 > - [articles-instruct-dataset](https://www.comet.com/decodingml/artifacts/articles-instruct-dataset)
@@ -260,7 +265,9 @@ Now, we can move on to the fine-tunine and inference pipelines, which use AWS Sa
 
 ### Step 7: Starting the fine-tuning pipeline
 
-After setting up everything necessary for AWS SageMaker, to kick of the training in dummy mode, is as easy as. The dummy mode will reduce the dataset size and epochs to quickly see that everything works fine:
+First, go to our base model, which we will use for SFT on Hugging Face -> [meta-llama/Llama-3.1-8B](https://huggingface.co/meta-llama/Llama-3.1-8B) and get access to use it. Everything is free.
+
+Next, after setting up everything necessary for AWS SageMaker and Llama-3.1-8B, kicking off the training in dummy mode is as easy as running the following (dummy mode will reduce the dataset size and epochs to quickly see that everything works fine):
 ```bash
 make start-training-pipeline-dummy-mode
 ```
@@ -269,6 +276,8 @@ To kick off the full training, run:
 ```bash
 make start-training-pipeline
 ```
+
+Go to your [Hugging Face account](https://huggingface.co/), and under the **Models** section, you will see your `{your_name}/LLMTwin-Llama-3.1-8B` model. To run the evaluation and inference using your fine-tuned LLM, add your Hugging Face model ID to your `.env` file, such as `MODEL_ID=pauliusztin/LLMTwin-Llama-3.1-8B`.
 
 > [!NOTE]
 > You can check out the deployment progress in the AWS console in the SageMaker dashboard.
