@@ -239,7 +239,7 @@ Also, another big "Thank you 🙏" to all our sponsors who supported our work an
     </td>
     <td align="center">
       <a href="https://github.com/superlinked/superlinked?utm_source=community&utm_medium=github&utm_campaign=oscourse" target="_blank">
-        <img src="media/sponsors/superlinked.png" width="150" alt="Superlinked">
+        <img src="media/sponsors/superlinked.svg" width="150" alt="Superlinked">
       </a>
     </td>
   </tr>
