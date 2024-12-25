@@ -11,16 +11,13 @@
   <img src="media/cover.png" alt="Your image description">
 </p>
 
-## Why is this course different?
+## What you'll learn
 
 *By finishing the **"LLM Twin: Building Your Production-Ready AI Replica"** free course, you will learn how to design, train, and deploy a production-ready LLM twin of yourself powered by LLMs, vector DBs, and LLMOps good practices.*
 
-> Why should you care? 🫵
-> 
-> → **No more isolated scripts or Notebooks!** Learn production ML by building and deploying an end-to-end production-grade LLM system.
+**No more isolated scripts or Notebooks!** Learn production ML by building and deploying an end-to-end production-grade LLM system.
 
-
-## What will you learn to build by the end of this course?
+## About this course
 
 You will **learn** how to **architect** and **build a real-world LLM system** from **start** to **finish** - from **data collection** to **deployment**.
 
@@ -78,13 +75,34 @@ Along the 4 microservices, you will learn to integrate 4 serverless tools:
 * [AWS SageMaker](https://aws.amazon.com/sagemaker/) as your ML infrastructure;
 * [Opik](https://github.com/comet-ml/opik) as your prompt evaluation and monitoring tool.
 
-## Who is this for?
+## Who should join?
 
-**Audience:** MLE, DE, DS, or SWE who want to learn to engineer production-ready LLM & RAG systems using LLMOps good principles.
+**This course is ideal for:**
+- ML/AI engineers who want to learn to engineer production-ready LLM & RAG systems using LLMOps good principles
+- Data Engineers, Data Scientists, and Software Engineers wanting to understand the engineering behind LLM & RAG systems
 
-**Level:** intermediate
+**Note:** This course focuses on engineering practices and end-to-end system implementation rather than theoretical model optimization or research.
 
-**Prerequisites:** basic knowledge of Python and ML
+## Prerequisites
+
+| Category | Requirements |
+|----------|-------------|
+| **Skills** | Basic understanding of Python and Machine Learning |
+| **Hardware** | Any modern laptop/workstation will do the job, as the LLM fine-tuning and inference will be done on AWS SageMaker. |
+| **Level** | Intermediate |
+
+## Cost structure
+
+All tools used throughout the course will stick to their free tier, except:
+
+- OpenAI's API, which will cost ~$1
+- AWS for fine-tuning and inference, which will cost < $10 depending on how much you play around with our scripts and your region.
+
+## Open-source course: Participation is open and Free
+
+As an open-source course, you don't have to enroll. Everything is self-paced, free of charge and with its resources freely accessible as follows:
+- **code**: this GitHub repository
+- **articles**: [Decoding ML](https://medium.com/decodingml/llm-twin-course/home)
 
 ## How will you learn?
 
@@ -93,21 +111,6 @@ The course contains **10 hands-on written lessons** and the **open-source code**
 Also, it includes **2 bonus lessons** on how to **improve the RAG system**.
 
 You can read everything at your own pace.
-
-
-## Costs?
-The **articles** and **code** are **completely free**. They will always remain free.
-
-If you plan to run the code while reading it, you must know that we use several cloud tools that might generate additional costs.
-
-**Pay as you go** 
-- [AWS](https://aws.amazon.com/) offers accessible plans to new joiners.
-    - For a new first-time account, you could get up to 300$ in free credits which are valid for 6 months. For more, consult the [AWS Offerings](https://aws.amazon.com/free/offers/) page.
-
-**Freemium** (Free-of-Charge)
-- [Qdrant](https://qdrant.tech/?utm_source=decodingml&utm_medium=referral&utm_campaign=llm-course)
-- [Comet ML](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github)
-- [Opik](https://github.com/comet-ml/opik)
 
 ## Lessons
 
@@ -161,11 +164,6 @@ To understand how to **install and run the LLM Twin code end-to-end**, go to the
 > [!NOTE]
 > Even though you can run everything solely using the [INSTALL_AND_USAGE](https://github.com/decodingml/llm-twin-course/blob/main/INSTALL_AND_USAGE.md) dedicated document, we recommend that you read the articles to understand the LLM Twin system and design choices fully.
 
-### Bonus Superlinked series
-
-The **bonus Superlinked series** has an extra dedicated [README](https://github.com/decodingml/llm-twin-course/blob/main/6-bonus-superlinked-rag/README.md) that you can access under the [src/bonus_superlinked_rag](https://github.com/decodingml/llm-twin-course/tree/main/src/bonus_superlinked_rag) directory.
-
-In that section, we explain how to run it with the improved RAG layer powered by [Superlinked](https://github.com/superlinked/superlinked?utm_source=community&utm_medium=github&utm_campaign=oscourse).
 
 ## Questions and troubleshooting
 
@@ -175,6 +173,7 @@ Open a [GitHub issue](https://github.com/decodingml/llm-twin-course/issues) for:
 - Questions about the course material
 - Technical troubleshooting
 - Clarification on concepts
+
 
 ## Contributing
 
