@@ -84,6 +84,10 @@ COMET_WORKSPACE=your_workspace_name_here
 
 → Check out this [tutorial](https://www.comet.com/docs/v2/api-and-sdk/rest-api/overview/) to learn how to get the Comet ML variables from above. You can also access Opik's dashboard using 🔗[this link](https://www.comet.com/opik).
 
+#### AWS
+
+Required only for fine-tuning and inference, which we will show how to set up later in the document.
+
 ## Install local dependencies
 
 You can create a Python virtual environment and install all the necessary dependencies using Poetry, by running:
