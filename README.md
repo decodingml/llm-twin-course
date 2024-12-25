@@ -11,13 +11,13 @@
   <img src="media/cover.png" alt="Your image description">
 </p>
 
-## What you'll learn
+## 🎯 What you'll learn
 
 *By finishing the **"LLM Twin: Building Your Production-Ready AI Replica"** free course, you will learn how to design, train, and deploy a production-ready LLM twin of yourself powered by LLMs, vector DBs, and LLMOps good practices.*
 
 **No more isolated scripts or Notebooks!** Learn production ML by building and deploying an end-to-end production-grade LLM system.
 
-## About this course
+## 📖 About this course
 
 You will **learn** how to **architect** and **build a real-world LLM system** from **start** to **finish** - from **data collection** to **deployment**.
 
@@ -27,7 +27,7 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 
 **What is an LLM Twin?** It is an AI character that learns to write like somebody by incorporating its style and personality into an LLM.
 
-## The architecture of the LLM Twin is split into 4 Python microservices:
+## 🪈 The architecture of the LLM Twin is split into 4 Python microservices:
 
 <p align="center">
   <img src="media/architecture.png" alt="LLM Twin Architecture">
@@ -75,7 +75,7 @@ Along the 4 microservices, you will learn to integrate 4 serverless tools:
 * [AWS SageMaker](https://aws.amazon.com/sagemaker/) as your ML infrastructure;
 * [Opik](https://github.com/comet-ml/opik) as your prompt evaluation and monitoring tool.
 
-## Who should join?
+## 👥 Who should join?
 
 **This course is ideal for:**
 - ML/AI engineers who want to learn to engineer production-ready LLM & RAG systems using LLMOps good principles
@@ -83,7 +83,7 @@ Along the 4 microservices, you will learn to integrate 4 serverless tools:
 
 **Note:** This course focuses on engineering practices and end-to-end system implementation rather than theoretical model optimization or research.
 
-## Prerequisites
+## 🎓 Prerequisites
 
 | Category | Requirements |
 |----------|-------------|
@@ -91,20 +91,20 @@ Along the 4 microservices, you will learn to integrate 4 serverless tools:
 | **Hardware** | Any modern laptop/workstation will do the job, as the LLM fine-tuning and inference will be done on AWS SageMaker. |
 | **Level** | Intermediate |
 
-## Cost structure
+## 💰 Cost structure
 
 All tools used throughout the course will stick to their free tier, except:
 
 - OpenAI's API, which will cost ~$1
 - AWS for fine-tuning and inference, which will cost < $10 depending on how much you play around with our scripts and your region.
 
-## Open-source course: Participation is open and Free
+## 🥂 Open-source course: Participation is open and Free
 
 As an open-source course, you don't have to enroll. Everything is self-paced, free of charge and with its resources freely accessible as follows:
 - **code**: this GitHub repository
 - **articles**: [Decoding ML](https://medium.com/decodingml/llm-twin-course/home)
 
-## How will you learn?
+## 📚 How will you learn?
 
 The course contains **10 hands-on written lessons** and the **open-source code** you can access on GitHub, showing how to build an end-to-end LLM system.
 
@@ -139,7 +139,7 @@ Our recommendation for each module:
 | 11 | [Refactor the RAG module using 74.3% Less Code ](https://medium.com/decodingml/build-a-scalable-rag-ingestion-pipeline-using-74-3-less-code-ac50095100d6) | Bonus on RAG | Optimize the RAG system. | `src/bonus_superlinked_rag` |
 | 12 | [Multi-Index RAG Apps](https://medium.com/decodingml/build-multi-index-advanced-rag-apps-bd33d2f0ec5c) | Bonus on RAG | Build advanced multi-index RAG apps. | `src/bonus_superlinked_rag` |
 
-## Project Structure
+## 🏗️ Project Structure
 
 At Decoding ML we teach how to build production ML systems, thus the course follows the structure of a real-world Python project:
 
@@ -157,7 +157,7 @@ llm-twin-course/
 ├── pyproject.toml           # Project dependencies
 ```
 
-## Install & Usage
+## 🚀 Install & Usage
 
 To understand how to **install and run the LLM Twin code end-to-end**, go to the [INSTALL_AND_USAGE](https://github.com/decodingml/llm-twin-course/blob/main/INSTALL_AND_USAGE.md) dedicated document.
 
@@ -165,7 +165,7 @@ To understand how to **install and run the LLM Twin code end-to-end**, go to the
 > Even though you can run everything solely using the [INSTALL_AND_USAGE](https://github.com/decodingml/llm-twin-course/blob/main/INSTALL_AND_USAGE.md) dedicated document, we recommend that you read the articles to understand the LLM Twin system and design choices fully.
 
 
-## Questions and troubleshooting
+## 💡 Questions and troubleshooting
 
 Have questions or running into issues? We're here to help!
 
@@ -175,7 +175,7 @@ Open a [GitHub issue](https://github.com/decodingml/llm-twin-course/issues) for:
 - Clarification on concepts
 
 
-## Contributing
+## 🥂 Contributing
 
 As an open-source course, we may not be able to fix all the bugs that arise.
 
