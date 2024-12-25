@@ -1,13 +1,13 @@
 ---
-name: Bug report
-about: Create a report to help us improve
-title: ''
+name: Technical troubleshooting or bugs
+about: Technical troubleshooting or bugs
+title: Technical troubleshooting or bugs
 labels: ''
 assignees: ''
 
 ---
 
-**Describe the bug**
+**Describe the bug or technical issue**
 A clear and concise description of what the bug is.
 
 **To Reproduce**
