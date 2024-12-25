@@ -27,7 +27,7 @@ You will also **learn** to **leverage MLOps best practices**, such as experiment
 
 **What is an LLM Twin?** It is an AI character that learns to write like somebody by incorporating its style and personality into an LLM.
 
-## 🪈 The architecture of the LLM Twin is split into 4 Python microservices:
+## 🪈 The architecture of the LLM Twin is split into 4 Python microservices
 
 <p align="center">
   <img src="media/architecture.png" alt="LLM Twin Architecture">
