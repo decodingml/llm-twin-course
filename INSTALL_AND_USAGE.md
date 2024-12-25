@@ -94,7 +94,8 @@ You can create a Python virtual environment and install all the necessary depend
 ```shell
 make install
 ```
-> [!IMPORTANT] You need Python 3.11 installed! You can either install it globally or install [pyenv](https://github.com/pyenv/pyenv) to manage multiple Python dependencies. The `.python-version` file will signal to `pyenv` what Python version it needs to use in this particular project.
+> [!IMPORTANT] 
+> You need Python 3.11 installed! You can either install it globally or install [pyenv](https://github.com/pyenv/pyenv) to manage multiple Python dependencies. The `.python-version` file will signal to `pyenv` what Python version it needs to use in this particular project.
 
 After installing the dependencies into the Poetry virtual environment, you can run the following to activate it into your current CLI:
 ```bash
