@@ -116,10 +116,13 @@ You can read everything at your own pace.
 
 This self-paced course consists of 12 comprehensive lessons covering theory, system design, and hands-on implementation.
 
-Our recommendation for each lesson:
+Our recommendation for each module:
 1. Read the article
-2. Run the code
-3. Read the source code in depth
+2. Run the code to replicate our results
+3. Go deeper into the code by reading the `src` Python modules
+
+> [!NOTE]
+> Check the [INSTALL_AND_USAGE](https://github.com/decodingml/llm-twin-course/blob/main/INSTALL_AND_USAGE.md) doc for a step-by-step installation and usage guide.
 
 | Lesson | Article | Category | Description | Source Code |
 |--------|---------|----------|-------------|-------------|
@@ -135,9 +138,6 @@ Our recommendation for each lesson:
 | 10 | [Prompt Monitoring](https://medium.com/decodingml/the-ultimate-prompt-monitoring-pipeline-886cbb75ae25) | Inference Pipeline | Build the prompt monitoring and production evaluation pipeline. | `src/inference_pipeline` |
 | 11 | [Refactor the RAG module using 74.3% Less Code ](https://medium.com/decodingml/build-a-scalable-rag-ingestion-pipeline-using-74-3-less-code-ac50095100d6) | Bonus on RAG | Optimize the RAG system. | `src/bonus_superlinked_rag` |
 | 12 | [Multi-Index RAG Apps](https://medium.com/decodingml/build-multi-index-advanced-rag-apps-bd33d2f0ec5c) | Bonus on RAG | Build advanced multi-index RAG apps. | `src/bonus_superlinked_rag` |
-
-> [!NOTE]
-> Check the [INSTALL_AND_USAGE](https://github.com/decodingml/llm-twin-course/blob/main/INSTALL_AND_USAGE.md) doc for a step-by-step installation and usage guide.
 
 ## Project Structure
 

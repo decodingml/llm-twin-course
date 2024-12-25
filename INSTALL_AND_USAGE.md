@@ -43,10 +43,11 @@ make help
 
 All the sensitive credentials are placed in a `.env` file that will always sit at the root of your directory, at the same level with the `.env.example` file.
 
-Go to the root of the repository, copy our `.env.example` file and fill it with your credentials:
+Go to the root of the repository and copy our `.env.example` file as follows:
 ```shell
 cp .env.example .env
 ```
+Now fill it with your credentials.
 
 ### Getting credentials for cloud services
 
@@ -89,7 +90,7 @@ You can create a Python virtual environment and install all the necessary depend
 ```shell
 make install
 ```
-**NOTE:** You need Python 3.11 installed. You can either install it globally or install [pyenv](https://github.com/pyenv/pyenv) to manage multiple Python dependencies. The `.python-version` file will signal to `pyenv` what Python version it needs to use in this particular project.
+> [!IMPORTANT] You need Python 3.11 installed! You can either install it globally or install [pyenv](https://github.com/pyenv/pyenv) to manage multiple Python dependencies. The `.python-version` file will signal to `pyenv` what Python version it needs to use in this particular project.
 
 After installing the dependencies into the Poetry virtual environment, you can run the following to activate it into your current CLI:
 ```bash
@@ -106,6 +107,7 @@ You can start all the required Docker containers, by running:
 ```shell
 make local-start
 ```
+It will take a while to run until all the Docker images are pulled or built.
 
 Behind the scenes it will build and run all the Docker images defined in the [docker-compose.yml](https://github.com/decodingml/llm-twin-course/blob/main/docker-compose.yml) file.
 
@@ -181,7 +183,7 @@ docker logs llm-twin-mq # RabbitMQ
 
 You should see logs reflecting the cleaning, chunking, and embedding operations (without any errors, of course).
 
-To check that the Qdrant `vector DB` is populated successfully, go to its dashboard at **[localhost:6333/dashboard](localhost:6333/dashboard)**. There, you should see the repositories or article collections created and populated, similar to the image below:
+To check that the Qdrant `vector DB` is populated successfully, go to its dashboard by typing in your browser: **[localhost:6333/dashboard](localhost:6333/dashboard)**. There, you should see the repositories or article collections created and populated, similar to the image below:
 
 ![Qdrant Example](media/qdrant-example.png)
 
@@ -195,16 +197,17 @@ To populate MongoDB and VectorDB with ~50 links, run the following command (but 
 ```bash
 make local-ingest-data
 ```
+**Note:** To crawl different links, you can change the `data/links.txt` file. 
 
 ### Step 4: Testing the RAG retrieval step
 
-Now that our Qdrant vector DB is populated with our data, let's test out the RAG retrieval module:
+Now that our Qdrant vector DB is populated with our data let's test out the RAG retrieval module to see that everything works fine by retrieving some items using a dummy query:
 ```shell
 make local-test-retriever
 ```
 
 > [!IMPORTANT]
-> Before running this command, check [Qdrant's dashboard](localhost:6333/dashboard) to ensure that your vector DB is populated with data.
+> Before running this command, check [Qdrant's dashboard](localhost:6333/dashboard) to ensure your vector DB is populated with data. Otherwise, the retriever will not have any data to work with.
 
 ### Step 5: Generating the instruct dataset
 
@@ -267,18 +270,18 @@ AWS_SECRET_KEY=str
 Now, we can move on to the fine-tunine and inference pipelines, which use AWS SagaMaker.
 
 > [!IMPORTANT]
-> Note that we use `ml.g5.2xlarge` EC2 instances to run AWS SageMaker, which cost `~$2 / hour` (depending on your region). Our tests will take only a few hours. Thus, this won't get expensive. Just run our clean-up resources scripts after you finish testing our app. 
+> Note that we use `ml.g5.2xlarge` EC2 instances to run AWS SageMaker (which are already set in our settings), which cost `~$2 / hour` (depending on your region). Our tests will take only ~2-3 hours at maximum. Thus, this won't get expensive. Just run our clean-up resources scripts after you finish testing our app: `make delete-inference-pipeline-deployment`
 
 ### Step 7: Starting the fine-tuning pipeline
 
-First, go to our base model, which we will use for SFT on Hugging Face -> [meta-llama/Llama-3.1-8B](https://huggingface.co/meta-llama/Llama-3.1-8B) and get access to use it. Everything is free.
+First, go to our base model, which we will use for fine-tuning on Hugging Face -> [meta-llama/Llama-3.1-8B](https://huggingface.co/meta-llama/Llama-3.1-8B) and get access to use it. Everything is free.
 
-Next, after setting up everything necessary for AWS SageMaker and Llama-3.1-8B, kicking off the training in dummy mode is as easy as running the following (dummy mode will reduce the dataset size and epochs to quickly see that everything works fine):
+Next, after setting up everything necessary for AWS SageMaker and Llama-3.1-8B, kicking off the training in dummy mode is as easy as running the following (dummy mode will reduce the dataset size and epochs to quickly see that everything works fine, reducing the running time <30 minutes):
 ```bash
 make start-training-pipeline-dummy-mode
 ```
 
-To kick off the full training, run:
+To kick off the full training, run (which will take ~2-3 hours, using our dataset and preconfigured settings):
 ```bash
 make start-training-pipeline
 ```
@@ -289,10 +292,10 @@ Go to your [Hugging Face account](https://huggingface.co/), and under the **Mode
 > You can check out the deployment progress in the AWS console in the SageMaker dashboard.
 
 > [!WARNING]
-> If you get any `Service Quotas` errors, you must increase your AWS quotas for `ml.g5.2xlarge` instances. More exactly, you have to go to your AWS account -> Service Quatas -> AWS services -> search `SageMaker` -> search `ml.g5.2xlarge`, then increase the quotas to 1 for `ml.g5.2xlarge for training job usage` (training jobs) and `ml.g5.2xlarge for endpoint usage` (inference jobs). More details on changing service quotas are in [this article](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-quota-increase.html).
+> If you get any `Service Quotas` errors, you must increase your AWS quotas for `ml.g5.2xlarge` instances (which is free). More exactly, you have to go to your AWS account -> Service Quatas -> AWS services -> search `SageMaker` -> search `ml.g5.2xlarge`, then increase the quotas to 1 for `ml.g5.2xlarge for training job usage` (training jobs) and `ml.g5.2xlarge for endpoint usage` (inference jobs). More details on changing service quotas are in [this article](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-quota-increase.html).
 
 
-### Step 8: Ruuning the evaluation pipelines
+### Step 8: Runing the evaluation pipelines
 
 After you have finetuned your LLM, you can start the LLM evaluation pipeline by running:
 ```shell
@@ -338,10 +341,10 @@ Also, you can kick off the monitoring LLM evaluation pipeline by running:
 make evaluate-llm-monitoring
 ```
 
-> [!WARNING]
-> Clear up your AWS resources to avoid any unexpected costs.
-
 Ultimately, after testing the inference pipeline, you can delete the AWS SageMaker deployment, by running:
 ```shell
 make delete-inference-pipeline-deployment
 ```
+
+> [!WARNING]
+> Clear your AWS resources to avoid any unexpected costs. Running `make delete-inference-pipeline-deployment` should clear everything, but we recommend double-checking your AWS SageMaker dashboard manually to ensure everything is shut down in case of edge cases.
