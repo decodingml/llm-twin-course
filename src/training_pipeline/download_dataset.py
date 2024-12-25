@@ -51,7 +51,7 @@ class DatasetClient:
 
             raise
 
-        print(f"Successfully downloaded  {artifact_name} at location {self.output_dir}")
+        print(f"Successfully downloaded  '{artifact_name}' at location '{self.output_dir}'")
 
         return artifact
 

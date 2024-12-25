@@ -157,6 +157,7 @@ llm-twin-course/
 ├── pyproject.toml           # Project dependencies
 ```
 
+
 ## 🚀 Install & Usage
 
 To understand how to **install and run the LLM Twin code end-to-end**, go to the [INSTALL_AND_USAGE](https://github.com/decodingml/llm-twin-course/blob/main/INSTALL_AND_USAGE.md) dedicated document.

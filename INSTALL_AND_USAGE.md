@@ -47,7 +47,7 @@ Go to the root of the repository and copy our `.env.example` file as follows:
 ```shell
 cp .env.example .env
 ```
-Now fill it with your credentials.
+Now fill it with your credentials, following the suggestions from the next section.
 
 ### Getting credentials for cloud services
 
@@ -88,6 +88,10 @@ COMET_WORKSPACE=your_workspace_name_here
 
 Required only for fine-tuning and inference, which we will show how to set up later in the document.
 
+#### Qdrant
+
+Optional, only if you want to use Qdrant cloud. Otherwise, you can complete the course using the local version of Qdrant.
+
 ## Install local dependencies
 
 You can create a Python virtual environment and install all the necessary dependencies using Poetry, by running:
@@ -97,7 +101,7 @@ make install
 > [!IMPORTANT] 
 > You need Python 3.11 installed! You can either install it globally or install [pyenv](https://github.com/pyenv/pyenv) to manage multiple Python dependencies. The `.python-version` file will signal to `pyenv` what Python version it needs to use in this particular project.
 
-After installing the dependencies into the Poetry virtual environment, you can run the following to activate it into your current CLI:
+After installing the dependencies into the Poetry virtual environment, you can activate your virtual environment into your current CLI by running:
 ```bash
 poetry shell
 ```
@@ -169,6 +173,10 @@ You can check the logs from the crawler Docker image, by running:
 ```bash
 docker logs llm-twin-data-crawlers
 ``` 
+You should see something similar to:
+```text
+{"level":"INFO","location":"extract:53","message":"Finished scrapping custom article: https://medium.com/decodingml/an-end-to-end-framework-for-production-ready-llm-systems-by-building-your-llm-twin-2cc6bb01141f","timestamp":"2024-12-25 17:13:33,630+0000","service":"llm-twin-course/crawler"}
+```
 
 ### Step 2: Feature engineering & Vector DB
 
@@ -179,6 +187,12 @@ Thus, let's check that the feature pipeline works and the vector DB is successfu
 To do so, check the logs of the `llm-twin-feature-pipeline` Docker container by running:
 ```shell
 docker logs llm-twin-feature-pipeline
+```
+You should see something similar to:
+```text
+2024-12-25 16:53:45 [info     ] Cleaned content chunked successfully. cls=data_logic.dispatchers data_type=repositories num=955
+2024-12-25 16:53:45 [info     ] Chunk embedded successfully.   cls=data_logic.dispatchers data_type=repositories embedding_len=384
+2024-12-25 16:53:45 [info     ] Chunk embedded successfully.   cls=data_logic.dispatchers data_type=repositories embedding_len=384
 ```
 Also, you can check the logs of the CDC and RabbitMQ Docker containers, by running:
 ```bash
@@ -191,7 +205,6 @@ You should see logs reflecting the cleaning, chunking, and embedding operations 
 To check that the Qdrant `vector DB` is populated successfully, go to its dashboard by typing in your browser: **[localhost:6333/dashboard](localhost:6333/dashboard)**. There, you should see the repositories or article collections created and populated, similar to the image below:
 
 ![Qdrant Example](media/qdrant-example.png)
-
 
 > [!NOTE]
 > If using the cloud version of Qdrant, go to your Qdrant account and cluster to see the same thing as in the local dashboard.

@@ -95,7 +95,10 @@ def remove_non_ascii(text: str) -> str:
     return text
 
 
-def clean_text(text_content: str) -> str:
+def clean_text(text_content: str | None) -> str:
+    if text_content is None:
+        return ""
+
     cleaned_text = unbold_text(text_content)
     cleaned_text = unitalic_text(cleaned_text)
     cleaned_text = remove_emojis_and_symbols(cleaned_text)
