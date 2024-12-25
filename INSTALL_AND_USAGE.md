@@ -1,27 +1,33 @@
 # Install 
 
-## System dependencies
+## Local dependencies
 
-Before starting to install the LLM Twin project, make sure you have installed the following dependencies on your system:
+Before starting to install the LLM Twin project, make sure you have installed the following dependencies on your local system:
 
-- [Python "3.11"](https://www.python.org/downloads/)
-- [Poetry ">=1.8.4"](https://python-poetry.org/docs/)
-- [GNU Make ">=3.81"](https://www.gnu.org/software/make/)
-- [Docker ">=v27.0.3"](https://www.docker.com/)
-- [aws CLI ">=2.18.5"](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+| Tool | Version | Purpose | Installation Link |
+|------|---------|---------|------------------|
+| Python | 3.11 | Runtime environment | [Download](https://www.python.org/downloads/) |
+| Poetry | ≥1.8.4 | Package management | [Install Guide](https://python-poetry.org/docs/) |
+| GNU Make | ≥3.81 | Build automation | [Install Guide](https://www.gnu.org/software/make/) |
+| Docker | ≥27.0.3 | Containerization | [Install Guide](https://www.docker.com/) |
+| AWS CLI | ≥2.18.5 | Cloud management | [Install Guide](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) |
 
-## Cloud / services dependencies
+## Cloud services
 
 The code also uses and depends on the following cloud services. For now, you don't have to do anything. We will guide you in the installation and deployment sections on how to use them:
 
-| Service | Purpose |
-|---------|---------|
-| [HuggingFace](https://huggingface.com/) | Model registry |
-| [Comet ML](https://www.comet.com/site/) | Experiment tracker |
-| [Opik](https://www.comet.com/site/products/opik/) | Prompt monitoring & LLM Evaluation |
-| [AWS](https://aws.amazon.com/) | Compute and storage |
-| [MongoDB](https://www.mongodb.com/) | NoSQL database |
-| [Qdrant](https://qdrant.tech/) | Vector database |
+| Service | Purpose | Cost | Mandatory Credentials |
+|---------|---------|---------|---------|
+| [HuggingFace](https://huggingface.com/) | Model registry | Free | `HUGGINGFACE_ACCESS_TOKEN` |
+| [Comet ML](https://www.comet.com/site/) | Experiment tracker | Free tier available | `COMET_API_KEY` <br> `COMET_WORKSPACE` | 
+| [Opik](https://www.comet.com/site/products/opik/) | Prompt monitoring & LLM Evaluation | Free tier available | `COMET_API_KEY` <br> `COMET_WORKSPACE` |
+| [OpenAI API](https://openai.com/index/openai-api/) | LLM API for recommender system | Pay-per-use | `OPENAI_API_KEY` | [Quick Start Guide](https://platform.openai.com/docs/quickstart) |
+| [MongoDB](https://www.mongodb.com/) | NoSQL database | Free tier available | - |
+| [Qdrant](https://qdrant.tech/) | Vector database | Free tier available | - |
+| [AWS](https://aws.amazon.com/) | Compute and storage | Pay-per-use | `AWS_ARN_ROLE` <br> `AWS_REGION` <br> `AWS_ACCESS_KEY` <br> `AWS_SECRET_KEY` |
+
+> [!IMPORTANT]
+> Also, you must manually ask for access on Hugging Face for the gated LLM `meta-llama/Llama-3.1-8B` we use throughout the course. It's free. [Do it here](https://huggingface.co/meta-llama/Llama-3.1-8B).
 
 
 ## Supported commands
@@ -68,7 +74,7 @@ HUGGINGFACE_ACCESS_TOKEN=your_token_here
 
 #### Comet ML & Opik
 
-To authenticate to Comet ML (required only during training) and Opik, you must fill out the `COMET_API_KEY` and `COMET_WORKSPACE` env vars with your authentication token and workspace name.
+To authenticate to Comet ML (required only during training) and Opik (uses the same Comet credentials), you must fill out the `COMET_API_KEY` and `COMET_WORKSPACE` env vars with your authentication token and workspace name.
 
 ```env
 COMET_API_KEY=your_api_key_here

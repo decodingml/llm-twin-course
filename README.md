@@ -109,12 +109,6 @@ If you plan to run the code while reading it, you must know that we use several 
 - [Comet ML](https://www.comet.com/signup/?utm_source=decoding_ml&utm_medium=partner&utm_content=github)
 - [Opik](https://github.com/comet-ml/opik)
 
-## Questions and troubleshooting
-
-Please ask us any questions if anything gets confusing while studying the articles or running the code.
-
-You can `ask any question` by `opening an issue` in this GitHub repository by clicking [here](https://github.com/decodingml/llm-twin-course/issues).
-
 ## Lessons
 
 This self-paced course consists of 12 comprehensive lessons covering theory, system design, and hands-on implementation.
@@ -148,9 +142,9 @@ At Decoding ML we teach how to build production ML systems, thus the course foll
 
 ```text
 llm-twin-course/
-├── src/                     # Source code for all microservices
+├── src/                     # Source code for all the ML pipelines and services
 │ ├── data_crawling/         # Data collection pipeline code
-│ ├── data_cdc/              # Change Data Capture pipeline code
+│ ├── data_cdc/              # Change Data Capture (CDC) pipeline code
 │ ├── feature_pipeline/      # Feature engineering pipeline code
 │ ├── training_pipeline/     # Training pipeline code
 │ ├── inference_pipeline/    # Inference service code
@@ -173,9 +167,23 @@ The **bonus Superlinked series** has an extra dedicated [README](https://github.
 
 In that section, we explain how to run it with the improved RAG layer powered by [Superlinked](https://github.com/superlinked/superlinked?utm_source=community&utm_medium=github&utm_campaign=oscourse).
 
-## License
+## Questions and troubleshooting
 
-This course is an open-source project released under the MIT license. Thus, as long you distribute our LICENSE and acknowledge our work, you can safely clone or fork this project and use it as a source of inspiration for whatever you want (e.g., university projects, college degree projects, personal projects, etc.).
+Have questions or running into issues? We're here to help!
+
+Open a [GitHub issue](https://github.com/decodingml/llm-twin-course/issues) for:
+- Questions about the course material
+- Technical troubleshooting
+- Clarification on concepts
+
+## Contributing
+
+As an open-source course, we may not be able to fix all the bugs that arise.
+
+If you find any bugs and know how to fix them, support future readers by contributing to this course with your bug fix.
+
+We will deeply appreciate your support for the AI community and future readers 🤗
+
 
 ## Contributors
 
@@ -256,3 +264,7 @@ Perfect for practitioners who want **both theory** and **hands-on** expertise by
     <img src="media/llm_engineers_handbook_cover.png" alt="LLM Engineer's Handbook">
   </a>
 </p>
+
+## License
+
+This course is an open-source project released under the MIT license. Thus, as long you distribute our LICENSE and acknowledge our work, you can safely clone or fork this project and use it as a source of inspiration for whatever you want (e.g., university projects, college degree projects, personal projects, etc.).
