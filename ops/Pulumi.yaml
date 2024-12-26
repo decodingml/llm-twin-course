@@ -1,7 +1,0 @@
-name: decodingml
-runtime: nodejs
-description: AWS Cloud Infrastructure for Twin LMM Course
-config:
-  pulumi:tags:
-    value:
-      pulumi:template: ""
