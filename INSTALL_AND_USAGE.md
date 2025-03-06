@@ -20,6 +20,8 @@
   </a>
 </p>
 
+------
+
 # Install 
 
 ## Local dependencies
