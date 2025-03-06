@@ -75,6 +75,8 @@ Along the 4 microservices, you will learn to integrate 4 serverless tools:
 * [AWS SageMaker](https://aws.amazon.com/sagemaker/) as your ML infrastructure;
 * [Opik](https://github.com/comet-ml/opik) as your prompt evaluation and monitoring tool.
 
+----
+
 <table style="border-collapse: collapse; border: none;">
   <tr style="border: none;">
     <td width="20%" style="border: none;">
