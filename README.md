@@ -181,7 +181,8 @@ Our recommendation for each module:
   </tr>
 </table>
 
-[![](https://img.shields.io/static/v1?label&logo=substack&message=Subscribe Now&style=for-the-badge&color=black&scale=2)](https://decodingml.substack.com/)
+[![](https://img.shields.io/static/v1?label&logo=substack&message=SubscribeNow&style=for-the-badge&color=black&scale=2)](https://decodingml.substack.com/)
+[![](https://img.shields.io/static/v1?label&logo=substack&message=Blog&style=for-the-badge&color=black)](https://decodingml.substack.com/)
 
 
 
