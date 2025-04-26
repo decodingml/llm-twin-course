@@ -188,7 +188,7 @@ Our recommendation for each module:
 
 <p align="center">
   <a href="https://decodingml.substack.com/">
-    <img src="https://img.shields.io/static/v1?label&logo=substack&message=Subscribe Now&style=for-the-badge&color=black&scale=2" alt="Subscribe Now" height="40">
+    <img src="https://img.shields.io/static/v1?label&logo=substack&message=SubscribeNow&style=for-the-badge&color=black&scale=2" alt="Subscribe Now" height="40">
   </a>
 </p>
 
