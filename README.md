@@ -95,7 +95,7 @@ Along the 4 microservices, you will learn to integrate 4 serverless tools:
 
 <p align="center">
   <a href="https://decodingml.substack.com/">
-    <img src="https://img.shields.io/static/v1?label&logo=substack&message=Subscribe Now&style=for-the-badge&color=black&scale=2" alt="Subscribe Now" height="40">
+    <img src="https://img.shields.io/static/v1?label&logo=substack&message=Subscribe%20Now&style=for-the-badge&color=black&scale=2" alt="Subscribe Now" height="40">
   </a>
 </p>
 
@@ -180,11 +180,6 @@ Our recommendation for each module:
     </td>
   </tr>
 </table>
-
-[![](https://img.shields.io/static/v1?label&logo=substack&message=SubscribeNow&style=for-the-badge&color=black&scale=2)](https://decodingml.substack.com/)
-[![](https://img.shields.io/static/v1?label&logo=substack&message=Blog&style=for-the-badge&color=black)](https://decodingml.substack.com/)
-
-
 
 <p align="center">
   <a href="https://decodingml.substack.com/">
@@ -342,6 +337,6 @@ This course is an open-source project released under the MIT license. Thus, as l
 
 <p align="center">
   <a href="https://decodingml.substack.com/">
-    <img src="https://img.shields.io/static/v1?label&logo=substack&message=Subscribe Now&style=for-the-badge&color=black&scale=2" alt="Subscribe Now" height="40">
+    <img src="https://img.shields.io/static/v1?label&logo=substack&message=Subscribe%20Now&style=for-the-badge&color=black&scale=2" alt="Subscribe Now" height="40">
   </a>
 </p>
