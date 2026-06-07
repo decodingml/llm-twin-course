@@ -19,9 +19,16 @@ class Settings(BaseSettings):
     EMBEDDING_SIZE: int = 384
     EMBEDDING_MODEL_DEVICE: str = "cpu"
 
+    # LLM Provider
+    LLM_PROVIDER: str = "openai"  # "openai" or "minimax"
+
     # OpenAI
     OPENAI_MODEL_ID: str = "gpt-4o-mini"
     OPENAI_API_KEY: str | None = None
+
+    # MiniMax (OpenAI-compatible API)
+    MINIMAX_API_KEY: str | None = None
+    MINIMAX_MODEL_ID: str = "MiniMax-M3"
 
     # MQ config
     RABBITMQ_DEFAULT_USERNAME: str = "guest"

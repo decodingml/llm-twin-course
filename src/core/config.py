@@ -27,9 +27,16 @@ class AppSettings(BaseSettings):
     USE_QDRANT_CLOUD: bool = False
     QDRANT_APIKEY: str | None = None
 
+    # LLM Provider config
+    LLM_PROVIDER: str = "openai"  # "openai" or "minimax"
+
     # OpenAI config
     OPENAI_MODEL_ID: str = "gpt-4o-mini"
     OPENAI_API_KEY: str | None = None
+
+    # MiniMax config (OpenAI-compatible API)
+    MINIMAX_API_KEY: str | None = None
+    MINIMAX_MODEL_ID: str = "MiniMax-M3"
 
     # CometML config
     COMET_API_KEY: str | None = None

@@ -1,6 +1,4 @@
-from config import settings
-from langchain_openai import ChatOpenAI
-
+from core.rag.llm_provider import get_chat_model
 from core.rag.prompt_templates import RerankingTemplate
 
 
@@ -11,9 +9,7 @@ class Reranker:
     ) -> list[str]:
         reranking_template = RerankingTemplate()
         prompt = reranking_template.create_template(keep_top_k=keep_top_k)
-        model = ChatOpenAI(
-            model=settings.OPENAI_MODEL_ID, api_key=settings.OPENAI_API_KEY
-        )
+        model = get_chat_model()
         chain = prompt | model
 
         stripped_passages = [

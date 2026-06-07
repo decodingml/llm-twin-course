@@ -120,7 +120,7 @@ Along the 4 microservices, you will learn to integrate 4 serverless tools:
 
 All tools used throughout the course will stick to their free tier, except:
 
-- OpenAI's API, which will cost ~$1
+- OpenAI's API, which will cost ~$1. Alternatively, you can use [MiniMax](https://platform.minimaxi.com) as an LLM provider (see [Using MiniMax](#-using-minimax-as-an-alternative-llm-provider) below).
 - AWS for fine-tuning and inference, which will cost < $10 depending on how much you play around with our scripts and your region.
 
 ## 🥂 Open-source course: Participation is open and Free
@@ -206,6 +206,28 @@ llm-twin-course/
 ├── pyproject.toml           # Project dependencies
 ```
 
+
+## 🔄 Using MiniMax as an alternative LLM provider
+
+This course supports [MiniMax](https://platform.minimaxi.com) as an alternative LLM provider for the RAG pipeline and dataset generation steps. MiniMax provides an OpenAI-compatible API, so switching is straightforward.
+
+To use MiniMax instead of OpenAI, update your `.env` file:
+
+```bash
+LLM_PROVIDER=minimax
+MINIMAX_API_KEY=your-minimax-api-key
+MINIMAX_MODEL_ID=MiniMax-M3  # or MiniMax-M2.7 / MiniMax-M2.7-highspeed
+```
+
+Available MiniMax models:
+| Model | Context Window | Best For |
+|-------|---------------|----------|
+| `MiniMax-M3` | 512K tokens | Default — latest model, max output 128K, image input support |
+| `MiniMax-M2.7` | 192K tokens | Previous generation, general purpose |
+| `MiniMax-M2.7-highspeed` | 192K tokens | Previous generation, lower latency |
+
+> [!NOTE]
+> The `LLM_PROVIDER` setting only affects the RAG pipeline (query expansion, reranking, self-query) and dataset generation. The fine-tuned LLM inference still uses your custom model on AWS SageMaker.
 
 ## 🚀 Install & Usage
 

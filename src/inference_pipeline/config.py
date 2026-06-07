@@ -14,9 +14,16 @@ class Settings(BaseSettings):
     EMBEDDING_SIZE: int = 384
     EMBEDDING_MODEL_DEVICE: str = "cpu"
 
+    # LLM Provider config
+    LLM_PROVIDER: str = "openai"  # "openai" or "minimax"
+
     # OpenAI config
     OPENAI_MODEL_ID: str = "gpt-4o-mini"
     OPENAI_API_KEY: str | None = None
+
+    # MiniMax config (OpenAI-compatible API)
+    MINIMAX_API_KEY: str | None = None
+    MINIMAX_MODEL_ID: str = "MiniMax-M3"
 
     # QdrantDB config
     QDRANT_DATABASE_HOST: str = "localhost"  # Or 'qdrant' if running inside Docker

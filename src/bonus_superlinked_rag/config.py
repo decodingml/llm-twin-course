@@ -17,9 +17,16 @@ class Settings(BaseSettings):
         "http://executor:8080"  # # or http://localhost:8080 if running outside Docker
     )
 
+    # LLM Provider
+    LLM_PROVIDER: str = "openai"  # "openai" or "minimax"
+
     # OpenAI
     OPENAI_MODEL_ID: str = "gpt-4o-mini"
     OPENAI_API_KEY: str | None = None
+
+    # MiniMax (OpenAI-compatible API)
+    MINIMAX_API_KEY: str | None = None
+    MINIMAX_MODEL_ID: str = "MiniMax-M3"
 
 
 settings = Settings()

@@ -1,8 +1,7 @@
 import json
 
-from config import settings
 from core import get_logger
-from openai import OpenAI
+from core.rag.llm_provider import get_model_id, get_openai_client
 
 MAX_LENGTH = 16384
 SYSTEM_PROMPT = (
@@ -13,14 +12,13 @@ logger = get_logger(__name__)
 
 
 class GptCommunicator:
-    def __init__(self, gpt_model: str = settings.OPENAI_MODEL_ID):
-        self.api_key = settings.OPENAI_API_KEY
-        self.gpt_model = gpt_model
+    def __init__(self, gpt_model: str | None = None):
+        self.gpt_model = gpt_model or get_model_id()
 
     def send_prompt(self, prompt: str) -> list:
         try:
-            client = OpenAI(api_key=self.api_key)
-            logger.info(f"Sending batch to GPT = '{settings.OPENAI_MODEL_ID}'.")
+            client = get_openai_client()
+            logger.info(f"Sending batch to LLM = '{self.gpt_model}'.")
 
             chat_completion = client.chat.completions.create(
                 messages=[
