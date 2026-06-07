@@ -23,7 +23,7 @@ def _make_settings(**overrides):
         "OPENAI_MODEL_ID": "gpt-4o-mini",
         "OPENAI_API_KEY": "sk-test-openai-key",
         "MINIMAX_API_KEY": "mm-test-key",
-        "MINIMAX_MODEL_ID": "MiniMax-M2.5",
+        "MINIMAX_MODEL_ID": "MiniMax-M3",
     }
     defaults.update(overrides)
     return SimpleNamespace(**defaults)
@@ -55,7 +55,7 @@ class TestGetChatModel:
         get_chat_model(temperature=0)
 
         mock_chat.assert_called_once_with(
-            model="MiniMax-M2.5",
+            model="MiniMax-M3",
             api_key="mm-test-key",
             base_url="https://api.minimax.io/v1",
             temperature=0.0,
@@ -90,14 +90,14 @@ class TestGetChatModel:
 
     @patch("core.rag.llm_provider.ChatOpenAI")
     @patch("core.rag.llm_provider.settings", _make_settings(
-        LLM_PROVIDER="minimax", MINIMAX_MODEL_ID="MiniMax-M2.5-highspeed"
+        LLM_PROVIDER="minimax", MINIMAX_MODEL_ID="MiniMax-M2.7-highspeed"
     ))
     def test_minimax_custom_model(self, mock_chat):
         from core.rag.llm_provider import get_chat_model
         get_chat_model()
 
         call_kwargs = mock_chat.call_args[1]
-        assert call_kwargs["model"] == "MiniMax-M2.5-highspeed"
+        assert call_kwargs["model"] == "MiniMax-M2.7-highspeed"
 
     @patch("core.rag.llm_provider.ChatOpenAI")
     @patch("core.rag.llm_provider.settings", _make_settings(LLM_PROVIDER="MINIMAX"))
@@ -106,7 +106,7 @@ class TestGetChatModel:
         get_chat_model()
 
         call_kwargs = mock_chat.call_args[1]
-        assert call_kwargs["model"] == "MiniMax-M2.5"
+        assert call_kwargs["model"] == "MiniMax-M3"
         assert call_kwargs["base_url"] == "https://api.minimax.io/v1"
 
     @patch("core.rag.llm_provider.ChatOpenAI")
@@ -161,14 +161,14 @@ class TestGetModelId:
     @patch("core.rag.llm_provider.settings", _make_settings(LLM_PROVIDER="minimax"))
     def test_minimax_model_id(self):
         from core.rag.llm_provider import get_model_id
-        assert get_model_id() == "MiniMax-M2.5"
+        assert get_model_id() == "MiniMax-M3"
 
     @patch("core.rag.llm_provider.settings", _make_settings(
-        LLM_PROVIDER="minimax", MINIMAX_MODEL_ID="MiniMax-M2.5-highspeed"
+        LLM_PROVIDER="minimax", MINIMAX_MODEL_ID="MiniMax-M2.7-highspeed"
     ))
     def test_minimax_custom_model_id(self):
         from core.rag.llm_provider import get_model_id
-        assert get_model_id() == "MiniMax-M2.5-highspeed"
+        assert get_model_id() == "MiniMax-M2.7-highspeed"
 
 
 # ---------------------------------------------------------------------------
@@ -188,10 +188,10 @@ class TestConfig:
         settings = _make_settings(
             LLM_PROVIDER="minimax",
             MINIMAX_API_KEY="test-key",
-            MINIMAX_MODEL_ID="MiniMax-M2.5",
+            MINIMAX_MODEL_ID="MiniMax-M3",
         )
         assert settings.MINIMAX_API_KEY == "test-key"
-        assert settings.MINIMAX_MODEL_ID == "MiniMax-M2.5"
+        assert settings.MINIMAX_MODEL_ID == "MiniMax-M3"
 
     def test_minimax_provider_setting(self):
         """Verify LLM_PROVIDER can be set to minimax."""
@@ -216,7 +216,7 @@ class TestGptCommunicator:
     def test_communicator_uses_minimax_model_id(self):
         from core.rag.llm_provider import get_model_id
         model_id = get_model_id()
-        assert model_id == "MiniMax-M2.5"
+        assert model_id == "MiniMax-M3"
 
     @patch("core.rag.llm_provider.OpenAI")
     @patch("core.rag.llm_provider.settings", _make_settings(LLM_PROVIDER="minimax"))
@@ -256,6 +256,6 @@ class TestBonusLlmProvider:
             bonus_provider.get_chat_model(temperature=0.5)
 
             call_kwargs = mock_chat.call_args[1]
-            assert call_kwargs["model"] == "MiniMax-M2.5"
+            assert call_kwargs["model"] == "MiniMax-M3"
             assert call_kwargs["base_url"] == "https://api.minimax.io/v1"
             assert call_kwargs["temperature"] == 0.5

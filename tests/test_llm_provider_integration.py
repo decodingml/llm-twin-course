@@ -36,7 +36,7 @@ class TestMiniMaxIntegration:
             base_url="https://api.minimax.io/v1",
         )
         response = client.chat.completions.create(
-            model="MiniMax-M2.5",
+            model="MiniMax-M3",
             messages=[{"role": "user", "content": "Say hello in one word."}],
             temperature=0,
             max_tokens=10,
@@ -49,7 +49,7 @@ class TestMiniMaxIntegration:
         from langchain_openai import ChatOpenAI
 
         model = ChatOpenAI(
-            model="MiniMax-M2.5",
+            model="MiniMax-M3",
             api_key=MINIMAX_API_KEY,
             base_url="https://api.minimax.io/v1",
             temperature=0,
@@ -67,7 +67,7 @@ class TestMiniMaxIntegration:
         settings = SimpleNamespace(
             LLM_PROVIDER="minimax",
             MINIMAX_API_KEY=MINIMAX_API_KEY,
-            MINIMAX_MODEL_ID="MiniMax-M2.5",
+            MINIMAX_MODEL_ID="MiniMax-M3",
             OPENAI_MODEL_ID="gpt-4o-mini",
             OPENAI_API_KEY=None,
         )

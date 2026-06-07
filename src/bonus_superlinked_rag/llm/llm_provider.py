@@ -16,7 +16,7 @@ def get_chat_model(**kwargs) -> ChatOpenAI:
     provider = getattr(settings, "LLM_PROVIDER", "openai").lower()
 
     if provider == "minimax":
-        model_id = getattr(settings, "MINIMAX_MODEL_ID", "MiniMax-M2.5")
+        model_id = getattr(settings, "MINIMAX_MODEL_ID", "MiniMax-M3")
         api_key = getattr(settings, "MINIMAX_API_KEY", None)
         temperature = kwargs.pop("temperature", None)
         if temperature is not None:

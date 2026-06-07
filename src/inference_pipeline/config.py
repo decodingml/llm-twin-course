@@ -23,7 +23,7 @@ class Settings(BaseSettings):
 
     # MiniMax config (OpenAI-compatible API)
     MINIMAX_API_KEY: str | None = None
-    MINIMAX_MODEL_ID: str = "MiniMax-M2.5"
+    MINIMAX_MODEL_ID: str = "MiniMax-M3"
 
     # QdrantDB config
     QDRANT_DATABASE_HOST: str = "localhost"  # Or 'qdrant' if running inside Docker

@@ -215,14 +215,15 @@ To use MiniMax instead of OpenAI, update your `.env` file:
 ```bash
 LLM_PROVIDER=minimax
 MINIMAX_API_KEY=your-minimax-api-key
-MINIMAX_MODEL_ID=MiniMax-M2.5  # or MiniMax-M2.5-highspeed for faster responses
+MINIMAX_MODEL_ID=MiniMax-M3  # or MiniMax-M2.7 / MiniMax-M2.7-highspeed
 ```
 
 Available MiniMax models:
 | Model | Context Window | Best For |
 |-------|---------------|----------|
-| `MiniMax-M2.5` | 204K tokens | General purpose, high quality |
-| `MiniMax-M2.5-highspeed` | 204K tokens | Faster responses, cost effective |
+| `MiniMax-M3` | 512K tokens | Default — latest model, max output 128K, image input support |
+| `MiniMax-M2.7` | 192K tokens | Previous generation, general purpose |
+| `MiniMax-M2.7-highspeed` | 192K tokens | Previous generation, lower latency |
 
 > [!NOTE]
 > The `LLM_PROVIDER` setting only affects the RAG pipeline (query expansion, reranking, self-query) and dataset generation. The fine-tuned LLM inference still uses your custom model on AWS SageMaker.

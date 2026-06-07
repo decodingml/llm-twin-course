@@ -36,7 +36,7 @@ class AppSettings(BaseSettings):
 
     # MiniMax config (OpenAI-compatible API)
     MINIMAX_API_KEY: str | None = None
-    MINIMAX_MODEL_ID: str = "MiniMax-M2.5"
+    MINIMAX_MODEL_ID: str = "MiniMax-M3"
 
     # CometML config
     COMET_API_KEY: str | None = None
